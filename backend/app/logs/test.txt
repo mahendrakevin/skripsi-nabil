@@ -1,0 +1,570 @@
+2021-09-13 15:59:21,722 loglevel=INFO   logger=utils log_requests() L56   rid=2OX32I start request path=/api/v1/nasabah-personal/portfolio/001000002
+2021-09-13 15:59:21,726 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 15:59:21,738 loglevel=INFO   logger=utils log_requests() L65   rid=2OX32I completed_in=10.08ms status_code=200
+2021-09-13 15:59:27,456 loglevel=INFO   logger=utils log_requests() L56   rid=SSOWGQ start request path=/api/v1/nasabah-personal/portfolio/001000002
+2021-09-13 15:59:27,459 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 15:59:27,499 loglevel=INFO   logger=utils customerPersonalPortfolio() L160  
+                select rt.nomor_rekening, rt.nama_rekening, rt.kode_valuta, rt.kode_cabang, rt.saldo, ei.enum_description
+                from rekeningtransaksi rt, 
+                    rekeningliabilitas rl,
+                    nasabahindividu ni,
+                    individu i,
+                    enum_int ei,
+                    ibent.cabang c
+                where rl.nomor_rekening = rt.nomor_rekening
+                    and rl.nomor_nasabah = ni.nomor_nasabah
+                    and ni.id_individu = i.id_individu
+                    and rt.kode_cabang = c.kode_cabang
+                    and ei.enum_name = 'eStatusRekening'
+                    and ei.enum_value = rt.status_rekening
+                    and rl.nomor_nasabah = '001000002'
+            
+2021-09-13 15:59:28,013 loglevel=INFO   logger=utils customerPersonalPortfolio() L193  ['0010001022']
+2021-09-13 16:15:05,317 loglevel=INFO   logger=utils log_requests() L56   rid=1OKTN7 start request path=/api/v1/nasabah-personal/portfolio/001000002
+2021-09-13 16:15:05,319 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 16:15:05,321 loglevel=INFO   logger=utils customerPersonalPortfolio() L160  
+                select rt.nomor_rekening, rt.nama_rekening, rt.kode_valuta, rt.kode_cabang, rt.saldo, ei.enum_description
+                from rekeningtransaksi rt, 
+                    rekeningliabilitas rl,
+                    nasabahindividu ni,
+                    individu i,
+                    enum_int ei,
+                    ibent.cabang c
+                where rl.nomor_rekening = rt.nomor_rekening
+                    and rl.nomor_nasabah = ni.nomor_nasabah
+                    and ni.id_individu = i.id_individu
+                    and rt.kode_cabang = c.kode_cabang
+                    and ei.enum_name = 'eStatusRekening'
+                    and ei.enum_value = rt.status_rekening
+                    and rl.nomor_nasabah = '001000002'
+            
+2021-09-13 16:15:05,714 loglevel=INFO   logger=utils customerPersonalPortfolio() L193  ['0010001022']
+2021-09-13 16:15:05,714 loglevel=INFO   logger=utils customerPersonalPortfolio() L195  0010001022
+2021-09-13 16:16:31,869 loglevel=INFO   logger=utils log_requests() L56   rid=W8GBRE start request path=/api/v1/nasabah-personal/portfolio/001000002
+2021-09-13 16:16:31,871 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 16:16:31,874 loglevel=INFO   logger=utils customerPersonalPortfolio() L160  
+                select rt.nomor_rekening, rt.nama_rekening, rt.kode_valuta, rt.kode_cabang, rt.saldo, ei.enum_description
+                from rekeningtransaksi rt, 
+                    rekeningliabilitas rl,
+                    nasabahindividu ni,
+                    individu i,
+                    enum_int ei,
+                    ibent.cabang c
+                where rl.nomor_rekening = rt.nomor_rekening
+                    and rl.nomor_nasabah = ni.nomor_nasabah
+                    and ni.id_individu = i.id_individu
+                    and rt.kode_cabang = c.kode_cabang
+                    and ei.enum_name = 'eStatusRekening'
+                    and ei.enum_value = rt.status_rekening
+                    and rl.nomor_nasabah = '001000002'
+            
+2021-09-13 16:16:32,370 loglevel=INFO   logger=utils customerPersonalPortfolio() L193  [('0010001022', 'ERNINGSIH', 'IDR', '001', Decimal('160000.0000000000'), 'Aktif')]
+2021-09-13 16:16:32,371 loglevel=INFO   logger=utils customerPersonalPortfolio() L195  ('0010001022', 'ERNINGSIH', 'IDR', '001', Decimal('160000.0000000000'), 'Aktif')
+2021-09-13 16:16:32,371 loglevel=INFO   logger=utils customerPersonalPortfolio() L196  ERNINGSIH
+2021-09-13 16:16:32,374 loglevel=INFO   logger=utils log_requests() L65   rid=W8GBRE completed_in=501.68ms status_code=200
+2021-09-13 16:23:50,801 loglevel=INFO   logger=utils log_requests() L56   rid=MYJ0FJ start request path=/api/v1/nasabah-personal/portfolio/001000002
+2021-09-13 16:23:50,809 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 16:23:50,811 loglevel=INFO   logger=utils customerPersonalPortfolio() L162  
+                select select rt.nomor_rekening, rt.nama_rekening, rt.kode_valuta, rt.kode_cabang, c.nama_cabang, rt.saldo, ei.enum_description as status
+                from rekeningtransaksi rt, 
+                    rekeningliabilitas rl,
+                    nasabahindividu ni,
+                    individu i,
+                    enum_int ei,
+                    ibent.cabang c
+                where rl.nomor_rekening = rt.nomor_rekening
+                    and rl.nomor_nasabah = ni.nomor_nasabah
+                    and ni.id_individu = i.id_individu
+                    and rt.kode_cabang = c.kode_cabang
+                    and ei.enum_name = 'eStatusRekening'
+                    and ei.enum_value = rt.status_rekening
+                    and rl.nomor_nasabah = '001000002'
+            
+2021-09-13 16:23:51,218 loglevel=INFO   logger=utils customerPersonalPortfolio() L183  (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.PostgresSyntaxError'>: syntax error at or near "select"
+[SQL: 
+                select select rt.nomor_rekening, rt.nama_rekening, rt.kode_valuta, rt.kode_cabang, c.nama_cabang, rt.saldo, ei.enum_description as status
+                from rekeningtransaksi rt, 
+                    rekeningliabilitas rl,
+                    nasabahindividu ni,
+                    individu i,
+                    enum_int ei,
+                    ibent.cabang c
+                where rl.nomor_rekening = rt.nomor_rekening
+                    and rl.nomor_nasabah = ni.nomor_nasabah
+                    and ni.id_individu = i.id_individu
+                    and rt.kode_cabang = c.kode_cabang
+                    and ei.enum_name = 'eStatusRekening'
+                    and ei.enum_value = rt.status_rekening
+                    and rl.nomor_nasabah = '001000002'
+            ]
+(Background on this error at: http://sqlalche.me/e/14/f405)
+2021-09-13 16:23:51,450 loglevel=INFO   logger=utils log_requests() L65   rid=MYJ0FJ completed_in=639.73ms status_code=200
+2021-09-13 16:25:31,685 loglevel=INFO   logger=utils log_requests() L56   rid=NVZFTJ start request path=/api/v1/nasabah-personal/portfolio/001000002
+2021-09-13 16:25:31,685 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 16:25:31,685 loglevel=INFO   logger=utils customerPersonalPortfolio() L162  
+                select rt.nomor_rekening, rt.nama_rekening, rt.kode_valuta, rt.kode_cabang, c.nama_cabang, rt.saldo, ei.enum_description as status
+                from rekeningtransaksi rt, 
+                    rekeningliabilitas rl,
+                    nasabahindividu ni,
+                    individu i,
+                    enum_int ei,
+                    ibent.cabang c
+                where rl.nomor_rekening = rt.nomor_rekening
+                    and rl.nomor_nasabah = ni.nomor_nasabah
+                    and ni.id_individu = i.id_individu
+                    and rt.kode_cabang = c.kode_cabang
+                    and ei.enum_name = 'eStatusRekening'
+                    and ei.enum_value = rt.status_rekening
+                    and rl.nomor_nasabah = '001000002'
+            
+2021-09-13 16:25:32,217 loglevel=INFO   logger=utils customerPersonalPortfolio() L195  [('0010001022', 'ERNINGSIH', 'IDR', '001', 'KUNINGAN', Decimal('160000.0000000000'), 'Aktif')]
+2021-09-13 16:28:43,115 loglevel=INFO   logger=utils log_requests() L56   rid=8TYDVC start request path=/api/v1/nasabah-personal/portfolio/001000002
+2021-09-13 16:28:43,115 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 16:28:43,116 loglevel=INFO   logger=utils customerPersonalPortfolio() L160  
+                select rt.nomor_rekening, rt.nama_rekening, rt.kode_valuta, rt.kode_cabang, c.nama_cabang, rt.saldo, ei.enum_description as status
+                from rekeningtransaksi rt, 
+                    rekeningliabilitas rl,
+                    nasabahindividu ni,
+                    individu i,
+                    enum_int ei,
+                    ibent.cabang c
+                where rl.nomor_rekening = rt.nomor_rekening
+                    and rl.nomor_nasabah = ni.nomor_nasabah
+                    and ni.id_individu = i.id_individu
+                    and rt.kode_cabang = c.kode_cabang
+                    and ei.enum_name = 'eStatusRekening'
+                    and ei.enum_value = rt.status_rekening
+                    and rl.nomor_nasabah = '001000002'
+            
+2021-09-13 16:28:43,531 loglevel=INFO   logger=utils customerPersonalPortfolio() L193  [('0010001022', 'ERNINGSIH', 'IDR', '001', 'KUNINGAN', Decimal('160000.0000000000'), 'Aktif')]
+2021-09-13 16:32:50,545 loglevel=INFO   logger=utils log_requests() L56   rid=Y49H5A start request path=/api/v1/nasabah-personal/portfolio/001000002
+2021-09-13 16:32:50,545 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 16:32:50,546 loglevel=INFO   logger=utils customerPersonalPortfolio() L163  
+                select rt.nomor_rekening, rt.nama_rekening, rt.kode_valuta, rt.kode_cabang, c.nama_cabang, rt.saldo, ei.enum_description as status, ev.enum_description as jenis_rekening
+                from rekeningtransaksi rt, 
+                    rekeningliabilitas rl,
+                    nasabahindividu ni,
+                    individu i,
+                    ibent.cabang c,
+                    enum_int ei,
+	                enum_varchar ev
+                where rl.nomor_rekening = rt.nomor_rekening
+                    and rl.nomor_nasabah = ni.nomor_nasabah
+                    and ni.id_individu = i.id_individu
+                    and rt.kode_cabang = c.kode_cabang
+                    and ei.enum_name = 'eStatusRekening'
+                    and ei.enum_value = rt.status_rekening
+                    and ev.enum_name = 'eJenisRekeningLiabilitas'
+                    and ev.enum_value = rl.jenis_rekening_liabilitas
+                    and rl.nomor_nasabah = '001000002'
+            
+2021-09-13 16:32:51,009 loglevel=INFO   logger=utils customerPersonalPortfolio() L196  [('0010001022', 'ERNINGSIH', 'IDR', '001', 'KUNINGAN', Decimal('160000.0000000000'), 'Aktif', 'Tabungan')]
+2021-09-13 16:32:51,010 loglevel=INFO   logger=utils customerPersonalPortfolio() L210  [{'nomor_rekening': '0010001022', 'nama_rekening': 'ERNINGSIH', 'kode_valuta': 'IDR', 'kode_cabang': '001', 'nama_cabang': 'KUNINGAN', 'jenis_rekening': 'Tabungan', 'saldo': Decimal('160000.0000000000'), 'status': 'Aktif'}]
+2021-09-13 16:32:51,013 loglevel=INFO   logger=utils log_requests() L65   rid=Y49H5A completed_in=467.94ms status_code=200
+2021-09-13 16:36:41,534 loglevel=INFO   logger=utils log_requests() L56   rid=6DG1D3 start request path=/api/v1/nasabah-personal/portfolio/001000002
+2021-09-13 16:36:41,535 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 16:36:41,536 loglevel=INFO   logger=utils customerPersonalPortfolio() L163  
+                select rt.nomor_rekening, rt.nama_rekening, rt.kode_valuta, rt.kode_cabang, c.nama_cabang, rt.saldo, ei.enum_description as status, ev.enum_description as jenis_rekening
+                from rekeningtransaksi rt, 
+                    rekeningliabilitas rl,
+                    nasabahindividu ni,
+                    individu i,
+                    ibent.cabang c,
+                    enum_int ei,
+	                enum_varchar ev
+                where rl.nomor_rekening = rt.nomor_rekening
+                    and rl.nomor_nasabah = ni.nomor_nasabah
+                    and ni.id_individu = i.id_individu
+                    and rt.kode_cabang = c.kode_cabang
+                    and ei.enum_name = 'eStatusRekening'
+                    and ei.enum_value = rt.status_rekening
+                    and ev.enum_name = 'eJenisRekeningLiabilitas'
+                    and ev.enum_value = rl.jenis_rekening_liabilitas
+                    and rl.nomor_nasabah = '001000002'
+            
+2021-09-13 16:36:41,996 loglevel=INFO   logger=utils customerPersonalPortfolio() L196  [('0010001022', 'ERNINGSIH', 'IDR', '001', 'KUNINGAN', Decimal('160000.0000000000'), 'Aktif', 'Tabungan')]
+2021-09-13 16:36:41,997 loglevel=INFO   logger=utils customerPersonalPortfolio() L210  [{'nomor_rekening': '0010001022', 'nama_rekening': 'ERNINGSIH', 'kode_valuta': 'IDR', 'kode_cabang': '001', 'nama_cabang': 'KUNINGAN', 'jenis_rekening': 'Tabungan', 'saldo': Decimal('160000.0000000000'), 'status': 'Aktif'}]
+2021-09-13 16:36:42,024 loglevel=INFO   logger=utils log_requests() L65   rid=6DG1D3 completed_in=489.04ms status_code=200
+2021-09-13 16:36:51,924 loglevel=INFO   logger=utils log_requests() L56   rid=5SJENN start request path=/api/v1/nasabah-personal/portfolio/0010000021
+2021-09-13 16:36:51,926 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 16:36:51,929 loglevel=INFO   logger=utils customerPersonalPortfolio() L163  
+                select rt.nomor_rekening, rt.nama_rekening, rt.kode_valuta, rt.kode_cabang, c.nama_cabang, rt.saldo, ei.enum_description as status, ev.enum_description as jenis_rekening
+                from rekeningtransaksi rt, 
+                    rekeningliabilitas rl,
+                    nasabahindividu ni,
+                    individu i,
+                    ibent.cabang c,
+                    enum_int ei,
+	                enum_varchar ev
+                where rl.nomor_rekening = rt.nomor_rekening
+                    and rl.nomor_nasabah = ni.nomor_nasabah
+                    and ni.id_individu = i.id_individu
+                    and rt.kode_cabang = c.kode_cabang
+                    and ei.enum_name = 'eStatusRekening'
+                    and ei.enum_value = rt.status_rekening
+                    and ev.enum_name = 'eJenisRekeningLiabilitas'
+                    and ev.enum_value = rl.jenis_rekening_liabilitas
+                    and rl.nomor_nasabah = '0010000021'
+            
+2021-09-13 16:36:52,289 loglevel=INFO   logger=utils log_requests() L65   rid=5SJENN completed_in=361.80ms status_code=200
+2021-09-13 16:36:56,335 loglevel=INFO   logger=utils log_requests() L56   rid=41L4TO start request path=/api/v1/nasabah-personal/portfolio/001000002
+2021-09-13 16:36:56,337 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 16:36:56,338 loglevel=INFO   logger=utils customerPersonalPortfolio() L163  
+                select rt.nomor_rekening, rt.nama_rekening, rt.kode_valuta, rt.kode_cabang, c.nama_cabang, rt.saldo, ei.enum_description as status, ev.enum_description as jenis_rekening
+                from rekeningtransaksi rt, 
+                    rekeningliabilitas rl,
+                    nasabahindividu ni,
+                    individu i,
+                    ibent.cabang c,
+                    enum_int ei,
+	                enum_varchar ev
+                where rl.nomor_rekening = rt.nomor_rekening
+                    and rl.nomor_nasabah = ni.nomor_nasabah
+                    and ni.id_individu = i.id_individu
+                    and rt.kode_cabang = c.kode_cabang
+                    and ei.enum_name = 'eStatusRekening'
+                    and ei.enum_value = rt.status_rekening
+                    and ev.enum_name = 'eJenisRekeningLiabilitas'
+                    and ev.enum_value = rl.jenis_rekening_liabilitas
+                    and rl.nomor_nasabah = '001000002'
+            
+2021-09-13 16:36:56,616 loglevel=INFO   logger=utils customerPersonalPortfolio() L196  [('0010001022', 'ERNINGSIH', 'IDR', '001', 'KUNINGAN', Decimal('160000.0000000000'), 'Aktif', 'Tabungan')]
+2021-09-13 16:36:56,616 loglevel=INFO   logger=utils customerPersonalPortfolio() L210  [{'nomor_rekening': '0010001022', 'nama_rekening': 'ERNINGSIH', 'kode_valuta': 'IDR', 'kode_cabang': '001', 'nama_cabang': 'KUNINGAN', 'jenis_rekening': 'Tabungan', 'saldo': Decimal('160000.0000000000'), 'status': 'Aktif'}]
+2021-09-13 16:36:56,618 loglevel=INFO   logger=utils log_requests() L65   rid=41L4TO completed_in=281.46ms status_code=200
+2021-09-13 16:39:00,548 loglevel=INFO   logger=utils log_requests() L56   rid=BQP6VL start request path=/api/v1/nasabah-personal/check-exists
+2021-09-13 16:39:00,549 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 16:39:00,553 loglevel=INFO   logger=utils customerPersonalCheck() L27   
+                select n.nomor_nasabah
+                from
+                    nasabah n,
+                    nasabahindividu ni,
+                    individu i
+                where
+                    n.nomor_nasabah = ni.nomor_nasabah
+                    and ni.id_individu = i.id_individu
+                    and i.nomor_identitas = '3174025906700004'
+                    and n.nama_nasabah = 'ERNINGSIH'
+                    and i.tanggal_lahir = to_date('19/06/1970', 'dd/mm/yyyy')
+            
+2021-09-13 16:39:00,912 loglevel=INFO   logger=utils customerPersonalCheck() L60   ('001000002',)
+2021-09-13 16:39:00,912 loglevel=INFO   logger=utils customerPersonalCheck() L22   {'status': '00', 'cif_number': '001000002', 'err_info': 'Nasabah Sudah Terdaftar dengan CIF 001000002'}
+2021-09-13 16:39:00,914 loglevel=INFO   logger=utils log_requests() L65   rid=BQP6VL completed_in=363.93ms status_code=200
+2021-09-13 20:14:16,002 loglevel=INFO   logger=utils log_requests() L56   rid=3R1KFZ start request path=/api/v1/nasabah-personal/search
+2021-09-13 20:14:16,004 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 20:14:16,007 loglevel=INFO   logger=utils customerPersonalSearch() L262  
+                select ni.nomor_nasabah, i.nama_lengkap, ev.enum_description as jenis_nasabah, ev2.enum_description as jenis_identitas, ev3.enum_description as profile_resiko, i.nomor_identitas, 
+                    coalesce(i.alamat_rumah_jalan, ''), coalesce(i.alamat_rumah_rtrw, ''), coalesce(i.alamat_rumah_kelurahan, ''), coalesce(i.alamat_rumah_kecamatan, ''), coalesce(i.alamat_rumah_kota_kabupaten, ''), coalesce(i.alamat_rumah_kode_pos, '')
+                from individu i,
+                    nasabahindividu ni,
+                    nasabah n,
+                    enum_varchar ev,
+                    enum_varchar ev2,
+                    enum_varchar ev3 
+                where i.id_individu = ni.id_individu
+                    and ni.nomor_nasabah = n.nomor_nasabah
+                    and ev.enum_name = 'eJenisNasabah'
+                    and n.jenis_nasabah = ev.enum_value
+                    and n.jenis_nasabah = 'None'
+                    and ev2.enum_name = 'eJenisIdentitas'
+                    and i.jenis_identitas = ev2.enum_value
+                    and ev3.enum_name = 'eProfilResiko'
+                    and n.status_resiko = ev3.enum_value
+                order by nama_lengkap
+                limit 20
+                offset 0
+            
+2021-09-13 20:14:16,491 loglevel=INFO   logger=utils log_requests() L65   rid=3R1KFZ completed_in=485.64ms status_code=200
+2021-09-13 20:14:59,465 loglevel=INFO   logger=utils log_requests() L56   rid=EQOZDO start request path=/api/v1/nasabah-personal/search
+2021-09-13 20:14:59,467 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 20:17:27,368 loglevel=INFO   logger=utils log_requests() L56   rid=2RSWZY start request path=/api/v1/nasabah-personal/search
+2021-09-13 20:17:27,370 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 20:17:27,372 loglevel=INFO   logger=utils customerPersonalSearch() L262  
+                select ni.nomor_nasabah, i.nama_lengkap, ev.enum_description as jenis_nasabah, ev2.enum_description as jenis_identitas, ev3.enum_description as profile_resiko, i.nomor_identitas, 
+                    coalesce(i.alamat_rumah_jalan, ''), coalesce(i.alamat_rumah_rtrw, ''), coalesce(i.alamat_rumah_kelurahan, ''), coalesce(i.alamat_rumah_kecamatan, ''), coalesce(i.alamat_rumah_kota_kabupaten, ''), coalesce(i.alamat_rumah_kode_pos, '')
+                from individu i,
+                    nasabahindividu ni,
+                    nasabah n,
+                    enum_varchar ev,
+                    enum_varchar ev2,
+                    enum_varchar ev3 
+                where i.id_individu = ni.id_individu
+                    and ni.nomor_nasabah = n.nomor_nasabah
+                    and ev.enum_name = 'eJenisNasabah'
+                    and n.jenis_nasabah = ev.enum_value
+                    and n.jenis_nasabah = 'I'
+                    and ev2.enum_name = 'eJenisIdentitas'
+                    and i.jenis_identitas = ev2.enum_value
+                    and ev3.enum_name = 'eProfilResiko'
+                    and n.status_resiko = ev3.enum_value
+                order by nama_lengkap
+                limit 20
+                offset 0
+            
+2021-09-13 20:17:28,514 loglevel=INFO   logger=utils customerPersonalSearch() L295  [('001000015', 'ABDUL KHOLIK', 'Nasabah Individu', 'KTP', 'Low', '3603172510700004', 'TAMAN PERMATA PARAHYANGAN V/1 LIPPO KARAWACI', '', 'Binong', 'Curug', 'Kab. Tangerang', '15810'), ('001000013', 'ACHYAK', 'Nasabah Individu', 'KTP', 'Low', '3275051809700017', 'JL ALAMANDA F 6 NO. 25 KEMANG PRATAMA 3', '', 'Sepanjang Jaya', 'Rawalumbu', 'Kota Bekasi', '17114'), ('001000055', 'AHMAD SAIKHU', 'Nasabah Individu', 'KTP', 'Low', '3578081312840004', 'PERUM LIMUS PRATAMA REGENCY E 16/2', '', 'Limus Nunggal', 'Cileungsi', 'Kab. Bogor', '16820'), ('001000049', 'AHMAT YAHYA', 'Nasabah Individu', 'KTP', 'Low', '3671082609790001', 'VILLA TANGERANG REGENCY I BLOK OA 2/14', '', 'Gebang Raya', 'Periuk', 'Kota Tangerang', '15132'), ('001000062', 'AKMAL AL FATIH', 'Nasabah Individu', 'KTP', 'Medium', '23124123', 'JL. CIBIRU HILIR', '', 'Cibiru Hilir', 'Cileunyi', 'Kab. Bandung', '40626'), ('001000059', 'AMENAH', 'Nasabah Individu', 'KTP', 'Low', '3578245706870002', 'JL TANJUNG 4 BLOK J NO 6', '', 'Tanjung Barat', 'Jagakarsa', 'Kota Jakarta Selatan', '12530'), ('001000028', 'AMINAH', 'Nasabah Individu', 'KTP', 'Low', '3671026510910002', 'PONDOK ALAM PERMAI, BLOK L7 NO 1A', '', 'Gembor', 'Periuk', 'Kota Tangerang', '15133'), ('001000035', 'AMINUDDIN AZIZ', 'Nasabah Individu', 'KTP', 'Low', '3674010104860006', 'KP PONDOK BENDA', '', 'Buaran', 'Serpong', 'Kota Tangerang Selatan', '15310'), ('060000001', 'ARIEF RAHMAN HAKIM', 'Nasabah Individu', 'KTP', 'Low', '3601142609900002', 'KP MENDOT', '', 'Wanagiri', 'Saketi', 'Kab. Pandeglang', '42273'), ('001000042', 'ARIS NOTO', 'Nasabah Individu', 'KTP', 'Low', '3171042512750003', 'JL KP KEPU GG V283', '', 'Bungur', 'Senen', 'Kota Jakarta Pusat', '10460'), ('001000004', 'BUDRIYAH', 'Nasabah Individu', 'KTP', 'Low', '3211065509850001', 'JL BAHAGIA II BLOK B.10 NO. 11', '', 'Gebang Raya', 'Periuk', 'Kota Tangerang', '15132'), ('001000022', 'CARIB', 'Nasabah Individu', 'KTP', 'Low', '3201050512980003', 'JL ALAM SENTOSA NO 11 SENTUL CITY ', '', 'Sumur Batu', 'Babakan Madang', 'Kab. Bogor', '16810'), ('001000053', 'DAMAAH', 'Nasabah Individu', 'KTP', 'Low', '3175024209830002', 'JL JANUR ASRI III BLOK QL7 NO.15', '', 'Kelapa Gading Barat', 'Kelapa Gading', 'Kota Jakarta Utara', '14240'), ('001000001', 'DARYONO', 'Nasabah Individu', 'KTP', 'Low', '3171030710830005', 'KARANG ANYAR GG I NO. 19', '', 'Karang Anyar', 'Sawah Besar', 'Kota Jakarta Pusat', '10740'), ('001000012', 'DASUKI', 'Nasabah Individu', 'KTP', 'Low', '3172062403610002', 'JL GADING KIRANA TMR VIII H.9 NO.18', '', 'Kelapa Gading Barat', 'Kelapa Gading', 'Kota Jakarta Utara', '14240'), ('060000002', 'DIAN', 'Nasabah Individu', 'KTP', 'Low', '3671055702660005', 'KAV.DARUSSALAM', '', 'Ketapang', 'Cipondoh', 'Kota Tangerang', '15147'), ('001000043', 'EKO ROBIYANTO', 'Nasabah Individu', 'KTP', 'Low', '3174102806810005', 'JL DUKU NO. 16', '', 'Petukangan Utara', 'Pesanggrahan', 'Kota Jakarta Selatan', '12260'), ('001000019', 'ELSA MULYANI', 'Nasabah Individu', 'KTP', 'Low', '3171065803730001', 'JL MATRAMAN DALAM II/22', '', 'Pegangsaan', 'Menteng', 'Kota Jakarta Pusat', '10320'), ('001000002', 'ERNINGSIH', 'Nasabah Individu', 'KTP', 'Low', '3174025906700004', 'JL KARET RAYA V/47 ', '', 'Karet', 'Setia Budi', 'Kota Jakarta Selatan', '12920'), ('001000021', 'ERY WAHYUNINGSIH', 'Nasabah Individu', 'KTP', 'Low', '3275125305800005', 'KOMP. TVRI BLOK C NO. 42', '', 'Jati Rahayu', 'Pondok Melati', 'Kota Bekasi', '17414')]
+2021-09-13 20:18:11,521 loglevel=INFO   logger=utils log_requests() L56   rid=P7PJ58 start request path=/api/v1/nasabah-personal/search
+2021-09-13 20:18:11,522 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 20:18:11,524 loglevel=INFO   logger=utils customerPersonalSearch() L262  
+                select ni.nomor_nasabah, i.nama_lengkap, ev.enum_description as jenis_nasabah, ev2.enum_description as jenis_identitas, ev3.enum_description as profile_resiko, i.nomor_identitas, 
+                    coalesce(i.alamat_rumah_jalan, ''), coalesce(i.alamat_rumah_rtrw, ''), coalesce(i.alamat_rumah_kelurahan, ''), coalesce(i.alamat_rumah_kecamatan, ''), coalesce(i.alamat_rumah_kota_kabupaten, ''), coalesce(i.alamat_rumah_kode_pos, '')
+                from individu i,
+                    nasabahindividu ni,
+                    nasabah n,
+                    enum_varchar ev,
+                    enum_varchar ev2,
+                    enum_varchar ev3 
+                where i.id_individu = ni.id_individu
+                    and ni.nomor_nasabah = n.nomor_nasabah
+                    and ev.enum_name = 'eJenisNasabah'
+                    and n.jenis_nasabah = ev.enum_value
+                    and n.jenis_nasabah = 'I'
+                    and ev2.enum_name = 'eJenisIdentitas'
+                    and i.jenis_identitas = ev2.enum_value
+                    and ev3.enum_name = 'eProfilResiko'
+                    and n.status_resiko = ev3.enum_value
+                order by nama_lengkap
+                limit 20
+                offset 0
+            
+2021-09-13 20:18:12,025 loglevel=INFO   logger=utils customerPersonalSearch() L295  [('001000015', 'ABDUL KHOLIK', 'Nasabah Individu', 'KTP', 'Low', '3603172510700004', 'TAMAN PERMATA PARAHYANGAN V/1 LIPPO KARAWACI', '', 'Binong', 'Curug', 'Kab. Tangerang', '15810'), ('001000013', 'ACHYAK', 'Nasabah Individu', 'KTP', 'Low', '3275051809700017', 'JL ALAMANDA F 6 NO. 25 KEMANG PRATAMA 3', '', 'Sepanjang Jaya', 'Rawalumbu', 'Kota Bekasi', '17114'), ('001000055', 'AHMAD SAIKHU', 'Nasabah Individu', 'KTP', 'Low', '3578081312840004', 'PERUM LIMUS PRATAMA REGENCY E 16/2', '', 'Limus Nunggal', 'Cileungsi', 'Kab. Bogor', '16820'), ('001000049', 'AHMAT YAHYA', 'Nasabah Individu', 'KTP', 'Low', '3671082609790001', 'VILLA TANGERANG REGENCY I BLOK OA 2/14', '', 'Gebang Raya', 'Periuk', 'Kota Tangerang', '15132'), ('001000062', 'AKMAL AL FATIH', 'Nasabah Individu', 'KTP', 'Medium', '23124123', 'JL. CIBIRU HILIR', '', 'Cibiru Hilir', 'Cileunyi', 'Kab. Bandung', '40626'), ('001000059', 'AMENAH', 'Nasabah Individu', 'KTP', 'Low', '3578245706870002', 'JL TANJUNG 4 BLOK J NO 6', '', 'Tanjung Barat', 'Jagakarsa', 'Kota Jakarta Selatan', '12530'), ('001000028', 'AMINAH', 'Nasabah Individu', 'KTP', 'Low', '3671026510910002', 'PONDOK ALAM PERMAI, BLOK L7 NO 1A', '', 'Gembor', 'Periuk', 'Kota Tangerang', '15133'), ('001000035', 'AMINUDDIN AZIZ', 'Nasabah Individu', 'KTP', 'Low', '3674010104860006', 'KP PONDOK BENDA', '', 'Buaran', 'Serpong', 'Kota Tangerang Selatan', '15310'), ('060000001', 'ARIEF RAHMAN HAKIM', 'Nasabah Individu', 'KTP', 'Low', '3601142609900002', 'KP MENDOT', '', 'Wanagiri', 'Saketi', 'Kab. Pandeglang', '42273'), ('001000042', 'ARIS NOTO', 'Nasabah Individu', 'KTP', 'Low', '3171042512750003', 'JL KP KEPU GG V283', '', 'Bungur', 'Senen', 'Kota Jakarta Pusat', '10460'), ('001000004', 'BUDRIYAH', 'Nasabah Individu', 'KTP', 'Low', '3211065509850001', 'JL BAHAGIA II BLOK B.10 NO. 11', '', 'Gebang Raya', 'Periuk', 'Kota Tangerang', '15132'), ('001000022', 'CARIB', 'Nasabah Individu', 'KTP', 'Low', '3201050512980003', 'JL ALAM SENTOSA NO 11 SENTUL CITY ', '', 'Sumur Batu', 'Babakan Madang', 'Kab. Bogor', '16810'), ('001000053', 'DAMAAH', 'Nasabah Individu', 'KTP', 'Low', '3175024209830002', 'JL JANUR ASRI III BLOK QL7 NO.15', '', 'Kelapa Gading Barat', 'Kelapa Gading', 'Kota Jakarta Utara', '14240'), ('001000001', 'DARYONO', 'Nasabah Individu', 'KTP', 'Low', '3171030710830005', 'KARANG ANYAR GG I NO. 19', '', 'Karang Anyar', 'Sawah Besar', 'Kota Jakarta Pusat', '10740'), ('001000012', 'DASUKI', 'Nasabah Individu', 'KTP', 'Low', '3172062403610002', 'JL GADING KIRANA TMR VIII H.9 NO.18', '', 'Kelapa Gading Barat', 'Kelapa Gading', 'Kota Jakarta Utara', '14240'), ('060000002', 'DIAN', 'Nasabah Individu', 'KTP', 'Low', '3671055702660005', 'KAV.DARUSSALAM', '', 'Ketapang', 'Cipondoh', 'Kota Tangerang', '15147'), ('001000043', 'EKO ROBIYANTO', 'Nasabah Individu', 'KTP', 'Low', '3174102806810005', 'JL DUKU NO. 16', '', 'Petukangan Utara', 'Pesanggrahan', 'Kota Jakarta Selatan', '12260'), ('001000019', 'ELSA MULYANI', 'Nasabah Individu', 'KTP', 'Low', '3171065803730001', 'JL MATRAMAN DALAM II/22', '', 'Pegangsaan', 'Menteng', 'Kota Jakarta Pusat', '10320'), ('001000002', 'ERNINGSIH', 'Nasabah Individu', 'KTP', 'Low', '3174025906700004', 'JL KARET RAYA V/47 ', '', 'Karet', 'Setia Budi', 'Kota Jakarta Selatan', '12920'), ('001000021', 'ERY WAHYUNINGSIH', 'Nasabah Individu', 'KTP', 'Low', '3275125305800005', 'KOMP. TVRI BLOK C NO. 42', '', 'Jati Rahayu', 'Pondok Melati', 'Kota Bekasi', '17414')]
+2021-09-13 20:20:21,941 loglevel=INFO   logger=utils log_requests() L56   rid=ZD4HK7 start request path=/api/v1/nasabah-personal/search
+2021-09-13 20:20:21,941 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 20:20:21,943 loglevel=INFO   logger=utils customerPersonalSearch() L267  
+                select ni.nomor_nasabah, i.nama_lengkap, ev.enum_description as jenis_nasabah, ev2.enum_description as jenis_identitas, ev3.enum_description as profile_resiko, i.nomor_identitas, 
+                    coalesce(i.alamat_rumah_jalan, '') as alamat_rumah_jalan, 
+                    coalesce(i.alamat_rumah_rtrw, '') as alamat_rumah_rtrw, 
+                    coalesce(i.alamat_rumah_kelurahan, '') as alamat_rumah_kelurahan, 
+                    coalesce(i.alamat_rumah_kecamatan, '') as alamat_rumah_kecamatan, 
+                    coalesce(i.alamat_rumah_kota_kabupaten, '') as alamat_rumah_kabupaten, 
+                    coalesce(i.alamat_rumah_kode_pos, '') alamat_rumah_kode_pos
+                from individu i,
+                    nasabahindividu ni,
+                    nasabah n,
+                    enum_varchar ev,
+                    enum_varchar ev2,
+                    enum_varchar ev3 
+                where i.id_individu = ni.id_individu
+                    and ni.nomor_nasabah = n.nomor_nasabah
+                    and ev.enum_name = 'eJenisNasabah'
+                    and n.jenis_nasabah = ev.enum_value
+                    and n.jenis_nasabah = 'I'
+                    and ev2.enum_name = 'eJenisIdentitas'
+                    and i.jenis_identitas = ev2.enum_value
+                    and ev3.enum_name = 'eProfilResiko'
+                    and n.status_resiko = ev3.enum_value
+                order by nama_lengkap
+                limit 20
+                offset 0
+            
+2021-09-13 20:20:22,589 loglevel=INFO   logger=utils customerPersonalSearch() L300  [('001000015', 'ABDUL KHOLIK', 'Nasabah Individu', 'KTP', 'Low', '3603172510700004', 'TAMAN PERMATA PARAHYANGAN V/1 LIPPO KARAWACI', '', 'Binong', 'Curug', 'Kab. Tangerang', '15810'), ('001000013', 'ACHYAK', 'Nasabah Individu', 'KTP', 'Low', '3275051809700017', 'JL ALAMANDA F 6 NO. 25 KEMANG PRATAMA 3', '', 'Sepanjang Jaya', 'Rawalumbu', 'Kota Bekasi', '17114'), ('001000055', 'AHMAD SAIKHU', 'Nasabah Individu', 'KTP', 'Low', '3578081312840004', 'PERUM LIMUS PRATAMA REGENCY E 16/2', '', 'Limus Nunggal', 'Cileungsi', 'Kab. Bogor', '16820'), ('001000049', 'AHMAT YAHYA', 'Nasabah Individu', 'KTP', 'Low', '3671082609790001', 'VILLA TANGERANG REGENCY I BLOK OA 2/14', '', 'Gebang Raya', 'Periuk', 'Kota Tangerang', '15132'), ('001000062', 'AKMAL AL FATIH', 'Nasabah Individu', 'KTP', 'Medium', '23124123', 'JL. CIBIRU HILIR', '', 'Cibiru Hilir', 'Cileunyi', 'Kab. Bandung', '40626'), ('001000059', 'AMENAH', 'Nasabah Individu', 'KTP', 'Low', '3578245706870002', 'JL TANJUNG 4 BLOK J NO 6', '', 'Tanjung Barat', 'Jagakarsa', 'Kota Jakarta Selatan', '12530'), ('001000028', 'AMINAH', 'Nasabah Individu', 'KTP', 'Low', '3671026510910002', 'PONDOK ALAM PERMAI, BLOK L7 NO 1A', '', 'Gembor', 'Periuk', 'Kota Tangerang', '15133'), ('001000035', 'AMINUDDIN AZIZ', 'Nasabah Individu', 'KTP', 'Low', '3674010104860006', 'KP PONDOK BENDA', '', 'Buaran', 'Serpong', 'Kota Tangerang Selatan', '15310'), ('060000001', 'ARIEF RAHMAN HAKIM', 'Nasabah Individu', 'KTP', 'Low', '3601142609900002', 'KP MENDOT', '', 'Wanagiri', 'Saketi', 'Kab. Pandeglang', '42273'), ('001000042', 'ARIS NOTO', 'Nasabah Individu', 'KTP', 'Low', '3171042512750003', 'JL KP KEPU GG V283', '', 'Bungur', 'Senen', 'Kota Jakarta Pusat', '10460'), ('001000004', 'BUDRIYAH', 'Nasabah Individu', 'KTP', 'Low', '3211065509850001', 'JL BAHAGIA II BLOK B.10 NO. 11', '', 'Gebang Raya', 'Periuk', 'Kota Tangerang', '15132'), ('001000022', 'CARIB', 'Nasabah Individu', 'KTP', 'Low', '3201050512980003', 'JL ALAM SENTOSA NO 11 SENTUL CITY ', '', 'Sumur Batu', 'Babakan Madang', 'Kab. Bogor', '16810'), ('001000053', 'DAMAAH', 'Nasabah Individu', 'KTP', 'Low', '3175024209830002', 'JL JANUR ASRI III BLOK QL7 NO.15', '', 'Kelapa Gading Barat', 'Kelapa Gading', 'Kota Jakarta Utara', '14240'), ('001000001', 'DARYONO', 'Nasabah Individu', 'KTP', 'Low', '3171030710830005', 'KARANG ANYAR GG I NO. 19', '', 'Karang Anyar', 'Sawah Besar', 'Kota Jakarta Pusat', '10740'), ('001000012', 'DASUKI', 'Nasabah Individu', 'KTP', 'Low', '3172062403610002', 'JL GADING KIRANA TMR VIII H.9 NO.18', '', 'Kelapa Gading Barat', 'Kelapa Gading', 'Kota Jakarta Utara', '14240'), ('060000002', 'DIAN', 'Nasabah Individu', 'KTP', 'Low', '3671055702660005', 'KAV.DARUSSALAM', '', 'Ketapang', 'Cipondoh', 'Kota Tangerang', '15147'), ('001000043', 'EKO ROBIYANTO', 'Nasabah Individu', 'KTP', 'Low', '3174102806810005', 'JL DUKU NO. 16', '', 'Petukangan Utara', 'Pesanggrahan', 'Kota Jakarta Selatan', '12260'), ('001000019', 'ELSA MULYANI', 'Nasabah Individu', 'KTP', 'Low', '3171065803730001', 'JL MATRAMAN DALAM II/22', '', 'Pegangsaan', 'Menteng', 'Kota Jakarta Pusat', '10320'), ('001000002', 'ERNINGSIH', 'Nasabah Individu', 'KTP', 'Low', '3174025906700004', 'JL KARET RAYA V/47 ', '', 'Karet', 'Setia Budi', 'Kota Jakarta Selatan', '12920'), ('001000021', 'ERY WAHYUNINGSIH', 'Nasabah Individu', 'KTP', 'Low', '3275125305800005', 'KOMP. TVRI BLOK C NO. 42', '', 'Jati Rahayu', 'Pondok Melati', 'Kota Bekasi', '17414')]
+2021-09-13 20:21:03,843 loglevel=INFO   logger=utils log_requests() L56   rid=HDIAU7 start request path=/api/v1/nasabah-personal/search
+2021-09-13 20:21:03,846 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 20:21:03,851 loglevel=INFO   logger=utils customerPersonalSearch() L267  
+                select ni.nomor_nasabah, i.nama_lengkap, ev.enum_description as jenis_nasabah, ev2.enum_description as jenis_identitas, ev3.enum_description as profile_resiko, i.nomor_identitas, 
+                    coalesce(i.alamat_rumah_jalan, '') as alamat_rumah_jalan, 
+                    coalesce(i.alamat_rumah_rtrw, '') as alamat_rumah_rtrw, 
+                    coalesce(i.alamat_rumah_kelurahan, '') as alamat_rumah_kelurahan, 
+                    coalesce(i.alamat_rumah_kecamatan, '') as alamat_rumah_kecamatan, 
+                    coalesce(i.alamat_rumah_kota_kabupaten, '') as alamat_rumah_kota_kabupaten, 
+                    coalesce(i.alamat_rumah_kode_pos, '') alamat_rumah_kode_pos
+                from individu i,
+                    nasabahindividu ni,
+                    nasabah n,
+                    enum_varchar ev,
+                    enum_varchar ev2,
+                    enum_varchar ev3 
+                where i.id_individu = ni.id_individu
+                    and ni.nomor_nasabah = n.nomor_nasabah
+                    and ev.enum_name = 'eJenisNasabah'
+                    and n.jenis_nasabah = ev.enum_value
+                    and n.jenis_nasabah = 'I'
+                    and ev2.enum_name = 'eJenisIdentitas'
+                    and i.jenis_identitas = ev2.enum_value
+                    and ev3.enum_name = 'eProfilResiko'
+                    and n.status_resiko = ev3.enum_value
+                order by nama_lengkap
+                limit 20
+                offset 0
+            
+2021-09-13 20:21:04,330 loglevel=INFO   logger=utils customerPersonalSearch() L300  [('001000015', 'ABDUL KHOLIK', 'Nasabah Individu', 'KTP', 'Low', '3603172510700004', 'TAMAN PERMATA PARAHYANGAN V/1 LIPPO KARAWACI', '', 'Binong', 'Curug', 'Kab. Tangerang', '15810'), ('001000013', 'ACHYAK', 'Nasabah Individu', 'KTP', 'Low', '3275051809700017', 'JL ALAMANDA F 6 NO. 25 KEMANG PRATAMA 3', '', 'Sepanjang Jaya', 'Rawalumbu', 'Kota Bekasi', '17114'), ('001000055', 'AHMAD SAIKHU', 'Nasabah Individu', 'KTP', 'Low', '3578081312840004', 'PERUM LIMUS PRATAMA REGENCY E 16/2', '', 'Limus Nunggal', 'Cileungsi', 'Kab. Bogor', '16820'), ('001000049', 'AHMAT YAHYA', 'Nasabah Individu', 'KTP', 'Low', '3671082609790001', 'VILLA TANGERANG REGENCY I BLOK OA 2/14', '', 'Gebang Raya', 'Periuk', 'Kota Tangerang', '15132'), ('001000062', 'AKMAL AL FATIH', 'Nasabah Individu', 'KTP', 'Medium', '23124123', 'JL. CIBIRU HILIR', '', 'Cibiru Hilir', 'Cileunyi', 'Kab. Bandung', '40626'), ('001000059', 'AMENAH', 'Nasabah Individu', 'KTP', 'Low', '3578245706870002', 'JL TANJUNG 4 BLOK J NO 6', '', 'Tanjung Barat', 'Jagakarsa', 'Kota Jakarta Selatan', '12530'), ('001000028', 'AMINAH', 'Nasabah Individu', 'KTP', 'Low', '3671026510910002', 'PONDOK ALAM PERMAI, BLOK L7 NO 1A', '', 'Gembor', 'Periuk', 'Kota Tangerang', '15133'), ('001000035', 'AMINUDDIN AZIZ', 'Nasabah Individu', 'KTP', 'Low', '3674010104860006', 'KP PONDOK BENDA', '', 'Buaran', 'Serpong', 'Kota Tangerang Selatan', '15310'), ('060000001', 'ARIEF RAHMAN HAKIM', 'Nasabah Individu', 'KTP', 'Low', '3601142609900002', 'KP MENDOT', '', 'Wanagiri', 'Saketi', 'Kab. Pandeglang', '42273'), ('001000042', 'ARIS NOTO', 'Nasabah Individu', 'KTP', 'Low', '3171042512750003', 'JL KP KEPU GG V283', '', 'Bungur', 'Senen', 'Kota Jakarta Pusat', '10460'), ('001000004', 'BUDRIYAH', 'Nasabah Individu', 'KTP', 'Low', '3211065509850001', 'JL BAHAGIA II BLOK B.10 NO. 11', '', 'Gebang Raya', 'Periuk', 'Kota Tangerang', '15132'), ('001000022', 'CARIB', 'Nasabah Individu', 'KTP', 'Low', '3201050512980003', 'JL ALAM SENTOSA NO 11 SENTUL CITY ', '', 'Sumur Batu', 'Babakan Madang', 'Kab. Bogor', '16810'), ('001000053', 'DAMAAH', 'Nasabah Individu', 'KTP', 'Low', '3175024209830002', 'JL JANUR ASRI III BLOK QL7 NO.15', '', 'Kelapa Gading Barat', 'Kelapa Gading', 'Kota Jakarta Utara', '14240'), ('001000001', 'DARYONO', 'Nasabah Individu', 'KTP', 'Low', '3171030710830005', 'KARANG ANYAR GG I NO. 19', '', 'Karang Anyar', 'Sawah Besar', 'Kota Jakarta Pusat', '10740'), ('001000012', 'DASUKI', 'Nasabah Individu', 'KTP', 'Low', '3172062403610002', 'JL GADING KIRANA TMR VIII H.9 NO.18', '', 'Kelapa Gading Barat', 'Kelapa Gading', 'Kota Jakarta Utara', '14240'), ('060000002', 'DIAN', 'Nasabah Individu', 'KTP', 'Low', '3671055702660005', 'KAV.DARUSSALAM', '', 'Ketapang', 'Cipondoh', 'Kota Tangerang', '15147'), ('001000043', 'EKO ROBIYANTO', 'Nasabah Individu', 'KTP', 'Low', '3174102806810005', 'JL DUKU NO. 16', '', 'Petukangan Utara', 'Pesanggrahan', 'Kota Jakarta Selatan', '12260'), ('001000019', 'ELSA MULYANI', 'Nasabah Individu', 'KTP', 'Low', '3171065803730001', 'JL MATRAMAN DALAM II/22', '', 'Pegangsaan', 'Menteng', 'Kota Jakarta Pusat', '10320'), ('001000002', 'ERNINGSIH', 'Nasabah Individu', 'KTP', 'Low', '3174025906700004', 'JL KARET RAYA V/47 ', '', 'Karet', 'Setia Budi', 'Kota Jakarta Selatan', '12920'), ('001000021', 'ERY WAHYUNINGSIH', 'Nasabah Individu', 'KTP', 'Low', '3275125305800005', 'KOMP. TVRI BLOK C NO. 42', '', 'Jati Rahayu', 'Pondok Melati', 'Kota Bekasi', '17414')]
+2021-09-13 20:21:04,348 loglevel=INFO   logger=utils customerPersonalSearch() L314  [{'nomor_cif': '001000015', 'nama': 'ABDUL KHOLIK', 'alamat': 'TAMAN PERMATA PARAHYANGAN V/1 LIPPO KARAWACI  Binong Curug Kab. Tangerang 15810', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3603172510700004', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '001000013', 'nama': 'ACHYAK', 'alamat': 'JL ALAMANDA F 6 NO. 25 KEMANG PRATAMA 3  Sepanjang Jaya Rawalumbu Kota Bekasi 17114', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3275051809700017', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '001000055', 'nama': 'AHMAD SAIKHU', 'alamat': 'PERUM LIMUS PRATAMA REGENCY E 16/2  Limus Nunggal Cileungsi Kab. Bogor 16820', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3578081312840004', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '001000049', 'nama': 'AHMAT YAHYA', 'alamat': 'VILLA TANGERANG REGENCY I BLOK OA 2/14  Gebang Raya Periuk Kota Tangerang 15132', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3671082609790001', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '001000062', 'nama': 'AKMAL AL FATIH', 'alamat': 'JL. CIBIRU HILIR  Cibiru Hilir Cileunyi Kab. Bandung 40626', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '23124123', 'profile_resiko': 'Medium', 'status': 'status'}, {'nomor_cif': '001000059', 'nama': 'AMENAH', 'alamat': 'JL TANJUNG 4 BLOK J NO 6  Tanjung Barat Jagakarsa Kota Jakarta Selatan 12530', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3578245706870002', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '001000028', 'nama': 'AMINAH', 'alamat': 'PONDOK ALAM PERMAI, BLOK L7 NO 1A  Gembor Periuk Kota Tangerang 15133', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3671026510910002', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '001000035', 'nama': 'AMINUDDIN AZIZ', 'alamat': 'KP PONDOK BENDA  Buaran Serpong Kota Tangerang Selatan 15310', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3674010104860006', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '060000001', 'nama': 'ARIEF RAHMAN HAKIM', 'alamat': 'KP MENDOT  Wanagiri Saketi Kab. Pandeglang 42273', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3601142609900002', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '001000042', 'nama': 'ARIS NOTO', 'alamat': 'JL KP KEPU GG V283  Bungur Senen Kota Jakarta Pusat 10460', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3171042512750003', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '001000004', 'nama': 'BUDRIYAH', 'alamat': 'JL BAHAGIA II BLOK B.10 NO. 11  Gebang Raya Periuk Kota Tangerang 15132', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3211065509850001', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '001000022', 'nama': 'CARIB', 'alamat': 'JL ALAM SENTOSA NO 11 SENTUL CITY   Sumur Batu Babakan Madang Kab. Bogor 16810', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3201050512980003', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '001000053', 'nama': 'DAMAAH', 'alamat': 'JL JANUR ASRI III BLOK QL7 NO.15  Kelapa Gading Barat Kelapa Gading Kota Jakarta Utara 14240', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3175024209830002', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '001000001', 'nama': 'DARYONO', 'alamat': 'KARANG ANYAR GG I NO. 19  Karang Anyar Sawah Besar Kota Jakarta Pusat 10740', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3171030710830005', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '001000012', 'nama': 'DASUKI', 'alamat': 'JL GADING KIRANA TMR VIII H.9 NO.18  Kelapa Gading Barat Kelapa Gading Kota Jakarta Utara 14240', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3172062403610002', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '060000002', 'nama': 'DIAN', 'alamat': 'KAV.DARUSSALAM  Ketapang Cipondoh Kota Tangerang 15147', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3671055702660005', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '001000043', 'nama': 'EKO ROBIYANTO', 'alamat': 'JL DUKU NO. 16  Petukangan Utara Pesanggrahan Kota Jakarta Selatan 12260', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3174102806810005', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '001000019', 'nama': 'ELSA MULYANI', 'alamat': 'JL MATRAMAN DALAM II/22  Pegangsaan Menteng Kota Jakarta Pusat 10320', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3171065803730001', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '001000002', 'nama': 'ERNINGSIH', 'alamat': 'JL KARET RAYA V/47   Karet Setia Budi Kota Jakarta Selatan 12920', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3174025906700004', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '001000021', 'nama': 'ERY WAHYUNINGSIH', 'alamat': 'KOMP. TVRI BLOK C NO. 42  Jati Rahayu Pondok Melati Kota Bekasi 17414', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3275125305800005', 'profile_resiko': 'Low', 'status': 'status'}]
+2021-09-13 20:21:04,362 loglevel=INFO   logger=utils log_requests() L65   rid=HDIAU7 completed_in=513.26ms status_code=200
+2021-09-13 20:29:24,364 loglevel=INFO   logger=utils log_requests() L56   rid=GAG1GM start request path=/api/v1/nasabah-personal/search
+2021-09-13 20:29:24,365 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 20:29:24,367 loglevel=INFO   logger=utils customerPersonalSearch() L235  
+ and upper(i.nama_lengkap) like '%ERNI%'
+2021-09-13 20:29:24,367 loglevel=INFO   logger=utils customerPersonalSearch() L268  
+                select ni.nomor_nasabah, i.nama_lengkap, ev.enum_description as jenis_nasabah, ev2.enum_description as jenis_identitas, ev3.enum_description as profile_resiko, i.nomor_identitas, 
+                    coalesce(i.alamat_rumah_jalan, '') as alamat_rumah_jalan, 
+                    coalesce(i.alamat_rumah_rtrw, '') as alamat_rumah_rtrw, 
+                    coalesce(i.alamat_rumah_kelurahan, '') as alamat_rumah_kelurahan, 
+                    coalesce(i.alamat_rumah_kecamatan, '') as alamat_rumah_kecamatan, 
+                    coalesce(i.alamat_rumah_kota_kabupaten, '') as alamat_rumah_kota_kabupaten, 
+                    coalesce(i.alamat_rumah_kode_pos, '') alamat_rumah_kode_pos
+                from individu i,
+                    nasabahindividu ni,
+                    nasabah n,
+                    enum_varchar ev,
+                    enum_varchar ev2,
+                    enum_varchar ev3 
+                where i.id_individu = ni.id_individu
+                    and ni.nomor_nasabah = n.nomor_nasabah
+                    and ev.enum_name = 'eJenisNasabah'
+                    and n.jenis_nasabah = ev.enum_value
+                    and n.jenis_nasabah = 'I'
+                    and ev2.enum_name = 'eJenisIdentitas'
+                    and i.jenis_identitas = ev2.enum_value
+                    and ev3.enum_name = 'eProfilResiko'
+                    and n.status_resiko = ev3.enum_value
+ and upper(i.nama_lengkap) like '%ERNI%'
+                order by nama_lengkap
+                limit 20
+                offset 0
+            
+2021-09-13 20:29:24,871 loglevel=INFO   logger=utils customerPersonalSearch() L301  [('001000002', 'ERNINGSIH', 'Nasabah Individu', 'KTP', 'Low', '3174025906700004', 'JL KARET RAYA V/47 ', '', 'Karet', 'Setia Budi', 'Kota Jakarta Selatan', '12920')]
+2021-09-13 20:29:24,875 loglevel=INFO   logger=utils customerPersonalSearch() L315  [{'nomor_cif': '001000002', 'nama': 'ERNINGSIH', 'alamat': 'JL KARET RAYA V/47   Karet Setia Budi Kota Jakarta Selatan 12920', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3174025906700004', 'profile_resiko': 'Low', 'status': 'status'}]
+2021-09-13 20:29:24,878 loglevel=INFO   logger=utils log_requests() L65   rid=GAG1GM completed_in=512.74ms status_code=200
+2021-09-13 20:29:34,321 loglevel=INFO   logger=utils log_requests() L56   rid=5Y3KQF start request path=/api/v1/nasabah-personal/search
+2021-09-13 20:29:34,322 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 20:29:34,325 loglevel=INFO   logger=utils customerPersonalSearch() L235  
+ and upper(i.nama_lengkap) like '%NINGSIH%'
+2021-09-13 20:29:34,325 loglevel=INFO   logger=utils customerPersonalSearch() L268  
+                select ni.nomor_nasabah, i.nama_lengkap, ev.enum_description as jenis_nasabah, ev2.enum_description as jenis_identitas, ev3.enum_description as profile_resiko, i.nomor_identitas, 
+                    coalesce(i.alamat_rumah_jalan, '') as alamat_rumah_jalan, 
+                    coalesce(i.alamat_rumah_rtrw, '') as alamat_rumah_rtrw, 
+                    coalesce(i.alamat_rumah_kelurahan, '') as alamat_rumah_kelurahan, 
+                    coalesce(i.alamat_rumah_kecamatan, '') as alamat_rumah_kecamatan, 
+                    coalesce(i.alamat_rumah_kota_kabupaten, '') as alamat_rumah_kota_kabupaten, 
+                    coalesce(i.alamat_rumah_kode_pos, '') alamat_rumah_kode_pos
+                from individu i,
+                    nasabahindividu ni,
+                    nasabah n,
+                    enum_varchar ev,
+                    enum_varchar ev2,
+                    enum_varchar ev3 
+                where i.id_individu = ni.id_individu
+                    and ni.nomor_nasabah = n.nomor_nasabah
+                    and ev.enum_name = 'eJenisNasabah'
+                    and n.jenis_nasabah = ev.enum_value
+                    and n.jenis_nasabah = 'I'
+                    and ev2.enum_name = 'eJenisIdentitas'
+                    and i.jenis_identitas = ev2.enum_value
+                    and ev3.enum_name = 'eProfilResiko'
+                    and n.status_resiko = ev3.enum_value
+ and upper(i.nama_lengkap) like '%NINGSIH%'
+                order by nama_lengkap
+                limit 20
+                offset 0
+            
+2021-09-13 20:29:34,742 loglevel=INFO   logger=utils customerPersonalSearch() L301  [('001000002', 'ERNINGSIH', 'Nasabah Individu', 'KTP', 'Low', '3174025906700004', 'JL KARET RAYA V/47 ', '', 'Karet', 'Setia Budi', 'Kota Jakarta Selatan', '12920'), ('001000021', 'ERY WAHYUNINGSIH', 'Nasabah Individu', 'KTP', 'Low', '3275125305800005', 'KOMP. TVRI BLOK C NO. 42', '', 'Jati Rahayu', 'Pondok Melati', 'Kota Bekasi', '17414')]
+2021-09-13 20:29:34,744 loglevel=INFO   logger=utils customerPersonalSearch() L315  [{'nomor_cif': '001000002', 'nama': 'ERNINGSIH', 'alamat': 'JL KARET RAYA V/47   Karet Setia Budi Kota Jakarta Selatan 12920', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3174025906700004', 'profile_resiko': 'Low', 'status': 'status'}, {'nomor_cif': '001000021', 'nama': 'ERY WAHYUNINGSIH', 'alamat': 'KOMP. TVRI BLOK C NO. 42  Jati Rahayu Pondok Melati Kota Bekasi 17414', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3275125305800005', 'profile_resiko': 'Low', 'status': 'status'}]
+2021-09-13 20:29:34,750 loglevel=INFO   logger=utils log_requests() L65   rid=5Y3KQF completed_in=426.56ms status_code=200
+2021-09-13 20:31:41,562 loglevel=INFO   logger=utils log_requests() L56   rid=YXZYD5 start request path=/api/v1/nasabah-personal/portfolio/001000002
+2021-09-13 20:31:41,563 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 20:31:41,565 loglevel=INFO   logger=utils customerPersonalPortfolio() L163  
+                select rt.nomor_rekening, rt.nama_rekening, rt.kode_valuta, rt.kode_cabang, c.nama_cabang, rt.saldo, ei.enum_description as status, ev.enum_description as jenis_rekening
+                from rekeningtransaksi rt, 
+                    rekeningliabilitas rl,
+                    nasabahindividu ni,
+                    individu i,
+                    ibent.cabang c,
+                    enum_int ei,
+	                enum_varchar ev
+                where rl.nomor_rekening = rt.nomor_rekening
+                    and rl.nomor_nasabah = ni.nomor_nasabah
+                    and ni.id_individu = i.id_individu
+                    and rt.kode_cabang = c.kode_cabang
+                    and ei.enum_name = 'eStatusRekening'
+                    and ei.enum_value = rt.status_rekening
+                    and ev.enum_name = 'eJenisRekeningLiabilitas'
+                    and ev.enum_value = rl.jenis_rekening_liabilitas
+                    and rl.nomor_nasabah = '001000002'
+            
+2021-09-13 20:31:42,059 loglevel=INFO   logger=utils customerPersonalPortfolio() L196  [('0010001022', 'ERNINGSIH', 'IDR', '001', 'KUNINGAN', Decimal('160000.0000000000'), 'Aktif', 'Tabungan')]
+2021-09-13 20:31:42,061 loglevel=INFO   logger=utils customerPersonalPortfolio() L210  [{'nomor_rekening': '0010001022', 'nama_rekening': 'ERNINGSIH', 'kode_valuta': 'IDR', 'kode_cabang': '001', 'nama_cabang': 'KUNINGAN', 'jenis_rekening': 'Tabungan', 'saldo': Decimal('160000.0000000000'), 'status': 'Aktif'}]
+2021-09-13 20:31:42,066 loglevel=INFO   logger=utils log_requests() L65   rid=YXZYD5 completed_in=501.91ms status_code=200
+2021-09-13 20:34:38,001 loglevel=INFO   logger=utils log_requests() L56   rid=14FQUB start request path=/api/v1/nasabah-personal/check-exists
+2021-09-13 20:34:38,002 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 20:34:38,004 loglevel=INFO   logger=utils customerPersonalCheck() L27   
+                select n.nomor_nasabah
+                from
+                    nasabah n,
+                    nasabahindividu ni,
+                    individu i
+                where
+                    n.nomor_nasabah = ni.nomor_nasabah
+                    and ni.id_individu = i.id_individu
+                    and i.nomor_identitas = '3174025906700004'
+                    and n.nama_nasabah = 'ERNINGSIH'
+                    and i.tanggal_lahir = to_date('19/06/1970', 'dd/mm/yyyy')
+            
+2021-09-13 20:34:39,205 loglevel=INFO   logger=utils customerPersonalCheck() L60   ('001000002',)
+2021-09-13 20:34:39,207 loglevel=INFO   logger=utils customerPersonalCheck() L22   {'status': '00', 'cif_number': '001000002', 'err_info': 'Nasabah Sudah Terdaftar dengan CIF 001000002'}
+2021-09-13 20:34:39,209 loglevel=INFO   logger=utils log_requests() L65   rid=14FQUB completed_in=1205.84ms status_code=200
+2021-09-13 20:46:53,238 loglevel=INFO   logger=utils log_requests() L56   rid=496EGR start request path=/api/v1/nasabah-personal/portfolio/001000002
+2021-09-13 20:46:53,239 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 20:46:53,240 loglevel=INFO   logger=utils customerPersonalPortfolio() L163  
+                select rt.nomor_rekening, rt.nama_rekening, rt.kode_valuta, rt.kode_cabang, c.nama_cabang, rt.saldo, ei.enum_description as status, ev.enum_description as jenis_rekening
+                from rekeningtransaksi rt, 
+                    rekeningliabilitas rl,
+                    nasabahindividu ni,
+                    individu i,
+                    ibent.cabang c,
+                    enum_int ei,
+	                enum_varchar ev
+                where rl.nomor_rekening = rt.nomor_rekening
+                    and rl.nomor_nasabah = ni.nomor_nasabah
+                    and ni.id_individu = i.id_individu
+                    and rt.kode_cabang = c.kode_cabang
+                    and ei.enum_name = 'eStatusRekening'
+                    and ei.enum_value = rt.status_rekening
+                    and ev.enum_name = 'eJenisRekeningLiabilitas'
+                    and ev.enum_value = rl.jenis_rekening_liabilitas
+                    and rl.nomor_nasabah = '001000002'
+            
+2021-09-13 20:46:53,700 loglevel=INFO   logger=utils customerPersonalPortfolio() L196  [('0010001022', 'ERNINGSIH', 'IDR', '001', 'KUNINGAN', Decimal('160000.0000000000'), 'Aktif', 'Tabungan')]
+2021-09-13 20:46:53,702 loglevel=INFO   logger=utils customerPersonalPortfolio() L210  [{'nomor_rekening': '0010001022', 'nama_rekening': 'ERNINGSIH', 'kode_valuta': 'IDR', 'kode_cabang': '001', 'nama_cabang': 'KUNINGAN', 'jenis_rekening': 'Tabungan', 'saldo': Decimal('160000.0000000000'), 'status': 'Aktif'}]
+2021-09-13 20:46:53,705 loglevel=INFO   logger=utils log_requests() L65   rid=496EGR completed_in=466.08ms status_code=200
+2021-09-13 20:47:41,121 loglevel=INFO   logger=utils log_requests() L56   rid=01DKRH start request path=/api/v1/nasabah-personal/search
+2021-09-13 20:47:41,123 loglevel=INFO   logger=utils log_requests() L57   TOKEN: None
+2021-09-13 20:47:41,127 loglevel=INFO   logger=utils customerPersonalSearch() L235  
+ and upper(i.nama_lengkap) like '%NINGSIH%'
+2021-09-13 20:47:41,128 loglevel=INFO   logger=utils customerPersonalSearch() L277  
+                select ni.nomor_nasabah, 
+                    i.nama_lengkap, 
+                    ev.enum_description as jenis_nasabah,
+                    ev2.enum_description as jenis_identitas,
+                    ev3.enum_description as profile_resiko,
+                    ev4.enum_description as status,
+                    i.nomor_identitas,
+                    coalesce(i.alamat_rumah_jalan, '') as alamat_rumah_jalan,
+                    coalesce(i.alamat_rumah_rtrw, '') as alamat_rumah_rtrw,
+                    coalesce(i.alamat_rumah_kelurahan, '') as alamat_rumah_kelurahan,
+                    coalesce(i.alamat_rumah_kecamatan, '') as alamat_rumah_kecamatan,
+                    coalesce(i.alamat_rumah_kota_kabupaten, '') as alamat_rumah_kota_kabupaten,
+                    coalesce(i.alamat_rumah_kode_pos, '') alamat_rumah_kode_pos
+                from individu i,
+                    nasabahindividu ni,
+                    nasabah n,
+                    enum_varchar ev,
+                    enum_varchar ev2,
+                    enum_varchar ev3,
+                    enum_varchar ev4
+                where i.id_individu = ni.id_individu
+                    and ni.nomor_nasabah = n.nomor_nasabah
+                    and ev.enum_name = 'eJenisNasabah'
+                    and n.jenis_nasabah = ev.enum_value
+                    and n.jenis_nasabah = 'I'
+                    and ev2.enum_name = 'eJenisIdentitas'
+                    and i.jenis_identitas = ev2.enum_value
+                    and ev3.enum_name = 'eProfilResiko'
+                    and n.status_resiko = ev3.enum_value
+                    and ev4.enum_name = 'eStatusData'
+                    and n.status_data = ev4.enum_value
+ and upper(i.nama_lengkap) like '%NINGSIH%'
+                order by nama_lengkap
+                limit 20
+                offset 0
+            
+2021-09-13 20:47:41,939 loglevel=INFO   logger=utils customerPersonalSearch() L310  [('001000002', 'ERNINGSIH', 'Nasabah Individu', 'KTP', 'Low', 'Aktif', '3174025906700004', 'JL KARET RAYA V/47 ', '', 'Karet', 'Setia Budi', 'Kota Jakarta Selatan', '12920'), ('001000021', 'ERY WAHYUNINGSIH', 'Nasabah Individu', 'KTP', 'Low', 'Aktif', '3275125305800005', 'KOMP. TVRI BLOK C NO. 42', '', 'Jati Rahayu', 'Pondok Melati', 'Kota Bekasi', '17414')]
+2021-09-13 20:47:41,942 loglevel=INFO   logger=utils customerPersonalSearch() L324  [{'nomor_cif': '001000002', 'nama': 'ERNINGSIH', 'alamat': 'JL KARET RAYA V/47   Karet Setia Budi Kota Jakarta Selatan 12920', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3174025906700004', 'profile_resiko': 'Low', 'status': 'Aktif'}, {'nomor_cif': '001000021', 'nama': 'ERY WAHYUNINGSIH', 'alamat': 'KOMP. TVRI BLOK C NO. 42  Jati Rahayu Pondok Melati Kota Bekasi 17414', 'jenis_nasabah': 'Nasabah Individu', 'jenis_identitas': 'KTP', 'nomor_identitas': '3275125305800005', 'profile_resiko': 'Low', 'status': 'Aktif'}]
+2021-09-13 20:47:41,948 loglevel=INFO   logger=utils log_requests() L65   rid=01DKRH completed_in=823.00ms status_code=200
