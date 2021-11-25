@@ -6,10 +6,12 @@ services:
       tty: true
       image: docker.io/bitnami/laravel:8
       environment:
+        - DB_CONNECTION=postgresql
         - DB_HOST=postgres-db
         - DB_USERNAME=${POSTGRES_DB_API_USER?Variable not set}
         - DB_DATABASE=${POSTGRES_DB_API_NAME?Variable not set}
         - DB_PASSWORD=${POSTGRES_DB_API_PASSWORD?Variable not set}
+        - DB_PORT=${POSTGRES_DB_PORT_EXPOSE?Variable not set}
       depends_on:
         - backend
         - postgres-db
