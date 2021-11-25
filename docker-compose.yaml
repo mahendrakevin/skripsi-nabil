@@ -1,0 +1,74 @@
+version: '3.3'
+
+services:
+
+    frontend:
+      tty: true
+      image: docker.io/bitnami/laravel:8
+      environment:
+        - DB_HOST=postgres-db
+        - DB_USERNAME=${POSTGRES_DB_API_USER?Variable not set}
+        - DB_DATABASE=${POSTGRES_DB_API_NAME?Variable not set}
+        - DB_PASSWORD=${POSTGRES_DB_API_PASSWORD?Variable not set}
+      depends_on:
+        - backend
+        - postgres-db
+      ports:
+        - 3000:3000
+      volumes:
+        - ./frontend:/app
+
+    backend:
+      image: '${DOCKER_IMAGE_BACKEND?Variable not set}:${TAG-latest}'
+      ports:
+        - ${API_HTTP_EXPOSE_PORT?Variable not set}:${API_HTTP_PORT?Variable not set}
+      env_file:
+        - .env
+      environment:
+        - SERVER_NAME={$DOMAIN?Variable not set}
+        - SERVER_HOST=https://{$DOMAIN?Variable not set}
+        - API_HTTP_PORT=${API_HTTP_PORT?Variable not set}
+        - API_HTTP_EXPOSE_PORT=${API_HTTP_EXPOSE_PORT?Variable not set}
+        - POSTGRES_DB_SERVER=${POSTGRES_DB_SERVER?Variable not set}
+        - POSTGRES_DB_PORT=${POSTGRES_DB_PORT?Variable not set}
+        - POSTGRES_DB_EXPOSE_PORT=${POSTGRES_DB_PORT_EXPOSE?Variable not set}
+        - POSTGRES_DB_API=${POSTGRES_DB_API?Variable not set}
+        - POSTGRES_DB_API_USER=${POSTGRES_DB_API_USER?Variable not set}
+        - POSTGRES_DB_API_PASSWORD=${POSTGRES_DB_API_PASSWORD?Variable not set}
+      depends_on:
+        - postgres-db
+      build:
+        context: ./backend
+        dockerfile: Dockerfile
+        args:
+          INSTALL_DEV: ${INSTAL_DEV-false}
+      command: /start-reload.sh
+      volumes:
+        - ./backend/app:/app
+
+    postgres-db:
+      image: postgres:13
+      container_name: ${CONTAINER_ID_NAME?Variable not set}-postgres
+      restart: always
+      env_file:
+        - .env
+      environment:
+        POSTGRES_USER: ${POSTGRES_DB_API_USER?Variable not set}
+        POSTGRES_PASSWORD: ${POSTGRES_DB_API_PASSWORD?Variable not set}
+        POSTGRES_DB: ${POSTGRES_DB_API_NAME?Variable not set}
+      volumes:
+        - postgre_data:/var/lib/postgresql13/data
+      healthcheck:
+        test: [ "CMD", "pg_isready", "-U", "${POSTGRES_DB_API_NAME?Variable not set}" ]
+        interval: 5s
+        retries: 5
+      ports:
+        - ${POSTGRES_DB_PORT_EXPOSE?Variable not set}:${POSTGRES_DB_PORT?Variable not set}
+
+networks:
+    default:
+      external:
+        name: ${PROJECT_NETWORK?Variable not set}
+
+volumes:
+  postgre_data:
