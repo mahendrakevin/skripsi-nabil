@@ -6,19 +6,24 @@ services:
       tty: true
       image: docker.io/bitnami/laravel:8
       environment:
-        - DB_CONNECTION=postgresql
-        - DB_HOST=postgres-db
-        - DB_USERNAME=${POSTGRES_DB_API_USER?Variable not set}
-        - DB_DATABASE=${POSTGRES_DB_API_NAME?Variable not set}
-        - DB_PASSWORD=${POSTGRES_DB_API_PASSWORD?Variable not set}
-        - DB_PORT=${POSTGRES_DB_PORT_EXPOSE?Variable not set}
+        - DB_HOST=mariadb
+        - DB_USERNAME=raalfalah
+        - DB_DATABASE=db_raalfalah
+        - DB_PASSWORD=raalfalahwahyurejo
       depends_on:
         - backend
-        - postgres-db
       ports:
         - 3000:3000
       volumes:
         - ./frontend:/app
+
+    mariadb:
+      image: docker.io/bitnami/mariadb:10.6
+      environment:
+        - ALLOW_EMPTY_PASSWORD=yes
+        - MARIADB_USER=raalfalah
+        - MARIADB_PASSWORD=raalfalahwahyurejo
+        - MARIADB_DATABASE=db_raalfalah
 
     backend:
       image: '${DOCKER_IMAGE_BACKEND?Variable not set}:${TAG-latest}'
@@ -32,13 +37,11 @@ services:
         - API_HTTP_PORT=${API_HTTP_PORT?Variable not set}
         - API_HTTP_EXPOSE_PORT=${API_HTTP_EXPOSE_PORT?Variable not set}
         - POSTGRES_DB_SERVER=${POSTGRES_DB_SERVER?Variable not set}
-        - POSTGRES_DB_PORT=${POSTGRES_DB_PORT?Variable not set}
+        - POSTGRES_DB_PORT=${POSTGRES_DB_PORT_EXPOSE?Variable not set}
         - POSTGRES_DB_EXPOSE_PORT=${POSTGRES_DB_PORT_EXPOSE?Variable not set}
-        - POSTGRES_DB_API=${POSTGRES_DB_API?Variable not set}
+        - POSTGRES_DB_API=${POSTGRES_DB_API_NAME?Variable not set}
         - POSTGRES_DB_API_USER=${POSTGRES_DB_API_USER?Variable not set}
         - POSTGRES_DB_API_PASSWORD=${POSTGRES_DB_API_PASSWORD?Variable not set}
-      depends_on:
-        - postgres-db
       build:
         context: ./backend
         dockerfile: Dockerfile
@@ -66,6 +69,7 @@ services:
         retries: 5
       ports:
         - ${POSTGRES_DB_PORT_EXPOSE?Variable not set}:${POSTGRES_DB_PORT?Variable not set}
+      command: -p 5433
 
 networks:
     default:

@@ -12,7 +12,8 @@ from fastapi.responses import PlainTextResponse, JSONResponse
 from utils import logger
 from api import api_router
 from config import settings
-from db import engine, Base
+from models import Base
+from db import engine
 
 #metadata.create_all(engine)
 

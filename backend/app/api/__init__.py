@@ -1,12 +1,15 @@
 from sys import prefix
 from fastapi import APIRouter
-from api import project, search, controlling, sna, api, keyword
+from api import siswa, guru, dana, inventory, kelas, pembayaransiswa, walisiswa, lembaga, arsipsurat
 
 api_router = APIRouter()
 
-api_router.include_router(api.router, prefix="/api", tags=["API Management"])
-api_router.include_router(keyword.router, prefix="/keyword", tags=["Keyword Management"])
-api_router.include_router(project.router, prefix="/project", tags=["Analytic Project"])
-api_router.include_router(search.router, prefix="/search", tags=["Analytic Search"])
-api_router.include_router(controlling.router, prefix="/controlling", tags=["Controlling Ranger"])
-api_router.include_router(sna.router, prefix="/sna", tags=["Social Network Analysis"])
+api_router.include_router(siswa.router, prefix="/siswa", tags=["Data Siswa"])
+api_router.include_router(guru.router, prefix="/guru", tags=["Data Guru"])
+api_router.include_router(walisiswa.router, prefix="/walisiswa", tags=["Data Wali Siswa"])
+api_router.include_router(kelas.router, prefix="/kelas", tags=["Data Kelas"])
+api_router.include_router(lembaga.router, prefix="/lembaga", tags=["Data Lemabaga"])
+api_router.include_router(inventory.router, prefix="/inventory", tags=["Data Inventory"])
+api_router.include_router(dana.router, prefix="/dana", tags=["Data Alokasi Dana"])
+api_router.include_router(pembayaransiswa.router, prefix="/pembayaransiswa", tags=["Data Pembayaran Siswa"])
+api_router.include_router(arsipsurat.router, prefix="/arsipsurat", tags=["Data Arsip Surat"])
