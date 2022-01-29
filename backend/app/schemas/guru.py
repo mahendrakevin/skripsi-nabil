@@ -6,24 +6,25 @@ class DataGuru(BaseModel):
     nip: Optional[StrictInt] = 1828112
     nuptk: Optional[StrictInt] = 1828112
     nik: Optional[StrictInt] = 1234567890
-    nama_guru: Optional[str] = 'Wahyu'
+    nama_guru: Optional[str] = 'Annisa'
     tempat_lahir: Optional[str] = 'Semarang'
-    tanggal_lahir: Optional[str] = 'yyyy-mm-dd'
+    tanggal_lahir: Optional[str] = '1999-01-22'
     jenis_kelamin: Optional[str] = 'Pria'
     alamat: Optional[str] = 'Jl Wahyurejo'
-    nomor_hp: Optional[StrictInt] = 628123456678
+    no_hp: Optional[StrictInt] = 628123456678
     email: Optional[str] = 'email@email.com'
     status_perkawinan: Optional[str] = 'Menikah'
 
-class EditDataGuru(BaseModel):
-    nip: Optional[StrictInt] = 1828112
-    nuptk: Optional[StrictInt] = 1828112
-    nik: Optional[StrictInt] = 1234567890
-    nama_guru: Optional[str] = 'Wahyu'
-    tempat_lahir: Optional[str] = 'Semarang'
-    tanggal_lahir: Optional[str] = 'yyyy-mm-dd'
-    jenis_kelamin: Optional[str] = 'Pria'
-    alamat: Optional[str] = 'Jl Wahyurejo'
-    nomor_hp: Optional[StrictInt] = 628123456678
-    email: Optional[str] = 'email@email.com'
-    status_perkawinan: Optional[str] = 'Menikah'
+class DataKepegawaian(BaseModel):
+    id_guru: Optional[StrictInt] = 1
+    no_sk: Optional[str] = 123415516
+    no_sk_ypmnu: Optional[str] = 1241515
+    no_sk_operator: Optional[str] = 12545636
+    id_jabatan: Optional[StrictInt] = 1
+    status_kepegawaian: Optional[str] = 'Aktif'
+    alasan_tidak_aktif: Optional[str] = None
+    surat_mutasi: Optional[str] = None
+    jumlah_ajar: Optional[str] = None
+
+class Jabatan(BaseModel):
+    nama_jabatan: Optional[str] = 'Kepala Sekolah'
