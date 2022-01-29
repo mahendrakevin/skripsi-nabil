@@ -11,8 +11,9 @@ class ArsipSurat(Base):
     nama_surat = Column(String(100))
     nomor_surat = Column(String(100))
     tanggal_surat = Column(Date)
-    jenis_surat = Column(String(1))
+    jenis_surat = Column(String(100))
     keterangan = Column(Text)
     lampiran = Column(Text)
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
+

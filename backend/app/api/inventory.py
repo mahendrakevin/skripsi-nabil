@@ -4,7 +4,7 @@ from fastapi.responses import JSONResponse
 from fastapi.logger import logger
 from typing import Any
 from crud import inventory_crud
-from schemas import DataInventory, KategoriBarang
+from schemas import DataInventory, KategoriBarang, JenisInventaris
 from sqlalchemy.ext.asyncio import AsyncSession
 from utils import logger
 from typing import Dict
@@ -84,33 +84,33 @@ async def hapus(id_kategori_barang: int, db_session: AsyncSession = Depends(get_
 
 @router.get("/jenis_inventaris/")
 async def list(db_session: AsyncSession = Depends(get_async_session), page: int=1, show: int=10):
-    result = await inventory_crud.get_list_jenis_inventasi(db_session=db_session, page=page, show=show)
+    result = await inventory_crud.get_list_jenis_inventaris(db_session=db_session, page=page, show=show)
     return result
 
-@router.get("/jenis_inventaris/{id_jenis_inventasi}")
-async def detail(id_jenis_inventasi: int, db_session: AsyncSession = Depends(get_async_session)):
+@router.get("/jenis_inventaris/{id_jenis_inventaris}")
+async def detail(id_jenis_inventaris: int, db_session: AsyncSession = Depends(get_async_session)):
     response = {"status": "Success", "message_id": "00"}
-    resp = await inventory_crud.get_detail_jenis_inventasi(db_session=db_session, id_jenis_inventasi=id_jenis_inventasi)
+    resp = await inventory_crud.get_detail_jenis_inventaris(db_session=db_session, id_jenis_inventaris=id_jenis_inventaris)
     response.update(resp)
     return response
 
 @router.post("/jenis_inventaris/tambah")
-async def add(request: KategoriBarang, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
+async def add(request: JenisInventaris, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
     response = {"status": "Success", "message_id": "00"}
-    resp = await inventory_crud.add_jenis_inventasi(request=request, db_session=db_session)
+    resp = await inventory_crud.add_jenis_inventaris(request=request, db_session=db_session)
     response.update(resp)
     return response
 
 @router.put("/jenis_inventaris/edit")
-async def edit(id_jenis_inventasi: int, request: KategoriBarang, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
+async def edit(id_jenis_inventaris: int, request: JenisInventaris, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
     response = {"status": "Success", "message_id": "00"}
-    resp = await inventory_crud.edit_jenis_inventasi(id_jenis_inventasi=id_jenis_inventasi, request=request, db_session=db_session)
+    resp = await inventory_crud.edit_jenis_inventaris(id_jenis_inventaris=id_jenis_inventaris, request=request, db_session=db_session)
     response.update(resp)
     return response
 
-@router.delete("/jenis_inventaris/hapus/{id_jenis_inventasi}")
-async def hapus(id_jenis_inventasi: int, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
+@router.delete("/jenis_inventaris/hapus/{id_jenis_inventaris}")
+async def hapus(id_jenis_inventaris: int, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
     response = {"status": "Success", "message_id": "00"}
-    resp = await inventory_crud.delete_jenis_inventasi(id_jenis_inventasi=id_jenis_inventasi, db_session=db_session)
+    resp = await inventory_crud.delete_jenis_inventaris(id_jenis_inventaris=id_jenis_inventaris, db_session=db_session)
     response.update(resp)
     return response
