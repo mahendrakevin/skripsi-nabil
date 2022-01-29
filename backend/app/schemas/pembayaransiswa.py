@@ -1,3 +1,8 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, StrictInt
 from typing import Optional, List
 from pydantic.fields import Field
+
+class PembayaranSiswa(BaseModel):
+    id_pendaftaran: Optional[StrictInt]
+    nominal_pembayaran: Optional[StrictInt]
+    status_pembayaran: Optional[str]

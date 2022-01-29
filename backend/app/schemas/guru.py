@@ -26,5 +26,15 @@ class DataKepegawaian(BaseModel):
     surat_mutasi: Optional[str] = None
     jumlah_ajar: Optional[str] = None
 
+class EditKepegawaian(BaseModel):
+    no_sk: Optional[str] = 123415516
+    no_sk_ypmnu: Optional[str] = 1241515
+    no_sk_operator: Optional[str] = 12545636
+    id_jabatan: Optional[StrictInt] = 1
+    status_kepegawaian: Optional[str] = 'Aktif'
+    alasan_tidak_aktif: Optional[str] = None
+    surat_mutasi: Optional[str] = None
+    jumlah_ajar: Optional[str] = None
+
 class Jabatan(BaseModel):
     nama_jabatan: Optional[str] = 'Kepala Sekolah'

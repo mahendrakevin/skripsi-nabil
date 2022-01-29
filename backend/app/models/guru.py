@@ -26,9 +26,9 @@ class Kepegawaian(Base):
     __tablename__ = "status_kepegawaian"
     id = Column(BigInteger, primary_key=True)
     id_guru = Column(BigInteger)
-    no_sk = Column(BigInteger)
-    no_sk_ypmnu = Column(BigInteger)
-    no_sk_operator = Column(BigInteger)
+    no_sk = Column(String(20))
+    no_sk_ypmnu = Column(String(20))
+    no_sk_operator = Column(String(20))
     id_jabatan = Column(BigInteger)
     status_kepegawaian = Column(String(20))
     alasan_tidak_aktif = Column(Text)
