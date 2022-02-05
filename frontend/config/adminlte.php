@@ -246,6 +246,14 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+        ['header' => 'Master Siswa'],
+        [
+            'text'        => 'Data Siswa',
+            'route'         => 'admin.dashboard.index',
+            'icon'        => 'far fa-fw fa-file',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
         [
             'text'        => 'pages',
             'url'         => 'admin/pages',

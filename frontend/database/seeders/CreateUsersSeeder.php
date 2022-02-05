@@ -18,13 +18,19 @@ class CreateUsersSeeder extends Seeder
             [
                 'name' => 'Admin',
                 'email' => 'admin@raalfalah.com',
-                'is_admin' => '1',
+                'role' => '1',
                 'password' => bcrypt('123456'),
             ],
             [
-                'name' => 'User',
-                'email' => 'user@raalfalah.com',
-                'is_admin' => '0',
+                'name' => 'Bendahara',
+                'email' => 'bendahara@raalfalah.com',
+                'role' => '2',
+                'password' => bcrypt('123456'),
+            ],
+            [
+                'name' => 'Kepala Sekolah',
+                'email' => 'kepsek@raalfalah.com',
+                'role' => '3',
                 'password' => bcrypt('123456'),
             ],
         ];
