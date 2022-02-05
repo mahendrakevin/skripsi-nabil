@@ -15,7 +15,7 @@ class Siswa(Base):
     tanggal_lahir = Column(Date)
     jenis_kelamin = Column(String(20))
     nik = Column(BigInteger)
-    id_kelas = Column(BigInteger)
+    id_kelas = Column(BigInteger,  ForeignKey("data_kelas.id", ondelete="CASCADE"))
     status_siswa = Column(String(20))
     nomor_kip = Column(BigInteger)
     alamat = Column(String(200))
@@ -23,6 +23,15 @@ class Siswa(Base):
     nama_kepalakeluarga = Column(String(50))
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
+
+class Kelas(Base):
+    __tablename__ = "data_kelas"
+    id = Column(BigInteger, primary_key=True)
+    nama_kelas = Column(String(10))
+    kapasitas_kelas = Column(BigInteger)
+    created = Column(DateTime, server_default=func.now())
+    updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
+    _data_siswa = relationship("Siswa", uselist=False, back_populates="owner")
 
 class PendaftaranSiswa(Base):
     __tablename__ = "data_pendaftaran_siswa"

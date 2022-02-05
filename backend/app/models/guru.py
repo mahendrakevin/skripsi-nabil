@@ -21,15 +21,17 @@ class Guru(Base):
     status_perkawinan = Column(String(20))
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
+    _status_kepegawaian = relationship("Kepegawaian", uselist=False, back_populates="owner")
+
 
 class Kepegawaian(Base):
     __tablename__ = "status_kepegawaian"
     id = Column(BigInteger, primary_key=True)
-    id_guru = Column(BigInteger)
+    id_guru = Column(BigInteger,  ForeignKey("data_guru.id", ondelete="CASCADE"))
     no_sk = Column(String(20))
     no_sk_ypmnu = Column(String(20))
     no_sk_operator = Column(String(20))
-    id_jabatan = Column(BigInteger)
+    id_jabatan = Column(BigInteger, ForeignKey("jabatan.id", ondelete="CASCADE"))
     status_kepegawaian = Column(String(20))
     alasan_tidak_aktif = Column(Text)
     surat_mutasi = Column(Text)
@@ -43,6 +45,8 @@ class Jabatan(Base):
     nama_jabatan = Column(String(50))
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
+    _status_kepegawaian = relationship("Kepegawaian", uselist=False, back_populates="owner")
+
 
 
 

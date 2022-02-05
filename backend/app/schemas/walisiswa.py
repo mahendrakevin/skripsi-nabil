@@ -3,7 +3,7 @@ from typing import Optional, List
 from pydantic.fields import Field
 
 class WaliSiswa(BaseModel):
-    id_jeniswali: Optional[str]
+    id_jeniswali: Optional[StrictInt]
     file_kk: Optional[str]
     tempat_lahir: Optional[str]
     tanggal_lahir: Optional[str]

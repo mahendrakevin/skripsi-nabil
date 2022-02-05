@@ -2,7 +2,7 @@ from sqlalchemy.engine import result
 from sqlalchemy.ext.asyncio import AsyncSession
 import gevent
 from models import Siswa
-from schemas import DataSiswa
+from schemas import DataSiswa, PendaftaranSiswa
 from typing import List, Tuple, Union, Dict, Any
 from sqlalchemy.exc import SQLAlchemyError
 from fastapi.logger import logger
@@ -217,6 +217,238 @@ async def delete_siswa(db_session: AsyncSession, id_siswa: int) -> dict:
                                 delete from data_siswa where id = {0}
                             '''.format(id_siswa)
                 await session.execute(delete_siswa)
+                await session.commit()
+                return {
+                    'message_id': '00',
+                    'status': 'Succes',
+                    'message': 'Data Siswa Berhasil Dihapus'
+                }
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+# Pendaftaran Siswa
+
+async def get_list_pendaftaransiswa(db_session: AsyncSession, page: int, show: int) -> dict:
+    async with db_session as session:
+        try:
+            offset = (page - 1) * show
+            q_dep = '''
+                SELECT * FROM data_pendaftaran_siswa
+                limit {0}
+                offset {1}
+            '''.format(show, offset)
+            proxy_rows = await session.execute(q_dep)
+            result = proxy_rows.all()
+
+            # commit the db transaction
+            await session.commit()
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+    # result data handling
+    if result:
+        logger.info(str(result))
+        return {
+            'message_id': '00',
+            'status': 'Succes',
+            'data':result
+        }
+    else:
+        return {
+            'message_id': '01',
+            'status': 'Gagal, Data Pendaftaran Tidak Ditemukan'
+        }
+
+async def get_detail_pendaftaransiswa(db_session: AsyncSession, id_pendaftaransiswa: int) -> dict:
+    async with db_session as session:
+        try:
+            q_dep = '''
+                SELECT * FROM data_pendaftaran_siswa WHERE id = {0}
+            '''.format(id_pendaftaransiswa)
+            proxy_rows = await session.execute(q_dep)
+            result = proxy_rows.one_or_none()
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+    # result data handling
+    if result:
+        logger.info(str(result))
+        return {
+            'message_id': '00',
+            'status': 'Succes',
+            'data':result
+        }
+    else:
+        return {
+            'message_id': '01',
+            'status': 'Gagal, Data Siswa Tidak Ditemukan'
+        }
+
+async def add_pendaftaransiswa(db_session: AsyncSession, request: DataSiswa) -> dict:
+    async with db_session as session:
+        try:
+            q_dep = '''
+                            SELECT id, nisn FROM data_siswa
+                            where nisn = {0}
+                    '''.format(request.nisn)
+            proxy_rows = await session.execute(q_dep)
+            nisn = proxy_rows.scalar()
+
+            q_dep = '''
+                                        SELECT nisn FROM data_pendaftaran_siswa
+                                        where nisn = {0}
+                                '''.format(request.nisn)
+            proxy_rows = await session.execute(q_dep)
+            nisn_daftar = proxy_rows.scalar()
+
+            print(nisn)
+            if nisn or nisn_daftar is not None:
+                return {
+                            'message_id': '01',
+                            'status': 'Gagal, NISN Sudah Didaftarkan'
+                        }
+            else:
+                id_pendaftaransiswa = await session.execute('''select nextval('data_pendaftaran_siswa_id_seq') as id''')
+                id_pendaftaransiswa = id_pendaftaransiswa.one_or_none()
+                new_pendaftaransiswa = {}
+                new_pendaftaransiswa['id'] = id_pendaftaransiswa.id
+                new_pendaftaransiswa['nisn'] = request.nisn
+                new_pendaftaransiswa['nama_siswa'] = request.nama_siswa
+                new_pendaftaransiswa['tempat_lahir'] = request.tempat_lahir
+                new_pendaftaransiswa['tanggal_lahir'] = request.tanggal_lahir
+                new_pendaftaransiswa['jenis_kelamin'] = request.jenis_kelamin
+                new_pendaftaransiswa['nik'] = request.nik
+                new_pendaftaransiswa['nomor_kip'] = request.nomor_kip
+                new_pendaftaransiswa['alamat'] = request.alamat
+                new_pendaftaransiswa['nomor_kk'] = request.nomor_kk
+                new_pendaftaransiswa['nama_kepalakeluarga'] = request.nama_kepalakeluarga
+                new_pendaftaransiswa['status_siswa'] = request.status_siswa
+                new_pendaftaransiswa['id_pembayaran'] = request.id_pembayaran
+                data_pendaftaran_siswa = generateQuery('data_pendaftaran_siswa', new_pendaftaransiswa)
+                logging.debug(f'query : {data_pendaftaran_siswa}')
+                await session.execute(data_pendaftaran_siswa)
+                await session.commit()
+                return {
+                    'message_id': '00',
+                    'status': 'Succes',
+                    'data': new_pendaftaransiswa
+                }
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+async def edit_pendaftaransiswa(db_session: AsyncSession, request: DataSiswa, id_pendaftaransiswa: int) -> dict:
+    async with db_session as session:
+        try:
+            if id_pendaftaransiswa is None:
+                return {
+                            'message_id': '01',
+                            'status': 'Gagal, Data Tidak Ditemukan'
+                        }
+            else:
+                edit_pendaftaransiswa = {}
+                edit_pendaftaransiswa['nisn'] = request.nisn
+                edit_pendaftaransiswa['nama_siswa'] = request.nama_siswa
+                edit_pendaftaransiswa['tempat_lahir'] = request.tempat_lahir
+                edit_pendaftaransiswa['tanggal_lahir'] = request.tanggal_lahir
+                edit_pendaftaransiswa['jenis_kelamin'] = request.jenis_kelamin
+                edit_pendaftaransiswa['nik'] = request.nik
+                edit_pendaftaransiswa['nomor_kip'] = request.nomor_kip
+                edit_pendaftaransiswa['alamat'] = request.alamat
+                edit_pendaftaransiswa['nomor_kk'] = request.nomor_kk
+                edit_pendaftaransiswa['nama_kepalakeluarga'] = request.nama_kepalakeluarga
+                edit_pendaftaransiswa['status_siswa'] = request.status_siswa
+                edit_pendaftaransiswa['id_pembayaran'] = request.id_pembayaran
+                data_pendaftaran_siswa = '''
+                                update data_pendaftaran_siswa set {0} where id = {1}
+                            '''.format(generateQueryUpdate(edit_pendaftaransiswa), id_pendaftaransiswa)
+                await session.execute(data_pendaftaran_siswa)
+                await session.commit()
+                return {
+                    'message_id': '00',
+                    'status': 'Succes',
+                    'data': edit_pendaftaransiswa
+                }
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+async def delete_pendaftaransiswa(db_session: AsyncSession, id_pendaftaransiswa: int) -> dict:
+    async with db_session as session:
+        try:
+            if id_pendaftaransiswa is None:
+                return {
+                            'message_id': '01',
+                            'status': 'Gagal, Data Tidak Ditemukan'
+                        }
+            else:
+                delete_pendaftaransiswa = '''
+                                delete from data_pendaftaran_siswa where id = {0}
+                            '''.format(id_pendaftaransiswa)
+                await session.execute(delete_pendaftaransiswa)
                 await session.commit()
                 return {
                     'message_id': '00',

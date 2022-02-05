@@ -10,6 +10,6 @@ class StatusPembayaran(Base):
     id = Column(BigInteger, primary_key=True)
     id_pendaftaran = Column(BigInteger)
     nominal_pembayaran = Column(BigInteger)
-    status_pembayaran = Column(String(10))
+    status_pembayaran = Column(String(20))
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())

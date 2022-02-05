@@ -24,6 +24,8 @@ services:
         - MARIADB_USER=raalfalah
         - MARIADB_PASSWORD=raalfalahwahyurejo
         - MARIADB_DATABASE=db_raalfalah
+      ports:
+        - 3306:3306
 
     backend:
       image: '${DOCKER_IMAGE_BACKEND?Variable not set}:${TAG-latest}'

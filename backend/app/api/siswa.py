@@ -4,7 +4,7 @@ from fastapi.responses import JSONResponse
 from fastapi.logger import logger
 from typing import Any
 from crud import siswa_crud
-from schemas import DataSiswa, EditDataSiswa
+from schemas import DataSiswa, EditDataSiswa, PendaftaranSiswa
 from sqlalchemy.ext.asyncio import AsyncSession
 from utils import logger
 from typing import Dict
@@ -26,11 +26,10 @@ async def detail(id_siswa: int, db_session: AsyncSession = Depends(get_async_ses
 
 @router.post("/tambah")
 async def add(request: DataSiswa, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
-    result = await siswa_crud.add_siswa(request=request, db_session=db_session)
-    if result["status"] == "00":
-        return JSONResponse(result, status_code=status.HTTP_200_OK)
-    else:
-        return JSONResponse(result, status_code=status.HTTP_400_BAD_REQUEST)
+    response = {"status": "Success", "message_id": "00"}
+    resp = await siswa_crud.add_siswa(request=request, db_session=db_session)
+    response.update(resp)
+    return response
 
 @router.put("/edit")
 async def edit(id_siswa: int, request: EditDataSiswa, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
@@ -43,6 +42,41 @@ async def edit(id_siswa: int, request: EditDataSiswa, db_session: AsyncSession =
 async def hapus(id_siswa: int, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
     response = {"status": "Success", "message_id": "00"}
     resp = await siswa_crud.delete_siswa(id_siswa=id_siswa, db_session=db_session)
+    response.update(resp)
+    return response
+
+# Pendaftaran Siswa
+
+@router.get("/pendaftaransiswa/")
+async def list_pendaftaransiswa(db_session: AsyncSession = Depends(get_async_session), page: int=1, show: int=10):
+    result = await siswa_crud.get_list_pendaftaransiswa(db_session=db_session, page=page, show=show)
+    return result
+
+@router.get("/pendaftaransiswa/{id_pendaftaransiswa}")
+async def detail_pendaftaransiswa(id_pendaftaransiswa: int, db_session: AsyncSession = Depends(get_async_session)):
+    response = {"status": "Success", "message_id": "00"}
+    resp = await siswa_crud.get_detail_pendaftaransiswa(db_session=db_session, id_pendaftaransiswa=id_pendaftaransiswa)
+    response.update(resp)
+    return response
+
+@router.post("/pendaftaransiswa/tambah")
+async def add_pendaftaransiswa(request: PendaftaranSiswa, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
+    response = {"status": "Success", "message_id": "00"}
+    resp = await siswa_crud.add_pendaftaransiswa(request=request, db_session=db_session)
+    response.update(resp)
+    return response
+
+@router.put("/pendaftaransiswa/edit")
+async def edit_pendaftaransiswa(id_pendaftaransiswa: int, request: PendaftaranSiswa, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
+    response = {"status": "Success", "message_id": "00"}
+    resp = await siswa_crud.edit_pendaftaransiswa(id_pendaftaransiswa=id_pendaftaransiswa, request=request, db_session=db_session)
+    response.update(resp)
+    return response
+
+@router.delete("/pendaftaransiswa/hapus/{id_pendaftaransiswa}")
+async def hapus_pendaftaransiswa(id_pendaftaransiswa: int, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
+    response = {"status": "Success", "message_id": "00"}
+    resp = await siswa_crud.delete_pendaftaransiswa(id_pendaftaransiswa=id_pendaftaransiswa, db_session=db_session)
     response.update(resp)
     return response
 

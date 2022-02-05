@@ -6,3 +6,4 @@ class PembayaranSiswa(BaseModel):
     id_pendaftaran: Optional[StrictInt]
     nominal_pembayaran: Optional[StrictInt]
     status_pembayaran: Optional[str]
+    id_jenis_pembayaran: Optional[StrictInt]
