@@ -30,5 +30,17 @@ class AppServiceProvider extends ServiceProvider
             }
             return false;
         });
+        Gate::define('bendahara', function () {
+            if (auth()->user()->role == 2) {
+                return true;
+            }
+            return false;
+        });
+        Gate::define('kepsek', function () {
+            if (auth()->user()->role == 3) {
+                return true;
+            }
+            return false;
+        });
     }
 }

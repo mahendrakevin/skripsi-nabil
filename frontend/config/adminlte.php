@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'RA Alfalah Wahyurejo',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,12 +45,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>RA</b>ALFALAH',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => 'RAALFALAH',
 
     /*
     |--------------------------------------------------------------------------
@@ -237,94 +237,175 @@ return [
         ],
 
         // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
+//        [
+//            'type' => 'sidebar-menu-search',
+//            'text' => 'search',
+//        ],
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-        ['header' => 'Master Siswa'],
         [
-            'text'        => 'Data Siswa',
+            'text'        => 'Dashboard',
             'route'         => 'admin.dashboard.index',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'far fas fa-home',
             'label_color' => 'success',
             'can'         => 'admin'
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
+            'text'        => 'Master User',
+            'route'         => 'admin.user.index',
+            'icon'        => 'far fa-fw fa-user',
             'label_color' => 'success',
+            'can'         => 'admin'
         ],
-        ['header' => 'account_settings'],
+        ['header' => 'Master Siswa'],
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'text'        => 'Data Siswa',
+            'route'         => 'admin.siswa.index',
+            'icon'        => 'far fas fa-user-graduate',
+            'label_color' => 'success',
+            'can'         => 'admin'
         ],
         [
-            'text'    => 'multilevel',
+            'text'        => 'Pendaftaran Siswa',
+            'route'         => 'admin.pendaftaran.index',
+            'icon'        => 'far fas fa-chevron-right',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
+        ['header' => 'Master Guru'],
+        [
+            'text'        => 'Data Guru',
+            'route'         => 'admin.guru.index',
+            'icon'        => 'far fas fa-chalkboard-teacher',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
+        [
+            'text'        => 'Data Kepegawaian',
+            'route'         => 'admin.kepegawaian.index',
+            'icon'        => 'far fas fa-briefcase',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
+        [
+            'text'        => 'Data Jabatan',
+            'route'         => 'admin.jabatan.index',
+            'icon'        => 'far fas fa-star',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
+        ['header' => 'Master Wali Siswa & Pembayaran'],
+        [
+            'text'        => 'Data Wali',
+            'route'         => 'admin.wali.index',
+            'icon'        => 'far fas fa-user-friends',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
+        [
+            'text'        => 'Jenis Wali',
+            'route'         => 'admin.jeniswali.index',
+            'icon'        => 'far fas fa-users-cog',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
+        [
+            'text'        => 'Data Laporan Pembayaran',
+            'route'         => 'admin.laporan_pembayaran.index',
+            'icon'        => 'far fas fa-money-bill-wave-alt',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
+        ['header' => 'Master Kelas'],
+        [
+            'text'        => 'Data Kelas',
+            'route'         => 'admin.kelas.index',
+            'icon'        => 'far fas fa-fan',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
+        ['header' => 'Informasi Lembaga'],
+        [
+            'text'        => 'Data Lembaga',
+            'route'         => 'admin.lembaga.index',
+            'icon'        => 'far fas fa-school',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
+        [
+            'text'        => 'Sarana Prasarana',
+            'route'         => 'admin.sarpras.index',
+            'icon'        => 'far fas fa-route',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
+        [
+            'text'        => 'Surat Keterangan',
+            'route'         => 'admin.surat_keterangan.index',
+            'icon'        => 'far fas fa-envelope',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
+        ['header' => 'Alokasi Dana'],
+        [
+            'text'        => 'Dana Masuk',
+            'route'         => 'admin.dana_masuk.index',
+            'icon'        => 'far fas fa-hand-holding-usd',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
+        [
+            'text'        => 'Dana Keluar',
+            'route'         => 'admin.dana_keluar.index',
+            'icon'        => 'far fas fa-file-invoice-dollar',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
+        [
+            'text'        => 'Sumber Dana',
+            'route'         => 'admin.sumber_dana.index',
+            'icon'        => 'far fas fa-coins',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
+        [
+            'text'        => 'Jenis Pengeluaran',
+            'route'         => 'admin.jenis_pengeluaran.index',
+            'icon'        => 'far fas fa-comment-dollar',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
+        [
+            'text'    => 'Inventory',
             'icon'    => 'fas fa-fw fa-share',
+            'can'     => 'admin',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Data Inventory Barangg',
+                    'route'  => 'admin.inventory.index',
+                    'can'     => 'admin'
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
+                    'text'    => 'Kategori Barang',
+                    'route'     => 'admin.kategori_barang.index',
+                    'can'     => 'admin'
                 ],
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Jenis Inventaris',
+                    'route'  => 'admin.jenis_inventaris.index',
+                    'can'     => 'admin'
                 ],
             ],
         ],
-        ['header' => 'labels'],
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
+            'text'        => 'Arsip Surat',
+            'route'         => 'admin.arsip_surat.index',
+            'icon'        => 'far fas fa-archive',
+            'label_color' => 'success',
+            'can'         => 'admin'
         ],
     ],
 
