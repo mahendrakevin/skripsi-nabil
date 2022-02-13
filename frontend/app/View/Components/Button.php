@@ -21,7 +21,7 @@ class Button extends Component
         string $action = '',
         string $class = '',
         string $icon = '',
-        string $title = '',
+        string $title = ''
     )
     {
         $this->method = $method;

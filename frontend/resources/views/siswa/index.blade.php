@@ -1,33 +1,22 @@
-<x-app-layout>
+<x-app-layout title="Data Siswa">
+    @if(session('alert'))
+        <x-adminlte-alert theme="success" title="Success">
+            {{ session('alert') }}
+        </x-adminlte-alert>
+    @elseif(session('alert-failed'))
+        <x-adminlte-alert theme="danger" title="Gagal">
+            {{ session('alert-failed') }}
+        </x-adminlte-alert>
+    @endif
     <x-adminlte-card theme="lime" theme-mode="outline">
-        <x-adminlte-datatable id="table1" :heads="$heads">
+        <x-submit-button method="POST" action="{{route('admin.siswa.create')}}"
+                         theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
+        <x-adminlte-datatable id="datasiswa" :heads="$heads" :config="$config" with-buttons striped hoverable with-footer beautify>
             @foreach($config['data'] as $row)
                 <tr>
-                    <td>{{ $row->nisn  }}</td>
-                    <td>{{ $row->nama_siswa  }}</td>
-                    <td>{{ $row->status_siswa  }}</td>
-                    <td>
-                        <nobr>
-                            <x-button method="GET"
-                                      action="{{ route('admin.siswa.show', $row->id) }}"
-                                      class="btn btn-xs btn-default text-teal mx-1 shadow"
-                                      icon="fa fa-lg fa-fw fa-eye"
-                                      title="Lihat"
-                            ></x-button>
-                            <x-button method="GET"
-                                      action="{{ route('admin.siswa.show', $row->id) }}"
-                                      class="btn btn-xs btn-default text-warning mx-1 shadow"
-                                      icon="fa fa-lg fa-fw fa-pen"
-                                      title="Edit"
-                            ></x-button>
-                            <x-button method="GET"
-                                      action="{{ route('admin.siswa.show', $row->id) }}"
-                                      class="btn btn-xs btn-default text-danger mx-1 shadow"
-                                      icon="fa fa-lg fa-fw fa-trash"
-                                      title="Hapus"
-                            ></x-button>
-                        </nobr>
-                    </td>
+                    @foreach($row as $cell)
+                        <td> {!!  $cell !!}</td>
+                    @endforeach
                 </tr>
             @endforeach
         </x-adminlte-datatable>

@@ -260,7 +260,7 @@ return [
             'label_color' => 'success',
             'can'         => 'admin'
         ],
-        ['header' => 'Master Siswa'],
+        ['header' => 'Master Siswa', 'can'=> 'admin'],
         [
             'text'        => 'Data Siswa',
             'route'         => 'admin.siswa.index',
@@ -268,14 +268,14 @@ return [
             'label_color' => 'success',
             'can'         => 'admin'
         ],
-        [
-            'text'        => 'Pendaftaran Siswa',
-            'route'         => 'admin.pendaftaran.index',
-            'icon'        => 'far fas fa-chevron-right',
-            'label_color' => 'success',
-            'can'         => 'admin'
-        ],
-        ['header' => 'Master Guru'],
+//        [
+//            'text'        => 'Pendaftaran Siswa',
+//            'route'         => 'admin.pendaftaran.index',
+//            'icon'        => 'far fas fa-chevron-right',
+//            'label_color' => 'success',
+//            'can'         => 'admin'
+//        ],
+        ['header' => 'Master Guru', 'can'=> 'admin'],
         [
             'text'        => 'Data Guru',
             'route'         => 'admin.guru.index',
@@ -283,13 +283,13 @@ return [
             'label_color' => 'success',
             'can'         => 'admin'
         ],
-        [
-            'text'        => 'Data Kepegawaian',
-            'route'         => 'admin.kepegawaian.index',
-            'icon'        => 'far fas fa-briefcase',
-            'label_color' => 'success',
-            'can'         => 'admin'
-        ],
+//        [
+//            'text'        => 'Data Kepegawaian',
+//            'route'         => 'admin.kepegawaian.index',
+//            'icon'        => 'far fas fa-briefcase',
+//            'label_color' => 'success',
+//            'can'         => 'admin'
+//        ],
         [
             'text'        => 'Data Jabatan',
             'route'         => 'admin.jabatan.index',
@@ -297,14 +297,14 @@ return [
             'label_color' => 'success',
             'can'         => 'admin'
         ],
-        ['header' => 'Master Wali Siswa & Pembayaran'],
-        [
-            'text'        => 'Data Wali',
-            'route'         => 'admin.wali.index',
-            'icon'        => 'far fas fa-user-friends',
-            'label_color' => 'success',
-            'can'         => 'admin'
-        ],
+        ['header' => 'Master Wali Siswa & Pembayaran', 'can'=> 'admin'],
+//        [
+//            'text'        => 'Data Wali',
+//            'route'         => 'admin.wali.index',
+//            'icon'        => 'far fas fa-user-friends',
+//            'label_color' => 'success',
+//            'can'         => 'admin'
+//        ],
         [
             'text'        => 'Jenis Wali',
             'route'         => 'admin.jeniswali.index',
@@ -319,7 +319,7 @@ return [
             'label_color' => 'success',
             'can'         => 'admin'
         ],
-        ['header' => 'Master Kelas'],
+        ['header' => 'Master Kelas', 'can'=> 'admin'],
         [
             'text'        => 'Data Kelas',
             'route'         => 'admin.kelas.index',
@@ -327,7 +327,7 @@ return [
             'label_color' => 'success',
             'can'         => 'admin'
         ],
-        ['header' => 'Informasi Lembaga'],
+        ['header' => 'Informasi Lembaga', 'can'=> 'admin'],
         [
             'text'        => 'Data Lembaga',
             'route'         => 'admin.lembaga.index',
@@ -349,7 +349,7 @@ return [
             'label_color' => 'success',
             'can'         => 'admin'
         ],
-        ['header' => 'Alokasi Dana'],
+        ['header' => 'Alokasi Dana', 'can'=> 'admin'],
         [
             'text'        => 'Dana Masuk',
             'route'         => 'admin.dana_masuk.index',
@@ -407,6 +407,64 @@ return [
             'label_color' => 'success',
             'can'         => 'admin'
         ],
+        // Bendahara
+        [
+            'text'        => 'Dashboard',
+            'route'         => 'bendahara.dashboard.index',
+            'icon'        => 'far fas fa-home',
+            'label_color' => 'success',
+            'can'         => 'bendahara'
+        ],
+        [
+            'text'        => 'Dana Masuk',
+            'route'         => 'bendahara.dana_masuk.index',
+            'icon'        => 'far fas fa-hand-holding-usd',
+            'label_color' => 'success',
+            'can'         => 'bendahara'
+        ],
+        [
+            'text'        => 'Dana Keluar',
+            'route'         => 'bendahara.dana_keluar.index',
+            'icon'        => 'far fas fa-file-invoice-dollar',
+            'label_color' => 'success',
+            'can'         => 'bendahara'
+        ],
+        [
+            'text'        => 'Sumber Dana',
+            'route'         => 'bendahara.sumber_dana.index',
+            'icon'        => 'far fas fa-coins',
+            'label_color' => 'success',
+            'can'         => 'bendahara'
+        ],
+        [
+            'text'        => 'Jenis Pengeluaran',
+            'route'         => 'bendahara.jenis_pengeluaran.index',
+            'icon'        => 'far fas fa-comment-dollar',
+            'label_color' => 'success',
+            'can'         => 'bendahara'
+        ],
+        // Kepala Sekolah
+        [
+            'text'        => 'Dashboard',
+            'route'         => 'kepsek.dashboard.index',
+            'icon'        => 'far fas fa-home',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
+        [
+            'text'        => 'Dana Masuk',
+            'route'         => 'kepsek.dana_masuk.index',
+            'icon'        => 'far fas fa-hand-holding-usd',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
+        [
+            'text'        => 'Arsip Surat',
+            'route'         => 'kepsek.arsip_surat.index',
+            'icon'        => 'far fas fa-archive',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
     ],
 
     /*
@@ -445,36 +503,36 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css',
                 ],
             ],
         ],
         'Select2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
                 ],
             ],
@@ -511,6 +569,56 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                ],
+            ],
+        ],
+        'TempusDominusBs4' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/moment/moment.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css',
+                ],
+            ],
+        ],
+        'Select2' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/select2/js/select2.full.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/select2/css/select2.min.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css',
+                ],
+            ],
+        ],
+        'BsCustomFileInput' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/bs-custom-file-input/bs-custom-file-input.min.js',
                 ],
             ],
         ],

@@ -26,11 +26,11 @@ class Kepsek
         }
 
         if (Auth::user()->role == 2) {
-            return $next($request);
+            return redirect()->route('bendahara');
         }
 
         if (Auth::user()->role == 3) {
-            return redirect()->route('kepsek');
+            return $next($request);
         }
     }
 }

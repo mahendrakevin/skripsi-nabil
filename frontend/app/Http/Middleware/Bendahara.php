@@ -26,11 +26,11 @@ class Bendahara
         }
 
         if (Auth::user()->role == 2) {
-            return redirect()->route('bendahara');
+            return $next($request);
         }
 
         if (Auth::user()->role == 3) {
-            return $next($request);
+            return redirect()->route('kepsek');
         }
     }
 }
