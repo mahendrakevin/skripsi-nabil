@@ -57,12 +57,12 @@ async def get_list_walisiswa(db_session: AsyncSession, page: int, show: int) -> 
             'status': 'Gagal, Data Wali Tidak Ditemukan'
         }
 
-async def get_detail_walisiswa(db_session: AsyncSession, id_walisiswa: int) -> dict:
+async def get_detail_walisiswa(db_session: AsyncSession, id_siswa: int) -> dict:
     async with db_session as session:
         try:
             q_dep = '''
-                SELECT * FROM data_wali_siswa WHERE id = {0}
-            '''.format(id_walisiswa)
+                SELECT * FROM data_wali_siswa WHERE id_siswa = {0}
+            '''.format(id_siswa)
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.one_or_none()
 
@@ -116,16 +116,18 @@ async def add_walisiswa(db_session: AsyncSession, request: WaliSiswa) -> dict:
                 new_walisiswa = {}
                 new_walisiswa['id'] = id_walisiswa.id
                 new_walisiswa['id_jeniswali'] = request.id_jeniswali
+                new_walisiswa['nama_wali'] = request.nama_wali
                 new_walisiswa['file_kk'] = request.file_kk
                 new_walisiswa['tempat_lahir'] = request.tempat_lahir
                 new_walisiswa['tanggal_lahir'] = request.tanggal_lahir
                 new_walisiswa['alamat'] = request.alamat
                 new_walisiswa['no_hp'] = request.no_hp
-                new_walisiswa['id_pendidikan'] = request.id_pendidikan
+                new_walisiswa['pendidikan'] = request.pendidikan
                 new_walisiswa['pekerjaan'] = request.pekerjaan
                 new_walisiswa['penghasilan'] = request.penghasilan
                 new_walisiswa['nomor_kks'] = request.nomor_kks
                 new_walisiswa['nomor_pkh'] = request.nomor_pkh
+                new_walisiswa['id_siswa'] = request.id_siswa
                 data_wali_siswa = generateQuery('data_wali_siswa', new_walisiswa)
                 logging.debug(f'query : {data_wali_siswa}')
                 await session.execute(data_wali_siswa)
@@ -151,10 +153,10 @@ async def add_walisiswa(db_session: AsyncSession, request: WaliSiswa) -> dict:
                 'status': 'Failed, something wrong rollback DB transaction...'
             }
 
-async def edit_walisiswa(db_session: AsyncSession, request: WaliSiswa, id_walisiswa: int) -> dict:
+async def edit_walisiswa(db_session: AsyncSession, request: WaliSiswa, id_siswa: int) -> dict:
     async with db_session as session:
         try:
-            if id_walisiswa is None:
+            if id_siswa is None:
                 return {
                             'message_id': '01',
                             'status': 'Gagal, Data Tidak Ditemukan'
@@ -173,8 +175,8 @@ async def edit_walisiswa(db_session: AsyncSession, request: WaliSiswa, id_walisi
                 edit_walisiswa['nomor_kks'] = request.nomor_kks
                 edit_walisiswa['nomor_pkh'] = request.nomor_pkh
                 data_wali_siswa = '''
-                                update data_wali_siswa set {0} where id = {1}
-                            '''.format(generateQueryUpdate(edit_walisiswa), id_walisiswa)
+                                update data_wali_siswa set {0} where id_siswa = {1}
+                            '''.format(generateQueryUpdate(edit_walisiswa), id_siswa)
                 await session.execute(data_wali_siswa)
                 await session.commit()
                 return {
@@ -198,18 +200,18 @@ async def edit_walisiswa(db_session: AsyncSession, request: WaliSiswa, id_walisi
                 'status': 'Failed, something wrong rollback DB transaction...'
             }
 
-async def delete_walisiswa(db_session: AsyncSession, id_walisiswa: int) -> dict:
+async def delete_walisiswa(db_session: AsyncSession, id_siswa: int) -> dict:
     async with db_session as session:
         try:
-            if id_walisiswa is None:
+            if id_siswa is None:
                 return {
                             'message_id': '01',
                             'status': 'Gagal, Data Tidak Ditemukan'
                         }
             else:
                 delete_walisiswa = '''
-                                delete from data_wali_siswa where id = {0}
-                            '''.format(id_walisiswa)
+                                delete from data_wali_siswa where id_siswa = {0}
+                            '''.format(id_siswa)
 
                 await session.execute(delete_walisiswa)
                 await session.commit()

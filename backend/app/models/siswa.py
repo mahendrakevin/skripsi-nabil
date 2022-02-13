@@ -20,7 +20,6 @@ class Siswa(Base):
     nomor_kip = Column(BigInteger)
     alamat = Column(String(200))
     nomor_kk = Column(BigInteger)
-    nama_kepalakeluarga = Column(String(50))
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
 

@@ -502,6 +502,44 @@ async def get_list_jabatan(db_session: AsyncSession, page: int, show: int) -> di
             'status': 'Gagal, Data Jabatan Tidak Ditemukan'
         }
 
+async def get_detail_jabatan(db_session: AsyncSession, id_jabatan: int) -> dict:
+    async with db_session as session:
+        try:
+            q_dep = '''
+                SELECT * FROM jabatan WHERE id = {0}
+            '''.format(id_jabatan)
+            proxy_rows = await session.execute(q_dep)
+            result = proxy_rows.one_or_none()
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+    # result data handling
+    if result:
+        logger.info(str(result))
+        return {
+            'message_id': '00',
+            'status': 'Success',
+            'data':result
+        }
+    else:
+        return {
+            'message_id': '01',
+            'status': 'Gagal, Data Siswa Tidak Ditemukan'
+        }
+
 async def add_jabatan(db_session: AsyncSession, request: Jabatan) -> dict:
     async with db_session as session:
         try:
