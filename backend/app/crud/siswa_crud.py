@@ -19,7 +19,7 @@ async def get_list_siswa(db_session: AsyncSession, page: int, show: int) -> dict
         try:
             offset = (page - 1) * show
             q_dep = '''
-                SELECT * FROM data_siswa
+                SELECT * FROM data_siswa ORDER BY id DESC
                 limit {0}
                 offset {1}
             '''.format(show, offset)
@@ -130,7 +130,6 @@ async def add_siswa(db_session: AsyncSession, request: DataSiswa) -> dict:
                 new_siswa['nomor_kip'] = request.nomor_kip
                 new_siswa['alamat'] = request.alamat
                 new_siswa['nomor_kk'] = request.nomor_kk
-                new_siswa['nama_kepalakeluarga'] = request.nama_kepalakeluarga
                 data_siswa = generateQuery('data_siswa', new_siswa)
                 logging.debug(f'query : {data_siswa}')
                 await session.execute(data_siswa)
@@ -177,7 +176,6 @@ async def edit_siswa(db_session: AsyncSession, request: DataSiswa, id_siswa: int
                 edit_siswa['nomor_kip'] = request.nomor_kip
                 edit_siswa['alamat'] = request.alamat
                 edit_siswa['nomor_kk'] = request.nomor_kk
-                edit_siswa['nama_kepalakeluarga'] = request.nama_kepalakeluarga
                 data_siswa = '''
                                 update data_siswa set {0} where id = {1}
                             '''.format(generateQueryUpdate(edit_siswa), id_siswa)

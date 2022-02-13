@@ -34,7 +34,7 @@ class EditKepegawaian(BaseModel):
     status_kepegawaian: Optional[str] = 'Aktif'
     alasan_tidak_aktif: Optional[str] = None
     surat_mutasi: Optional[str] = None
-    jumlah_ajar: Optional[str] = None
+    jumlah_ajar: Optional[StrictInt] = None
 
 class Jabatan(BaseModel):
     nama_jabatan: Optional[str] = 'Kepala Sekolah'
