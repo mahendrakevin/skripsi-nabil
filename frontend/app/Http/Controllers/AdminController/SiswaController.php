@@ -17,21 +17,21 @@ class SiswaController extends Controller
         $subjectdata = array();
 
         foreach ($result as $resp){
-            $btnShow = view('components.Button', [
+            $btnShow = view('components.button', [
                 'method' => 'GET',
                 'action' => route('admin.siswa.show', $resp->id),
                 'title' => 'Detail',
                 'icon' => 'fa fa-lg fa-fw fa-eye',
                 'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
 
-            $btnEdit = view('components.Button', [
+            $btnEdit = view('components.button', [
                 'method' => 'GET',
                 'action' => route('admin.siswa.edit', $resp->id),
                 'title' => 'Edit',
                 'icon' => 'fa fa-lg fa-fw fa-pen',
                 'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
-            $btnDelete = view('components.Button', [
+            $btnDelete = view('components.button', [
                 'method' => 'GET',
                 'action' => route('admin.siswa.destroy', $resp->id),
                 'title' => 'Delete',

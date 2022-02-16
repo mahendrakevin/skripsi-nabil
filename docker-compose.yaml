@@ -5,11 +5,8 @@ services:
     frontend:
       tty: true
       image: docker.io/bitnami/laravel:8
-      environment:
-        - DB_HOST=mariadb
-        - DB_USERNAME=raalfalah
-        - DB_DATABASE=db_raalfalah
-        - DB_PASSWORD=raalfalahwahyurejo
+      env_file:
+        .env
       depends_on:
         - backend
       ports:
@@ -17,15 +14,15 @@ services:
       volumes:
         - ./frontend:/app
 
-    mariadb:
-      image: docker.io/bitnami/mariadb:10.6
-      environment:
-        - ALLOW_EMPTY_PASSWORD=yes
-        - MARIADB_USER=raalfalah
-        - MARIADB_PASSWORD=raalfalahwahyurejo
-        - MARIADB_DATABASE=db_raalfalah
-      ports:
-        - 3306:3306
+#    mariadb:
+#      image: docker.io/bitnami/mariadb:10.6
+#      environment:
+#        - ALLOW_EMPTY_PASSWORD=yes
+#        - MARIADB_USER=raalfalah
+#        - MARIADB_PASSWORD=raalfalahwahyurejo
+#        - MARIADB_DATABASE=db_raalfalah
+#      ports:
+#        - 3306:3306
 
     backend:
       image: '${DOCKER_IMAGE_BACKEND?Variable not set}:${TAG-latest}'

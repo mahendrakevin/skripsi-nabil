@@ -105,6 +105,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\AdminCon
         Route::post('/delete', 'LaporanPembayaranController@delete')->name('admin.laporan_pembayaran.delete')->middleware('admin');
     });
 
+    // Jenis Pembayaran
+    Route::group(['prefix' => 'jenis-pembayaran'], function () {
+        Route::get('/', 'JenisPembayaranController@index')->name('admin.jenispembayaran.index')->middleware('admin');
+        Route::get('/{id_jenispembayaran}', 'JenisPembayaranController@show')->name('admin.jenispembayaran.show')->middleware('admin');
+        Route::post('/add', 'JenisPembayaranController@create')->name('admin.jenispembayaran.create')->middleware('admin');
+        Route::get('/edit/{id_jenispembayaran}', 'JenisPembayaranController@edit')->name('admin.jenispembayaran.edit')->middleware('admin');
+        Route::post('/delete', 'JenisPembayaranController@delete')->name('admin.jenispembayaran.delete')->middleware('admin');
+        Route::post('/', 'JenisPembayaranController@store')->name('admin.jenispembayaran.store')->middleware('admin');
+        Route::get('/update/{id_jenispembayaran}', 'JenisPembayaranController@update')->name('admin.jenispembayaran.update')->middleware('admin');
+        Route::get('/hapus/{id_jenispembayaran}', 'JenisPembayaranController@destroy')->name('admin.jenispembayaran.destroy')->middleware('admin');
+    });
+
     // Kelas
     Route::group(['prefix' => 'kelas'], function () {
         Route::get('/', 'KelasController@index')->name('admin.kelas.index')->middleware('admin');
@@ -122,8 +134,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\AdminCon
         Route::get('/', 'LembagaController@index')->name('admin.lembaga.index')->middleware('admin');
         Route::get('/{id_lembaga}', 'LembagaController@show')->name('admin.lembaga.show')->middleware('admin');
         Route::post('/add', 'LembagaController@create')->name('admin.lembaga.create')->middleware('admin');
-        Route::post('/edit', 'LembagaController@edit')->name('admin.lembaga.edit')->middleware('admin');
+        Route::get('/edit/{id_lembaga}', 'LembagaController@edit')->name('admin.lembaga.edit')->middleware('admin');
         Route::post('/delete', 'LembagaController@delete')->name('admin.lembaga.delete')->middleware('admin');
+        Route::post('/', 'LembagaController@store')->name('admin.lembaga.store')->middleware('admin');
+        Route::get('/update/{id_lembaga}', 'LembagaController@update')->name('admin.lembaga.update')->middleware('admin');
+        Route::get('/hapus/{id_lembaga}', 'LembagaController@destroy')->name('admin.lembaga.destroy')->middleware('admin');
     });
 
     // Sarana Prasarana
@@ -131,8 +146,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\AdminCon
         Route::get('/', 'SarprasController@index')->name('admin.sarpras.index')->middleware('admin');
         Route::get('/{id_sarpras}', 'SarprasController@show')->name('admin.sarpras.show')->middleware('admin');
         Route::post('/add', 'SarprasController@create')->name('admin.sarpras.create')->middleware('admin');
-        Route::post('/edit', 'SarprasController@edit')->name('admin.sarpras.edit')->middleware('admin');
+        Route::get('/edit/{id_sarpras}', 'SarprasController@edit')->name('admin.sarpras.edit')->middleware('admin');
         Route::post('/delete', 'SarprasController@delete')->name('admin.sarpras.delete')->middleware('admin');
+        Route::post('/', 'SarprasController@store')->name('admin.sarpras.store')->middleware('admin');
+        Route::get('/update/{id_sarpras}', 'SarprasController@update')->name('admin.sarpras.update')->middleware('admin');
+        Route::get('/hapus/{id_sarpras}', 'SarprasController@destroy')->name('admin.sarpras.destroy')->middleware('admin');
     });
 
     // Surat Keterangan
@@ -140,8 +158,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\AdminCon
         Route::get('/', 'SuratKeteranganController@index')->name('admin.surat_keterangan.index')->middleware('admin');
         Route::get('/{id_suratketerangan}', 'SuratKeteranganController@show')->name('admin.surat_keterangan.show')->middleware('admin');
         Route::post('/add', 'SuratKeteranganController@create')->name('admin.surat_keterangan.create')->middleware('admin');
-        Route::post('/edit', 'SuratKeteranganController@edit')->name('admin.surat_keterangan.edit')->middleware('admin');
+        Route::get('/edit/{id_suratketerangan}', 'SuratKeteranganController@edit')->name('admin.surat_keterangan.edit')->middleware('admin');
         Route::post('/delete', 'SuratKeteranganController@delete')->name('admin.surat_keterangan.delete')->middleware('admin');
+        Route::post('/', 'SarprasController@store')->name('admin.surat_keterangan.store')->middleware('admin');
+        Route::get('/update/{id_suratketerangan}', 'SarprasController@update')->name('admin.surat_keterangan.update')->middleware('admin');
+        Route::get('/hapus/{id_suratketerangan}', 'SarprasController@destroy')->name('admin.surat_keterangan.destroy')->middleware('admin');
     });
 
     // Inventory

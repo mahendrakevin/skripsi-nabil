@@ -7,7 +7,7 @@
                                   fgroup-class="col-md-4" type="number" value="{{ $siswa->nisn }}" required/>
                 <x-adminlte-input name="nik" label="NIK" placeholder="1234567890123456"
                                   fgroup-class="col-md-4" type="number" value="{{ $siswa->nik }}" required/>
-                <x-adminlte-input name="no_kk" label="No Kartu Keluarga" placeholder="1234567890123456"
+                <x-adminlte-input name="nomor_kk" label="No Kartu Keluarga" placeholder="1234567890123456"
                                   fgroup-class="col-md-4" type="number" value="{{ $siswa->nomor_kk }}" required/>
             </div>
             <div class="row">

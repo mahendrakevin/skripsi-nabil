@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>RA</b>ALFALAH',
+    'logo' => '<b>RA</b>ALFALAH<br>WAHYUREJO',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -275,6 +275,28 @@ return [
 //            'label_color' => 'success',
 //            'can'         => 'admin'
 //        ],
+        ['header' => 'Informasi Lembaga', 'can'=> 'admin'],
+        [
+            'text'        => 'Data Lembaga',
+            'route'         => 'admin.lembaga.index',
+            'icon'        => 'far fas fa-school',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
+        [
+            'text'        => 'Sarana Prasarana',
+            'route'         => 'admin.sarpras.index',
+            'icon'        => 'far fas fa-route',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
+        [
+            'text'        => 'Surat Keterangan',
+            'route'         => 'admin.surat_keterangan.index',
+            'icon'        => 'far fas fa-envelope',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
         ['header' => 'Master Guru', 'can'=> 'admin'],
         [
             'text'        => 'Data Guru',
@@ -319,33 +341,18 @@ return [
             'label_color' => 'success',
             'can'         => 'admin'
         ],
+        [
+            'text'        => 'Data Jenis Pembayaran',
+            'route'         => 'admin.jenispembayaran.index',
+            'icon'        => 'far fas fa-money-bill-wave-alt',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
         ['header' => 'Master Kelas', 'can'=> 'admin'],
         [
             'text'        => 'Data Kelas',
             'route'         => 'admin.kelas.index',
             'icon'        => 'far fas fa-fan',
-            'label_color' => 'success',
-            'can'         => 'admin'
-        ],
-        ['header' => 'Informasi Lembaga', 'can'=> 'admin'],
-        [
-            'text'        => 'Data Lembaga',
-            'route'         => 'admin.lembaga.index',
-            'icon'        => 'far fas fa-school',
-            'label_color' => 'success',
-            'can'         => 'admin'
-        ],
-        [
-            'text'        => 'Sarana Prasarana',
-            'route'         => 'admin.sarpras.index',
-            'icon'        => 'far fas fa-route',
-            'label_color' => 'success',
-            'can'         => 'admin'
-        ],
-        [
-            'text'        => 'Surat Keterangan',
-            'route'         => 'admin.surat_keterangan.index',
-            'icon'        => 'far fas fa-envelope',
             'label_color' => 'success',
             'can'         => 'admin'
         ],
