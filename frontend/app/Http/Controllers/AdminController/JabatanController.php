@@ -13,46 +13,65 @@ class JabatanController extends Controller
         $client = new Client(['base_uri' => env('API_HOST')]);
         $resp = $client->request('GET', 'guru/jabatan/');
         $result = json_decode($resp->getBody());
-        $result = $result->data;
-        $subjectdata = array();
+        if (property_exists($result, 'data')){
+            $result = $result->data;
+            $subjectdata = array();
 
-        foreach ($result as $resp){
-            $btnEdit = view('components.Button', [
-                'method' => 'GET',
-                'action' => route('admin.jabatan.edit', $resp->id),
-                'title' => 'Edit',
-                'icon' => 'fa fa-lg fa-fw fa-pen',
-                'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
+            foreach ($result as $resp){
+                $btnEdit = view('components.Button', [
+                    'method' => 'GET',
+                    'action' => route('admin.jabatan.edit', $resp->id),
+                    'title' => 'Edit',
+                    'icon' => 'fa fa-lg fa-fw fa-pen',
+                    'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
-            $btnDelete = view('components.Button', [
-                'method' => 'GET',
-                'action' => route('admin.jabatan.destroy', $resp->id),
-                'title' => 'Delete',
-                'icon' => 'fa fa-lg fa-fw fa-trash',
-                'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
+                $btnDelete = view('components.Button', [
+                    'method' => 'GET',
+                    'action' => route('admin.jabatan.destroy', $resp->id),
+                    'title' => 'Delete',
+                    'icon' => 'fa fa-lg fa-fw fa-trash',
+                    'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
-            $subjectdata[] = [
-                $resp->id,
-                $resp->nama_jabatan,
-                '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
+                $subjectdata[] = [
+                    $resp->id,
+                    $resp->nama_jabatan,
+                    '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
+                ];
+            }
+
+            $heads = [
+                ['label' => 'ID Jabatan', 'no-export' => false, 'width' => 10],
+                'Nama Jabatan',
+                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
+
+            $config = [
+                'data' => $subjectdata,
+                'order' => [[1, 'asc']],
+                'columns' => [null, null, ['orderable' => false]],
+                'paging' => true,
+                'lengthMenu' => [ 10, 50, 100, 500]
+            ];
+
+            return view('jabatan.index')->with(compact('heads', 'config', 'result'));
+        } else {
+            $heads = [
+                ['label' => 'ID Jabatan', 'no-export' => false, 'width' => 10],
+                'Nama Jabatan',
+                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+            ];
+
+            $config = [
+                'data' => [],
+                'order' => [[1, 'asc']],
+                'columns' => [null, null, ['orderable' => false]],
+                'paging' => true,
+                'lengthMenu' => [ 10, 50, 100, 500]
+            ];
+
+            return view('jabatan.index')->with(compact('heads', 'config', 'result'));
         }
 
-        $heads = [
-            ['label' => 'ID Jabatan', 'no-export' => false, 'width' => 10],
-            'Nama Jabatan',
-            ['label' => 'Actions', 'no-export' => false, 'width' => 10],
-        ];
-
-        $config = [
-            'data' => $subjectdata,
-            'order' => [[1, 'asc']],
-            'columns' => [null, null, ['orderable' => false]],
-            'paging' => true,
-            'lengthMenu' => [ 10, 50, 100, 500]
-        ];
-
-        return view('jabatan.index')->with(compact('heads', 'config', 'result'));
     }
 
     public function create(){

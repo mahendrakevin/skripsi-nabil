@@ -305,13 +305,13 @@ return [
             'label_color' => 'success',
             'can'         => 'admin'
         ],
-//        [
-//            'text'        => 'Data Kepegawaian',
-//            'route'         => 'admin.kepegawaian.index',
-//            'icon'        => 'far fas fa-briefcase',
-//            'label_color' => 'success',
-//            'can'         => 'admin'
-//        ],
+        [
+            'text'        => 'SK Guru',
+            'route'         => 'admin.kepegawaian.index',
+            'icon'        => 'far fas fa-briefcase',
+            'label_color' => 'success',
+            'can'         => 'admin'
+        ],
         [
             'text'        => 'Data Jabatan',
             'route'         => 'admin.jabatan.index',
@@ -384,28 +384,6 @@ return [
             'icon'        => 'far fas fa-comment-dollar',
             'label_color' => 'success',
             'can'         => 'admin'
-        ],
-        [
-            'text'    => 'Inventory',
-            'icon'    => 'fas fa-fw fa-share',
-            'can'     => 'admin',
-            'submenu' => [
-                [
-                    'text' => 'Data Inventory Barangg',
-                    'route'  => 'admin.inventory.index',
-                    'can'     => 'admin'
-                ],
-                [
-                    'text'    => 'Kategori Barang',
-                    'route'     => 'admin.kategori_barang.index',
-                    'can'     => 'admin'
-                ],
-                [
-                    'text' => 'Jenis Inventaris',
-                    'route'  => 'admin.jenis_inventaris.index',
-                    'can'     => 'admin'
-                ],
-            ],
         ],
         [
             'text'        => 'Arsip Surat',

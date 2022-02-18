@@ -13,48 +13,69 @@ class KelasController extends Controller
         $client = new Client(['base_uri' => env('API_HOST')]);
         $resp = $client->request('GET', 'kelas/');
         $result = json_decode($resp->getBody());
-        $result = $result->data;
-        $subjectdata = array();
 
-        foreach ($result as $resp){
-            $btnEdit = view('components.Button', [
-                'method' => 'GET',
-                'action' => route('admin.kelas.edit', $resp->id),
-                'title' => 'Edit',
-                'icon' => 'fa fa-lg fa-fw fa-pen',
-                'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
+        if (property_exists($result, 'data')){
+            $result = $result->data;
+            $subjectdata = array();
 
-            $btnDelete = view('components.Button', [
-                'method' => 'GET',
-                'action' => route('admin.kelas.destroy', $resp->id),
-                'title' => 'Delete',
-                'icon' => 'fa fa-lg fa-fw fa-trash',
-                'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
+            foreach ($result as $resp){
+                $btnEdit = view('components.Button', [
+                    'method' => 'GET',
+                    'action' => route('admin.kelas.edit', $resp->id),
+                    'title' => 'Edit',
+                    'icon' => 'fa fa-lg fa-fw fa-pen',
+                    'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
-            $subjectdata[] = [
-                $resp->id,
-                $resp->nama_kelas,
-                $resp->kapasitas_kelas,
-                '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
+                $btnDelete = view('components.Button', [
+                    'method' => 'GET',
+                    'action' => route('admin.kelas.destroy', $resp->id),
+                    'title' => 'Delete',
+                    'icon' => 'fa fa-lg fa-fw fa-trash',
+                    'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
+
+                $subjectdata[] = [
+                    $resp->id,
+                    $resp->nama_kelas,
+                    $resp->kapasitas_kelas,
+                    '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
+                ];
+            }
+
+            $heads = [
+                ['label' => 'ID Kelas', 'no-export' => false, 'width' => 10],
+                'Nama Kelas',
+                'Kapasitas Kelas',
+                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
+
+            $config = [
+                'data' => $subjectdata,
+                'order' => [[1, 'asc']],
+                'columns' => [null, null, null, ['orderable' => false]],
+                'paging' => true,
+                'lengthMenu' => [ 10, 50, 100, 500]
+            ];
+
+            return view('kelas.index')->with(compact('heads', 'config', 'result'));
+        } else {
+            $heads = [
+                ['label' => 'ID Kelas', 'no-export' => false, 'width' => 10],
+                'Nama Kelas',
+                'Kapasitas Kelas',
+                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+            ];
+
+            $config = [
+                'data' => [],
+                'order' => [[1, 'asc']],
+                'columns' => [null, null, null, ['orderable' => false]],
+                'paging' => true,
+                'lengthMenu' => [ 10, 50, 100, 500]
+            ];
+
+            return view('kelas.index')->with(compact('heads', 'config', 'result'));
         }
 
-        $heads = [
-            ['label' => 'ID Kelas', 'no-export' => false, 'width' => 10],
-            'Nama Kelas',
-            'Kapasitas Kelas',
-            ['label' => 'Actions', 'no-export' => false, 'width' => 10],
-        ];
-
-        $config = [
-            'data' => $subjectdata,
-            'order' => [[1, 'asc']],
-            'columns' => [null, null, null, ['orderable' => false]],
-            'paging' => true,
-            'lengthMenu' => [ 10, 50, 100, 500]
-        ];
-
-        return view('kelas.index')->with(compact('heads', 'config', 'result'));
     }
 
     public function create(){

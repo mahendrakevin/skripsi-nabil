@@ -13,59 +13,82 @@ class SiswaController extends Controller
         $client = new Client(['base_uri' => env('API_HOST')]);
         $resp = $client->request('GET', 'siswa/');
         $result = json_decode($resp->getBody());
-        $result = $result->data;
-        $subjectdata = array();
 
-        foreach ($result as $resp){
-            $btnShow = view('components.button', [
-                'method' => 'GET',
-                'action' => route('admin.siswa.show', $resp->id),
-                'title' => 'Detail',
-                'icon' => 'fa fa-lg fa-fw fa-eye',
-                'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
+        if (property_exists($result, 'data')){
 
-            $btnEdit = view('components.button', [
-                'method' => 'GET',
-                'action' => route('admin.siswa.edit', $resp->id),
-                'title' => 'Edit',
-                'icon' => 'fa fa-lg fa-fw fa-pen',
-                'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
+            $result = $result->data;
+            $subjectdata = array();
 
-            $btnDelete = view('components.button', [
-                'method' => 'GET',
-                'action' => route('admin.siswa.destroy', $resp->id),
-                'title' => 'Delete',
-                'icon' => 'fa fa-lg fa-fw fa-trash',
-                'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
+            foreach ($result as $resp){
+                $btnShow = view('components.button', [
+                    'method' => 'GET',
+                    'action' => route('admin.siswa.show', $resp->id),
+                    'title' => 'Detail',
+                    'icon' => 'fa fa-lg fa-fw fa-eye',
+                    'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
 
-            $subjectdata[] = [
-                $resp->nis,
-                $resp->nisn,
-                $resp->nama_siswa,
-                $resp->jenis_kelamin,
-                $resp->status_siswa,
-                '<nobr>'.$btnShow.$btnEdit.$btnDelete.'</nobr>'
+                $btnEdit = view('components.button', [
+                    'method' => 'GET',
+                    'action' => route('admin.siswa.edit', $resp->id),
+                    'title' => 'Edit',
+                    'icon' => 'fa fa-lg fa-fw fa-pen',
+                    'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
+
+                $btnDelete = view('components.button', [
+                    'method' => 'GET',
+                    'action' => route('admin.siswa.destroy', $resp->id),
+                    'title' => 'Delete',
+                    'icon' => 'fa fa-lg fa-fw fa-trash',
+                    'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
+
+                $subjectdata[] = [
+                    $resp->nis,
+                    $resp->nisn,
+                    $resp->nama_siswa,
+                    $resp->jenis_kelamin,
+                    $resp->status_siswa,
+                    '<nobr>'.$btnShow.$btnEdit.$btnDelete.'</nobr>'
+                ];
+            }
+
+            $heads = [
+                'NIS',
+                'NISN',
+                'Nama',
+                'Jenis Kelamin',
+                'Status Siswa',
+                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
+
+            $config = [
+                'data' => $subjectdata,
+                'order' => [[1, 'asc']],
+                'columns' => [null, null, null, null, null, ['orderable' => false]],
+                'paging' => true,
+                'lengthMenu' => [ 10, 50, 100, 500]
+            ];
+
+            return view('siswa.index')->with(compact('heads', 'config', 'result'));
+        } else {
+            $heads = [
+                'NIS',
+                'NISN',
+                'Nama',
+                'Jenis Kelamin',
+                'Status Siswa',
+                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+            ];
+
+            $config = [
+                'data' => [],
+                'order' => [[1, 'asc']],
+                'columns' => [null, null, null, null, null, ['orderable' => false]],
+                'paging' => true,
+                'lengthMenu' => [ 10, 50, 100, 500]
+            ];
+
+            return view('siswa.index')->with(compact('heads', 'config', 'result'));
         }
-
-        $heads = [
-            'NIS',
-            'NISN',
-            'Nama',
-            'Jenis Kelamin',
-            'Status Siswa',
-            ['label' => 'Actions', 'no-export' => false, 'width' => 10],
-        ];
-
-        $config = [
-            'data' => $subjectdata,
-            'order' => [[1, 'asc']],
-            'columns' => [null, null, null, null, null, ['orderable' => false]],
-            'paging' => true,
-            'lengthMenu' => [ 10, 50, 100, 500]
-        ];
-
-        return view('siswa.index')->with(compact('heads', 'config', 'result'));
     }
 
     public function create(){

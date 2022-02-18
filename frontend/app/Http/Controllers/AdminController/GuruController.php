@@ -13,57 +13,77 @@ class GuruController extends Controller
         $client = new Client(['base_uri' => env('API_HOST')]);
         $resp = $client->request('GET', 'guru/');
         $result = json_decode($resp->getBody());
-        $result = $result->data;
-        $subjectdata = array();
+        if (property_exists($result, 'data')){
+            $result = $result->data;
+            $subjectdata = array();
 
-        foreach ($result as $resp){
-            $btnShow = view('components.Button', [
-                'method' => 'GET',
-                'action' => route('admin.guru.show', $resp->id),
-                'title' => 'Detail',
-                'icon' => 'fa fa-lg fa-fw fa-eye',
-                'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
+            foreach ($result as $resp){
+                $btnShow = view('components.Button', [
+                    'method' => 'GET',
+                    'action' => route('admin.guru.show', $resp->id),
+                    'title' => 'Detail',
+                    'icon' => 'fa fa-lg fa-fw fa-eye',
+                    'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
 
-            $btnEdit = view('components.Button', [
-                'method' => 'GET',
-                'action' => route('admin.guru.edit', $resp->id),
-                'title' => 'Edit',
-                'icon' => 'fa fa-lg fa-fw fa-pen',
-                'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
+                $btnEdit = view('components.Button', [
+                    'method' => 'GET',
+                    'action' => route('admin.guru.edit', $resp->id),
+                    'title' => 'Edit',
+                    'icon' => 'fa fa-lg fa-fw fa-pen',
+                    'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
-            $btnDelete = view('components.Button', [
-                'method' => 'GET',
-                'action' => route('admin.guru.destroy', $resp->id),
-                'title' => 'Delete',
-                'icon' => 'fa fa-lg fa-fw fa-trash',
-                'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
+                $btnDelete = view('components.Button', [
+                    'method' => 'GET',
+                    'action' => route('admin.guru.destroy', $resp->id),
+                    'title' => 'Delete',
+                    'icon' => 'fa fa-lg fa-fw fa-trash',
+                    'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
-            $subjectdata[] = [
-                $resp->nip,
-                $resp->nuptk,
-                $resp->nama_guru,
-                $resp->jenis_kelamin,
-                '<nobr>'.$btnShow.$btnEdit.$btnDelete.'</nobr>'
+                $subjectdata[] = [
+                    $resp->nip,
+                    $resp->nuptk,
+                    $resp->nama_guru,
+                    $resp->jenis_kelamin,
+                    '<nobr>'.$btnShow.$btnEdit.$btnDelete.'</nobr>'
+                ];
+            }
+
+            $heads = [
+                'NIP',
+                'NUPTK',
+                'Nama Guru',
+                'Jenis Kelamin',
+                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
+
+            $config = [
+                'data' => $subjectdata,
+                'order' => [[1, 'asc']],
+                'columns' => [null, null, null, null, ['orderable' => false]],
+                'paging' => true,
+                'lengthMenu' => [ 10, 50, 100, 500]
+            ];
+
+            return view('guru.index')->with(compact('heads', 'config', 'result'));
+        } else {
+            $heads = [
+                'NIP',
+                'NUPTK',
+                'Nama Guru',
+                'Jenis Kelamin',
+                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+            ];
+
+            $config = [
+                'data' => [],
+                'order' => [[1, 'asc']],
+                'columns' => [null, null, null, null, ['orderable' => false]],
+                'paging' => true,
+                'lengthMenu' => [ 10, 50, 100, 500]
+            ];
+
+            return view('guru.index')->with(compact('heads', 'config', 'result'));
         }
-
-        $heads = [
-            'NIP',
-            'NUPTK',
-            'Nama Guru',
-            'Jenis Kelamin',
-            ['label' => 'Actions', 'no-export' => false, 'width' => 10],
-        ];
-
-        $config = [
-            'data' => $subjectdata,
-            'order' => [[1, 'asc']],
-            'columns' => [null, null, null, null, ['orderable' => false]],
-            'paging' => true,
-            'lengthMenu' => [ 10, 50, 100, 500]
-        ];
-
-        return view('guru.index')->with(compact('heads', 'config', 'result'));
     }
 
     public function create(){
