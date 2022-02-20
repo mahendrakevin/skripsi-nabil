@@ -98,45 +98,41 @@ async def get_detail_walisiswa(db_session: AsyncSession, id_siswa: int) -> dict:
 async def add_walisiswa(db_session: AsyncSession, request: WaliSiswa) -> dict:
     async with db_session as session:
         try:
-            q_dep = '''
-                            SELECT id, id_jeniswali FROM data_wali_siswa
-                            where id_jeniswali = {0}
-                    '''.format(request.id_jeniswali)
-            proxy_rows = await session.execute(q_dep)
-            jenis_wali = proxy_rows.scalar()
-            print(jenis_wali)
-            if jenis_wali is not None:
-                return {
-                            'message_id': '01',
-                            'status': 'Gagal, Jenis Wali Tidak Boleh Lebih Dari Satu'
-                        }
-            else:
-                id_walisiswa = await session.execute('''select nextval('data_wali_siswa_id_seq') as id''')
-                id_walisiswa = id_walisiswa.one_or_none()
-                new_walisiswa = {}
-                new_walisiswa['id'] = id_walisiswa.id
-                new_walisiswa['id_jeniswali'] = request.id_jeniswali
-                new_walisiswa['nama_wali'] = request.nama_wali
-                new_walisiswa['file_kk'] = request.file_kk
-                new_walisiswa['tempat_lahir'] = request.tempat_lahir
-                new_walisiswa['tanggal_lahir'] = request.tanggal_lahir
-                new_walisiswa['alamat'] = request.alamat
-                new_walisiswa['no_hp'] = request.no_hp
-                new_walisiswa['pendidikan'] = request.pendidikan
-                new_walisiswa['pekerjaan'] = request.pekerjaan
-                new_walisiswa['penghasilan'] = request.penghasilan
-                new_walisiswa['nomor_kks'] = request.nomor_kks
-                new_walisiswa['nomor_pkh'] = request.nomor_pkh
-                new_walisiswa['id_siswa'] = request.id_siswa
-                data_wali_siswa = generateQuery('data_wali_siswa', new_walisiswa)
-                logging.debug(f'query : {data_wali_siswa}')
-                await session.execute(data_wali_siswa)
-                await session.commit()
-                return {
-                    'message_id': '00',
-                    'status': 'Succes',
-                    'data': new_walisiswa
-                }
+            id_walisiswa = await session.execute('''select nextval('data_wali_siswa_id_seq') as id''')
+            id_walisiswa = id_walisiswa.one_or_none()
+            new_walisiswa = {}
+            new_walisiswa['id'] = id_walisiswa.id
+            new_walisiswa['nama_ayah'] = request.nama_ayah
+            new_walisiswa['file_kk'] = request.file_kk
+            new_walisiswa['tempat_lahir_ayah'] = request.tempat_lahir_ayah
+            new_walisiswa['tanggal_lahir_ayah'] = request.tanggal_lahir_ayah
+            new_walisiswa['alamat_ayah'] = request.alamat_ayah
+            new_walisiswa['no_hp_ayah'] = request.no_hp_ayah
+            new_walisiswa['pendidikan_ayah'] = request.pendidikan_ayah
+            new_walisiswa['pekerjaan_ayah'] = request.pekerjaan_ayah
+            new_walisiswa['penghasilan_ayah'] = request.penghasilan_ayah
+            new_walisiswa['nomor_kks_ayah'] = request.nomor_kks_ayah
+            new_walisiswa['nomor_pkh_ayah'] = request.nomor_pkh_ayah
+            new_walisiswa['nama_ibu'] = request.nama_ibu
+            new_walisiswa['tempat_lahir_ibu'] = request.tempat_lahir_ibu
+            new_walisiswa['tanggal_lahir_ibu'] = request.tanggal_lahir_ibu
+            new_walisiswa['alamat_ibu'] = request.alamat_ibu
+            new_walisiswa['no_hp_ibu'] = request.no_hp_ibu
+            new_walisiswa['pendidikan_ibu'] = request.pendidikan_ibu
+            new_walisiswa['pekerjaan_ibu'] = request.pekerjaan_ibu
+            new_walisiswa['penghasilan_ibu'] = request.penghasilan_ibu
+            new_walisiswa['nomor_kks_ibu'] = request.nomor_kks_ibu
+            new_walisiswa['nomor_pkh_ibu'] = request.nomor_pkh_ibu
+            new_walisiswa['id_siswa'] = request.id_siswa
+            data_wali_siswa = generateQuery('data_wali_siswa', new_walisiswa)
+            logging.debug(f'query : {data_wali_siswa}')
+            await session.execute(data_wali_siswa)
+            await session.commit()
+            return {
+                'message_id': '00',
+                'status': 'Succes',
+                'data': new_walisiswa
+            }
 
         except gevent.Timeout:
             await session.invalidate()
@@ -163,16 +159,28 @@ async def edit_walisiswa(db_session: AsyncSession, request: WaliSiswa, id_siswa:
                         }
             else:
                 edit_walisiswa = {}
-                edit_walisiswa['id_jeniswali'] = request.id_jeniswali
+                edit_walisiswa['nama_ayah'] = request.nama_ayah
                 edit_walisiswa['file_kk'] = request.file_kk
-                edit_walisiswa['tempat_lahir'] = request.tempat_lahir
-                edit_walisiswa['tanggal_lahir'] = request.tanggal_lahir
-                edit_walisiswa['alamat'] = request.alamat
-                edit_walisiswa['no_hp'] = request.no_hp
-                edit_walisiswa['id_pendidikan'] = request.id_pendidikan
-                edit_walisiswa['pekerjaan'] = request.pekerjaan
-                edit_walisiswa['penghasilan'] = request.penghasilan
-                edit_walisiswa['nomor_kks'] = request.nomor_kks
+                edit_walisiswa['tempat_lahir_ayah'] = request.tempat_lahir_ayah
+                edit_walisiswa['tanggal_lahir_ayah'] = request.tanggal_lahir_ayah
+                edit_walisiswa['alamat_ayah'] = request.alamat_ayah
+                edit_walisiswa['no_hp_ayah'] = request.no_hp_ayah
+                edit_walisiswa['pendidikan_ayah'] = request.pendidikan_ayah
+                edit_walisiswa['pekerjaan_ayah'] = request.pekerjaan_ayah
+                edit_walisiswa['penghasilan_ayah'] = request.penghasilan_ayah
+                edit_walisiswa['nomor_kks_ayah'] = request.nomor_kks_ayah
+                edit_walisiswa['nomor_pkh_ayah'] = request.nomor_pkh_ayah
+                edit_walisiswa['nama_ibu'] = request.nama_ibu
+                edit_walisiswa['tempat_lahir_ibu'] = request.tempat_lahir_ibu
+                edit_walisiswa['tanggal_lahir_ibu'] = request.tanggal_lahir_ibu
+                edit_walisiswa['alamat_ibu'] = request.alamat_ibu
+                edit_walisiswa['no_hp_ibu'] = request.no_hp_ibu
+                edit_walisiswa['pendidikan_ibu'] = request.pendidikan_ibu
+                edit_walisiswa['pekerjaan_ibu'] = request.pekerjaan_ibu
+                edit_walisiswa['penghasilan_ibu'] = request.penghasilan_ibu
+                edit_walisiswa['nomor_kks_ibu'] = request.nomor_kks_ibu
+                edit_walisiswa['nomor_pkh_ibu'] = request.nomor_pkh_ibu
+                edit_walisiswa['id_siswa'] = request.id_siswa
                 edit_walisiswa['nomor_pkh'] = request.nomor_pkh
                 data_wali_siswa = '''
                                 update data_wali_siswa set {0} where id_siswa = {1}

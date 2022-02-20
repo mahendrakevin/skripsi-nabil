@@ -9,7 +9,7 @@ class Siswa(Base):
     __tablename__ = "data_siswa"
     id = Column(BigInteger,  Sequence('data_siswa_id'), primary_key=True)
     nisn = Column(BigInteger, primary_key=True)
-    nis = Column(BigInteger, Sequence('nis_seq', start=1000), primary_key=True)
+    nis = Column(BigInteger, primary_key=True)
     nama_siswa = Column(String(50))
     tempat_lahir = Column(String(50))
     tanggal_lahir = Column(Date)
@@ -20,6 +20,7 @@ class Siswa(Base):
     nomor_kip = Column(BigInteger)
     alamat = Column(String(200))
     nomor_kk = Column(BigInteger)
+    id_jeniswali = Column(BigInteger)
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
 

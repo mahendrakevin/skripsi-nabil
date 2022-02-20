@@ -112,17 +112,15 @@ async def add_siswa(db_session: AsyncSession, request: DataSiswa) -> dict:
                             'status': 'Gagal, NISN Sudah Terdaftar'
                         }
             else:
-                nis = await session.execute('''select nextval('nis_seq') as id''')
-                nis = nis.one_or_none()
                 id_siswa = await session.execute('''select nextval('data_siswa_id') as id''')
                 id_siswa = id_siswa.one_or_none()
                 new_siswa = {}
                 new_siswa['id'] = id_siswa.id
                 new_siswa['nisn'] = request.nisn
-                new_siswa['nis'] = nis.id
+                new_siswa['nis'] = request.nis
                 new_siswa['nama_siswa'] = request.nama_siswa
                 new_siswa['tempat_lahir'] = request.tempat_lahir
-                new_siswa['tanggal_lahir'] = str(request.tanggal_lahir)
+                new_siswa['tanggal_lahir'] = request.tanggal_lahir
                 new_siswa['jenis_kelamin'] = request.jenis_kelamin
                 new_siswa['nik'] = request.nik
                 new_siswa['id_kelas'] = request.id_kelas
@@ -166,6 +164,7 @@ async def edit_siswa(db_session: AsyncSession, request: DataSiswa, id_siswa: int
             else:
                 edit_siswa = {}
                 edit_siswa['nisn'] = request.nisn
+                edit_siswa['nis'] = request.nis
                 edit_siswa['nama_siswa'] = request.nama_siswa
                 edit_siswa['tempat_lahir'] = request.tempat_lahir
                 edit_siswa['tanggal_lahir'] = str(request.tanggal_lahir)

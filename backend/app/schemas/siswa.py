@@ -4,6 +4,7 @@ from pydantic.fields import Field
 
 class DataSiswa(BaseModel):
     nisn: Optional[StrictInt] = 1828112
+    nis: Optional[StrictInt] = 7077
     nama_siswa: Optional[str] = 'Wahyu'
     tempat_lahir: Optional[str] = 'Semarang'
     tanggal_lahir: Optional[str] = '2015-01-22'
@@ -14,9 +15,11 @@ class DataSiswa(BaseModel):
     nomor_kip: Optional[StrictInt] = 123456789
     alamat: Optional[str] = 'Jl Wahyurejo'
     nomor_kk: Optional[StrictInt] = 123456789
+    id_jeniswali: Optional[StrictInt] = 2
 
 class EditDataSiswa(BaseModel):
     nisn: Optional[StrictInt] = 1828112
+    nis: Optional[StrictInt] = 7077
     nama_siswa: Optional[str] = 'Wahyu'
     tempat_lahir: Optional[str] = 'Semarang'
     tanggal_lahir: Optional[str] = '2015-01-22'
@@ -27,7 +30,7 @@ class EditDataSiswa(BaseModel):
     nomor_kip: Optional[StrictInt] = 123456789
     alamat: Optional[str] = 'Jl Wahyurejo'
     nomor_kk: Optional[StrictInt] = 123456789
-    nama_kepalakeluarga: Optional[str] = 'Test'
+    id_jeniswali: Optional[StrictInt] = 2
 
 class PendaftaranSiswa(BaseModel):
     nisn: Optional[StrictInt]

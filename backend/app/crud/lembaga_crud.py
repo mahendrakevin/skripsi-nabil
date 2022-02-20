@@ -312,36 +312,24 @@ async def get_detail_sarpras(db_session: AsyncSession, id_sarpras: int) -> dict:
 async def add_sarpras(db_session: AsyncSession, request: SaranaPrasarana) -> dict:
     async with db_session as session:
         try:
-            q_dep = '''
-                            SELECT id_lembaga FROM sarana_prasarana
-                            where id_lembaga = {0}
-                    '''.format(request.id_lembaga)
-            proxy_rows = await session.execute(q_dep)
-            nama_sarpras = proxy_rows.scalar()
-            if nama_sarpras is not None:
-                return {
-                    'message_id': '01',
-                    'status': 'Gagal, Data Sarana Prasarana Lembaga Sudah Ada'
-                }
-            else:
-                id_sarpras = await session.execute('''select nextval('sarana_prasarana_id_seq') as id''')
-                id_sarpras = id_sarpras.one_or_none()
-                new_sarpras = {}
-                new_sarpras['id'] = id_sarpras.id
-                new_sarpras['id_lembaga'] = request.id_lembaga
-                new_sarpras['luas_lahan'] = request.luas_lahan
-                new_sarpras['luas_bangunan'] = request.luas_bangunan
-                new_sarpras['nama_pemilik'] = request.nama_pemilik
-                new_sarpras['no_sertifikat'] = request.no_sertifikat
-                sarana_prasarana = generateQuery('sarana_prasarana', new_sarpras)
-                logging.debug(f'query : {sarana_prasarana}')
-                await session.execute(sarana_prasarana)
-                await session.commit()
-                return {
-                    'message_id': '00',
-                    'status': 'Succes',
-                    'data': new_sarpras
-                }
+            id_sarpras = await session.execute('''select nextval('sarana_prasarana_id_seq') as id''')
+            id_sarpras = id_sarpras.one_or_none()
+            new_sarpras = {}
+            new_sarpras['id'] = id_sarpras.id
+            new_sarpras['id_lembaga'] = request.id_lembaga
+            new_sarpras['luas_lahan'] = request.luas_lahan
+            new_sarpras['luas_bangunan'] = request.luas_bangunan
+            new_sarpras['nama_pemilik'] = request.nama_pemilik
+            new_sarpras['no_sertifikat'] = request.no_sertifikat
+            sarana_prasarana = generateQuery('sarana_prasarana', new_sarpras)
+            logging.debug(f'query : {sarana_prasarana}')
+            await session.execute(sarana_prasarana)
+            await session.commit()
+            return {
+                'message_id': '00',
+                'status': 'Succes',
+                'data': new_sarpras
+            }
 
         except gevent.Timeout:
             await session.invalidate()
