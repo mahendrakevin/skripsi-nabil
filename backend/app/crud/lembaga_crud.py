@@ -331,7 +331,7 @@ async def add_sarpras(db_session: AsyncSession, request: SaranaPrasarana) -> dic
                 new_sarpras['id_lembaga'] = request.id_lembaga
                 new_sarpras['luas_lahan'] = request.luas_lahan
                 new_sarpras['luas_bangunan'] = request.luas_bangunan
-                new_sarpras['nama_pemiliki'] = request.nama_pemiliki
+                new_sarpras['nama_pemilik'] = request.nama_pemilik
                 new_sarpras['no_sertifikat'] = request.no_sertifikat
                 sarana_prasarana = generateQuery('sarana_prasarana', new_sarpras)
                 logging.debug(f'query : {sarana_prasarana}')
@@ -368,9 +368,10 @@ async def edit_sarpras(db_session: AsyncSession, request: SaranaPrasarana, id_sa
                         }
             else:
                 edit_sarpras = {}
+                edit_sarpras['id_lembaga'] = request.id_lembaga
                 edit_sarpras['luas_lahan'] = request.luas_lahan
                 edit_sarpras['luas_bangunan'] = request.luas_bangunan
-                edit_sarpras['nama_pemiliki'] = request.nama_pemiliki
+                edit_sarpras['nama_pemilik'] = request.nama_pemilik
                 edit_sarpras['no_sertifikat'] = request.no_sertifikat
                 sarana_prasarana = '''
                                 update sarana_prasarana set {0} where id = {1}
@@ -410,6 +411,42 @@ async def delete_sarpras(db_session: AsyncSession, id_sarpras: int) -> dict:
                 delete_sarpras = '''
                                 delete from sarana_prasarana where id = {0}
                             '''.format(id_sarpras)
+
+                await session.execute(delete_sarpras)
+                await session.commit()
+                return {
+                    'message_id': '00',
+                    'status': 'Succes',
+                    'message': 'Data Lembaga Berhasil Dihapus'
+                }
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+async def delete_sarpras_lembaga(db_session: AsyncSession, id_lembaga: int) -> dict:
+    async with db_session as session:
+        try:
+            if id_lembaga is None:
+                return {
+                            'message_id': '01',
+                            'status': 'Gagal, Data Tidak Ditemukan'
+                        }
+            else:
+                delete_sarpras = '''
+                                delete from sarana_prasarana where id_lembaga = {0}
+                            '''.format(id_lembaga)
 
                 await session.execute(delete_sarpras)
                 await session.commit()

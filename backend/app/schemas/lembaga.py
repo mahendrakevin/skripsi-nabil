@@ -15,7 +15,7 @@ class SaranaPrasarana(BaseModel):
     id_lembaga: Optional[StrictInt]
     luas_lahan: Optional[StrictInt]
     luas_bangunan: Optional[StrictInt]
-    nama_pemiliki: Optional[str]
+    nama_pemilik: Optional[str]
     no_sertifikat: Optional[str]
 
 class SuratKeterangan(BaseModel):

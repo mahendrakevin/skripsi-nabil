@@ -24,7 +24,7 @@ class SaranaPrasarana(Base):
     id_lembaga = Column(BigInteger)
     luas_lahan = Column(BigInteger)
     luas_bangunan = Column(BigInteger)
-    nama_pemiliki = Column(String(100))
+    nama_pemilik = Column(String(100))
     no_sertifikat = Column(String(100))
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())

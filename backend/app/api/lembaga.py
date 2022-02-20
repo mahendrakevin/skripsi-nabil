@@ -80,6 +80,13 @@ async def hapus(id_sarpras: int, db_session: AsyncSession = Depends(get_async_se
     response.update(resp)
     return response
 
+@router.delete("/sarpras/hapus_lembaga/{id_siswa}")
+async def hapus(id_siswa: int, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
+    response = {"status": "Success", "message_id": "00"}
+    resp = await lembaga_crud.delete_sarpras_lembaga(id_siswa=id_siswa, db_session=db_session)
+    response.update(resp)
+    return response
+
 # Surat Keterangan
 
 @router.get("/suratketerangan/")
