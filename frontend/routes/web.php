@@ -160,9 +160,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\AdminCon
         Route::post('/add', 'SuratKeteranganController@create')->name('admin.surat_keterangan.create')->middleware('admin');
         Route::get('/edit/{id_suratketerangan}', 'SuratKeteranganController@edit')->name('admin.surat_keterangan.edit')->middleware('admin');
         Route::post('/delete', 'SuratKeteranganController@delete')->name('admin.surat_keterangan.delete')->middleware('admin');
-        Route::post('/', 'SarprasController@store')->name('admin.surat_keterangan.store')->middleware('admin');
-        Route::get('/update/{id_suratketerangan}', 'SarprasController@update')->name('admin.surat_keterangan.update')->middleware('admin');
-        Route::get('/hapus/{id_suratketerangan}', 'SarprasController@destroy')->name('admin.surat_keterangan.destroy')->middleware('admin');
+        Route::post('/', 'SuratKeteranganController@store')->name('admin.surat_keterangan.store')->middleware('admin');
+        Route::get('/update/{id_suratketerangan}', 'SuratKeteranganController@update')->name('admin.surat_keterangan.update')->middleware('admin');
+        Route::get('/hapus/{id_suratketerangan}', 'SuratKeteranganController@destroy')->name('admin.surat_keterangan.destroy')->middleware('admin');
     });
 
     // Inventory

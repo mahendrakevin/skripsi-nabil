@@ -114,6 +114,7 @@ class SiswaController extends Controller
                 ],
                 'json' => [
                     'nisn' => (int)$request->nisn,
+                    'nis' => (int)$request->nis,
                     'nama_siswa' => $request->nama_siswa,
                     'tempat_lahir' => $request->tempat_lahir,
                     'tanggal_lahir' => $request->tanggal_lahir,
@@ -124,6 +125,7 @@ class SiswaController extends Controller
                     'nomor_kip' => (int)$request->nomor_kip,
                     'alamat' => $request->alamat,
                     'nomor_kk' => (int)$request->nomor_kk,
+                    'id_jeniswali' => (int)$request->id_jeniswali,
                 ]
             ]
         );
@@ -135,18 +137,27 @@ class SiswaController extends Controller
                         'Accept'     => 'application/json'
                     ],
                     'json' => [
-                        'id_jeniswali' => (int)$request->id_jeniswali,
-                        'nama_wali' => $request->nama_wali,
-                        'file_kk' => 'test',
-                        'tempat_lahir' => $request->tempat_lahir_wali,
-                        'tanggal_lahir' => $request->tanggal_lahir_wali,
-                        'alamat' => $request->alamat_wali,
-                        'no_hp' => (int)$request->no_hp,
-                        'pendidikan' => $request->pendidikan,
-                        'pekerjaan' => $request->pekerjaan,
-                        'penghasilan' => (int)$request->penghasilan,
-                        'nomor_kks' => (int)$request->nomor_kks,
-                        'nomor_pkh' => (int)$request->nomor_pkh,
+                        'nama_ayah' => $request->nama_ayah,
+                        'file_kk' => (int)$request->file_kk,
+                        'tempat_lahir_ayah' => $request->tempat_lahir_ayah,
+                        'tanggal_lahir_ayah' => $request->tanggal_lahir_ayah,
+                        'alamat_ayah' => $request->alamat_ayah,
+                        'no_hp_ayah' => (int)$request->no_hp_ayah,
+                        'pendidikan_ayah' => (int)$request->pendidikan_ayah,
+                        'pekerjaan_ayah' => (int)$request->pekerjaan_ayah,
+                        'penghasilan_ayah' => (int)$request->penghasilan_ayah,
+                        'nomor_kks_ayah' => (int)$request->nomor_kks_ayah,
+                        'nomor_pkh_ayah' => (int)$request->nomor_pkh_ayah,
+                        'nama_ibu' => $request->nama_ibu,
+                        'tempat_lahir_ibu' => $request->tempat_lahir_ibu,
+                        'tanggal_lahir_ibu' => $request->tanggal_lahir_ibu,
+                        'alamat_ibu' => $request->alamat_ibu,
+                        'no_hp_ibu' => (int)$request->no_hp_ibu,
+                        'pendidikan_ibu' => $request->pendidikan_ibu,
+                        'pekerjaan_ibu' => $request->pekerjaan_ibu,
+                        'penghasilan_ibu' => (int)$request->penghasilan_ibu,
+                        'nomor_kks_ibu' => (int)$request->nomor_kks_ibu,
+                        'nomor_pkh_ibu' => (int)$request->nomor_pkh_ibu,
                         'id_siswa' => $data_siswa->data->id
                     ]
                 ]
@@ -221,6 +232,7 @@ class SiswaController extends Controller
                 ],
                 'json' => [
                     'nisn' => (int)$request->nisn,
+                    'nis' => (int)$request->nis,
                     'nama_siswa' => $request->nama_siswa,
                     'tempat_lahir' => $request->tempat_lahir,
                     'tanggal_lahir' => $request->tanggal_lahir,
@@ -231,6 +243,7 @@ class SiswaController extends Controller
                     'nomor_kip' => (int)$request->nomor_kip,
                     'alamat' => $request->alamat,
                     'nomor_kk' => (int)$request->nomor_kk,
+                    'id_jeniswali' => (int)$request->id_jeniswali,
                 ]
             ]
         );
@@ -242,19 +255,27 @@ class SiswaController extends Controller
                         'Accept'     => 'application/json'
                     ],
                     'json' => [
-                        'id_siswa' => $id,
-                        'id_jeniswali' => (int)$request->id_jeniswali,
-                        'nama_wali' => $request->nama_wali,
-                        'file_kk' => 'test',
-                        'tempat_lahir' => $request->tempat_lahir_wali,
-                        'tanggal_lahir' => $request->tanggal_lahir_wali,
-                        'alamat' => $request->alamat_wali,
-                        'no_hp' => (int)$request->no_hp,
-                        'pendidikan' => $request->pendidikan,
-                        'pekerjaan' => $request->pekerjaan,
-                        'penghasilan' => (int)$request->penghasilan,
-                        'nomor_kks' => (int)$request->nomor_kks,
-                        'nomor_pkh' => (int)$request->nomor_pkh
+                        'nama_ayah' => $request->nama_ayah,
+                        'file_kk' => (int)$request->file_kk,
+                        'tempat_lahir_ayah' => $request->tempat_lahir_ayah,
+                        'tanggal_lahir_ayah' => $request->tanggal_lahir_ayah,
+                        'alamat_ayah' => $request->alamat_ayah,
+                        'no_hp_ayah' => (int)$request->no_hp_ayah,
+                        'pendidikan_ayah' => (int)$request->pendidikan_ayah,
+                        'pekerjaan_ayah' => (int)$request->pekerjaan_ayah,
+                        'penghasilan_ayah' => (int)$request->penghasilan_ayah,
+                        'nomor_kks_ayah' => (int)$request->nomor_kks_ayah,
+                        'nomor_pkh_ayah' => (int)$request->nomor_pkh_ayah,
+                        'nama_ibu' => $request->nama_ibu,
+                        'tempat_lahir_ibu' => $request->tempat_lahir_ibu,
+                        'tanggal_lahir_ibu' => $request->tanggal_lahir_ibu,
+                        'alamat_ibu' => $request->alamat_ibu,
+                        'no_hp_ibu' => (int)$request->no_hp_ibu,
+                        'pendidikan_ibu' => $request->pendidikan_ibu,
+                        'pekerjaan_ibu' => $request->pekerjaan_ibu,
+                        'penghasilan_ibu' => (int)$request->penghasilan_ibu,
+                        'nomor_kks_ibu' => (int)$request->nomor_kks_ibu,
+                        'nomor_pkh_ibu' => (int)$request->nomor_pkh_ibu
                     ]
                 ]
             );

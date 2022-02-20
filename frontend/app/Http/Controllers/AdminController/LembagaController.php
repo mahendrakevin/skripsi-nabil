@@ -171,6 +171,7 @@ class LembagaController extends Controller
     public function destroy($id){
         $client = new Client(['base_uri' => env('API_HOST')]);
         $resp = $client->request('DELETE', 'lembaga/hapus/'.$id);
+        $resp = $client->request('DELETE', 'lembaga/sarpras/hapus_lembaga/'.$id);
         return redirect(route('admin.lembaga.index'))->with('alert',  'Data terhapus');
     }
 }
