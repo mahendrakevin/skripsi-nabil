@@ -180,8 +180,6 @@ async def edit_walisiswa(db_session: AsyncSession, request: WaliSiswa, id_siswa:
                 edit_walisiswa['penghasilan_ibu'] = request.penghasilan_ibu
                 edit_walisiswa['nomor_kks_ibu'] = request.nomor_kks_ibu
                 edit_walisiswa['nomor_pkh_ibu'] = request.nomor_pkh_ibu
-                edit_walisiswa['id_siswa'] = request.id_siswa
-                edit_walisiswa['nomor_pkh'] = request.nomor_pkh
                 data_wali_siswa = '''
                                 update data_wali_siswa set {0} where id_siswa = {1}
                             '''.format(generateQueryUpdate(edit_walisiswa), id_siswa)

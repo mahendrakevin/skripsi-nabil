@@ -167,7 +167,7 @@ async def edit_siswa(db_session: AsyncSession, request: DataSiswa, id_siswa: int
                 edit_siswa['nis'] = request.nis
                 edit_siswa['nama_siswa'] = request.nama_siswa
                 edit_siswa['tempat_lahir'] = request.tempat_lahir
-                edit_siswa['tanggal_lahir'] = str(request.tanggal_lahir)
+                edit_siswa['tanggal_lahir'] = request.tanggal_lahir
                 edit_siswa['jenis_kelamin'] = request.jenis_kelamin
                 edit_siswa['nik'] = request.nik
                 edit_siswa['id_kelas'] = request.id_kelas
@@ -175,6 +175,7 @@ async def edit_siswa(db_session: AsyncSession, request: DataSiswa, id_siswa: int
                 edit_siswa['nomor_kip'] = request.nomor_kip
                 edit_siswa['alamat'] = request.alamat
                 edit_siswa['nomor_kk'] = request.nomor_kk
+                edit_siswa['id_jeniswali'] = request.id_jeniswali
                 data_siswa = '''
                                 update data_siswa set {0} where id = {1}
                             '''.format(generateQueryUpdate(edit_siswa), id_siswa)

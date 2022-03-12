@@ -314,3 +314,7 @@ Route::group(['prefix' => 'bendahara', 'namespace' => 'App\Http\Controllers\Bend
         Route::post('/delete', 'JenisPengeluaran@delete')->name('bendahara.jenis_pengeluaran.delete')->middleware('bendahara');
     });
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

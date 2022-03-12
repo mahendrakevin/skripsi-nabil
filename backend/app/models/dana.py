@@ -11,6 +11,7 @@ class SumberDana(Base):
     nama_dana = Column(String(50))
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
+    _dana_masuk = relationship("DanaMasuk", uselist=False, back_populates="owner")
 
 class JenisPengeluaran(Base):
     __tablename__ = "jenis_pengeluaran"
@@ -18,12 +19,13 @@ class JenisPengeluaran(Base):
     jenis_pengeluaran = Column(String(50))
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
+    _dana_masuk = relationship("DanaKeluar", uselist=False, back_populates="owner")
 
 class DanaMasuk(Base):
     __tablename__ = "dana_masuk"
     id = Column(BigInteger, primary_key=True)
     tanggal = Column(Date)
-    id_sumberdana = Column(BigInteger)
+    id_sumberdana = Column(BigInteger, ForeignKey("sumber_dana.id", ondelete="CASCADE"))
     nominal_dana = Column(BigInteger)
     lampiran = Column(Text)
     created = Column(DateTime, server_default=func.now())
@@ -34,7 +36,7 @@ class DanaKeluar(Base):
     id = Column(BigInteger, primary_key=True)
     tanggal = Column(Date)
     detail_pengeluaran = Column(Text)
-    id_jenispengeluaran = Column(BigInteger)
+    id_jenispengeluaran = Column(BigInteger, ForeignKey("jenis_pengeluaran.id", ondelete="CASCADE"))
     diserahkan_kepada = Column(String(100))
     dikeluarkan_oleh = Column(String(100))
     bukti_pengeluaran = Column(Text)
