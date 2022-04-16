@@ -17,11 +17,13 @@ class DataLembaga(Base):
     nsm = Column(BigInteger)
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
+    _sarana_prasarana = relationship("SaranaPrasarana", uselist=False, back_populates="owner")
+    _surat_keterangan = relationship("SuratKeterangan", uselist=False, back_populates="owner")
 
 class SaranaPrasarana(Base):
     __tablename__ = "sarana_prasarana"
     id = Column(BigInteger, primary_key=True)
-    id_lembaga = Column(BigInteger)
+    id_lembaga = Column(BigInteger,  ForeignKey("data_lembaga.id", ondelete="CASCADE"))
     luas_lahan = Column(BigInteger)
     luas_bangunan = Column(BigInteger)
     nama_pemilik = Column(String(100))
@@ -32,7 +34,7 @@ class SaranaPrasarana(Base):
 class SuratKeterangan(Base):
     __tablename__ = "data_surat_keterangan"
     id = Column(BigInteger, primary_key=True)
-    id_lembaga = Column(BigInteger)
+    id_lembaga = Column(BigInteger,  ForeignKey("data_lembaga.id", ondelete="CASCADE"))
     nama_surat_keterangan = Column(String(100))
     nomor_surat_keterangan = Column(String(100))
     tanggal_surat_keterangan = Column(Date)

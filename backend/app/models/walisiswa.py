@@ -29,9 +29,10 @@ class WaliSiswa(Base):
     penghasilan_ibu = Column(BigInteger)
     nomor_kks_ibu = Column(BigInteger)
     nomor_pkh_ibu = Column(BigInteger)
-    id_siswa = Column(BigInteger)
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
+    id_laporanpembayaran = Column(BigInteger, ForeignKey('laporan_pembayaran.id', ondelete="CASCADE"))
+    _data_siswa = relationship("Siswa", uselist=False, back_populates="owner")
 
 class JenisWali(Base):
     __tablename__ = "data_jenis_wali"
@@ -39,14 +40,16 @@ class JenisWali(Base):
     jenis_wali = Column(String(20))
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
+    _data_siswa = relationship("Siswa", uselist=False, back_populates="owner")
 
 class LaporanPembayaran(Base):
     __tablename__ = "laporan_pembayaran"
     id = Column(BigInteger, primary_key=True)
-    id_jenispembayaran = Column(BigInteger)
-    status_pembayaran  = Column(String(10))
+    id_jenispembayaran = Column(BigInteger, ForeignKey("jenis_pembayaran.id", ondelete="CASCADE"))
+    id_statuspembayaran  = Column(BigInteger, ForeignKey("status_pembayaran.id", ondelete="CASCADE"))
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
+    _data_wali = relationship("WaliSiswa", uselist=False, back_populates="owner")
 
 class JenisPembayaran(Base):
     __tablename__ = "jenis_pembayaran"
@@ -55,3 +58,4 @@ class JenisPembayaran(Base):
     nominal_pembayaran = Column(BigInteger)
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
+    _laporan_pembayaran = relationship("LaporanPembayaran", uselist=False, back_populates="owner")

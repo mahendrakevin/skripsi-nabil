@@ -6,5 +6,4 @@ from .guru import *
 from .inventory import *
 from .kelas import *
 from .lembaga import *
-from .otorisasi import *
 from .pembayaransiswa import *
