@@ -128,6 +128,7 @@ async def add_siswa(db_session: AsyncSession, request: DataSiswa) -> dict:
                 new_siswa['nomor_kip'] = request.nomor_kip
                 new_siswa['alamat'] = request.alamat
                 new_siswa['nomor_kk'] = request.nomor_kk
+                new_siswa['id_jeniswali'] = request.id_jeniswali
                 data_siswa = generateQuery('data_siswa', new_siswa)
                 logging.debug(f'query : {data_siswa}')
                 await session.execute(data_siswa)

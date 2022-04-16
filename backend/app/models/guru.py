@@ -23,7 +23,6 @@ class Guru(Base):
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
     _status_kepegawaian = relationship("Kepegawaian", uselist=False, back_populates="owner")
 
-
 class Kepegawaian(Base):
     __tablename__ = "status_kepegawaian"
     id = Column(BigInteger, primary_key=True)
@@ -31,6 +30,7 @@ class Kepegawaian(Base):
     no_sk = Column(String(20))
     no_sk_ypmnu = Column(String(20))
     no_sk_operator = Column(String(20))
+    tanggal = Column(Date)
     id_jabatan = Column(BigInteger, ForeignKey("jabatan.id", ondelete="CASCADE"))
     status_kepegawaian = Column(String(20))
     alasan_tidak_aktif = Column(Text)

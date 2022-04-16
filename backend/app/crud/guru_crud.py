@@ -241,15 +241,19 @@ async def delete_guru(db_session: AsyncSession, id_guru: int) -> dict:
 
 # Kepegawaian
 
-async def get_list_kepegawaian(db_session: AsyncSession, page: int, show: int) -> dict:
+async def get_list_kepegawaian(db_session: AsyncSession, page: int, show: int, id_guru: int) -> dict:
     async with db_session as session:
         try:
+            if id_guru is not None:
+                where_guru = 'WHERE id_guru = {0}'.format(id_guru)
+            else:
+                where_guru = ''
             offset = (page - 1) * show
             q_dep = '''
-                SELECT * FROM status_kepegawaian
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                SELECT * FROM status_kepegawaian {0}
+                limit {1}
+                offset {2}
+            '''.format(where_guru, show, offset)
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -285,7 +289,7 @@ async def get_list_kepegawaian(db_session: AsyncSession, page: int, show: int) -
             'status': 'Gagal, Data Kepegawaian Tidak Ditemukan'
         }
 
-async def get_detail_kepegawaian(db_session: AsyncSession, id_guru: int) -> dict:
+async def get_detail_kepegawaian_id_guru(db_session: AsyncSession, id_guru: int) -> dict:
     async with db_session as session:
         try:
             q_dep = '''
@@ -320,48 +324,17 @@ async def get_detail_kepegawaian(db_session: AsyncSession, id_guru: int) -> dict
     else:
         return {
             'message_id': '01',
-            'status': 'Gagal, Data Siswa Tidak Ditemukan'
+            'status': 'Gagal, Data Guru Tidak Ditemukan'
         }
 
-async def add_kepegawaian(db_session: AsyncSession, request: DataKepegawaian) -> dict:
+async def get_detail_kepegawaian(db_session: AsyncSession, id_kepegawaian: int) -> dict:
     async with db_session as session:
         try:
-            guru_id = '''
-                            SELECT dg.id, sk.id_guru FROM status_kepegawaian sk
-                            INNER JOIN data_guru dg ON sk.id_guru = dg.id
-                            where dg.id = {0}
-                    '''.format(request.id_guru)
-            proxy_rows = await session.execute(guru_id)
-            id_guru_kepegawaian = proxy_rows.one_or_none()
-
-            if id_guru_kepegawaian is not None:
-                return {
-                            'message_id': '01',
-                            'status': 'Gagal, Guru Sudah Memiliki Status Kepegawaian'
-                        }
-            else:
-                id_kepegawaian = await session.execute('''select nextval('status_kepegawaian_id_seq') as id''')
-                id_kepegawaian = id_kepegawaian.one_or_none()
-                new_kepegawaian = {}
-                new_kepegawaian['id'] = id_kepegawaian.id
-                new_kepegawaian['id_guru'] = request.id_guru
-                new_kepegawaian['no_sk'] = request.no_sk
-                new_kepegawaian['no_sk_ypmnu'] = request.no_sk_ypmnu
-                new_kepegawaian['no_sk_operator'] = request.no_sk_operator
-                new_kepegawaian['id_jabatan'] = request.id_jabatan
-                new_kepegawaian['status_kepegawaian'] = request.status_kepegawaian
-                new_kepegawaian['alasan_tidak_aktif'] = request.alasan_tidak_aktif
-                new_kepegawaian['surat_mutasi'] = request.surat_mutasi
-                new_kepegawaian['jumlah_ajar'] = request.jumlah_ajar
-                data_kepegawaian = generateQuery('status_kepegawaian', new_kepegawaian)
-                logging.debug(f'query : {data_kepegawaian}')
-                await session.execute(data_kepegawaian)
-                await session.commit()
-                return {
-                    'message_id': '00',
-                    'status': 'Success',
-                    'data': new_kepegawaian
-                }
+            q_dep = '''
+                SELECT * FROM status_kepegawaian WHERE id = {0}
+            '''.format(id_kepegawaian)
+            proxy_rows = await session.execute(q_dep)
+            result = proxy_rows.one_or_none()
 
         except gevent.Timeout:
             await session.invalidate()
@@ -378,7 +351,63 @@ async def add_kepegawaian(db_session: AsyncSession, request: DataKepegawaian) ->
                 'status': 'Failed, something wrong rollback DB transaction...'
             }
 
-async def edit_kepegawaian(db_session: AsyncSession, request: EditKepegawaian, id_guru: int) -> dict:
+    # result data handling
+    if result:
+        logger.info(str(result))
+        return {
+            'message_id': '00',
+            'status': 'Success',
+            'data':result
+        }
+    else:
+        return {
+            'message_id': '01',
+            'status': 'Gagal, Data Kepegawaian Tidak Ditemukan'
+        }
+
+async def add_kepegawaian(db_session: AsyncSession, request: DataKepegawaian) -> dict:
+    async with db_session as session:
+        try:
+            id_kepegawaian = await session.execute('''select nextval('status_kepegawaian_id_seq') as id''')
+            id_kepegawaian = id_kepegawaian.one_or_none()
+            new_kepegawaian = {}
+            new_kepegawaian['id'] = id_kepegawaian.id
+            new_kepegawaian['id_guru'] = request.id_guru
+            new_kepegawaian['no_sk'] = request.no_sk
+            new_kepegawaian['no_sk_ypmnu'] = request.no_sk_ypmnu
+            new_kepegawaian['no_sk_operator'] = request.no_sk_operator
+            new_kepegawaian['tanggal'] = request.tanggal
+            new_kepegawaian['id_jabatan'] = request.id_jabatan
+            new_kepegawaian['status_kepegawaian'] = request.status_kepegawaian
+            new_kepegawaian['alasan_tidak_aktif'] = request.alasan_tidak_aktif
+            new_kepegawaian['surat_mutasi'] = request.surat_mutasi
+            new_kepegawaian['jumlah_ajar'] = request.jumlah_ajar
+            data_kepegawaian = generateQuery('status_kepegawaian', new_kepegawaian)
+            logging.debug(f'query : {data_kepegawaian}')
+            await session.execute(data_kepegawaian)
+            await session.commit()
+            return {
+                'message_id': '00',
+                'status': 'Success',
+                'data': new_kepegawaian
+            }
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+async def edit_kepegawaian_id_guru(db_session: AsyncSession, request: EditKepegawaian, id_guru: int) -> dict:
     async with db_session as session:
         try:
             if id_guru is None:
@@ -422,7 +451,51 @@ async def edit_kepegawaian(db_session: AsyncSession, request: EditKepegawaian, i
                 'status': 'Failed, something wrong rollback DB transaction...'
             }
 
-async def delete_kepegawaian(db_session: AsyncSession, id_guru: int) -> dict:
+async def edit_kepegawaian(db_session: AsyncSession, request: EditKepegawaian, id_kepegawaian: int) -> dict:
+    async with db_session as session:
+        try:
+            if id_kepegawaian is None:
+                return {
+                            'message_id': '01',
+                            'status': 'Gagal, Data Tidak Ditemukan'
+                        }
+            else:
+                edit_kepegawaian = {}
+                edit_kepegawaian['no_sk'] = request.no_sk
+                edit_kepegawaian['no_sk_ypmnu'] = request.no_sk_ypmnu
+                edit_kepegawaian['no_sk_operator'] = request.no_sk_operator
+                edit_kepegawaian['id_jabatan'] = request.id_jabatan
+                edit_kepegawaian['status_kepegawaian'] = request.status_kepegawaian
+                edit_kepegawaian['alasan_tidak_aktif'] = request.alasan_tidak_aktif
+                edit_kepegawaian['surat_mutasi'] = request.surat_mutasi
+                edit_kepegawaian['jumlah_ajar'] = request.jumlah_ajar
+                data_kepegawaian = '''
+                                update status_kepegawaian set {0} where id = {1}
+                            '''.format(generateQueryUpdate(edit_kepegawaian), id_kepegawaian)
+                await session.execute(data_kepegawaian)
+                await session.commit()
+                return {
+                    'message_id': '00',
+                    'status': 'Succes',
+                    'data': edit_kepegawaian
+                }
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+async def delete_kepegawaian_id_guru(db_session: AsyncSession, id_guru: int) -> dict:
     async with db_session as session:
         try:
             if id_guru is None:
@@ -434,6 +507,41 @@ async def delete_kepegawaian(db_session: AsyncSession, id_guru: int) -> dict:
                 delete_guru = '''
                                 delete from status_kepegawaian where id_guru = {0}
                             '''.format(id_guru)
+                await session.execute(delete_guru)
+                await session.commit()
+                return {
+                    'message_id': '00',
+                    'status': 'Succes',
+                    'message': 'Data Kepegawaian Berhasil Dihapus'
+                }
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+async def delete_kepegawaian(db_session: AsyncSession, id_kepegawaian: int) -> dict:
+    async with db_session as session:
+        try:
+            if id_kepegawaian is None:
+                return {
+                            'message_id': '01',
+                            'status': 'Gagal, Data Tidak Ditemukan'
+                        }
+            else:
+                delete_guru = '''
+                                delete from status_kepegawaian where id = {0}
+                            '''.format(id_kepegawaian)
                 await session.execute(delete_guru)
                 await session.commit()
                 return {

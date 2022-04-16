@@ -5,12 +5,3 @@ from sqlalchemy.sql import func
 from sqlalchemy.sql.sqltypes import TIMESTAMP
 from db import Base
 
-class StatusPembayaran(Base):
-    __tablename__ = "status_pembayaran"
-    id = Column(BigInteger, primary_key=True)
-    id_siswa = Column(BigInteger, ForeignKey("jenis_pembayaran.id", ondelete="CASCADE"))
-    nominal_pembayaran = Column(BigInteger)
-    status_pembayaran = Column(String(20))
-    created = Column(DateTime, server_default=func.now())
-    updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
-    _laporan_pembayaran = relationship("LaporanPembayaran", uselist=False, back_populates="owner")

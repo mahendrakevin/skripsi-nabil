@@ -20,10 +20,11 @@ class DataKepegawaian(BaseModel):
     no_sk: Optional[str] = 123415516
     no_sk_ypmnu: Optional[str] = 1241515
     no_sk_operator: Optional[str] = 12545636
+    tanggal: Optional[str] = '2022-03-01'
     id_jabatan: Optional[StrictInt] = 1
     status_kepegawaian: Optional[str] = 'Aktif'
-    alasan_tidak_aktif: Optional[str] = None
-    surat_mutasi: Optional[str] = None
+    alasan_tidak_aktif: Optional[str] = '-'
+    surat_mutasi: Optional[str] = '-'
     jumlah_ajar: Optional[str] = None
 
 class EditKepegawaian(BaseModel):

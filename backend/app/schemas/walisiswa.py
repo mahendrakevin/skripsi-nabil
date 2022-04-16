@@ -31,7 +31,7 @@ class JenisWali(BaseModel):
 
 class LaporanPembayaran(BaseModel):
     id_jenispembayaran: Optional[StrictInt]
-    status_pembayaran: Optional[str]
+    id_statuspembayaran: Optional[StrictInt]
 
 class JenisPembayaran(BaseModel):
     jenis_pembayaran: Optional[str]

@@ -48,14 +48,21 @@ async def hapus(id_guru: int, db_session: AsyncSession = Depends(get_async_sessi
 # Kepegawaian
 
 @router.get("/kepegawaian/")
-async def list_kepegawaian(db_session: AsyncSession = Depends(get_async_session), page: int=1, show: int=10):
-    result = await guru_crud.get_list_kepegawaian(db_session=db_session, page=page, show=show)
+async def list_kepegawaian(db_session: AsyncSession = Depends(get_async_session), page: int=1, show: int=10, id_guru: int=None):
+    result = await guru_crud.get_list_kepegawaian(db_session=db_session, page=page, show=show, id_guru=id_guru)
     return result
 
 @router.get("/kepegawaian/{id_guru}")
-async def detail_kepegawaian(id_guru: int, db_session: AsyncSession = Depends(get_async_session)):
+async def detail_kepegawaian_id_guru(id_guru: int, db_session: AsyncSession = Depends(get_async_session)):
     response = {"status": "Success", "message_id": "00"}
-    resp = await guru_crud.get_detail_kepegawaian(db_session=db_session, id_guru=id_guru)
+    resp = await guru_crud.get_detail_kepegawaian_id_guru(db_session=db_session, id_guru=id_guru)
+    response.update(resp)
+    return response
+
+@router.get("/kepegawaian/detail/{id_kepegawaian}")
+async def detail_kepegawaian(id_kepegawaian: int, db_session: AsyncSession = Depends(get_async_session)):
+    response = {"status": "Success", "message_id": "00"}
+    resp = await guru_crud.get_detail_kepegawaian(db_session=db_session, id_kepegawaian=id_kepegawaian)
     response.update(resp)
     return response
 
@@ -67,16 +74,30 @@ async def add_kepegawaian(request: DataKepegawaian, db_session: AsyncSession = D
     return response
 
 @router.put("/kepegawaian/edit")
-async def edit_kepegawaian(id_guru: int, request: DataKepegawaian, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
+async def edit_kepegawaian_id_guru(id_guru: int, request: DataKepegawaian, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
     response = {"status": "Success", "message_id": "00"}
-    resp = await guru_crud.edit_kepegawaian(id_guru=id_guru, request=request, db_session=db_session)
+    resp = await guru_crud.edit_kepegawaian_id_guru(id_guru=id_guru, request=request, db_session=db_session)
     response.update(resp)
     return response
 
-@router.delete("/kepegawaian/hapus/{id_kepegawaian}")
-async def hapus_kepegawaian(id_guru: int, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
+@router.put("/kepegawaian/pegawai/edit")
+async def edit_kepegawaian(id_kepegawaian: int, request: DataKepegawaian, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
     response = {"status": "Success", "message_id": "00"}
-    resp = await guru_crud.delete_kepegawaian(id_guru=id_guru, db_session=db_session)
+    resp = await guru_crud.edit_kepegawaian(id_kepegawaian=id_kepegawaian, request=request, db_session=db_session)
+    response.update(resp)
+    return response
+
+@router.delete("/kepegawaian/hapus/{id_guru}")
+async def hapus_kepegawaian_id_guru(id_guru: int, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
+    response = {"status": "Success", "message_id": "00"}
+    resp = await guru_crud.delete_kepegawaian_id_guru(id_guru=id_guru, db_session=db_session)
+    response.update(resp)
+    return response
+
+@router.delete("/kepegawaian/hapus/pegawai/{id_kepegawaian}")
+async def hapus_kepegawaian(id_kepegawaian: int, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
+    response = {"status": "Success", "message_id": "00"}
+    resp = await guru_crud.delete_kepegawaian(id_kepegawaian=id_kepegawaian, db_session=db_session)
     response.update(resp)
     return response
 
