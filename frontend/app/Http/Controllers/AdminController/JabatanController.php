@@ -75,14 +75,10 @@ class JabatanController extends Controller
     }
 
     public function create(){
-        $client = new Client(['base_uri' => env('API_HOST')]);
-        $jabatan = $client->request('GET', 'guru/jabatan/');
-        $jabatan = json_decode($jabatan->getBody());
-        $jabatan = $jabatan->data;
 
         $config_date = ['format' => 'YYYY-MM-DD'];
 
-        return view('jabatan.create')->with(compact('jabatan', 'config_date'));
+        return view('jabatan.create')->with(compact('config_date'));
     }
 
     public function store(Request $request){

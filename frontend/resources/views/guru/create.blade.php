@@ -94,5 +94,7 @@
                                   fgroup-class="col-md-6" required/>
             </div>
         </x-adminlte-card>
+        <x-adminlte-button class="btn-flat" type="submit" label="Submit" theme="success" icon="fas fa-lg fa-save"/>
+        <x-adminlte-button class="btn-flat" type="reset" label="Reset" theme="danger" icon="fas fa-lg fa-trash"/>
     </x-form>
 </x-app-layout>

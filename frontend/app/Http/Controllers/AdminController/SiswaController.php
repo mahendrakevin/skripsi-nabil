@@ -165,7 +165,7 @@ class SiswaController extends Controller
             return redirect(route('admin.siswa.index'))->with('alert', 'Data Berhasil Ditambahkan');
         }
         else {
-            return redirect(route('admin.siswa.index'))->with('alert-failed', 'Data Gagal Terhapus');
+            return redirect(route('admin.siswa.index'))->with('alert-failed', 'Data Gagal Ditambahkan');
         }
     }
 

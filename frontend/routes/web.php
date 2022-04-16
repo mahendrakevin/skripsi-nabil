@@ -57,10 +57,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\AdminCon
     // Kepegawaian
     Route::group(['prefix' => 'kepegawaian'], function () {
         Route::get('/', 'KepegawaianController@index')->name('admin.kepegawaian.index')->middleware('admin');
-        Route::get('/{id_kepegawaian}', 'KepegawaianController@show')->name('admin.kepegawaian.show')->middleware('admin');
+        Route::get('/{id_guru}', 'KepegawaianController@show')->name('admin.kepegawaian.show')->middleware('admin');
         Route::post('/add', 'KepegawaianController@create')->name('admin.kepegawaian.create')->middleware('admin');
-        Route::post('/edit', 'KepegawaianController@edit')->name('admin.kepegawaian.edit')->middleware('admin');
+        Route::get('/edit/{id_kepegawaian}', 'KepegawaianController@edit')->name('admin.kepegawaian.edit')->middleware('admin');
         Route::post('/delete', 'KepegawaianController@delete')->name('admin.kepegawaian.delete')->middleware('admin');
+        Route::post('/', 'KepegawaianController@store')->name('admin.kepegawaian.store')->middleware('admin');
+        Route::get('/update/{id_kepegawaian}', 'KepegawaianController@update')->name('admin.kepegawaian.update')->middleware('admin');
+        Route::get('/hapus/{id_kepegawaian}', 'KepegawaianController@destroy')->name('admin.kepegawaian.destroy')->middleware('admin');
     });
 
     // Jabatan
