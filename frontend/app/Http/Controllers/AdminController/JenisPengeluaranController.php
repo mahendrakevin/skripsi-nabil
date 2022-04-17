@@ -11,7 +11,7 @@ class JenisPengeluaranController extends Controller
     public function index()
     {
         $client = new Client(['base_uri' => env('API_HOST')]);
-        $resp = $client->request('GET', 'dana/jen/');
+        $resp = $client->request('GET', 'dana/jenispengeluaran/');
         $result = json_decode($resp->getBody());
 
         if (property_exists($result, 'data')){
@@ -21,28 +21,28 @@ class JenisPengeluaranController extends Controller
             foreach ($result as $resp){
                 $btnEdit = view('components.Button', [
                     'method' => 'GET',
-                    'action' => route('admin.sumber_dana.edit', $resp->id),
+                    'action' => route('admin.jenis_pengeluaran.edit', $resp->id),
                     'title' => 'Edit',
                     'icon' => 'fa fa-lg fa-fw fa-pen',
                     'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
                 $btnDelete = view('components.Button', [
                     'method' => 'GET',
-                    'action' => route('admin.sumber_dana.destroy', $resp->id),
+                    'action' => route('admin.jenis_pengeluaran.destroy', $resp->id),
                     'title' => 'Delete',
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
                 $subjectdata[] = [
                     $resp->id,
-                    $resp->nama_dana,
+                    $resp->jenis_pengeluaran,
                     '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
                 ];
             }
 
             $heads = [
-                ['label' => 'ID Sumber Dana', 'no-export' => false, 'width' => 10],
-                'Sumber Dana',
+                ['label' => 'ID Jenis Pengeluaran', 'no-export' => false, 'width' => 10],
+                'Jenis Pengeluaran',
                 ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
 
@@ -54,11 +54,11 @@ class JenisPengeluaranController extends Controller
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
 
-            return view('jen.index')->with(compact('heads', 'config', 'result'));
+            return view('jenispengeluaran.index')->with(compact('heads', 'config', 'result'));
         } else {
             $heads = [
-                ['label' => 'ID Sumber Dana', 'no-export' => false, 'width' => 10],
-                'Sumber Dana',
+                ['label' => 'ID Jenis Pengeluaran', 'no-export' => false, 'width' => 10],
+                'Jenis Pengeluaran',
                 ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
 
@@ -70,7 +70,7 @@ class JenisPengeluaranController extends Controller
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
 
-            return view('jen.index')->with(compact('heads', 'config', 'result'));
+            return view('jenispengeluaran.index')->with(compact('heads', 'config', 'result'));
         }
 
     }
@@ -78,68 +78,68 @@ class JenisPengeluaranController extends Controller
     public function create(){
         $config_date = ['format' => 'YYYY-MM-DD'];
 
-        return view('jen.create')->with(compact('config_date'));
+        return view('jenispengeluaran.create')->with(compact('config_date'));
     }
 
     public function store(Request $request){
         $client = new Client(['base_uri' => env('API_HOST')]);
-        $resp = $client->request('POST', 'dana/jen/tambah',[
+        $resp = $client->request('POST', 'dana/jenispengeluaran/tambah',[
                 'headers' => [
                     'Content-Type' => 'application/json',
                     'Accept'     => 'application/json'
                 ],
                 'json' => [
-                    'nama_dana' => $request->nama_dana
+                    'jenis_pengeluaran' => $request->jenis_pengeluaran
                 ]
             ]
         );
         $sumberadna = json_decode($resp->getBody());
         if ($sumberadna->message_id == '00'){
-            return redirect(route('admin.sumber_dana.index'))->with('alert', 'Data Berhasil Ditambahkan');
+            return redirect(route('admin.jenis_pengeluaran.index'))->with('alert', 'Data Berhasil Ditambahkan');
         }
         else {
-            return redirect(route('admin.sumber_dana.index'))->with('alert-failed', 'Data Gagal Ditambahkan');
+            return redirect(route('admin.jenis_pengeluaran.index'))->with('alert-failed', 'Data Gagal Ditambahkan');
         }
     }
 
     public function edit($id){
         $client = new Client(['base_uri' => env('API_HOST')]);
-        $jen = $client->request('GET', 'dana/jen/'.$id);
-        $jen = json_decode($jen->getBody());
+        $jenispengeluaran = $client->request('GET', 'dana/jenispengeluaran/'.$id);
+        $jenispengeluaran = json_decode($jenispengeluaran->getBody());
 
-        if($jen->message_id == '00'){
-            $jen = $jen->data;
-            return view('jen.edit')->with(compact( 'jen'));
+        if($jenispengeluaran->message_id == '00'){
+            $jenispengeluaran = $jenispengeluaran->data;
+            return view('jenispengeluaran.edit')->with(compact( 'jenispengeluaran'));
         }
         else {
-            return redirect(route('admin.sumber_dana.index'))->with('alert-failed', 'Data tidak ditemukan');
+            return redirect(route('admin.jenis_pengeluaran.index'))->with('alert-failed', 'Data tidak ditemukan');
         }
     }
 
     public function update(Request $request, $id){
         $client = new Client(['base_uri' => env('API_HOST')]);
-        $resp = $client->request('PUT', 'dana/jen/edit?id_jen='.$id,[
+        $resp = $client->request('PUT', 'dana/jenispengeluaran/edit?id_jenispengeluaran='.$id,[
                 'headers' => [
                     'Content-Type' => 'application/json',
                     'Accept'     => 'application/json'
                 ],
                 'json' => [
-                    'nama_dana' => $request->nama_dana,
+                    'jenis_pengeluaran' => $request->jenis_pengeluaran,
                 ]
             ]
         );
-        $jen = json_decode($resp->getBody());
-        if ($jen->message_id == '00'){
-            return redirect(route('admin.sumber_dana.index'))->with('alert', 'Data Berhasil Di Edit');
+        $jenispengeluaran = json_decode($resp->getBody());
+        if ($jenispengeluaran->message_id == '00'){
+            return redirect(route('admin.jenis_pengeluaran.index'))->with('alert', 'Data Berhasil Di Edit');
         }
         else {
-            return redirect(route('admin.sumber_dana.index'))->with('alert-failed', 'Data Gagal Di Edit');
+            return redirect(route('admin.jenis_pengeluaran.index'))->with('alert-failed', 'Data Gagal Di Edit');
         }
     }
 
     public function destroy($id){
         $client = new Client(['base_uri' => env('API_HOST')]);
-        $resp = $client->request('DELETE', 'dana/jen/hapus/'.$id);
-        return redirect(route('admin.sumber_dana.index'))->with('alert', 'Data Terhapus');
+        $resp = $client->request('DELETE', 'dana/jenispengeluaran/hapus/'.$id);
+        return redirect(route('admin.jenis_pengeluaran.index'))->with('alert', 'Data Terhapus');
     }
 }

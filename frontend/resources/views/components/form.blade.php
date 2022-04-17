@@ -1,4 +1,4 @@
-<form method="{{ $method }}" action="{{ $action }}" class="d-inline">
+<form method="{{ $method }}" action="{{ $action }}" enctype="{{ $enctype }}" class="d-inline">
     @csrf
     @method($method ?? '')
     {{ $slot }}

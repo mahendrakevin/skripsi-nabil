@@ -202,7 +202,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\AdminCon
     Route::group(['prefix' => 'alokasi-dana'], function () {
         Route::get('/', 'AlokasiDanaController@index')->name('admin.alokasi_dana.index')->middleware('admin');
 
-        Route::get('/dana-masuk/{id_danamasuk}', 'AlokasiDanaController@show_masuk')->name('admin.alokasi_dana.show_masuk')->middleware('admin');
+        // Route::get('/dana-masuk/{id_danamasuk}', 'AlokasiDanaController@show_masuk')->name('admin.alokasi_dana.show_masuk')->middleware('admin');
         Route::post('/dana-masuk/add', 'AlokasiDanaController@create_masuk')->name('admin.alokasi_dana.create_masuk')->middleware('admin');
         Route::get('/dana-masuk/edit/{id_danamasuk}', 'AlokasiDanaController@edit_masuk')->name('admin.alokasi_dana.edit_masuk')->middleware('admin');
         Route::post('/dana-masuk/delete', 'AlokasiDanaController@delete_masuk')->name('admin.alokasi_dana.delete_masuk')->middleware('admin');
@@ -210,7 +210,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\AdminCon
         Route::get('/dana-masuk/update/{id_danamasuk}', 'AlokasiDanaController@update_masuk')->name('admin.alokasi_dana.update_masuk')->middleware('admin');
         Route::get('/dana-masuk/hapus/{id_danamasuk}', 'AlokasiDanaController@destroy_masuk')->name('admin.alokasi_dana.destroy_masuk')->middleware('admin');
 
-        Route::get('/dana-keluar/{id_danakeluar}', 'AlokasiDanaController@show_keluar')->name('admin.alokasi_dana.show_keluar')->middleware('admin');
+        // Route::get('/dana-keluar/{id_danakeluar}', 'AlokasiDanaController@show_keluar')->name('admin.alokasi_dana.show_keluar')->middleware('admin');
         Route::post('/dana-keluar/add', 'AlokasiDanaController@create_keluar')->name('admin.alokasi_dana.create_keluar')->middleware('admin');
         Route::get('/dana-keluar/edit/{id_danakeluar}', 'AlokasiDanaController@edit_keluar')->name('admin.alokasi_dana.edit_keluar')->middleware('admin');
         Route::post('/dana-keluar/delete', 'AlokasiDanaController@delete_keluar')->name('admin.alokasi_dana.delete_keluar')->middleware('admin');
@@ -248,17 +248,23 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\AdminCon
         Route::get('/', 'ArsipSuratController@index')->name('admin.arsip_surat.index')->middleware('admin');
         Route::get('/{id_arsipsurat}', 'ArsipSuratController@show')->name('admin.arsip_surat.show')->middleware('admin');
         Route::post('/add', 'ArsipSuratController@create')->name('admin.arsip_surat.create')->middleware('admin');
-        Route::post('/edit', 'ArsipSuratController@edit')->name('admin.arsip_surat.edit')->middleware('admin');
+        Route::get('/edit/{id_arsipsurat}', 'ArsipSuratController@edit')->name('admin.arsip_surat.edit')->middleware('admin');
         Route::post('/delete', 'ArsipSuratController@delete')->name('admin.arsip_surat.delete')->middleware('admin');
+        Route::post('/', 'ArsipSuratController@store')->name('admin.arsip_surat.store')->middleware('admin');
+        Route::get('/update/{id_arsipsurat}', 'ArsipSuratController@update')->name('admin.arsip_surat.update')->middleware('admin');
+        Route::get('/hapus/{id_arsipsurat}', 'ArsipSuratController@destroy')->name('admin.arsip_surat.destroy')->middleware('admin');
     });
 
     // User
     Route::group(['prefix' => 'user'], function () {
-        Route::get('/', 'UserController@index')->name('admin.user.index')->middleware('admin');
-        Route::get('/{id_user}', 'UserController@show')->name('admin.user.show')->middleware('admin');
-        Route::post('/add', 'UserController@create')->name('admin.user.create')->middleware('admin');
-        Route::post('/edit', 'UserController@edit')->name('admin.user.edit')->middleware('admin');
-        Route::post('/delete', 'UserController@delete')->name('admin.user.delete')->middleware('admin');
+        Route::get('/', 'UserController@index')->name('admin.users.index')->middleware('admin');
+        Route::get('/{id_user}', 'UserController@show')->name('admin.users.show')->middleware('admin');
+        Route::post('/add', 'UserController@create')->name('admin.users.create')->middleware('admin');
+        Route::get('/edit/{id_user}', 'UserController@edit')->name('admin.users.edit')->middleware('admin');
+        Route::post('/delete', 'UserController@delete')->name('admin.users.delete')->middleware('admin');
+        Route::post('/', 'UserController@store')->name('admin.users.store')->middleware('admin');
+        Route::get('/update/{id_user}', 'UserController@update')->name('admin.users.update')->middleware('admin');
+        Route::get('/hapus/{id_user}', 'UserController@destroy')->name('admin.users.destroy')->middleware('admin');
     });
 });
 

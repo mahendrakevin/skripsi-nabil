@@ -255,7 +255,7 @@ return [
         ],
         [
             'text'        => 'Master User',
-            'route'         => 'admin.user.index',
+            'route'         => 'admin.users.index',
             'icon'        => 'far fa-fw fa-user',
             'label_color' => 'success',
             'can'         => 'admin'

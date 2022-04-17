@@ -1,14 +1,10 @@
 @section('plugins.Select2', true)
-<x-app-layout title="Tambah Kelas">
-    <x-form method="GET" action="{{ route('admin.kelas.update', $kelas->id) }}">
-        <x-adminlte-card theme="info" theme-mode="info" title="Isi Data Kelas">
+<x-app-layout title="Edit Jenis Pengeluaran">
+    <x-form method="GET" action="{{ route('admin.jenis_pengeluaran.update', $jenispengeluaran->id) }}">
+        <x-adminlte-card theme="info" theme-mode="info" title="Edit Jenis Pengeluaran">
             <div class="row">
-                <x-adminlte-input name="nama_kelas" label="Nama Kelas" placeholder="Kelas A"
-                                  fgroup-class="col-md-4" value="{{ $kelas->nama_kelas }}" type="text" required/>
-            </div>
-            <div class="row">
-                <x-adminlte-input name="kapasitas_kelas" label="Kapasitas Kelas" placeholder="40"
-                                  fgroup-class="col-md-4" value="{{ $kelas->kapasitas_kelas }}" type="number" required/>
+                <x-adminlte-input name="jenis_pengeluaran" label="Jenis Pengeluaran" value="{{ $jenispengeluaran->jenis_pengeluaran }}" placeholder="Alat Tulis"
+                                  fgroup-class="col-md-4" type="text" required/>
             </div>
         </x-adminlte-card>
         <x-adminlte-button class="btn-flat" type="submit" label="Submit" theme="success" icon="fas fa-lg fa-save"/>

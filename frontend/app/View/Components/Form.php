@@ -8,6 +8,7 @@ class Form extends Component
 {
     public $method;
     public $action;
+    public $enctype;
     /**
      * Create a new component instance.
      *
@@ -15,11 +16,13 @@ class Form extends Component
      */
     public function __construct(
         string $method = '',
-        string $action = ''
+        string $action = '',
+        string $enctype = ''
     )
     {
         $this->method = $method;
         $this->action = $action;
+        $this->enctype = $enctype;
     }
 
     /**
