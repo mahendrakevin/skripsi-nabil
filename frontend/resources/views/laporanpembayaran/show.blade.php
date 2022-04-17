@@ -1,7 +1,7 @@
 @section('plugins.Select2', true)
-<x-app-layout title="Data Siswa {{ $siswa->nama_siswa }}">
-
-        <x-adminlte-card theme="lime" theme-mode="outline" title="Detail Biodata Siswa">
+<x-app-layout title="Edit Siswa {{ $siswa->nama_siswa }}">
+    <x-form method="GET" action="{{ route('admin.siswa.update', $siswa->id) }}">
+        <x-adminlte-card theme="lime" theme-mode="outline" title="Isi Data Siswa">
             <div class="row">
                 <x-adminlte-input name="nisn" label="Nomor Induk Siswa Nasional" placeholder="1277471818"
                                   fgroup-class="col-md-3" type="number" value="{{ $siswa->nisn }}" readonly/>
@@ -67,25 +67,8 @@
             </div>
         </x-adminlte-card>
         <div class="row">
-            <div class="col-md-12">
-                <x-adminlte-card theme="lime" theme-mode="outline" title="Laporan Pembayaran {{ $siswa->nama_siswa }}">
-                    <x-submit-button method="POST" action="{{route('admin.laporan_pembayaran.create')}}"
-                                     theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
-                    <x-adminlte-datatable id="datasiswa" :heads="$heads" :config="$config" with-buttons striped hoverable with-footer beautify>
-                        @foreach($config['data'] as $row)
-                            <tr>
-                                @foreach($row as $cell)
-                                    <td> {!!  $cell !!}</td>
-                                @endforeach
-                            </tr>
-                        @endforeach
-                    </x-adminlte-datatable>
-                </x-adminlte-card>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-md-6">
-                <x-adminlte-card theme="lightblue" theme-mode="outline" title="Biodata Diri Ayah">
+                <x-adminlte-card theme="lightblue" theme-mode="outline" title="Isi Data Ayah">
                     <div class="row">
                         <x-adminlte-input name="nama_ayah" label="Nama Wali" placeholder="Alfa"
                                           fgroup-class="col-md-8" value="{{ $walisiswa->nama_ayah }}"  readonly/>
@@ -145,7 +128,7 @@
                 </x-adminlte-card>
             </div>
             <div class="col-md-6">
-                <x-adminlte-card theme="lightblue" theme-mode="outline" title="Biodata Diri Ibu">
+                <x-adminlte-card theme="lightblue" theme-mode="outline" title="Isi Data Ibu">
                     <div class="row">
                         <x-adminlte-input name="nama_ibu" label="Nama Wali" placeholder="Alfa"
                                           fgroup-class="col-md-8" value="{{ $walisiswa->nama_ibu }}" readonly/>
@@ -197,4 +180,5 @@
                 </x-adminlte-card>
             </div>
         </div>
+    </x-form>
 </x-app-layout>

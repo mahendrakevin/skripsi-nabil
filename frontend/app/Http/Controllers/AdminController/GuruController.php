@@ -288,7 +288,7 @@ class GuruController extends Controller
                 $config = [
                     'data' => $subjectdata,
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, ['orderable' => false]],
+                    'columns' => [null, null, null, null, null, null, null, null, ['orderable' => false]],
                     'paging' => true,
                     'lengthMenu' => [10, 50, 100, 500]
                 ];
@@ -308,7 +308,7 @@ class GuruController extends Controller
                 $config = [
                     'data' => [],
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, ['orderable' => false]],
+                    'columns' => [null, null, null, null, null, null, null, null, ['orderable' => false]],
                     'paging' => true,
                     'lengthMenu' => [10, 50, 100, 500]
                 ];

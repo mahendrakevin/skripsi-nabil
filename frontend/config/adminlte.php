@@ -358,16 +358,9 @@ return [
         ],
         ['header' => 'Alokasi Dana', 'can'=> 'admin'],
         [
-            'text'        => 'Dana Masuk',
-            'route'         => 'admin.dana_masuk.index',
+            'text'        => 'Pengelolaan Dana',
+            'route'         => 'admin.alokasi_dana.index',
             'icon'        => 'far fas fa-hand-holding-usd',
-            'label_color' => 'success',
-            'can'         => 'admin'
-        ],
-        [
-            'text'        => 'Dana Keluar',
-            'route'         => 'admin.dana_keluar.index',
-            'icon'        => 'far fas fa-file-invoice-dollar',
             'label_color' => 'success',
             'can'         => 'admin'
         ],
