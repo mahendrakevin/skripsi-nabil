@@ -3,7 +3,7 @@ from typing import Optional, List
 from pydantic.fields import Field
 
 class PembayaranSiswa(BaseModel):
-    id_pendaftaran: Optional[StrictInt]
+    id_siswa: Optional[StrictInt]
     nominal_pembayaran: Optional[StrictInt]
     status_pembayaran: Optional[str]
-    id_jenis_pembayaran: Optional[StrictInt]
+    id_jenispembayaran: Optional[StrictInt]

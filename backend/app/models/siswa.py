@@ -31,6 +31,7 @@ class StatusPembayaran(Base):
     __tablename__ = "status_pembayaran"
     id = Column(BigInteger, primary_key=True)
     id_siswa = Column(BigInteger, ForeignKey("data_siswa.id", ondelete="CASCADE"))
+    id_jenispembayaran = Column(BigInteger, ForeignKey("jenis_pembayaran.id", ondelete="CASCADE"))
     nominal_pembayaran = Column(BigInteger)
     status_pembayaran = Column(String(20))
     created = Column(DateTime, server_default=func.now())

@@ -17,7 +17,7 @@ async def list_danamasuk(db_session: AsyncSession = Depends(get_async_session), 
     result = await dana_crud.get_list_danamasuk(db_session=db_session, page=page, show=show)
     return result
 
-@router.get("/masuk/{id_dana}")
+@router.get("/masuk/{id_danamasuk}")
 async def detail_danamasuk(id_danamasuk: int, db_session: AsyncSession = Depends(get_async_session)):
     response = {"status": "Success", "message_id": "00"}
     resp = await dana_crud.get_detail_danamasuk(db_session=db_session, id_danamasuk=id_danamasuk)
@@ -52,7 +52,7 @@ async def list_danakeluar(db_session: AsyncSession = Depends(get_async_session),
     result = await dana_crud.get_list_danakeluar(db_session=db_session, page=page, show=show)
     return result
 
-@router.get("/keluar/{id_dana}")
+@router.get("/keluar/{id_danakeluar}")
 async def detail_danakeluar(id_danakeluar: int, db_session: AsyncSession = Depends(get_async_session)):
     response = {"status": "Success", "message_id": "00"}
     resp = await dana_crud.get_detail_danakeluar(db_session=db_session, id_danakeluar=id_danakeluar)
@@ -87,7 +87,7 @@ async def list_sumberdana(db_session: AsyncSession = Depends(get_async_session),
     result = await dana_crud.get_list_sumberdana(db_session=db_session, page=page, show=show)
     return result
 
-@router.get("/sumberdana/{id_dana}")
+@router.get("/sumberdana/{id_sumberdana}")
 async def detail_sumberdana(id_sumberdana: int, db_session: AsyncSession = Depends(get_async_session)):
     response = {"status": "Success", "message_id": "00"}
     resp = await dana_crud.get_detail_sumberdana(db_session=db_session, id_sumberdana=id_sumberdana)
@@ -122,7 +122,7 @@ async def list_jenispengeluaran(db_session: AsyncSession = Depends(get_async_ses
     result = await dana_crud.get_list_jenispengeluaran(db_session=db_session, page=page, show=show)
     return result
 
-@router.get("/jenispengeluaran/{id_dana}")
+@router.get("/jenispengeluaran/{id_jenispengeluaran}")
 async def detail_jenispengeluaran(id_jenispengeluaran: int, db_session: AsyncSession = Depends(get_async_session)):
     response = {"status": "Success", "message_id": "00"}
     resp = await dana_crud.get_detail_jenispengeluaran(db_session=db_session, id_jenispengeluaran=id_jenispengeluaran)
