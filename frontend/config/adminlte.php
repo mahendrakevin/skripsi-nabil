@@ -394,16 +394,9 @@ return [
             'can'         => 'bendahara'
         ],
         [
-            'text'        => 'Dana Masuk',
-            'route'         => 'bendahara.dana_masuk.index',
+            'text'        => 'Pengelolaan Dana',
+            'route'         => 'bendahara.alokasi_dana.index',
             'icon'        => 'far fas fa-hand-holding-usd',
-            'label_color' => 'success',
-            'can'         => 'bendahara'
-        ],
-        [
-            'text'        => 'Dana Keluar',
-            'route'         => 'bendahara.dana_keluar.index',
-            'icon'        => 'far fas fa-file-invoice-dollar',
             'label_color' => 'success',
             'can'         => 'bendahara'
         ],
@@ -423,6 +416,11 @@ return [
         ],
         // Kepala Sekolah
         [
+            'text' => 'blog',
+            'url'  => 'kepsek/blog',
+            'can'  => 'manage-blog',
+        ],
+        [
             'text'        => 'Dashboard',
             'route'         => 'kepsek.dashboard.index',
             'icon'        => 'far fas fa-home',
@@ -430,9 +428,127 @@ return [
             'can'         => 'kepsek'
         ],
         [
-            'text'        => 'Dana Masuk',
-            'route'         => 'kepsek.dana_masuk.index',
+            'text'        => 'Master User',
+            'route'         => 'kepsek.users.index',
+            'icon'        => 'far fa-fw fa-user',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
+        ['header' => 'Master Siswa', 'can'=> 'kepsek'],
+        [
+            'text'        => 'Data Siswa',
+            'route'         => 'kepsek.siswa.index',
+            'icon'        => 'far fas fa-user-graduate',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
+//        [
+//            'text'        => 'Pendaftaran Siswa',
+//            'route'         => 'kepsek.pendaftaran.index',
+//            'icon'        => 'far fas fa-chevron-right',
+//            'label_color' => 'success',
+//            'can'         => 'kepsek'
+//        ],
+        ['header' => 'Informasi Lembaga', 'can'=> 'kepsek'],
+        [
+            'text'        => 'Data Lembaga',
+            'route'         => 'kepsek.lembaga.index',
+            'icon'        => 'far fas fa-school',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
+        [
+            'text'        => 'Sarana Prasarana',
+            'route'         => 'kepsek.sarpras.index',
+            'icon'        => 'far fas fa-route',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
+        [
+            'text'        => 'Surat Keterangan',
+            'route'         => 'kepsek.surat_keterangan.index',
+            'icon'        => 'far fas fa-envelope',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
+        ['header' => 'Master Guru', 'can'=> 'kepsek'],
+        [
+            'text'        => 'Data Guru',
+            'route'         => 'kepsek.guru.index',
+            'icon'        => 'far fas fa-chalkboard-teacher',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
+        [
+            'text'        => 'SK Guru',
+            'route'         => 'kepsek.kepegawaian.index',
+            'icon'        => 'far fas fa-briefcase',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
+        [
+            'text'        => 'Data Jabatan',
+            'route'         => 'kepsek.jabatan.index',
+            'icon'        => 'far fas fa-star',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
+        ['header' => 'Master Wali Siswa & Pembayaran', 'can'=> 'kepsek'],
+//        [
+//            'text'        => 'Data Wali',
+//            'route'         => 'kepsek.wali.index',
+//            'icon'        => 'far fas fa-user-friends',
+//            'label_color' => 'success',
+//            'can'         => 'kepsek'
+//        ],
+        [
+            'text'        => 'Jenis Wali',
+            'route'         => 'kepsek.jeniswali.index',
+            'icon'        => 'far fas fa-users-cog',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
+        [
+            'text'        => 'Data Laporan Pembayaran',
+            'route'         => 'kepsek.laporan_pembayaran.index',
+            'icon'        => 'far fas fa-money-bill-wave-alt',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
+        [
+            'text'        => 'Data Jenis Pembayaran',
+            'route'         => 'kepsek.jenispembayaran.index',
+            'icon'        => 'far fas fa-money-bill-wave-alt',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
+        ['header' => 'Master Kelas', 'can'=> 'kepsek'],
+        [
+            'text'        => 'Data Kelas',
+            'route'         => 'kepsek.kelas.index',
+            'icon'        => 'far fas fa-fan',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
+        ['header' => 'Alokasi Dana', 'can'=> 'kepsek'],
+        [
+            'text'        => 'Pengelolaan Dana',
+            'route'         => 'kepsek.alokasi_dana.index',
             'icon'        => 'far fas fa-hand-holding-usd',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
+        [
+            'text'        => 'Sumber Dana',
+            'route'         => 'kepsek.sumber_dana.index',
+            'icon'        => 'far fas fa-coins',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
+        [
+            'text'        => 'Jenis Pengeluaran',
+            'route'         => 'kepsek.jenis_pengeluaran.index',
+            'icon'        => 'far fas fa-comment-dollar',
             'label_color' => 'success',
             'can'         => 'kepsek'
         ],

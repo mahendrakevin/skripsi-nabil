@@ -270,51 +270,135 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\AdminCon
 
 Route::group(['prefix' => 'kepsek', 'namespace' => 'App\Http\Controllers\KepsekController'], function () {
     Route::get('/', 'KepsekDashboardController@index')->name('kepsek.dashboard.index')->middleware('kepsek');
-    Route::group(['prefix' => 'alokasidana-masuk'], function () {
-        Route::get('/', 'DanaMasukController@index')->name('kepsek.dana_masuk.index')->middleware('kepsek');
-        Route::get('/{id_danamasuk}', 'DanaMasukController@show')->name('kepsek.dana_masuk.show')->middleware('kepsek');
-        Route::post('/add', 'DanaMasukController@create')->name('kepsek.dana_masuk.create')->middleware('kepsek');
-        Route::post('/edit', 'DanaMasukController@edit')->name('kepsek.dana_masuk.edit')->middleware('kepsek');
-        Route::post('/delete', 'DanaMasukController@delete')->name('kepsek.dana_masuk.delete')->middleware('kepsek');
+    // Siswa
+    Route::group(['prefix' => 'siswa'], function () {
+        Route::get('/', 'SiswaController@index')->name('kepsek.siswa.index')->middleware('kepsek');
+        Route::get('/{id_siswa}', 'SiswaController@show')->name('kepsek.siswa.show')->middleware('kepsek');
     });
 
-    // Dana Keluar
-    Route::group(['prefix' => 'alokasidana-keluar'], function () {
-        Route::get('/', 'DanaKeluarController@index')->name('kepsek.dana_keluar.index')->middleware('kepsek');
-        Route::get('/{id_danakeluar}', 'DanaKeluarController@show')->name('kepsek.dana_keluar.show')->middleware('kepsek');
-        Route::post('/add', 'DanaKeluarController@create')->name('kepsek.dana_keluar.create')->middleware('kepsek');
-        Route::post('/edit', 'DanaKeluarController@edit')->name('kepsek.dana_keluar.edit')->middleware('kepsek');
-        Route::post('/delete', 'DanaKeluarController@delete')->name('kepsek.dana_keluar.delete')->middleware('kepsek');
+    // Guru
+    Route::group(['prefix' => 'guru'], function () {
+        Route::get('/', 'GuruController@index')->name('kepsek.guru.index')->middleware('kepsek');
+        Route::get('/{id_guru}', 'GuruController@show')->name('kepsek.guru.show')->middleware('kepsek');
+    });
+
+    // Kepegawaian
+    Route::group(['prefix' => 'kepegawaian'], function () {
+        Route::get('/', 'KepegawaianController@index')->name('kepsek.kepegawaian.index')->middleware('kepsek');
+        Route::get('/{id_guru}', 'KepegawaianController@show')->name('kepsek.kepegawaian.show')->middleware('kepsek');
+    });
+
+    // Jabatan
+    Route::group(['prefix' => 'jabatan'], function () {
+        Route::get('/', 'JabatanController@index')->name('kepsek.jabatan.index')->middleware('kepsek');
+        Route::get('/{id_jabatan}', 'JabatanController@show')->name('kepsek.jabatan.show')->middleware('kepsek');
+
+    });
+
+    // Wali Siswa
+    Route::group(['prefix' => 'wali'], function () {
+        Route::get('/', 'WaliSiswaController@index')->name('kepsek.wali.index')->middleware('kepsek');
+        Route::get('/{id_walisiswa}', 'WaliSiswaController@show')->name('kepsek.wali.show')->middleware('kepsek');
+        Route::post('/add', 'WaliSiswaController@create')->name('kepsek.wali.create')->middleware('kepsek');
+        Route::post('/edit', 'WaliSiswaController@edit')->name('kepsek.wali.edit')->middleware('kepsek');
+        Route::post('/delete', 'WaliSiswaController@delete')->name('kepsek.wali.delete')->middleware('kepsek');
+    });
+
+    // Jenis Wali
+    Route::group(['prefix' => 'jeniswali'], function () {
+        Route::get('/', 'JenisWaliController@index')->name('kepsek.jeniswali.index')->middleware('kepsek');
+        Route::get('/{id_jeniswali}', 'JenisWaliController@show')->name('kepsek.jeniswali.show')->middleware('kepsek');
+    });
+
+    // Laporan Pembayaran
+    Route::group(['prefix' => 'laporan-pembayaran'], function () {
+        Route::get('/', 'LaporanPembayaranController@index')->name('kepsek.laporan_pembayaran.index')->middleware('kepsek');
+        Route::get('/{id_laporanpembayaran}', 'LaporanPembayaranController@show')->name('kepsek.laporan_pembayaran.show')->middleware('kepsek');
+    });
+
+    // Jenis Pembayaran
+    Route::group(['prefix' => 'jenis-pembayaran'], function () {
+        Route::get('/', 'JenisPembayaranController@index')->name('kepsek.jenispembayaran.index')->middleware('kepsek');
+        Route::get('/{id_jenispembayaran}', 'JenisPembayaranController@show')->name('kepsek.jenispembayaran.show')->middleware('kepsek');
+    });
+
+    // Kelas
+    Route::group(['prefix' => 'kelas'], function () {
+        Route::get('/', 'KelasController@index')->name('kepsek.kelas.index')->middleware('kepsek');
+        Route::get('/{id_kelas}', 'KelasController@show')->name('kepsek.kelas.show')->middleware('kepsek');
+    });
+
+    // Lembaga
+    Route::group(['prefix' => 'lembaga'], function () {
+        Route::get('/', 'LembagaController@index')->name('kepsek.lembaga.index')->middleware('kepsek');
+        Route::get('/{id_lembaga}', 'LembagaController@show')->name('kepsek.lembaga.show')->middleware('kepsek');
+    });
+
+    // Sarana Prasarana
+    Route::group(['prefix' => 'sarpras'], function () {
+        Route::get('/', 'SarprasController@index')->name('kepsek.sarpras.index')->middleware('kepsek');
+        Route::get('/{id_sarpras}', 'SarprasController@show')->name('kepsek.sarpras.show')->middleware('kepsek');
+    });
+
+    // Surat Keterangan
+    Route::group(['prefix' => 'surat-keterangan'], function () {
+        Route::get('/', 'SuratKeteranganController@index')->name('kepsek.surat_keterangan.index')->middleware('kepsek');
+        Route::get('/{id_suratketerangan}', 'SuratKeteranganController@show')->name('kepsek.surat_keterangan.show')->middleware('kepsek');
+    });
+
+
+    // Alokasi Dana
+    Route::group(['prefix' => 'alokasi-dana'], function () {
+        Route::get('/', 'AlokasiDanaController@index')->name('kepsek.alokasi_dana.index')->middleware('kepsek');
+    });
+
+    // Sumber Dana
+    Route::group(['prefix' => 'sumber-alokasidana'], function () {
+        Route::get('/', 'SumberDanaController@index')->name('kepsek.sumber_dana.index')->middleware('kepsek');
+        Route::get('/{id_sumberdana}', 'SumberDanaController@show')->name('kepsek.sumber_dana.show')->middleware('kepsek');
+    });
+
+    // Jenis Pengeluaran
+    Route::group(['prefix' => 'jenis-pengeluaran'], function () {
+        Route::get('/', 'JenisPengeluaranController@index')->name('kepsek.jenis_pengeluaran.index')->middleware('kepsek');
+        Route::get('/{id_jenispengeluaran}', 'JenisPengeluaranController@show')->name('kepsek.jenis_pengeluaran.show')->middleware('kepsek');
     });
 
     // Arsip Surat
     Route::group(['prefix' => 'arsip-surat'], function () {
         Route::get('/', 'ArsipSuratController@index')->name('kepsek.arsip_surat.index')->middleware('kepsek');
         Route::get('/{id_arsipsurat}', 'ArsipSuratController@show')->name('kepsek.arsip_surat.show')->middleware('kepsek');
-        Route::post('/add', 'ArsipSuratController@create')->name('kepsek.arsip_surat.create')->middleware('kepsek');
-        Route::post('/edit', 'ArsipSuratController@edit')->name('kepsek.arsip_surat.edit')->middleware('kepsek');
-        Route::post('/delete', 'ArsipSuratController@delete')->name('kepsek.arsip_surat.delete')->middleware('kepsek');
+    });
+
+    // User
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('/', 'UserController@index')->name('kepsek.users.index')->middleware('kepsek');
+        Route::get('/{id_user}', 'UserController@show')->name('kepsek.users.show')->middleware('kepsek');
     });
 });
 
 Route::group(['prefix' => 'bendahara', 'namespace' => 'App\Http\Controllers\BendaharaController'], function () {
     Route::get('/', 'BendaharaDashboardController@index')->name('bendahara.dashboard.index')->middleware('bendahara');
     // Dana Masuk
-    Route::group(['prefix' => 'alokasidana-masuk'], function () {
-        Route::get('/', 'DanaMasukController@index')->name('bendahara.dana_masuk.index')->middleware('bendahara');
-        Route::get('/{id_danamasuk}', 'DanaMasukController@show')->name('bendahara.dana_masuk.show')->middleware('bendahara');
-        Route::post('/add', 'DanaMasukController@create')->name('bendahara.dana_masuk.create')->middleware('bendahara');
-        Route::post('/edit', 'DanaMasukController@edit')->name('bendahara.dana_masuk.edit')->middleware('bendahara');
-        Route::post('/delete', 'DanaMasukController@delete')->name('bendahara.dana_masuk.delete')->middleware('bendahara');
-    });
+    // Alokasi Dana
+    Route::group(['prefix' => 'alokasi-dana'], function () {
+        Route::get('/', 'AlokasiDanaController@index')->name('bendahara.alokasi_dana.index')->middleware('bendahara');
 
-    // Dana Keluar
-    Route::group(['prefix' => 'alokasidana-keluar'], function () {
-        Route::get('/', 'DanaKeluarController@index')->name('bendahara.dana_keluar.index')->middleware('bendahara');
-        Route::get('/{id_danakeluar}', 'DanaKeluarController@show')->name('bendahara.dana_keluar.show')->middleware('bendahara');
-        Route::post('/add', 'DanaKeluarController@create')->name('bendahara.dana_keluar.create')->middleware('bendahara');
-        Route::post('/edit', 'DanaKeluarController@edit')->name('bendahara.dana_keluar.edit')->middleware('bendahara');
-        Route::post('/delete', 'DanaKeluarController@delete')->name('bendahara.dana_keluar.delete')->middleware('bendahara');
+        // Route::get('/dana-masuk/{id_danamasuk}', 'AlokasiDanaController@show_masuk')->name('admin.alokasi_dana.show_masuk')->middleware('admin');
+        Route::post('/dana-masuk/add', 'AlokasiDanaController@create_masuk')->name('bendahara.alokasi_dana.create_masuk')->middleware('bendahara');
+        Route::get('/dana-masuk/edit/{id_danamasuk}', 'AlokasiDanaController@edit_masuk')->name('bendahara.alokasi_dana.edit_masuk')->middleware('bendahara');
+        Route::post('/dana-masuk/delete', 'AlokasiDanaController@delete_masuk')->name('bendahara.alokasi_dana.delete_masuk')->middleware('bendahara');
+        Route::post('/dana-masuk/', 'AlokasiDanaController@store_masuk')->name('bendahara.alokasi_dana.store_masuk')->middleware('bendahara');
+        Route::get('/dana-masuk/update/{id_danamasuk}', 'AlokasiDanaController@update_masuk')->name('bendahara.alokasi_dana.update_masuk')->middleware('bendahara');
+        Route::get('/dana-masuk/hapus/{id_danamasuk}', 'AlokasiDanaController@destroy_masuk')->name('bendahara.alokasi_dana.destroy_masuk')->middleware('bendahara');
+
+        // Route::get('/dana-keluar/{id_danakeluar}', 'AlokasiDanaController@show_keluar')->name('bendahara.alokasi_dana.show_keluar')->middleware('bendahara');
+        Route::post('/dana-keluar/add', 'AlokasiDanaController@create_keluar')->name('bendahara.alokasi_dana.create_keluar')->middleware('bendahara');
+        Route::get('/dana-keluar/edit/{id_danakeluar}', 'AlokasiDanaController@edit_keluar')->name('bendahara.alokasi_dana.edit_keluar')->middleware('bendahara');
+        Route::post('/dana-keluar/delete', 'AlokasiDanaController@delete_keluar')->name('bendahara.alokasi_dana.delete_keluar')->middleware('bendahara');
+        Route::post('/dana-keluar/', 'AlokasiDanaController@store_keluar')->name('bendahara.alokasi_dana.store_keluar')->middleware('bendahara');
+        Route::get('/dana-keluar/update/{id_danakeluar}', 'AlokasiDanaController@update_keluar')->name('bendahara.alokasi_dana.update_keluar')->middleware('bendahara');
+        Route::get('/dana-keluar/hapus/{id_danakeluar}', 'AlokasiDanaController@destroy_keluar')->name('bendahara.alokasi_dana.destroy_keluar')->middleware('bendahara');
     });
 
     // Sumber Dana
@@ -322,17 +406,23 @@ Route::group(['prefix' => 'bendahara', 'namespace' => 'App\Http\Controllers\Bend
         Route::get('/', 'SumberDanaController@index')->name('bendahara.sumber_dana.index')->middleware('bendahara');
         Route::get('/{id_sumberdana}', 'SumberDanaController@show')->name('bendahara.sumber_dana.show')->middleware('bendahara');
         Route::post('/add', 'SumberDanaController@create')->name('bendahara.sumber_dana.create')->middleware('bendahara');
-        Route::post('/edit', 'SumberDanaController@edit')->name('bendahara.sumber_dana.edit')->middleware('bendahara');
+        Route::get('/edit/{id_sumberdana}', 'SumberDanaController@edit')->name('bendahara.sumber_dana.edit')->middleware('bendahara');
         Route::post('/delete', 'SumberDanaController@delete')->name('bendahara.sumber_dana.delete')->middleware('bendahara');
+        Route::post('/', 'SumberDanaController@store')->name('bendahara.sumber_dana.store')->middleware('bendahara');
+        Route::get('/update/{id_sumberdana}', 'SumberDanaController@update')->name('bendahara.sumber_dana.update')->middleware('bendahara');
+        Route::get('/hapus/{id_sumberdana}', 'SumberDanaController@destroy')->name('bendahara.sumber_dana.destroy')->middleware('bendahara');
     });
 
     // Jenis Pengeluaran
     Route::group(['prefix' => 'jenis-pengeluaran'], function () {
-        Route::get('/', 'JenisPengeluaran@index')->name('bendahara.jenis_pengeluaran.index')->middleware('bendahara');
-        Route::get('/{id_jenispengeluaran}', 'JenisPengeluaran@show')->name('bendahara.jenis_pengeluaran.show')->middleware('bendahara');
-        Route::post('/add', 'JenisPengeluaran@create')->name('bendahara.jenis_pengeluaran.create')->middleware('bendahara');
-        Route::post('/edit', 'JenisPengeluaran@edit')->name('bendahara.jenis_pengeluaran.edit')->middleware('bendahara');
-        Route::post('/delete', 'JenisPengeluaran@delete')->name('bendahara.jenis_pengeluaran.delete')->middleware('bendahara');
+        Route::get('/', 'JenisPengeluaranController@index')->name('bendahara.jenis_pengeluaran.index')->middleware('bendahara');
+        Route::get('/{id_jenispengeluaran}', 'JenisPengeluaranController@show')->name('bendahara.jenis_pengeluaran.show')->middleware('bendahara');
+        Route::post('/add', 'JenisPengeluaranController@create')->name('bendahara.jenis_pengeluaran.create')->middleware('bendahara');
+        Route::get('/edit/{id_jenispengeluaran}', 'JenisPengeluaranController@edit')->name('bendahara.jenis_pengeluaran.edit')->middleware('bendahara');
+        Route::post('/delete', 'JenisPengeluaranController@delete')->name('bendahara.jenis_pengeluaran.delete')->middleware('bendahara');
+        Route::post('/', 'JenisPengeluaranController@store')->name('bendahara.jenis_pengeluaran.store')->middleware('bendahara');
+        Route::get('/update/{id_jenispengeluaran}', 'JenisPengeluaranController@update')->name('bendahara.jenis_pengeluaran.update')->middleware('bendahara');
+        Route::get('/hapus/{id_jenispengeluaran}', 'JenisPengeluaranController@destroy')->name('bendahara.jenis_pengeluaran.destroy')->middleware('bendahara');
     });
 });
 
