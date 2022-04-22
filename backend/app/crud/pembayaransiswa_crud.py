@@ -13,15 +13,20 @@ from datetime import datetime
 
 logging.basicConfig(level=logging.DEBUG)
 
-async def get_list_pembayaransiswa(db_session: AsyncSession, page: int, show: int) -> dict:
+async def get_list_pembayaransiswa(db_session: AsyncSession, page: int, show: int, id_siswa: int) -> dict:
     async with db_session as session:
         try:
+            if id_siswa is not None:
+                where_siswa = 'WHERE id_siswa = {0}'.format(id_siswa)
+            else:
+                where_siswa = ''
             offset = (page - 1) * show
+
             q_dep = '''
-                SELECT * FROM status_pembayaran
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                SELECT *, to_char(created, 'DD Mon YYYY HH24:MI:SS') AS created_format FROM status_pembayaran {0}
+                limit {1}
+                offset {2}
+            '''.format(where_siswa, show, offset)
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -57,12 +62,50 @@ async def get_list_pembayaransiswa(db_session: AsyncSession, page: int, show: in
             'status': 'Gagal, Data Pembayaran Tidak Ditemukan'
         }
 
-async def get_detail_pembayaransiswa(db_session: AsyncSession, id_siswa: int) -> dict:
+async def get_detail_pembayaransiswa_id_siswa(db_session: AsyncSession, id_siswa: int) -> dict:
     async with db_session as session:
         try:
             q_dep = '''
                 SELECT * FROM status_pembayaran WHERE id_siswa = {0}
             '''.format(id_siswa)
+            proxy_rows = await session.execute(q_dep)
+            result = proxy_rows.one_or_none()
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+    # result data handling
+    if result:
+        logger.info(str(result))
+        return {
+            'message_id': '00',
+            'status': 'Succes',
+            'data':result
+        }
+    else:
+        return {
+            'message_id': '01',
+            'status': 'Gagal, Data Pembayaran Tidak Ditemukan'
+        }
+
+async def get_detail_pembayaransiswa(db_session: AsyncSession, id_laporanpembayaran: int) -> dict:
+    async with db_session as session:
+        try:
+            q_dep = '''
+                SELECT * FROM status_pembayaran WHERE id = {0}
+            '''.format(id_laporanpembayaran)
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.one_or_none()
 
@@ -102,10 +145,10 @@ async def add_pembayaransiswa(db_session: AsyncSession, request: PembayaranSiswa
             id_jenispembayaran = id_jenispembayaran.one_or_none()
             new_pembayaransiswa = {}
             new_pembayaransiswa['id'] = id_jenispembayaran.id
-            new_pembayaransiswa['id_pendaftaran'] = request.id_pendaftaran
+            new_pembayaransiswa['id_siswa'] = request.id_siswa
             new_pembayaransiswa['nominal_pembayaran'] = request.nominal_pembayaran
             new_pembayaransiswa['status_pembayaran'] = request.status_pembayaran
-            new_pembayaransiswa['id_jenis_pembayaran'] = request.id_jenis_pembayaran
+            new_pembayaransiswa['id_jenispembayaran'] = request.id_jenispembayaran
             status_pembayaran = generateQuery('status_pembayaran', new_pembayaransiswa)
             logging.debug(f'query : {status_pembayaran}')
             await session.execute(status_pembayaran)
@@ -131,23 +174,23 @@ async def add_pembayaransiswa(db_session: AsyncSession, request: PembayaranSiswa
                 'status': 'Failed, something wrong rollback DB transaction...'
             }
 
-async def edit_pembayaransiswa(db_session: AsyncSession, request: PembayaranSiswa, id_jenispembayaran: int) -> dict:
+async def edit_pembayaransiswa(db_session: AsyncSession, request: PembayaranSiswa, id_laporanpembayaran: int) -> dict:
     async with db_session as session:
         try:
-            if id_jenispembayaran is None:
+            if id_laporanpembayaran is None:
                 return {
                             'message_id': '01',
                             'status': 'Gagal, Data Tidak Ditemukan'
                         }
             else:
                 edit_pembayaransiswa = {}
-                edit_pembayaransiswa['id_pendaftaran'] = request.id_pendaftaran
+                edit_pembayaransiswa['id_siswa'] = request.id_siswa
                 edit_pembayaransiswa['nominal_pembayaran'] = request.nominal_pembayaran
                 edit_pembayaransiswa['status_pembayaran'] = request.status_pembayaran
-                edit_pembayaransiswa['id_jenis_pembayaran'] = request.id_jenis_pembayaran
+                edit_pembayaransiswa['id_jenispembayaran'] = request.id_jenispembayaran
                 status_pembayaran = '''
-                                update status_pembayaran set {0} where id_jenispembayaran = {1}
-                            '''.format(generateQueryUpdate(edit_pembayaransiswa), id_jenispembayaran)
+                                update status_pembayaran set {0} where id = {1}
+                            '''.format(generateQueryUpdate(edit_pembayaransiswa), id_laporanpembayaran)
                 await session.execute(status_pembayaran)
                 await session.commit()
                 return {
@@ -171,18 +214,53 @@ async def edit_pembayaransiswa(db_session: AsyncSession, request: PembayaranSisw
                 'status': 'Failed, something wrong rollback DB transaction...'
             }
 
-async def delete_pembayaransiswa(db_session: AsyncSession, id_jenispembayaran: int) -> dict:
+async def delete_pembayaransiswa_id_siswa(db_session: AsyncSession, id_siswa: int) -> dict:
     async with db_session as session:
         try:
-            if id_jenispembayaran is None:
+            if id_siswa is None:
                 return {
                             'message_id': '01',
                             'status': 'Gagal, Data Tidak Ditemukan'
                         }
             else:
                 delete_pembayaransiswa = '''
-                                delete from status_pembayaran where id_jenispembayaran = {0}
-                            '''.format(id_jenispembayaran)
+                                delete from status_pembayaran where id_siswa = {0}
+                            '''.format(id_siswa)
+                await session.execute(delete_pembayaransiswa)
+                await session.commit()
+                return {
+                    'message_id': '00',
+                    'status': 'Succes',
+                    'message': 'Data Pembayaran Berhasil Dihapus'
+                }
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+async def delete_pembayaransiswa(db_session: AsyncSession, id_laporanpembayaran: int) -> dict:
+    async with db_session as session:
+        try:
+            if id_laporanpembayaran is None:
+                return {
+                            'message_id': '01',
+                            'status': 'Gagal, Data Tidak Ditemukan'
+                        }
+            else:
+                delete_pembayaransiswa = '''
+                                delete from status_pembayaran where id = {0}
+                            '''.format(id_laporanpembayaran)
                 await session.execute(delete_pembayaransiswa)
                 await session.commit()
                 return {

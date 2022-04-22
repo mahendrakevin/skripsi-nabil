@@ -29,7 +29,7 @@ class WaliSiswa(Base):
     penghasilan_ibu = Column(BigInteger)
     nomor_kks_ibu = Column(BigInteger)
     nomor_pkh_ibu = Column(BigInteger)
-    id_siswa = Column(BigInteger, ForeignKey("data_wali_siswa.id", ondelete="CASCADE"))
+    id_siswa = Column(BigInteger, ForeignKey("data_siswa.id", ondelete="CASCADE"))
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
 
@@ -58,4 +58,4 @@ class JenisPembayaran(Base):
     nominal_pembayaran = Column(BigInteger)
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
-    _laporan_pembayaran = relationship("LaporanPembayaran", uselist=False, back_populates="owner")
+    _status_pembayaran = relationship("StatusPembayaran", uselist=False, back_populates="owner")
