@@ -1,4 +1,4 @@
-<x-app-layout title="Data Lembaga">
+<x-app-layout title="Dashboard">
     <div class="row">
         <div class="col-md-4">
             <x-adminlte-info-box title="Views" text="424" icon="fas fa-lg fa-eye text-dark"/>

@@ -9,8 +9,10 @@
         </x-adminlte-alert>
     @endif
     <x-adminlte-card theme="lime" theme-mode="outline">
-        <x-submit-button method="POST" action="{{route('admin.arsip_surat.create')}}"
+        @if (Auth::user()->role == '1')
+            <x-submit-button method="POST" action="{{route('admin.arsip_surat.create')}}"
                          theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
+        @endif
         <x-adminlte-datatable id="datasiswa" :heads="$heads" :config="$config" with-buttons striped hoverable with-footer beautify>
             @foreach($config['data'] as $row)
                 <tr>
