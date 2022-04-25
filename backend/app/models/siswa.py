@@ -21,7 +21,9 @@ class Siswa(Base):
     nomor_kip = Column(BigInteger)
     alamat = Column(String(200))
     nomor_kk = Column(BigInteger)
+    file_kk = Column(Text)
     id_jeniswali = Column(BigInteger, ForeignKey("data_jenis_wali.id", ondelete="CASCADE"))
+    current_state = Column(String(30))
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
     _data_siswa = relationship("Siswa", uselist=False, back_populates="owner")
@@ -34,6 +36,7 @@ class StatusPembayaran(Base):
     id_jenispembayaran = Column(BigInteger, ForeignKey("jenis_pembayaran.id", ondelete="CASCADE"))
     nominal_pembayaran = Column(BigInteger)
     status_pembayaran = Column(String(20))
+    tanggal_pembayaran = Column(Date)
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
     _laporan_pembayaran = relationship("LaporanPembayaran", uselist=False, back_populates="owner")
@@ -41,10 +44,12 @@ class StatusPembayaran(Base):
 class Kelas(Base):
     __tablename__ = "data_kelas"
     id = Column(BigInteger, primary_key=True)
-    nama_kelas = Column(String(10))
+    nama_kelas = Column(String(64))
+    tingkat = Column(String(10))
     kapasitas_kelas = Column(BigInteger)
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
+    id_wali_kelas = Column(BigInteger, ForeignKey("data_guru.id", ondelete="CASCADE"))
     _data_siswa = relationship("Siswa", uselist=False, back_populates="owner")
 
 # class PendaftaranSiswa(Base):

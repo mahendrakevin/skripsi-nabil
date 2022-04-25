@@ -15,6 +15,7 @@ class DataSiswa(BaseModel):
     nomor_kip: Optional[StrictInt] = 123456789
     alamat: Optional[str] = 'Jl Wahyurejo'
     nomor_kk: Optional[StrictInt] = 123456789
+    file_kk: Optional[str]
     id_jeniswali: Optional[StrictInt] = 2
 
 class EditDataSiswa(BaseModel):

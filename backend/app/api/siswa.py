@@ -45,6 +45,11 @@ async def hapus(id_siswa: int, db_session: AsyncSession = Depends(get_async_sess
     response.update(resp)
     return response
 
+@router.get("/alumni/")
+async def list_alumni(db_session: AsyncSession = Depends(get_async_session), page: int=1, show: int=10):
+    result = await siswa_crud.get_list_siswa_alumni(db_session=db_session, page=page, show=show)
+    return result
+
 # Pendaftaran Siswa
 
 @router.get("/pendaftaransiswa/")

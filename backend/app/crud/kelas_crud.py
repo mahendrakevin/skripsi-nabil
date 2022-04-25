@@ -116,7 +116,9 @@ async def add_kelas(db_session: AsyncSession, request: DataKelas) -> dict:
                 new_kelas = {}
                 new_kelas['id'] = id_kelas.id
                 new_kelas['nama_kelas'] = request.nama_kelas
+                new_kelas['tingkat'] = request.tingkat
                 new_kelas['kapasitas_kelas'] = request.kapasitas_kelas
+                new_kelas['id_wali_kelas'] = request.id_wali_kelas
                 data_kelas = generateQuery('data_kelas', new_kelas)
                 logging.debug(f'query : {data_kelas}')
                 await session.execute(data_kelas)
@@ -153,7 +155,9 @@ async def edit_kelas(db_session: AsyncSession, request: DataKelas, id_kelas: int
             else:
                 edit_kelas = {}
                 edit_kelas['nama_kelas'] = request.nama_kelas
+                edit_kelas['tingkat'] = request.tingkat
                 edit_kelas['kapasitas_kelas'] = request.kapasitas_kelas
+                edit_kelas['id_wali_kelas'] = request.id_wali_kelas
                 data_kelas = '''
                                 update data_kelas set {0} where id = {1}
                             '''.format(generateQueryUpdate(edit_kelas), id_kelas)

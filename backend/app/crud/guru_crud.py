@@ -127,6 +127,7 @@ async def add_guru(db_session: AsyncSession, request: DataGuru) -> dict:
                 new_guru['no_hp'] = request.no_hp
                 new_guru['email'] = request.email
                 new_guru['status_perkawinan'] = request.status_perkawinan
+                new_guru['status_pegawai'] = request.status_pegawai
                 data_guru = generateQuery('data_guru', new_guru)
                 logging.debug(f'query : {data_guru}')
                 await session.execute(data_guru)
@@ -173,6 +174,7 @@ async def edit_guru(db_session: AsyncSession, request: DataGuru, id_guru: int) -
                 edit_guru['no_hp'] = request.no_hp
                 edit_guru['email'] = request.email
                 edit_guru['status_perkawinan'] = request.status_perkawinan
+                edit_guru['status_pegawai'] = request.status_pegawai
                 data_guru = '''
                                 update data_guru set {0} where id = {1}
                             '''.format(generateQueryUpdate(edit_guru), id_guru)
@@ -374,13 +376,9 @@ async def add_kepegawaian(db_session: AsyncSession, request: DataKepegawaian) ->
             new_kepegawaian['id'] = id_kepegawaian.id
             new_kepegawaian['id_guru'] = request.id_guru
             new_kepegawaian['no_sk'] = request.no_sk
-            new_kepegawaian['no_sk_ypmnu'] = request.no_sk_ypmnu
-            new_kepegawaian['no_sk_operator'] = request.no_sk_operator
+            new_kepegawaian['kategori_sk'] = request.kategori_sk
             new_kepegawaian['tanggal'] = request.tanggal
             new_kepegawaian['id_jabatan'] = request.id_jabatan
-            new_kepegawaian['status_kepegawaian'] = request.status_kepegawaian
-            new_kepegawaian['alasan_tidak_aktif'] = request.alasan_tidak_aktif
-            new_kepegawaian['surat_mutasi'] = request.surat_mutasi
             new_kepegawaian['jumlah_ajar'] = request.jumlah_ajar
             data_kepegawaian = generateQuery('status_kepegawaian', new_kepegawaian)
             logging.debug(f'query : {data_kepegawaian}')
@@ -418,12 +416,8 @@ async def edit_kepegawaian_id_guru(db_session: AsyncSession, request: EditKepega
             else:
                 edit_kepegawaian = {}
                 edit_kepegawaian['no_sk'] = request.no_sk
-                edit_kepegawaian['no_sk_ypmnu'] = request.no_sk_ypmnu
-                edit_kepegawaian['no_sk_operator'] = request.no_sk_operator
+                edit_kepegawaian['kategori_sk'] = request.kategori_sk
                 edit_kepegawaian['id_jabatan'] = request.id_jabatan
-                edit_kepegawaian['status_kepegawaian'] = request.status_kepegawaian
-                edit_kepegawaian['alasan_tidak_aktif'] = request.alasan_tidak_aktif
-                edit_kepegawaian['surat_mutasi'] = request.surat_mutasi
                 edit_kepegawaian['jumlah_ajar'] = request.jumlah_ajar
                 data_kepegawaian = '''
                                 update status_kepegawaian set {0} where id_guru = {1}
@@ -462,12 +456,8 @@ async def edit_kepegawaian(db_session: AsyncSession, request: EditKepegawaian, i
             else:
                 edit_kepegawaian = {}
                 edit_kepegawaian['no_sk'] = request.no_sk
-                edit_kepegawaian['no_sk_ypmnu'] = request.no_sk_ypmnu
-                edit_kepegawaian['no_sk_operator'] = request.no_sk_operator
+                edit_kepegawaian['kategori_sk'] = request.kategori_sk
                 edit_kepegawaian['id_jabatan'] = request.id_jabatan
-                edit_kepegawaian['status_kepegawaian'] = request.status_kepegawaian
-                edit_kepegawaian['alasan_tidak_aktif'] = request.alasan_tidak_aktif
-                edit_kepegawaian['surat_mutasi'] = request.surat_mutasi
                 edit_kepegawaian['jumlah_ajar'] = request.jumlah_ajar
                 data_kepegawaian = '''
                                 update status_kepegawaian set {0} where id = {1}

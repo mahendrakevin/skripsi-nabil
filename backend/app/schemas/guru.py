@@ -14,17 +14,14 @@ class DataGuru(BaseModel):
     no_hp: Optional[StrictInt] = 628123456678
     email: Optional[str] = 'email@email.com'
     status_perkawinan: Optional[str] = 'Menikah'
+    status_pegawai: Optional[str] = 'Aktif'
 
 class DataKepegawaian(BaseModel):
     id_guru: Optional[StrictInt] = 1
     no_sk: Optional[str] = 123415516
-    no_sk_ypmnu: Optional[str] = 1241515
-    no_sk_operator: Optional[str] = 12545636
+    kategori_sk: Optional[str] = 'SK YPMNU'
     tanggal: Optional[str] = '2022-03-01'
     id_jabatan: Optional[StrictInt] = 1
-    status_kepegawaian: Optional[str] = 'Aktif'
-    alasan_tidak_aktif: Optional[str] = '-'
-    surat_mutasi: Optional[str] = '-'
     jumlah_ajar: Optional[str] = None
 
 class EditKepegawaian(BaseModel):

@@ -107,6 +107,8 @@ async def add_walisiswa(db_session: AsyncSession, request: WaliSiswa) -> dict:
             new_walisiswa['tempat_lahir_ayah'] = request.tempat_lahir_ayah
             new_walisiswa['tanggal_lahir_ayah'] = request.tanggal_lahir_ayah
             new_walisiswa['alamat_ayah'] = request.alamat_ayah
+            new_walisiswa['status_keluarga_ayah'] = request.status_keluarga_ayah
+            new_walisiswa['status_hidup_ayah'] = request.status_hidup_ayah
             new_walisiswa['no_hp_ayah'] = request.no_hp_ayah
             new_walisiswa['pendidikan_ayah'] = request.pendidikan_ayah
             new_walisiswa['pekerjaan_ayah'] = request.pekerjaan_ayah
@@ -117,12 +119,24 @@ async def add_walisiswa(db_session: AsyncSession, request: WaliSiswa) -> dict:
             new_walisiswa['tempat_lahir_ibu'] = request.tempat_lahir_ibu
             new_walisiswa['tanggal_lahir_ibu'] = request.tanggal_lahir_ibu
             new_walisiswa['alamat_ibu'] = request.alamat_ibu
+            new_walisiswa['status_keluarga_ibu'] = request.status_keluarga_ibu
+            new_walisiswa['status_hidup_ibu'] = request.status_hidup_ibu
             new_walisiswa['no_hp_ibu'] = request.no_hp_ibu
             new_walisiswa['pendidikan_ibu'] = request.pendidikan_ibu
             new_walisiswa['pekerjaan_ibu'] = request.pekerjaan_ibu
             new_walisiswa['penghasilan_ibu'] = request.penghasilan_ibu
             new_walisiswa['nomor_kks_ibu'] = request.nomor_kks_ibu
             new_walisiswa['nomor_pkh_ibu'] = request.nomor_pkh_ibu
+            new_walisiswa['nama_wali'] = request.nama_wali
+            new_walisiswa['tempat_lahir_wali'] = request.tempat_lahir_wali
+            new_walisiswa['tanggal_lahir_wali'] = request.tanggal_lahir_wali
+            new_walisiswa['alamat_wali'] = request.alamat_wali
+            new_walisiswa['no_hp_wali'] = request.no_hp_wali
+            new_walisiswa['pendidikan_wali'] = request.pendidikan_wali
+            new_walisiswa['pekerjaan_wali'] = request.pekerjaan_wali
+            new_walisiswa['penghasilan_wali'] = request.penghasilan_wali
+            new_walisiswa['nomor_kks_wali'] = request.nomor_kks_wali
+            new_walisiswa['nomor_pkh_wali'] = request.nomor_pkh_wali
             new_walisiswa['id_siswa'] = request.id_siswa
             data_wali_siswa = generateQuery('data_wali_siswa', new_walisiswa)
             logging.debug(f'query : {data_wali_siswa}')
@@ -164,6 +178,8 @@ async def edit_walisiswa(db_session: AsyncSession, request: WaliSiswa, id_siswa:
                 edit_walisiswa['tempat_lahir_ayah'] = request.tempat_lahir_ayah
                 edit_walisiswa['tanggal_lahir_ayah'] = request.tanggal_lahir_ayah
                 edit_walisiswa['alamat_ayah'] = request.alamat_ayah
+                edit_walisiswa['status_keluarga_ayah'] = request.status_keluarga_ayah
+                edit_walisiswa['status_hidup_ayah'] = request.status_hidup_ayah
                 edit_walisiswa['no_hp_ayah'] = request.no_hp_ayah
                 edit_walisiswa['pendidikan_ayah'] = request.pendidikan_ayah
                 edit_walisiswa['pekerjaan_ayah'] = request.pekerjaan_ayah
@@ -174,12 +190,24 @@ async def edit_walisiswa(db_session: AsyncSession, request: WaliSiswa, id_siswa:
                 edit_walisiswa['tempat_lahir_ibu'] = request.tempat_lahir_ibu
                 edit_walisiswa['tanggal_lahir_ibu'] = request.tanggal_lahir_ibu
                 edit_walisiswa['alamat_ibu'] = request.alamat_ibu
+                edit_walisiswa['status_keluarga_ibu'] = request.status_keluarga_ibu
+                edit_walisiswa['status_hidup_ibu'] = request.status_hidup_ibu
                 edit_walisiswa['no_hp_ibu'] = request.no_hp_ibu
                 edit_walisiswa['pendidikan_ibu'] = request.pendidikan_ibu
                 edit_walisiswa['pekerjaan_ibu'] = request.pekerjaan_ibu
                 edit_walisiswa['penghasilan_ibu'] = request.penghasilan_ibu
                 edit_walisiswa['nomor_kks_ibu'] = request.nomor_kks_ibu
                 edit_walisiswa['nomor_pkh_ibu'] = request.nomor_pkh_ibu
+                edit_walisiswa['nama_wali'] = request.nama_wali
+                edit_walisiswa['tempat_lahir_wali'] = request.tempat_lahir_wali
+                edit_walisiswa['tanggal_lahir_wali'] = request.tanggal_lahir_wali
+                edit_walisiswa['alamat_wali'] = request.alamat_wali
+                edit_walisiswa['no_hp_wali'] = request.no_hp_wali
+                edit_walisiswa['pendidikan_wali'] = request.pendidikan_wali
+                edit_walisiswa['pekerjaan_wali'] = request.pekerjaan_wali
+                edit_walisiswa['penghasilan_wali'] = request.penghasilan_wali
+                edit_walisiswa['nomor_kks_wali'] = request.nomor_kks_wali
+                edit_walisiswa['nomor_pkh_wali'] = request.nomor_pkh_wali
                 data_wali_siswa = '''
                                 update data_wali_siswa set {0} where id_siswa = {1}
                             '''.format(generateQueryUpdate(edit_walisiswa), id_siswa)

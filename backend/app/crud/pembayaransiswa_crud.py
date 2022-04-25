@@ -23,7 +23,7 @@ async def get_list_pembayaransiswa(db_session: AsyncSession, page: int, show: in
             offset = (page - 1) * show
 
             q_dep = '''
-                SELECT *, to_char(created, 'DD Mon YYYY HH24:MI:SS') AS created_format FROM status_pembayaran {0}
+                SELECT *, to_char(tanggal_pembayaran, 'DD Mon YYYY') AS created_format FROM status_pembayaran {0}
                 limit {1}
                 offset {2}
             '''.format(where_siswa, show, offset)
@@ -149,6 +149,7 @@ async def add_pembayaransiswa(db_session: AsyncSession, request: PembayaranSiswa
             new_pembayaransiswa['nominal_pembayaran'] = request.nominal_pembayaran
             new_pembayaransiswa['status_pembayaran'] = request.status_pembayaran
             new_pembayaransiswa['id_jenispembayaran'] = request.id_jenispembayaran
+            new_pembayaransiswa['tanggal_pembayaran'] = request.tanggal_pembayaran
             status_pembayaran = generateQuery('status_pembayaran', new_pembayaransiswa)
             logging.debug(f'query : {status_pembayaran}')
             await session.execute(status_pembayaran)
@@ -188,6 +189,7 @@ async def edit_pembayaransiswa(db_session: AsyncSession, request: PembayaranSisw
                 edit_pembayaransiswa['nominal_pembayaran'] = request.nominal_pembayaran
                 edit_pembayaransiswa['status_pembayaran'] = request.status_pembayaran
                 edit_pembayaransiswa['id_jenispembayaran'] = request.id_jenispembayaran
+                edit_pembayaransiswa['tanggal_pembayaran'] = request.tanggal_pembayaran
                 status_pembayaran = '''
                                 update status_pembayaran set {0} where id = {1}
                             '''.format(generateQueryUpdate(edit_pembayaransiswa), id_laporanpembayaran)

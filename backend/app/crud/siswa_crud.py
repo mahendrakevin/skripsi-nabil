@@ -19,7 +19,51 @@ async def get_list_siswa(db_session: AsyncSession, page: int, show: int) -> dict
         try:
             offset = (page - 1) * show
             q_dep = '''
-                SELECT * FROM data_siswa ORDER BY id DESC
+                SELECT * FROM data_siswa WHERE status_siswa not in ('Lulus', 'Tidak Aktif') ORDER BY id DESC
+                limit {0}
+                offset {1}
+            '''.format(show, offset)
+            proxy_rows = await session.execute(q_dep)
+            result = proxy_rows.all()
+
+            # commit the db transaction
+            await session.commit()
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+    # result data handling
+    if result:
+        logger.info(str(result))
+        return {
+            'message_id': '00',
+            'status': 'Succes',
+            'data':result
+        }
+    else:
+        return {
+            'message_id': '01',
+            'status': 'Gagal, Data Siswa Tidak Ditemukan'
+        }
+
+async def get_list_siswa_alumni(db_session: AsyncSession, page: int, show: int) -> dict:
+    async with db_session as session:
+        try:
+            offset = (page - 1) * show
+            q_dep = '''
+                SELECT * FROM data_siswa WHERE status_siswa in ('Lulus', 'Tidak Aktif') ORDER BY id DESC
                 limit {0}
                 offset {1}
             '''.format(show, offset)

@@ -61,7 +61,7 @@ async def get_detail_lembaga(db_session: AsyncSession, id_lembaga: int) -> dict:
     async with db_session as session:
         try:
             q_dep = '''
-                SELECT * FROM data_lembaga WHERE id = {0}
+                SELECT *, to_char(tahun_berdiri, 'DD Mon YYYY') AS created_format FROM data_lembaga
             '''.format(id_lembaga)
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.one_or_none()
@@ -157,6 +157,7 @@ async def edit_lembaga(db_session: AsyncSession, request: DataLembaga, id_lembag
             else:
                 edit_lembaga = {}
                 edit_lembaga['nama_lembaga'] = request.nama_lembaga
+                edit_lembaga['akreditasi'] = request.akreditasi
                 edit_lembaga['tahun_berdiri'] = request.tahun_berdiri
                 edit_lembaga['no_telp'] = request.no_telp
                 edit_lembaga['alamat'] = request.alamat
@@ -316,7 +317,7 @@ async def add_sarpras(db_session: AsyncSession, request: SaranaPrasarana) -> dic
             id_sarpras = id_sarpras.one_or_none()
             new_sarpras = {}
             new_sarpras['id'] = id_sarpras.id
-            new_sarpras['id_lembaga'] = request.id_lembaga
+            new_sarpras['nama_aset'] = request.nama_aset
             new_sarpras['luas_lahan'] = request.luas_lahan
             new_sarpras['luas_bangunan'] = request.luas_bangunan
             new_sarpras['nama_pemilik'] = request.nama_pemilik
@@ -356,7 +357,7 @@ async def edit_sarpras(db_session: AsyncSession, request: SaranaPrasarana, id_sa
                         }
             else:
                 edit_sarpras = {}
-                edit_sarpras['id_lembaga'] = request.id_lembaga
+                edit_sarpras['nama_aset'] = request.nama_aset
                 edit_sarpras['luas_lahan'] = request.luas_lahan
                 edit_sarpras['luas_bangunan'] = request.luas_bangunan
                 edit_sarpras['nama_pemilik'] = request.nama_pemilik
@@ -509,7 +510,7 @@ async def get_detail_suratketerangan(db_session: AsyncSession, id_suratketeranga
     async with db_session as session:
         try:
             q_dep = '''
-                SELECT * FROM data_surat_keterangan WHERE id = {0}
+                SELECT * FROM data_surat_keterangan
             '''.format(id_suratketerangan)
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.one_or_none()
@@ -550,10 +551,10 @@ async def add_suratketerangan(db_session: AsyncSession, request: SuratKeterangan
             id_suratketerangan = id_suratketerangan.one_or_none()
             new_suratketerangan = {}
             new_suratketerangan['id'] = id_suratketerangan.id
-            new_suratketerangan['id_lembaga'] = request.id_lembaga
-            new_suratketerangan['nama_surat_keterangan'] = request.nama_surat_keterangan
-            new_suratketerangan['nomor_surat_keterangan'] = request.nomor_surat_keterangan
-            new_suratketerangan['tanggal_surat_keterangan'] = request.tanggal_surat_keterangan
+            new_suratketerangan['nomor_surat_operasional'] = request.nomor_surat_operasional
+            new_suratketerangan['tanggal_surat_operasional'] = request.tanggal_surat_operasional
+            new_suratketerangan['nomor_surat_kemenkumham'] = request.nomor_surat_kemenkumham
+            new_suratketerangan['tanggal_surat_kemenkumham'] = request.tanggal_surat_kemenkumham
             data_surat_keterangan = generateQuery('data_surat_keterangan', new_suratketerangan)
             logging.debug(f'query : {data_surat_keterangan}')
             await session.execute(data_surat_keterangan)
@@ -589,9 +590,10 @@ async def edit_suratketerangan(db_session: AsyncSession, request: SuratKeteranga
                         }
             else:
                 edit_suratketerangan = {}
-                edit_suratketerangan['nama_surat_keterangan'] = request.nama_surat_keterangan
-                edit_suratketerangan['nomor_surat_keterangan'] = request.nomor_surat_keterangan
-                edit_suratketerangan['tanggal_surat_keterangan'] = request.tanggal_surat_keterangan
+                edit_suratketerangan['nomor_surat_operasional'] = request.nomor_surat_operasional
+                edit_suratketerangan['tanggal_surat_operasional'] = request.tanggal_surat_operasional
+                edit_suratketerangan['nomor_surat_kemenkumham'] = request.nomor_surat_kemenkumham
+                edit_suratketerangan['tanggal_surat_kemenkumham'] = request.tanggal_surat_kemenkumham
                 data_surat_keterangan = '''
                                 update data_surat_keterangan set {0} where id = {1}
                             '''.format(generateQueryUpdate(edit_suratketerangan), id_suratketerangan)
