@@ -1,5 +1,5 @@
 @section('plugins.Select2', true)
-<x-app-layout title="Tambah Arsip">
+<x-app-layout title="Edit Arsip">
     <x-form method="GET" enctype="multipart/form-data" action="{{ route('admin.arsip_surat.update', $arsipsurat->id) }}">
         <div class="col-md-6">
             <x-adminlte-card theme="info" theme-mode="info" title="Isi Arsip Surat">

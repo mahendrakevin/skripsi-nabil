@@ -65,7 +65,7 @@ class ArsipSuratController extends Controller
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
 
-            return view('lembaga.index')->with(compact('heads', 'config', 'result'));
+            return view('arsipsurat.index')->with(compact('heads', 'config', 'result'));
         } else {
             $heads = [
                 ['label' => 'ID Jenis Pembayaran', 'no-export' => false, 'width' => 10],

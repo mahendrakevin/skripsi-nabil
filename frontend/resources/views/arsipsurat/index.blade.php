@@ -1,4 +1,4 @@
-<x-app-layout title="Data Kepegawaian">
+<x-app-layout title="Data Arsip Surat">
     @if(session('alert'))
         <x-adminlte-alert theme="success" title="Success">
             {{ session('alert') }}

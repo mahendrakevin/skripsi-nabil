@@ -1,5 +1,5 @@
 @section('plugins.Select2', true)
-<x-app-layout title="tAMBAH Sarpras">
+<x-app-layout title="Tambah Sarpras">
     <x-form method="POST" action="{{ route('admin.sarpras.store') }}">
         <div class="col-md-6">
             <x-adminlte-card theme="info" theme-mode="info" title="Isi Data Lembaga">
