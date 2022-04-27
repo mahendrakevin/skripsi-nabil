@@ -71,7 +71,7 @@
                 <x-adminlte-card theme="lime" theme-mode="outline" title="Laporan Pembayaran {{ $siswa->nama_siswa }}">
                     <x-submit-button method="POST" action="{{route('admin.laporan_pembayaran.create')}}"
                                      theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
-                    <x-adminlte-datatable id="datasiswa" :heads="$heads" :config="$config" with-buttons striped hoverable with-footer beautify>
+                    <x-adminlte-datatable id="datasiswa" :heads="$heads" :config="$config"  striped hoverable with-footer beautify>
                         @foreach($config['data'] as $row)
                             <tr>
                                 @foreach($row as $cell)

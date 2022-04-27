@@ -51,6 +51,7 @@ class JenisWaliController extends Controller
                 'order' => [[1, 'asc']],
                 'columns' => [null, null, ['orderable' => false]],
                 'paging' => true,
+                'searching' => false,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
 

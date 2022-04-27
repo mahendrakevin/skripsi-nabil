@@ -1,7 +1,7 @@
 @section('plugins.Select2', true)
-<x-app-layout title="Tambah Kelas">
+<x-app-layout title="Tambah Jenis Pembayaran">
     <x-form method="POST" action="{{ route('admin.jenispembayaran.store') }}">
-        <x-adminlte-card theme="info" theme-mode="info" title="Isi Data Kelas">
+        <x-adminlte-card theme="info" theme-mode="info" title="Isi Data Jenis Pembayaran">
             <div class="row">
                 <x-adminlte-input name="jenis_pembayaran" label="Jenis Pembayaran" placeholder="SPP"
                                   fgroup-class="col-md-4" type="text" required/>

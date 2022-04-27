@@ -59,7 +59,7 @@
             </div>
         </x-adminlte-card>
         <x-adminlte-card theme="lightblue" theme-mode="outline" title="Data Kepegawaian">
-            <x-adminlte-datatable id="datasiswa" :heads="$heads" :config="$config" with-buttons striped hoverable with-footer beautify>
+            <x-adminlte-datatable id="datasiswa" :heads="$heads" :config="$config"  striped hoverable with-footer beautify>
                 @foreach($config['data'] as $row)
                     <tr>
                         @foreach($row as $cell)

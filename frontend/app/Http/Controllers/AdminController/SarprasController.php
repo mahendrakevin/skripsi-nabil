@@ -41,7 +41,7 @@ class SarprasController extends Controller
 
                 $subjectdata[] = [
                     $resp->id,
-                    $lembaga->nama_lembaga,
+                    $resp->nama_aset,
                     $resp->luas_lahan,
                     $resp->luas_bangunan,
                     $resp->nama_pemilik,
@@ -114,7 +114,7 @@ class SarprasController extends Controller
                     'Accept'     => 'application/json'
                 ],
                 'json' => [
-                    'id_lembaga' => (int)$request->id_lembaga,
+                    'nama_aset' => $request->nama_aset,
                     'luas_lahan' => (int)$request->luas_lahan,
                     'luas_bangunan' => (int)$request->luas_bangunan,
                     'nama_pemilik' => $request->nama_pemilik,
@@ -124,10 +124,10 @@ class SarprasController extends Controller
         );
         $sarpras = json_decode($resp->getBody());
         if ($sarpras->message_id == '00'){
-            return redirect(route('admin.sarpras.index'))->with('alert', $sarpras->status);
+            return redirect(route('admin.lembaga.index'))->with('alert', $sarpras->status);
         }
         else {
-            return redirect(route('admin.sarpras.index'))->with('alert-failed', $sarpras->status);
+            return redirect(route('admin.lembaga.index'))->with('alert-failed', $sarpras->status);
         }
     }
 
@@ -143,7 +143,7 @@ class SarprasController extends Controller
             $lembaga = $lembaga->data;
             return view('sarpras.edit')->with(compact('config_date', 'lembaga', 'sarpras'));
         } else {
-            return redirect(route('admin.sarpras.index'))->with('alert-failed', 'Silahkan isi data lembaga terlebih dahulu');
+            return redirect(route('admin.lembaga.index'))->with('alert-failed', 'Silahkan isi data lembaga terlebih dahulu');
         }
     }
 
@@ -155,7 +155,7 @@ class SarprasController extends Controller
                     'Accept'     => 'application/json'
                 ],
                 'json' => [
-                    'id_lembaga' => (int)$request->id_lembaga,
+                    'nama_aset' => $request->nama_aset,
                     'luas_lahan' => (int)$request->luas_lahan,
                     'luas_bangunan' => (int)$request->luas_bangunan,
                     'nama_pemilik' => $request->nama_pemilik,
@@ -165,10 +165,10 @@ class SarprasController extends Controller
         );
         $sarpras = json_decode($resp->getBody());
         if ($sarpras->message_id == '00'){
-            return redirect(route('admin.sarpras.index'))->with('alert', $sarpras->status);
+            return redirect(route('admin.lembaga.index'))->with('alert', $sarpras->status);
         }
         else {
-            return redirect(route('admin.sarpras.index'))->with('alert-failed', $sarpras->status);
+            return redirect(route('admin.lembaga.index'))->with('alert-failed', $sarpras->status);
         }
     }
 

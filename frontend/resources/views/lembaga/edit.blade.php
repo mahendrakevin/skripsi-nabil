@@ -8,6 +8,10 @@
                                       fgroup-class="col-md-12" type="text" value="{{ $lembaga->nama_lembaga }}" required/>
                 </div>
                 <div class="row">
+                    <x-adminlte-input name="akreditasi" label="akreditasi" placeholder="A"
+                                      fgroup-class="col-md-12" type="text" value="{{ $lembaga->akreditasi }}" required/>
+                </div>
+                <div class="row">
                     <x-adminlte-input-date name="tahun_berdiri" :config="$config_date" label="Tanggal Berdiri" placeholder="Choose a time..."
                                            value="{{ $lembaga->tahun_berdiri }}" fgroup-class="col-md-12" required>
                         <x-slot name="prependSlot">

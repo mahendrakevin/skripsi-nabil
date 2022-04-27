@@ -44,6 +44,7 @@ class GuruController extends Controller
                     $resp->nuptk,
                     $resp->nama_guru,
                     $resp->jenis_kelamin,
+                    $resp->status_pegawai,
                     '<nobr>'.$btnShow.$btnEdit.$btnDelete.'</nobr>'
                 ];
             }
@@ -53,13 +54,14 @@ class GuruController extends Controller
                 'NUPTK',
                 'Nama Guru',
                 'Jenis Kelamin',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                'Status Pegawai',
+                ['label' => 'Actions', 'no-export' => true, 'width' => 10],
             ];
 
             $config = [
                 'data' => $subjectdata,
-                'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, ['orderable' => false]],
+                'order' => [[4, 'asc']],
+                'columns' => [null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
@@ -71,13 +73,14 @@ class GuruController extends Controller
                 'NUPTK',
                 'Nama Guru',
                 'Jenis Kelamin',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                'Status Pegawai',
+                ['label' => 'Actions', 'no-export' => true, 'width' => 10],
             ];
 
             $config = [
                 'data' => [],
-                'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, ['orderable' => false]],
+                'order' => [[4, 'asc']],
+                'columns' => [null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
@@ -115,7 +118,8 @@ class GuruController extends Controller
                     'alamat' => $request->alamat,
                     'no_hp' => (int)$request->no_hp,
                     'email' => $request->email,
-                    'status_perkawinan' => $request->status_perkawinan
+                    'status_perkawinan' => $request->status_perkawinan,
+                    'status_pegawai' => $request->status_pegawai
                 ]
             ]
         );
@@ -129,12 +133,9 @@ class GuruController extends Controller
                     'json' => [
                         'id_guru' => (int)$data_guru->data->id,
                         'no_sk' => $request->no_sk,
-                        'no_sk_ypmnu' => $request->no_sk_ypmnu,
+                        'kategori_sk' => $request->kategori_sk,
                         'no_sk_operator' => $request->no_sk_operator,
                         'id_jabatan' => (int)$request->id_jabatan,
-                        'status_kepegawaian' => $request->status_kepegawaian,
-                        'alasan_tidak_aktif' => $request->alasan_tidak_aktif,
-                        'surat_mutasi' => 'test',
                         'jumlah_ajar' => (int)$request->jumlah_ajar
                     ]
                 ]
@@ -187,8 +188,8 @@ class GuruController extends Controller
                         $guru->nama_guru,
                         $guru->nuptk,
                         $jabatan->nama_jabatan,
-                        $resp->status_kepegawaian,
                         $resp->no_sk,
+                        $resp->jumlah_ajar,
                         '<nobr>' . $btnEdit . $btnDelete . '</nobr>'
                     ];
                 }
@@ -198,15 +199,15 @@ class GuruController extends Controller
                     'Nama Guru',
                     'NUPTK',
                     'Jabatan',
-                    'Status',
                     'No SK',
+                    'Jumlah Ajar',
                     ['label' => 'Actions', 'no-export' => false, 'width' => 10],
                 ];
 
                 $config = [
                     'data' => $subjectdata,
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, ['orderable' => false]],
+                    'columns' => [null, null, null, null, null, ['orderable' => false]],
                     'paging' => true,
                     'lengthMenu' => [10, 50, 100, 500]
                 ];
@@ -216,15 +217,15 @@ class GuruController extends Controller
                     'Nama Guru',
                     'NUPTK',
                     'Jabatan',
-                    'Status',
                     'No SK',
+                    'Jumlah Ajar',
                     ['label' => 'Actions', 'no-export' => false, 'width' => 10],
                 ];
 
                 $config = [
                     'data' => [],
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, ['orderable' => false]],
+                    'columns' => [null, null, null, null, null, ['orderable' => false]],
                     'paging' => true,
                     'lengthMenu' => [10, 50, 100, 500]
                 ];
@@ -264,12 +265,8 @@ class GuruController extends Controller
                         $guru->nuptk,
                         $jabatan->nama_jabatan,
                         $resp->no_sk,
-                        $resp->no_sk_ypmnu,
-                        $resp->no_sk_operator,
-                        $resp->status_kepegawaian,
-                        $resp->alasan_tidak_aktif,
-                        $resp->surat_mutasi
-
+                        $resp->kategori_sk,
+                        $resp->jumlah_ajar
                     ];
                 }
 
@@ -278,17 +275,14 @@ class GuruController extends Controller
                     'NUPTK',
                     'Jabatan',
                     'No SK',
-                    'No SK YPMNU',
-                    'No SK Operator',
-                    'Status',
-                    'Alasan Tidak Aktif',
-                    'Surat Mutasi'
+                    'Kategori SK',
+                    'Jumlah Ajar'
                 ];
 
                 $config = [
                     'data' => $subjectdata,
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null, null, null, ['orderable' => false]],
+                    'columns' => [null, null, null, null, null, null],
                     'paging' => true,
                     'lengthMenu' => [10, 50, 100, 500]
                 ];
@@ -298,17 +292,14 @@ class GuruController extends Controller
                     'NUPTK',
                     'Jabatan',
                     'No SK',
-                    'No SK YPMNU',
-                    'No SK Operator',
-                    'Status',
-                    'Alasan Tidak Aktif',
-                    'Surat Mutasi'
+                    'Kategori SK',
+                    'Jumlah Ajr'
                 ];
 
                 $config = [
                     'data' => [],
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null, null, null, ['orderable' => false]],
+                    'columns' => [null, null, null, null, null, null],
                     'paging' => true,
                     'lengthMenu' => [10, 50, 100, 500]
                 ];
@@ -338,7 +329,8 @@ class GuruController extends Controller
                     'alamat' => $request->alamat,
                     'no_hp' => (int)$request->no_hp,
                     'email' => $request->email,
-                    'status_perkawinan' => $request->status_perkawinan
+                    'status_perkawinan' => $request->status_perkawinan,
+                    'status_pegawai' => $request->status_pegawai
                 ]
             ]
         );

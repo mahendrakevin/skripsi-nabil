@@ -6,7 +6,7 @@
                 <x-adminlte-input name="nip" label="Nomor Induk Pegawai" placeholder="1277471818"
                                   fgroup-class="col-md-4" type="number" value="{{ $guru->nip }}" required/>
                 <x-adminlte-input name="nuptk" label="NUPTK" placeholder="1234567890123456"
-                                  fgroup-class="col-md-4" type="number" value="{{ $guru->nuptk }}" required/>
+                                  fgroup-class="col-md-4" type="number" value="{{ $guru->nuptk }}"/>
                 <x-adminlte-input name="nik" label="No Induk Kependudukan" value="{{ $guru->nik }}" placeholder="1234567890123456"
                                   fgroup-class="col-md-4" type="number" required/>
             </div>
@@ -53,8 +53,19 @@
                                   fgroup-class="col-md-6" value="{{ $guru->no_hp }}" required/>
                 <x-adminlte-input name="email" label="Email" placeholder="Annisa@gmail.com" type="email"
                                   fgroup-class="col-md-6" value="{{ $guru->email }}" required/>
+            </div>
+            <div class="row">
+                <x-adminlte-select2 name="status_pegawai" fgroup-class="col-md-6" label="Status Kepegawaian">
+                    <x-slot name="prependSlot">
+                        <div class="input-group-text bg-gradient-info">
+                            <i class="fas fa-school"></i>
+                        </div>
+                    </x-slot>
+                    <option {{old('status',$guru->status_pegawai)=="Aktif"? 'selected':''}} value="Aktif">Aktif</option>
+                    <option {{old('status',$guru->status_pegawai)=="Tidak Aktif"? 'selected':''}} value="Tidak Aktif">Tidak Aktif</option>
+                </x-adminlte-select2>
                 <x-adminlte-textarea name="alamat" fgroup-class="col-md-6" label="Alamat" placeholder="Masukkan alamat">
-                   {{ $guru->alamat }}
+                    {{ $guru->alamat }}
                 </x-adminlte-textarea>
             </div>
             <x-adminlte-button class="btn-flat" type="submit" label="Submit" theme="success" icon="fas fa-lg fa-save"/>
@@ -64,7 +75,7 @@
     <x-adminlte-card theme="lightblue" theme-mode="outline" title="Data Kepegawaian">
         <x-submit-button method="POST" action="{{route('admin.kepegawaian.create')}}"
                          theme="success" label="Tambah Data Kepegawaian" icon="fas fa-plus" type="submit"></x-submit-button>
-        <x-adminlte-datatable id="datasiswa" :heads="$heads" :config="$config" with-buttons striped hoverable with-footer beautify>
+        <x-adminlte-datatable id="datasiswa" :heads="$heads" :config="$config"  striped hoverable with-footer beautify>
             @foreach($config['data'] as $row)
                 <tr>
                     @foreach($row as $cell)

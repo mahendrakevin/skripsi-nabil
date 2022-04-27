@@ -16,7 +16,14 @@
             </div>
             <div class="row">
                 <x-adminlte-input name="nominal_pembayaran" label="Nominal Pembayaran" type="number"  placeholder="120000"
-                                  fgroup-class="col-md-8" required/>
+                                  fgroup-class="col-md-6" required/>
+                <x-adminlte-input-date name="tanggal_pembayaran" :config="$config_date" label="Tanggal Pembayaran" placeholder="Choose a time..." fgroup-class="col-md-6" required>
+                    <x-slot name="prependSlot">
+                        <div class="input-group-text bg-gradient-info">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </x-slot>
+                </x-adminlte-input-date>
             </div>
             </div>
         </x-adminlte-card>

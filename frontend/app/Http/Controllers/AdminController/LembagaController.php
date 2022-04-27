@@ -11,85 +11,96 @@ class LembagaController extends Controller
     public function index()
     {
         $client = new Client(['base_uri' => env('API_HOST')]);
-        $resp = $client->request('GET', 'lembaga/');
+        $resp = $client->request('GET', 'lembaga/1');
         $result = json_decode($resp->getBody());
 
-        if (property_exists($result, 'data')){
+        $resp = $client->request('GET', 'lembaga/suratketerangan/1');
+        $sk = json_decode($resp->getBody());
 
+        if (property_exists($result, 'data') && property_exists($sk, 'data')){
+            $sk = $sk->data;
+            // dd($sk);
             $result = $result->data;
-            $subjectdata = array();
+            $client = new Client(['base_uri' => env('API_HOST')]);
+            $resp = $client->request('GET', 'lembaga/sarpras/');
+            $sarpras = json_decode($resp->getBody());
 
-            foreach ($result as $resp){
-                $btnEdit = view('components.Button', [
-                    'method' => 'GET',
-                    'action' => route('admin.lembaga.edit', $resp->id),
-                    'title' => 'Edit',
-                    'icon' => 'fa fa-lg fa-fw fa-pen',
-                    'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
+            if (property_exists($sarpras, 'data')){
 
-                $btnDelete = view('components.Button', [
-                    'method' => 'GET',
-                    'action' => route('admin.lembaga.destroy', $resp->id),
-                    'title' => 'Delete',
-                    'icon' => 'fa fa-lg fa-fw fa-trash',
-                    'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
+                $sarpras = $sarpras->data;
+                $subjectdata = array();
 
-                $subjectdata[] = [
-                    $resp->id,
-                    $resp->nama_lembaga,
-                    $resp->tahun_berdiri,
-                    $resp->no_telp,
-                    $resp->alamat,
-                    $resp->email,
-                    $resp->npsn,
-                    $resp->nsm,
-                    '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
+                foreach ($sarpras as $resp){
+                    $btnEdit = view('components.Button', [
+                        'method' => 'GET',
+                        'action' => route('admin.sarpras.edit', $resp->id),
+                        'title' => 'Edit',
+                        'icon' => 'fa fa-lg fa-fw fa-pen',
+                        'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
+
+                    $btnDelete = view('components.Button', [
+                        'method' => 'GET',
+                        'action' => route('admin.sarpras.destroy', $resp->id),
+                        'title' => 'Delete',
+                        'icon' => 'fa fa-lg fa-fw fa-trash',
+                        'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
+
+
+                    $subjectdata[] = [
+                        $resp->id,
+                        $resp->nama_aset,
+                        $resp->luas_lahan,
+                        $resp->luas_bangunan,
+                        $resp->nama_pemilik,
+                        $resp->no_sertifikat,
+                        '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
+                    ];
+                }
+
+                $heads_sarpras = [
+                    ['label' => 'No', 'no-export' => false, 'width' => 10],
+                    'Nama Lembaga',
+                    'Luas Lahan',
+                    'Luas Bangunan',
+                    'Nama Pemilik',
+                    'No Sertifikat',
+                    ['label' => 'Actions', 'no-export' => false, 'width' => 10]
                 ];
+
+                $config_sarpras = [
+                    'data' => $subjectdata,
+                    'order' => [[1, 'asc']],
+                    'columns' => [null, null, null, null, null, null],
+                    'paging' => true,
+                    'lengthMenu' => [ 10, 50, 100, 500]
+                ];
+
+                return view('lembaga.index')->with(compact('result', 'config_sarpras', 'heads_sarpras', 'sk'));
+            } else {
+                $heads_sarpras = [
+                    ['label' => 'No', 'no-export' => false, 'width' => 10],
+                    'Nama Lembaga',
+                    'Luas Lahan',
+                    'Luas Bangunan',
+                    'Nama Pemilik',
+                    'No Sertifikat',
+                    ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                ];
+
+                $config_sarpras = [
+                    'data' => [],
+                    'order' => [[1, 'asc']],
+                    'columns' => [null, null, null, null, null, null, ['orderable' => false]],
+                    'paging' => true,
+                    'lengthMenu' => [10, 50, 100, 500]
+                ];
+
+                return view('lembaga.index')->with(compact('heads_sarpras', 'config_sarpras', 'result', 'sk'));
+
             }
-
-            $heads = [
-                ['label' => 'ID Jenis Pembayaran', 'no-export' => false, 'width' => 10],
-                'Nama Lembaga',
-                'Tanggal Berdiri',
-                'No Telp',
-                'Alamat',
-                'Email',
-                'NPSN',
-                'NSM',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
-            ];
-
-            $config = [
-                'data' => $subjectdata,
-                'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, null, null, null, null, ['orderable' => false]],
-                'paging' => true,
-                'lengthMenu' => [ 10, 50, 100, 500]
-            ];
-
-            return view('lembaga.index')->with(compact('heads', 'config', 'result'));
         } else {
-            $heads = [
-                ['label' => 'ID Jenis Pembayaran', 'no-export' => false, 'width' => 10],
-                'Nama Lembaga',
-                'Tanggal Berdiri',
-                'No Telp',
-                'Alamat',
-                'Email',
-                'NPSN',
-                'NSM',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
-            ];
 
-            $config = [
-                'data' => [],
-                'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, null, null, null, null, ['orderable' => false]],
-                'paging' => true,
-                'lengthMenu' => [ 10, 50, 100, 500]
-            ];
-
-            return view('lembaga.index')->with(compact('heads', 'config', 'result'));
+            return view('lembaga.index')->with(compact('result', 'sk'));
         }
     }
 
@@ -150,6 +161,7 @@ class LembagaController extends Controller
                 ],
                 'json' => [
                     'nama_lembaga' => $request->nama_lembaga,
+                    'akreditasi' => $request->akreditasi,
                     'tahun_berdiri' => $request->tahun_berdiri,
                     'no_telp' => (int)$request->no_telp,
                     'alamat' => $request->alamat,

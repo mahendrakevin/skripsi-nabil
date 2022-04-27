@@ -34,13 +34,8 @@ class SuratKeteranganController extends Controller
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
-                $lembaga = $client->request('GET', 'lembaga/'.$resp->id_lembaga);
-                $lembaga = json_decode($lembaga->getBody());
-                $lembaga = $lembaga->data;
-
                 $subjectdata[] = [
                     $resp->id,
-                    $lembaga->nama_lembaga,
                     $resp->nama_surat_keterangan,
                     $resp->nomor_surat_keterangan,
                     $resp->tanggal_surat_keterangan,
@@ -50,7 +45,6 @@ class SuratKeteranganController extends Controller
 
             $heads = [
                 ['label' => 'No', 'no-export' => false, 'width' => 10],
-                'Nama Lembaga',
                 'Surat Keterangan',
                 'Nomor Surat',
                 'Tanggal Surat',
@@ -60,7 +54,7 @@ class SuratKeteranganController extends Controller
             $config = [
                 'data' => $subjectdata,
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null, null, ['orderable' => false]],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
@@ -69,7 +63,6 @@ class SuratKeteranganController extends Controller
         } else {
             $heads = [
                 ['label' => 'No', 'no-export' => false, 'width' => 10],
-                'Nama Lembaga',
                 'Surat Keterangan',
                 'Nomor Surat',
                 'Tanggal Surat',
@@ -79,7 +72,7 @@ class SuratKeteranganController extends Controller
             $config = [
                 'data' => [],
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null, null, ['orderable' => false]],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
@@ -144,26 +137,25 @@ class SuratKeteranganController extends Controller
 
     public function update(Request $request, $id){
         $client = new Client(['base_uri' => env('API_HOST')]);
-        $resp = $client->request('PUT', 'lembaga/sarpras/edit?id_sarpras='.$id,[
+        $resp = $client->request('PUT', 'lembaga/suratketerangan/edit?id_suratketerangan='.$id,[
                 'headers' => [
                     'Content-Type' => 'application/json',
                     'Accept'     => 'application/json'
                 ],
                 'json' => [
-                    'id_lembaga' => (int)$request->id_lembaga,
-                    'luas_lahan' => (int)$request->luas_lahan,
-                    'luas_bangunan' => (int)$request->luas_bangunan,
-                    'nama_pemilik' => $request->nama_pemilik,
-                    'no_sertifikat' => $request->no_sertifikat,
+                    'nomor_surat_operasional' => $request->nomor_surat_operasional,
+                    'tanggal_surat_operasional' => $request->tanggal_surat_operasional,
+                    'nomor_surat_kemenkumham' => $request->nomor_surat_kemenkumham,
+                    'tanggal_surat_kemenkumham' => $request->tanggal_surat_kemenkumham,
                 ]
             ]
         );
         $sarpras = json_decode($resp->getBody());
         if ($sarpras->message_id == '00'){
-            return redirect(route('admin.sarpras.index'))->with('alert', $sarpras->status);
+            return redirect(route('admin.lembaga.index'))->with('alert', $sarpras->status);
         }
         else {
-            return redirect(route('admin.sarpras.index'))->with('alert-failed', $sarpras->status);
+            return redirect(route('admin.lembaga.index'))->with('alert-failed', $sarpras->status);
         }
     }
 

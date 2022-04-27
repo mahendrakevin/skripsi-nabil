@@ -4,11 +4,8 @@
         <div class="col-md-6">
             <x-adminlte-card theme="info" theme-mode="info" title="Isi Data Lembaga">
                 <div class="row">
-                    <x-adminlte-select2 name="id_lembaga" fgroup-class="col-md-12" label="Nama Lembaga">
-                        @foreach($lembaga as $lbg)
-                            <option {{old('id_lembaga',$sarpras->id_lembaga)==$lbg->id? 'selected':''}} value="{{ $lbg->id }}">{{$lbg->nama_lembaga}}</option>
-                        @endforeach
-                    </x-adminlte-select2>
+                    <x-adminlte-input name="nama_aset" label="Nama Aset" placeholder="Gedung"
+                                      fgroup-class="col-md-12" value="{{ $sarpras->nama_aset }}" type="text" required/>
                 </div>
                 <div class="row">
                     <x-adminlte-input name="luas_bangunan" label="Luas Bangunan (meter persegi)" placeholder="120"

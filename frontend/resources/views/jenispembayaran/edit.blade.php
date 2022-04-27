@@ -1,13 +1,13 @@
 @section('plugins.Select2', true)
-<x-app-layout title="Tambah Kelas">
+<x-app-layout title="Tambah Jenis Pembayaran">
     <x-form method="GET" action="{{ route('admin.jenispembayaran.update', $jenispembayaran->id) }}">
-        <x-adminlte-card theme="info" theme-mode="info" title="Isi Data Kelas">
+        <x-adminlte-card theme="info" theme-mode="info" title="Isi Data Jenis Pembayaran">
             <div class="row">
-                <x-adminlte-input name="jenis_pembayaran" label="Nama Kelas" placeholder="Kelas A"
+                <x-adminlte-input name="jenis_pembayaran" label="Jenis Pembayaran" placeholder="Kelas A"
                                   fgroup-class="col-md-4" value="{{ $jenispembayaran->jenis_pembayaran }}" type="text" required/>
             </div>
             <div class="row">
-                <x-adminlte-input name="nominal_pembayaran" label="Kapasitas Kelas" placeholder="40"
+                <x-adminlte-input name="nominal_pembayaran" label="Nominal Pembayaran" placeholder="40"
                                   fgroup-class="col-md-4" value="{{ $jenispembayaran->nominal_pembayaran }}" type="number" required/>
             </div>
         </x-adminlte-card>

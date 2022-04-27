@@ -33,25 +33,33 @@ class KelasController extends Controller
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
+                $guru = $client->request('GET', 'guru/'.$resp->id_wali_kelas);
+                $guru = json_decode($guru->getBody());
+                $guru = $guru->data;
+
                 $subjectdata[] = [
                     $resp->id,
                     $resp->nama_kelas,
+                    $resp->tingkat,
                     $resp->kapasitas_kelas,
+                    $guru->nama_guru,
                     '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
                 ];
             }
 
             $heads = [
-                ['label' => 'ID Kelas', 'no-export' => false, 'width' => 10],
-                'Nama Kelas',
-                'Kapasitas Kelas',
+                ['label' => 'ID Rombel', 'no-export' => false, 'width' => 10],
+                'Nama Rombel',
+                'Tingkat Rombel',
+                'Kapasitas Rombel',
+                'Wali Rombel',
                 ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
 
             $config = [
                 'data' => $subjectdata,
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
@@ -59,9 +67,11 @@ class KelasController extends Controller
             return view('kelas.index')->with(compact('heads', 'config', 'result'));
         } else {
             $heads = [
-                ['label' => 'ID Kelas', 'no-export' => false, 'width' => 10],
-                'Nama Kelas',
-                'Kapasitas Kelas',
+                ['label' => 'ID Rombel', 'no-export' => false, 'width' => 10],
+                'Nama Rombel',
+                'Tingkat Rombel',
+                'Kapasitas Rombel',
+                'Wali Rombel',
                 ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
 
@@ -79,9 +89,13 @@ class KelasController extends Controller
     }
 
     public function create(){
+        $client = new Client(['base_uri' => env('API_HOST')]);
+        $resp = $client->request('GET', 'guru/');
+        $result = json_decode($resp->getBody());
+        $guru = $result->data;
         $config_date = ['format' => 'YYYY-MM-DD'];
 
-        return view('kelas.create')->with(compact('config_date'));
+        return view('kelas.create')->with(compact('config_date', 'guru'));
     }
 
     public function store(Request $request){
@@ -93,7 +107,9 @@ class KelasController extends Controller
                 ],
                 'json' => [
                     'nama_kelas' => $request->nama_kelas,
-                    'kapasitas_kelas' => (int)$request->kapasitas_kelas
+                    'tingkat' => $request->tingkat,
+                    'kapasitas_kelas' => (int)$request->kapasitas_kelas,
+                    'id_wali_kelas' => (int)$request->id_wali_kelas
                 ]
             ]
         );
@@ -110,10 +126,13 @@ class KelasController extends Controller
         $client = new Client(['base_uri' => env('API_HOST')]);
         $kelas = $client->request('GET', 'kelas/'.$id);
         $kelas = json_decode($kelas->getBody());
+        $resp = $client->request('GET', 'guru/');
+        $result = json_decode($resp->getBody());
+        $guru = $result->data;
 
         if($kelas->message_id == '00'){
             $kelas = $kelas->data;
-            return view('kelas.edit')->with(compact( 'kelas'));
+            return view('kelas.edit')->with(compact( 'kelas', 'guru'));
         }
         else {
             return redirect(route('admin.kelas.index'))->with('alert-failed', 'Data tidak ditemukan');
@@ -129,7 +148,9 @@ class KelasController extends Controller
                 ],
                 'json' => [
                     'nama_kelas' => $request->nama_kelas,
+                    'tingkat' => $request->tingkat,
                     'kapasitas_kelas' => (int)$request->kapasitas_kelas,
+                    'id_wali_kelas' => (int)$request->id_wali_kelas
                 ]
             ]
         );

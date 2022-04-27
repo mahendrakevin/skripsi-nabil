@@ -50,8 +50,8 @@ class KepegawaianController extends Controller
                     $guru->nama_guru,
                     $guru->nuptk,
                     $jabatan->nama_jabatan,
-                    $resp->status_kepegawaian,
                     $resp->no_sk,
+                    $resp->kategori_sk,
                     '<nobr>'.$btnShow.$btnEdit.$btnDelete.'</nobr>'
                 ];
             }
@@ -60,15 +60,15 @@ class KepegawaianController extends Controller
                 'Nama Guru',
                 'NUPTK',
                 'Jabatan',
-                'Status',
                 'No SK',
+                'Kategori SK',
                 ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
 
             $config = [
                 'data' => $subjectdata,
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
@@ -79,15 +79,15 @@ class KepegawaianController extends Controller
                 'Nama Guru',
                 'NUPTK',
                 'Jabatan',
-                'Status',
                 'No SK',
+                'Kategori SK',
                 ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
 
             $config = [
                 'data' => [],
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
@@ -121,12 +121,8 @@ class KepegawaianController extends Controller
                     'id_guru' => (int)$request->id_guru,
                     'tanggal' =>$request->tanggal,
                     'no_sk' => $request->no_sk,
-                    'no_sk_ypmnu' => $request->no_sk_ypmnu,
-                    'no_sk_operator' => $request->no_sk_operator,
+                    'kategori_sk' => $request->kategori_sk,
                     'id_jabatan' => (int)$request->id_jabatan,
-                    'status_kepegawaian' => $request->status_kepegawaian,
-                    'alasan_tidak_aktif' => $request->alasan_tidak_aktif,
-                    'surat_mutasi' => 'test',
                     'jumlah_ajar' => (int)$request->jumlah_ajar
                 ]
             ]
@@ -200,12 +196,8 @@ class KepegawaianController extends Controller
                     'id_guru' => (int)$request->id_guru,
                     'tanggal' =>$request->tanggal,
                     'no_sk' => $request->no_sk,
-                    'no_sk_ypmnu' => $request->no_sk_ypmnu,
-                    'no_sk_operator' => $request->no_sk_operator,
+                    'kategori_sk' => $request->kategori_sk,
                     'id_jabatan' => (int)$request->id_jabatan,
-                    'status_kepegawaian' => $request->status_kepegawaian,
-                    'alasan_tidak_aktif' => $request->alasan_tidak_aktif,
-                    'surat_mutasi' => 'test',
                     'jumlah_ajar' => (int)$request->jumlah_ajar
                 ]
             ]

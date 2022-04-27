@@ -6,7 +6,7 @@
                 <x-adminlte-input name="nip" label="Nomor Induk Pegawai" placeholder="1277471818"
                                   fgroup-class="col-md-4" type="number" required/>
                 <x-adminlte-input name="nuptk" label="NUPTK" placeholder="1234567890123456"
-                                  fgroup-class="col-md-4" type="number" required/>
+                                  fgroup-class="col-md-4" type="number"/>
                 <x-adminlte-input name="nik" label="No Induk Kependudukan" placeholder="1234567890123456"
                                   fgroup-class="col-md-4" type="number" required/>
             </div>
@@ -52,25 +52,9 @@
                                   fgroup-class="col-md-6" required/>
                 <x-adminlte-input name="email" label="Email" placeholder="Annisa@gmail.com" type="email"
                                   fgroup-class="col-md-6" required/>
-                <x-adminlte-textarea name="alamat" fgroup-class="col-md-6" label="Alamat" placeholder="Masukkan alamat"/>
-            </div>
-        </x-adminlte-card>
-        <x-adminlte-card theme="lightblue" theme-mode="outline" title="Isi Data Kepegawaian">
-            <div class="row">
-                <x-adminlte-input name="no_sk" label="Nomor SK" placeholder="1277471818"
-                                  fgroup-class="col-md-4" type="number" required/>
-                <x-adminlte-input name="no_sk_ypmnu" label="Nomor SK YPMNU" placeholder="1234567890123456"
-                                  fgroup-class="col-md-4" type="number" required/>
-                <x-adminlte-input name="no_sk_operator" label="Nomor SK Operator" placeholder="1234567890123456"
-                                  fgroup-class="col-md-4" type="number" required/>
             </div>
             <div class="row">
-                <x-adminlte-select2 name="id_jabatan" fgroup-class="col-md-4" label="Pilih Jenis Jabatan">
-                    @foreach($jabatan as $jw)
-                        <option value="{{ $jw->id }}">{{$jw->nama_jabatan}}</option>
-                    @endforeach
-                </x-adminlte-select2>
-                <x-adminlte-select2 name="status_kepegawaian" fgroup-class="col-md-4" label="Status Kepegawaian">
+                <x-adminlte-select2 name="status_pegawai" fgroup-class="col-md-6" label="Status Kepegawaian">
                     <x-slot name="prependSlot">
                         <div class="input-group-text bg-gradient-info">
                             <i class="fas fa-school"></i>
@@ -79,17 +63,33 @@
                     <option value="Aktif">Aktif</option>
                     <option value="Tidak Aktif">Tidak Aktif</option>
                 </x-adminlte-select2>
-                <x-adminlte-input name="alasan_tidak_aktif" label="Alasan Tidak Aktif" placeholder="Kosongkan jika status kepegawaian aktif"
-                                  fgroup-class="col-md-4" required/>
+                <x-adminlte-textarea name="alamat" fgroup-class="col-md-6" label="Alamat" placeholder="Masukkan alamat"/>
             </div>
+        </x-adminlte-card>
+        <x-adminlte-card theme="lightblue" theme-mode="outline" title="Isi Data Kepegawaian">
             <div class="row">
-                <x-adminlte-input-file name="surat_mutasi" igroup-size="sm" placeholder="Pilih file..." label="Surat Mutasi" fgroup-class="col-md-6">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text bg-lightblue">
-                            <i class="fas fa-address-card"></i>
+                <x-adminlte-input-date name="tanggal" :config="$config_date" label="Tanggal SK" placeholder="Choose a time..." fgroup-class="col-md-6" required>
+                    <x-slot name="prependSlot_ibu">
+                        <div class="input-group-text bg-gradient-info">
+                            <i class="fas fa-clock"></i>
                         </div>
                     </x-slot>
-                </x-adminlte-input-file>
+                </x-adminlte-input-date>
+            </div>
+            <div class="row">
+                <x-adminlte-input name="no_sk" label="Nomor SK" placeholder="1277471818"
+                                  fgroup-class="col-md-6" type="number" required/>
+                <x-adminlte-select2 name="kategori_sk" fgroup-class="col-md-6" label="Pilih Kategori SK">
+                    <option value="SK Yayasan">SK Yayasan</option>
+                    <option value="SK YPMNU">SK YPMNU</option>
+                </x-adminlte-select2>
+            </div>
+            <div class="row">
+                <x-adminlte-select2 name="id_jabatan" fgroup-class="col-md-4" label="Pilih Jenis Jabatan">
+                    @foreach($jabatan as $jw)
+                        <option value="{{ $jw->id }}">{{$jw->nama_jabatan}}</option>
+                    @endforeach
+                </x-adminlte-select2>
                 <x-adminlte-input name="jumlah_ajar" label="Jumlah Ajar" placeholder="Jumlah Ajar Dalam Jam" type="number"
                                   fgroup-class="col-md-6" required/>
             </div>

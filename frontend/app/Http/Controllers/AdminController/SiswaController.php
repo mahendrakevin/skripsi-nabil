@@ -90,6 +90,82 @@ class SiswaController extends Controller
             return view('siswa.index')->with(compact('heads', 'config', 'result'));
         }
     }
+    public function index_alumni()
+    {
+        $client = new Client(['base_uri' => env('API_HOST')]);
+        $resp = $client->request('GET', 'siswa/alumni/');
+        $result = json_decode($resp->getBody());
+
+        if (property_exists($result, 'data')){
+
+            $result = $result->data;
+            $subjectdata = array();
+
+            foreach ($result as $resp){
+
+                $btnEdit = view('components.button', [
+                    'method' => 'GET',
+                    'action' => route('admin.siswa.edit', $resp->id),
+                    'title' => 'Edit',
+                    'icon' => 'fa fa-lg fa-fw fa-pen',
+                    'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
+
+                $btnDelete = view('components.button', [
+                    'method' => 'GET',
+                    'action' => route('admin.siswa.destroy', $resp->id),
+                    'title' => 'Delete',
+                    'icon' => 'fa fa-lg fa-fw fa-trash',
+                    'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
+
+                $subjectdata[] = [
+                    $resp->nis,
+                    $resp->nisn,
+                    $resp->nama_siswa,
+                    $resp->jenis_kelamin,
+                    $resp->status_siswa,
+                    '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
+                ];
+            }
+
+            $heads = [
+                'NIS',
+                'NISN',
+                'Nama',
+                'Jenis Kelamin',
+                'Status Siswa',
+                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+            ];
+
+            $config = [
+                'data' => $subjectdata,
+                'order' => [[1, 'asc']],
+                'columns' => [null, null, null, null, null, ['orderable' => false]],
+                'paging' => true,
+                'lengthMenu' => [ 10, 50, 100, 500]
+            ];
+
+            return view('alumni.index')->with(compact('heads', 'config', 'result'));
+        } else {
+            $heads = [
+                'NIS',
+                'NISN',
+                'Nama',
+                'Jenis Kelamin',
+                'Status Siswa',
+                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+            ];
+
+            $config = [
+                'data' => [],
+                'order' => [[1, 'asc']],
+                'columns' => [null, null, null, null, null, ['orderable' => false]],
+                'paging' => true,
+                'lengthMenu' => [ 10, 50, 100, 500]
+            ];
+
+            return view('alumni.index')->with(compact('heads', 'config', 'result'));
+        }
+    }
 
     public function create(){
         $client = new Client(['base_uri' => env('API_HOST')]);
@@ -125,6 +201,7 @@ class SiswaController extends Controller
                     'nomor_kip' => (int)$request->nomor_kip,
                     'alamat' => $request->alamat,
                     'nomor_kk' => (int)$request->nomor_kk,
+                    'file_kk' => $request->file_kk,
                     'id_jeniswali' => (int)$request->id_jeniswali,
                 ]
             ]
@@ -142,6 +219,8 @@ class SiswaController extends Controller
                         'tempat_lahir_ayah' => $request->tempat_lahir_ayah,
                         'tanggal_lahir_ayah' => $request->tanggal_lahir_ayah,
                         'alamat_ayah' => $request->alamat_ayah,
+                        'status_keluarga_ayah' => $request->status_keluarga_ayah,
+                        'status_hidup_ayah' => $request->status_hidup_ayah,
                         'no_hp_ayah' => (int)$request->no_hp_ayah,
                         'pendidikan_ayah' => (int)$request->pendidikan_ayah,
                         'pekerjaan_ayah' => (int)$request->pekerjaan_ayah,
@@ -152,12 +231,24 @@ class SiswaController extends Controller
                         'tempat_lahir_ibu' => $request->tempat_lahir_ibu,
                         'tanggal_lahir_ibu' => $request->tanggal_lahir_ibu,
                         'alamat_ibu' => $request->alamat_ibu,
+                        'status_keluarga_ibu' => $request->status_keluarga_ibu,
+                        'status_hidup_ibu' => $request->status_hidup_ibu,
                         'no_hp_ibu' => (int)$request->no_hp_ibu,
                         'pendidikan_ibu' => $request->pendidikan_ibu,
                         'pekerjaan_ibu' => $request->pekerjaan_ibu,
                         'penghasilan_ibu' => (int)$request->penghasilan_ibu,
                         'nomor_kks_ibu' => (int)$request->nomor_kks_ibu,
                         'nomor_pkh_ibu' => (int)$request->nomor_pkh_ibu,
+                        'nama_wali' => $request->nama_wali,
+                        'tempat_lahir_wali' => $request->tempat_lahir_wali,
+                        'tanggal_lahir_wali' => $request->tanggal_lahir_wali,
+                        'alamat_wali' => $request->alamat_wali,
+                        'no_hp_wali' => (int)$request->no_hp_wali,
+                        'pendidikan_wali' => $request->pendidikan_wali,
+                        'pekerjaan_wali' => $request->pekerjaan_wali,
+                        'penghasilan_wali' => (int)$request->penghasilan_wali,
+                        'nomor_kks_wali' => (int)$request->nomor_kks_wali,
+                        'nomor_pkh_wali' => (int)$request->nomor_pkh_wali,
                         'id_siswa' => $data_siswa->data->id
                     ]
                 ]
@@ -194,6 +285,39 @@ class SiswaController extends Controller
         else {
             return redirect(route('admin.siswa.index'))->with('alert-failed', 'Data tidak ditemukan');
         }
+    }
+
+    public function change_status($id, $status){
+        $client = new Client(['base_uri' => env('API_HOST')]);
+
+        $siswa = $client->request('GET', 'siswa/'.$id);
+        $siswa = json_decode($siswa->getBody());
+        $siswa = $siswa->data;
+        $resp = $client->request('PUT', 'siswa/edit?id_siswa='.$id,[
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Accept'     => 'application/json'
+                ],
+                'json' => [
+                    'nisn' => (int)$siswa->nisn,
+                    'nis' => (int)$siswa->nis,
+                    'nama_siswa' => $siswa->nama_siswa,
+                    'tempat_lahir' => $siswa->tempat_lahir,
+                    'tanggal_lahir' => $siswa->tanggal_lahir,
+                    'jenis_kelamin' => $siswa->jenis_kelamin,
+                    'nik' => (int)$siswa->nik,
+                    'id_kelas' => (int)$siswa->id_kelas,
+                    'status_siswa' => $status,
+                    'nomor_kip' => (int)$siswa->nomor_kip,
+                    'alamat' => $siswa->alamat,
+                    'nomor_kk' => (int)$siswa->nomor_kk,
+                    'file_kk' => $siswa->file_kk,
+                    'id_jeniswali' => (int)$siswa->id_jeniswali,
+                ]
+            ]
+        );
+        $data_siswa = json_decode($resp->getBody());
+        return redirect(route('admin.siswa.index'))->with('alert', $data_siswa->status);
     }
 
     public function show($id){
@@ -324,6 +448,7 @@ class SiswaController extends Controller
                     'nomor_kip' => (int)$request->nomor_kip,
                     'alamat' => $request->alamat,
                     'nomor_kk' => (int)$request->nomor_kk,
+                    'file_kk' => $request->file_kk,
                     'id_jeniswali' => (int)$request->id_jeniswali,
                 ]
             ]
@@ -341,6 +466,8 @@ class SiswaController extends Controller
                         'tempat_lahir_ayah' => $request->tempat_lahir_ayah,
                         'tanggal_lahir_ayah' => $request->tanggal_lahir_ayah,
                         'alamat_ayah' => $request->alamat_ayah,
+                        'status_keluarga_ayah' => $request->status_keluarga_ayah,
+                        'status_hidup_ayah' => $request->status_hidup_ayah,
                         'no_hp_ayah' => (int)$request->no_hp_ayah,
                         'pendidikan_ayah' => (int)$request->pendidikan_ayah,
                         'pekerjaan_ayah' => (int)$request->pekerjaan_ayah,
@@ -351,12 +478,24 @@ class SiswaController extends Controller
                         'tempat_lahir_ibu' => $request->tempat_lahir_ibu,
                         'tanggal_lahir_ibu' => $request->tanggal_lahir_ibu,
                         'alamat_ibu' => $request->alamat_ibu,
+                        'status_keluarga_ibu' => $request->status_keluarga_ibu,
+                        'status_hidup_ibu' => $request->status_hidup_ibu,
                         'no_hp_ibu' => (int)$request->no_hp_ibu,
                         'pendidikan_ibu' => $request->pendidikan_ibu,
                         'pekerjaan_ibu' => $request->pekerjaan_ibu,
                         'penghasilan_ibu' => (int)$request->penghasilan_ibu,
                         'nomor_kks_ibu' => (int)$request->nomor_kks_ibu,
-                        'nomor_pkh_ibu' => (int)$request->nomor_pkh_ibu
+                        'nomor_pkh_ibu' => (int)$request->nomor_pkh_ibu,
+                        'nama_wali' => $request->nama_wali,
+                        'tempat_lahir_wali' => $request->tempat_lahir_wali,
+                        'tanggal_lahir_wali' => $request->tanggal_lahir_wali,
+                        'alamat_wali' => $request->alamat_wali,
+                        'no_hp_wali' => (int)$request->no_hp_wali,
+                        'pendidikan_wali' => $request->pendidikan_wali,
+                        'pekerjaan_wali' => $request->pekerjaan_wali,
+                        'penghasilan_wali' => (int)$request->penghasilan_wali,
+                        'nomor_kks_wali' => (int)$request->nomor_kks_wali,
+                        'nomor_pkh_wali' => (int)$request->nomor_pkh_wali,
                     ]
                 ]
             );

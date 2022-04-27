@@ -1,4 +1,4 @@
-<x-app-layout title="Data Kelas">
+<x-app-layout title="Data Rombel">
     @if(session('alert'))
         <x-adminlte-alert theme="success" title="Success">
             {{ session('alert') }}
@@ -13,7 +13,7 @@
             <x-submit-button method="POST" action="{{route('admin.kelas.create')}}"
                          theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
         @endif
-        <x-adminlte-datatable id="datakelas" :heads="$heads" :config="$config" with-buttons striped hoverable with-footer beautify>
+        <x-adminlte-datatable id="datakelas" :heads="$heads" :config="$config"  striped hoverable with-footer beautify>
             @foreach($config['data'] as $row)
                 <tr>
                     @foreach($row as $cell)

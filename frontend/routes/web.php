@@ -25,10 +25,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\AdminCon
     // Siswa
     Route::group(['prefix' => 'siswa'], function () {
         Route::get('/', 'SiswaController@index')->name('admin.siswa.index')->middleware('admin');
+        Route::get('/alumni', 'SiswaController@index_alumni')->name('admin.siswa.index_alumni')->middleware('admin');
         Route::get('/{id_siswa}', 'SiswaController@show')->name('admin.siswa.show')->middleware('admin');
         Route::post('/add', 'SiswaController@create')->name('admin.siswa.create')->middleware('admin');
         Route::get('/edit/{id_siswa}', 'SiswaController@edit')->name('admin.siswa.edit')->middleware('admin');
         Route::post('/', 'SiswaController@store')->name('admin.siswa.store')->middleware('admin');
+        Route::get('/change-status/{id_siswa}/{status}', 'SiswaController@change_status')->name('admin.siswa.change_status')->middleware('admin');
         Route::get('/update/{id_siswa}', 'SiswaController@update')->name('admin.siswa.update')->middleware('admin');
         Route::get('/hapus/{id_siswa}', 'SiswaController@destroy')->name('admin.siswa.destroy')->middleware('admin');
     });
@@ -274,6 +276,7 @@ Route::group(['prefix' => 'kepsek', 'namespace' => 'App\Http\Controllers\KepsekC
     Route::group(['prefix' => 'siswa'], function () {
         Route::get('/', 'SiswaController@index')->name('kepsek.siswa.index')->middleware('kepsek');
         Route::get('/{id_siswa}', 'SiswaController@show')->name('kepsek.siswa.show')->middleware('kepsek');
+        Route::get('/alumni', 'SiswaController@index_alumni')->name('kepsek.siswa.index_alumni')->middleware('kepsek');
     });
 
     // Guru

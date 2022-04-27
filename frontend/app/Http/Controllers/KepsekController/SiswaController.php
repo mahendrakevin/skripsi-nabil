@@ -76,6 +76,64 @@ class SiswaController extends Controller
             return view('siswa.index')->with(compact('heads', 'config', 'result'));
         }
     }
+    public function index_alumni()
+    {
+        $client = new Client(['base_uri' => env('API_HOST')]);
+        $resp = $client->request('GET', 'siswa/alumni/');
+        $result = json_decode($resp->getBody());
+
+        if (property_exists($result, 'data')){
+
+            $result = $result->data;
+            $subjectdata = array();
+
+            foreach ($result as $resp){
+
+                $subjectdata[] = [
+                    $resp->nis,
+                    $resp->nisn,
+                    $resp->nama_siswa,
+                    $resp->jenis_kelamin,
+                    $resp->status_siswa
+                ];
+            }
+            $heads = [
+                'NIS',
+                'NISN',
+                'Nama',
+                'Jenis Kelamin',
+                'Status Siswa',
+            ];
+
+            $config = [
+                'data' => $subjectdata,
+                'order' => [[1, 'asc']],
+                'columns' => [null, null, null, null, null],
+                'paging' => true,
+                'lengthMenu' => [ 10, 50, 100, 500]
+            ];
+
+            return view('alumni.index')->with(compact('heads', 'config', 'result'));
+        } else {
+            $heads = [
+                'NIS',
+                'NISN',
+                'Nama',
+                'Jenis Kelamin',
+                'Status Siswa',
+            ];
+
+            $config = [
+                'data' => [],
+                'order' => [[1, 'asc']],
+                'columns' => [null, null, null, null, null],
+                'paging' => true,
+                'lengthMenu' => [ 10, 50, 100, 500]
+            ];
+
+            return view('alumni.index')->with(compact('heads', 'config', 'result'));
+        }
+    }
 
     public function show($id){
         $client = new Client(['base_uri' => env('API_HOST')]);

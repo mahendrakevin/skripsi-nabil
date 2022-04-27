@@ -138,7 +138,8 @@ class LaporanPembayaranController extends Controller
                     'id_siswa' => (int)$request->id_siswa,
                     'id_jenispembayaran' => (int)$request->id_jenispembayaran,
                     'nominal_pembayaran' => (int)$request->nominal_pembayaran,
-                    'status_pembayaran' => $status_pembayaran
+                    'status_pembayaran' => $status_pembayaran,
+                    'tanggal_pembayaran' => $request->tanggal_pembayaran
                 ]
             ]
         );
@@ -221,7 +222,8 @@ class LaporanPembayaranController extends Controller
                     'id_siswa' => (int)$request->id_siswa,
                     'id_jenispembayaran' => (int)$request->id_jenispembayaran,
                     'nominal_pembayaran' => (int)$request->nominal_pembayaran,
-                    'status_pembayaran' => $status_pembayaran
+                    'status_pembayaran' => $status_pembayaran,
+                    'tanggal_pembayaran' => $request->tanggal_pembayaran
                 ]
             ]
         );
