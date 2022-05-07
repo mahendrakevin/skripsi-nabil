@@ -22,22 +22,20 @@ class JenisPembayaranController extends Controller
                 $subjectdata[] = [
                     $resp->id,
                     $resp->jenis_pembayaran,
-                    $resp->nominal_pembayaran,
-                    '<nobr></nobr>'
+                    $resp->nominal_pembayaran
                 ];
             }
 
             $heads = [
                 ['label' => 'ID Jenis Pembayaran', 'no-export' => false, 'width' => 10],
                 'Jenis Pembayaran',
-                'Nominal Pembayaran',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                'Nominal Pembayaran'
             ];
 
             $config = [
                 'data' => $subjectdata,
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
@@ -48,14 +46,13 @@ class JenisPembayaranController extends Controller
             $heads = [
                 ['label' => 'ID Jenis Pembayaran', 'no-export' => false, 'width' => 10],
                 'Jenis Pembayaran',
-                'Nominal Pembayaran',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                'Nominal Pembayaran'
             ];
 
             $config = [
                 'data' => [],
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];

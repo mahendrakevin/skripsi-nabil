@@ -28,8 +28,7 @@ class ArsipSuratController extends Controller
                     $resp->tanggal_surat,
                     $resp->jenis_surat,
                     $resp->keterangan,
-                    $resp->lampiran,
-                    '<nobr></nobr>'
+                    $resp->lampiran
                 ];
             }
 
@@ -40,19 +39,18 @@ class ArsipSuratController extends Controller
                 'Tanggal',
                 'Jenis Surat',
                 'Keterangan',
-                'Lampiran',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                'Lampiran'
             ];
 
             $config = [
                 'data' => $subjectdata,
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null, null, null, null, null],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
 
-            return view('lembaga.index')->with(compact('heads', 'config', 'result'));
+            return view('arsipsurat.index')->with(compact('heads', 'config', 'result'));
         } else {
             $heads = [
                 ['label' => 'ID Jenis Pembayaran', 'no-export' => false, 'width' => 10],
@@ -61,14 +59,13 @@ class ArsipSuratController extends Controller
                 'Tanggal',
                 'Jenis Surat',
                 'Keterangan',
-                'Lampiran',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                'Lampiran'
             ];
 
             $config = [
                 'data' => [],
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, null, null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null, null, null, null, null, null],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];

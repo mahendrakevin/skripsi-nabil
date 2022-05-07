@@ -21,8 +21,7 @@ class AlokasiDanaController extends Controller
             'Tanggal',
             'Sumber Dana',
             'Nominal Dana',
-            'Lampiran',
-            ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+            'Lampiran'
         ];
 
         $heads_keluar = [
@@ -33,14 +32,13 @@ class AlokasiDanaController extends Controller
             'Diserahkan Kepada',
             'Dikeluarkan Oleh',
             'Bukti Pengeluaran',
-            'Nominal',
-            ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+            'Nominal'
         ];
 
         $config_masuk = [
             'data' => [],
             'order' => [[1, 'asc']],
-            'columns' => [null, null, null, null, null, ['orderable' => false]],
+            'columns' => [null, null, null, null, null],
             'paging' => true,
             'lengthMenu' => [ 10, 50, 100, 500]
         ];
@@ -49,7 +47,7 @@ class AlokasiDanaController extends Controller
         $config_keluar = [
             'data' => [],
             'order' => [[1, 'asc']],
-            'columns' => [null, null, null, null, null, null, null, null, ['orderable' => false]],
+            'columns' => [null, null, null, null, null, null, null, null],
             'paging' => true,
             'lengthMenu' => [ 10, 50, 100, 500]
         ];
@@ -70,15 +68,14 @@ class AlokasiDanaController extends Controller
                     $dm->tanggal,
                     $sumberdana->nama_dana,
                     $dm->nominal_dana,
-                    $dm->lampiran,
-                    '<nobr></nobr>'
+                    $dm->lampiran
                 ];
             }
 
             $config_masuk = [
                 'data' => $subjectdata_masuk,
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null, null, null],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
@@ -100,13 +97,12 @@ class AlokasiDanaController extends Controller
                     $dk->diserahkan_kepada,
                     $dk->dikeluarkan_oleh,
                     $dk->bukti_pengeluaran,
-                    $dk->nominal_pengeluaran,
-                    '<nobr></nobr>'
+                    $dk->nominal_pengeluaran
                 ];
                 $config_keluar = [
                     'data' => $subjectdata_keluar,
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null, null, null, ['orderable' => false]],
+                    'columns' => [null, null, null, null, null, null, null, null],
                     'paging' => true,
                     'lengthMenu' => [ 10, 50, 100, 500]
                 ];

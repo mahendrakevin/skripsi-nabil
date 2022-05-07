@@ -411,13 +411,6 @@ return [
             'label_color' => 'success',
             'can'         => 'bendahara'
         ],
-        [
-            'text'        => 'Jenis Pembayaran',
-            'route'         => 'admin.jenis_pembayaran.index',
-            'icon'        => 'far fas fa-comment-dollar',
-            'label_color' => 'success',
-            'can'         => 'bendahara'
-        ],
         // Kepala Sekolah
         [
             'text'        => 'Dashboard',

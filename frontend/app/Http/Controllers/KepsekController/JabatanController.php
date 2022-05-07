@@ -21,21 +21,19 @@ class JabatanController extends Controller
 
                 $subjectdata[] = [
                     $resp->id,
-                    $resp->nama_jabatan,
-                    '<nobr></nobr>'
+                    $resp->nama_jabatan
                 ];
             }
 
             $heads = [
                 ['label' => 'ID Jabatan', 'no-export' => false, 'width' => 10],
                 'Nama Jabatan',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
 
             $config = [
                 'data' => $subjectdata,
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, ['orderable' => false]],
+                'columns' => [null, null],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
@@ -44,14 +42,13 @@ class JabatanController extends Controller
         } else {
             $heads = [
                 ['label' => 'ID Jabatan', 'no-export' => false, 'width' => 10],
-                'Nama Jabatan',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                'Nama Jabatan'
             ];
 
             $config = [
                 'data' => [],
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, ['orderable' => false]],
+                'columns' => [null, null],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];

@@ -24,7 +24,6 @@ class KepegawaianController extends Controller
                     'icon' => 'fa fa-lg fa-fw fa-eye',
                     'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
 
-
                 $guru = $client->request('GET', 'guru/'.$resp->id_guru);
                 $guru = json_decode($guru->getBody());
                 $guru = $guru->data;
@@ -37,8 +36,8 @@ class KepegawaianController extends Controller
                     $guru->nama_guru,
                     $guru->nuptk,
                     $jabatan->nama_jabatan,
-                    $resp->status_kepegawaian,
                     $resp->no_sk,
+                    $resp->kategori_sk,
                     '<nobr>'.$btnShow.'</nobr>'
                 ];
             }
@@ -47,15 +46,15 @@ class KepegawaianController extends Controller
                 'Nama Guru',
                 'NUPTK',
                 'Jabatan',
-                'Status',
                 'No SK',
+                'Kategori SK',
                 ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
 
             $config = [
                 'data' => $subjectdata,
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
@@ -66,15 +65,15 @@ class KepegawaianController extends Controller
                 'Nama Guru',
                 'NUPTK',
                 'Jabatan',
-                'Status',
                 'No SK',
+                'Kategori SK',
                 ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
 
             $config = [
                 'data' => [],
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];

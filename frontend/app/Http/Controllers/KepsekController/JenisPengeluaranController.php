@@ -22,21 +22,19 @@ class JenisPengeluaranController extends Controller
 
                 $subjectdata[] = [
                     $resp->id,
-                    $resp->jenis_pengeluaran,
-                    '<nobr></nobr>'
+                    $resp->jenis_pengeluaran
                 ];
             }
 
             $heads = [
                 ['label' => 'ID Jenis Pengeluaran', 'no-export' => false, 'width' => 10],
-                'Jenis Pengeluaran',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                'Jenis Pengeluaran'
             ];
 
             $config = [
                 'data' => $subjectdata,
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, ['orderable' => false]],
+                'columns' => [null, null],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
@@ -45,14 +43,13 @@ class JenisPengeluaranController extends Controller
         } else {
             $heads = [
                 ['label' => 'ID Jenis Pengeluaran', 'no-export' => false, 'width' => 10],
-                'Jenis Pengeluaran',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                'Jenis Pengeluaran'
             ];
 
             $config = [
                 'data' => [],
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, ['orderable' => false]],
+                'columns' => [null, null],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];

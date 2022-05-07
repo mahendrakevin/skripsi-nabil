@@ -100,12 +100,8 @@ class GuruController extends Controller
                         $guru->nuptk,
                         $jabatan->nama_jabatan,
                         $resp->no_sk,
-                        $resp->no_sk_ypmnu,
-                        $resp->no_sk_operator,
-                        $resp->status_kepegawaian,
-                        $resp->alasan_tidak_aktif,
-                        $resp->surat_mutasi
-
+                        $resp->kategori_sk,
+                        $resp->jumlah_ajar
                     ];
                 }
 
@@ -114,17 +110,14 @@ class GuruController extends Controller
                     'NUPTK',
                     'Jabatan',
                     'No SK',
-                    'No SK YPMNU',
-                    'No SK Operator',
-                    'Status',
-                    'Alasan Tidak Aktif',
-                    'Surat Mutasi'
+                    'Kategori SK',
+                    'Jumlah Ajar'
                 ];
 
                 $config = [
                     'data' => $subjectdata,
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null, null, null, ['orderable' => false]],
+                    'columns' => [null, null, null, null, null, null],
                     'paging' => true,
                     'lengthMenu' => [10, 50, 100, 500]
                 ];
@@ -134,17 +127,14 @@ class GuruController extends Controller
                     'NUPTK',
                     'Jabatan',
                     'No SK',
-                    'No SK YPMNU',
-                    'No SK Operator',
-                    'Status',
-                    'Alasan Tidak Aktif',
-                    'Surat Mutasi'
+                    'Kategori SK',
+                    'Jumlah Ajr'
                 ];
 
                 $config = [
                     'data' => [],
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null, null, null, ['orderable' => false]],
+                    'columns' => [null, null, null, null, null, null],
                     'paging' => true,
                     'lengthMenu' => [10, 50, 100, 500]
                 ];

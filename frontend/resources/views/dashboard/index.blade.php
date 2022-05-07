@@ -1,6 +1,7 @@
 <x-app-layout title="Dashboard">
     <div class="row">
-        <div class="col-md-12">
+        @if (Auth::user()->role != '2')
+            <div class="col-md-12">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3 col-sm-6 col-12">
@@ -60,6 +61,7 @@
 
             </div><!-- /.container-fluid -->
         </div>
+        @endif
         <div class="col-md-12">
             <div class="row">
                 <div class="col-lg-3 col-6">
@@ -96,6 +98,7 @@
                     </div>
                 </div>
                 <!-- ./col -->
+                @if (Auth::user()->role != '2')
                 <div class="col-lg-3 col-6">
                     <!-- small card -->
                     <div class="small-box bg-warning">
@@ -129,10 +132,12 @@
                         </a>
                     </div>
                 </div>
+            @endif
                 <!-- ./col -->
             </div>
         </div>
     </div>
+    @if (Auth::user()->role != '2')
     <div class="row">
         <div class="col-md-3">
             <x-adminlte-card theme="lime" theme-mode="outline">
@@ -251,4 +256,5 @@
             <!-- /.card -->
         </div>
     </div>
+    @endif
 </x-app-layout>

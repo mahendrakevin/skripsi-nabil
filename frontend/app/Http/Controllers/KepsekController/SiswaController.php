@@ -97,12 +97,13 @@ class SiswaController extends Controller
                     $resp->status_siswa
                 ];
             }
+
             $heads = [
                 'NIS',
                 'NISN',
                 'Nama',
                 'Jenis Kelamin',
-                'Status Siswa',
+                'Status Siswa'
             ];
 
             $config = [
@@ -120,7 +121,7 @@ class SiswaController extends Controller
                 'NISN',
                 'Nama',
                 'Jenis Kelamin',
-                'Status Siswa',
+                'Status Siswa'
             ];
 
             $config = [
@@ -166,6 +167,19 @@ class SiswaController extends Controller
 
                 foreach ($result as $resp){
 
+                    $btnEdit = view('components.button', [
+                        'method' => 'GET',
+                        'action' => route('admin.laporan_pembayaran.edit', $resp->id),
+                        'title' => 'Edit',
+                        'icon' => 'fa fa-lg fa-fw fa-pen',
+                        'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
+
+                    $btnDelete = view('components.button', [
+                        'method' => 'GET',
+                        'action' => route('admin.laporan_pembayaran.destroy', $resp->id),
+                        'title' => 'Delete',
+                        'icon' => 'fa fa-lg fa-fw fa-trash',
+                        'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
                     $siswa = $client->request('GET', 'siswa/'.$resp->id_siswa);
                     $siswa = json_decode($siswa->getBody());
@@ -181,8 +195,7 @@ class SiswaController extends Controller
                         $jenis_pembayaran->jenis_pembayaran,
                         $jenis_pembayaran->nominal_pembayaran,
                         $resp->nominal_pembayaran,
-                        $resp->status_pembayaran,
-                        '<nobr></nobr>'
+                        $resp->status_pembayaran
                     ];
                 }
 
@@ -193,13 +206,12 @@ class SiswaController extends Controller
                     'Nominal Tagihan',
                     'Nominal Terbayar',
                     'Status Pembayaran',
-                    ['label' => 'Actions', 'no-export' => false, 'width' => 10],
                 ];
 
                 $config = [
                     'data' => $subjectdata,
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null, ['orderable' => false]],
+                    'columns' => [null, null, null, null, null, null],
                     'paging' => true,
                     'lengthMenu' => [ 10, 50, 100, 500]
                 ];
@@ -210,14 +222,13 @@ class SiswaController extends Controller
                     'Jenis',
                     'Nominal Tagihan',
                     'Nominal Terbayar',
-                    'Status Pembayaran',
-                    ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                    'Status Pembayaran'
                 ];
 
                 $config = [
                     'data' => [],
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null, ['orderable' => false]],
+                    'columns' => [null, null, null, null, null, null],
                     'paging' => true,
                     'lengthMenu' => [ 10, 50, 100, 500]
                 ];

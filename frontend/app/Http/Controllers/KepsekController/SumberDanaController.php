@@ -23,20 +23,18 @@ class SumberDanaController extends Controller
                 $subjectdata[] = [
                     $resp->id,
                     $resp->nama_dana,
-                    '<nobr></nobr>'
                 ];
             }
 
             $heads = [
                 ['label' => 'ID Sumber Dana', 'no-export' => false, 'width' => 10],
                 'Sumber Dana',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
 
             $config = [
                 'data' => $subjectdata,
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, ['orderable' => false]],
+                'columns' => [null, null],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
@@ -45,14 +43,13 @@ class SumberDanaController extends Controller
         } else {
             $heads = [
                 ['label' => 'ID Sumber Dana', 'no-export' => false, 'width' => 10],
-                'Sumber Dana',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                'Sumber Dana'
             ];
 
             $config = [
                 'data' => [],
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, ['orderable' => false]],
+                'columns' => [null, null],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];

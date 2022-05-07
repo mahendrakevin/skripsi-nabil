@@ -275,8 +275,8 @@ Route::group(['prefix' => 'kepsek', 'namespace' => 'App\Http\Controllers\KepsekC
     // Siswa
     Route::group(['prefix' => 'siswa'], function () {
         Route::get('/', 'SiswaController@index')->name('kepsek.siswa.index')->middleware('kepsek');
-        Route::get('/{id_siswa}', 'SiswaController@show')->name('kepsek.siswa.show')->middleware('kepsek');
         Route::get('/alumni', 'SiswaController@index_alumni')->name('kepsek.siswa.index_alumni')->middleware('kepsek');
+        Route::get('/{id_siswa}', 'SiswaController@show')->name('kepsek.siswa.show')->middleware('kepsek');
     });
 
     // Guru
@@ -426,6 +426,18 @@ Route::group(['prefix' => 'bendahara', 'namespace' => 'App\Http\Controllers\Bend
         Route::post('/', 'JenisPengeluaranController@store')->name('bendahara.jenis_pengeluaran.store')->middleware('bendahara');
         Route::get('/update/{id_jenispengeluaran}', 'JenisPengeluaranController@update')->name('bendahara.jenis_pengeluaran.update')->middleware('bendahara');
         Route::get('/hapus/{id_jenispengeluaran}', 'JenisPengeluaranController@destroy')->name('bendahara.jenis_pengeluaran.destroy')->middleware('bendahara');
+    });
+
+    // Jenis Pembayaran
+    Route::group(['prefix' => 'jenis-pembayaran'], function () {
+        Route::get('/', 'JenisPembayaranController@index')->name('bendahara.jenispembayaran.index')->middleware('bendahara');
+        Route::get('/{id_jenispembayaran}', 'JenisPembayaranController@show')->name('bendahara.jenispembayaran.show')->middleware('bendahara');
+        Route::post('/add', 'JenisPembayaranController@create')->name('bendahara.jenispembayaran.create')->middleware('bendahara');
+        Route::get('/edit/{id_jenispembayaran}', 'JenisPembayaranController@edit')->name('bendahara.jenispembayaran.edit')->middleware('bendahara');
+        Route::post('/delete', 'JenisPembayaranController@delete')->name('bendahara.jenispembayaran.delete')->middleware('bendahara');
+        Route::post('/', 'JenisPembayaranController@store')->name('bendahara.jenispembayaran.store')->middleware('bendahara');
+        Route::get('/update/{id_jenispembayaran}', 'JenisPembayaranController@update')->name('bendahara.jenispembayaran.update')->middleware('bendahara');
+        Route::get('/hapus/{id_jenispembayaran}', 'JenisPembayaranController@destroy')->name('bendahara.jenispembayaran.destroy')->middleware('bendahara');
     });
 });
 

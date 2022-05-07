@@ -23,22 +23,22 @@ class KelasController extends Controller
                 $subjectdata[] = [
                     $resp->id,
                     $resp->nama_kelas,
-                    $resp->kapasitas_kelas,
-                    '<nobr></nobr>'
+                    $resp->tingkat,
+                    $resp->kapasitas_kelas
                 ];
             }
 
             $heads = [
                 ['label' => 'ID Kelas', 'no-export' => false, 'width' => 10],
                 'Nama Kelas',
-                'Kapasitas Kelas',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                'Tingkat',
+                'Kapasitas Kelas'
             ];
 
             $config = [
                 'data' => $subjectdata,
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null, null],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
@@ -48,6 +48,7 @@ class KelasController extends Controller
             $heads = [
                 ['label' => 'ID Kelas', 'no-export' => false, 'width' => 10],
                 'Nama Kelas',
+                'Tingkat',
                 'Kapasitas Kelas',
                 ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
@@ -55,7 +56,7 @@ class KelasController extends Controller
             $config = [
                 'data' => [],
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null, null],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];

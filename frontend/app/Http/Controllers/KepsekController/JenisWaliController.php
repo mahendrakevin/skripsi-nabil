@@ -22,21 +22,19 @@ class JenisWaliController extends Controller
 
                 $subjectdata[] = [
                     $resp->id,
-                    $resp->jenis_wali,
-                    '<nobr></nobr>'
+                    $resp->jenis_wali
                 ];
             }
 
             $heads = [
                 ['label' => 'ID Jenis Wali', 'no-export' => false, 'width' => 10],
-                'Nama Jenis Wali',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                'Nama Jenis Wali'
             ];
 
             $config = [
                 'data' => $subjectdata,
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, ['orderable' => false]],
+                'columns' => [null, null],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
@@ -45,14 +43,13 @@ class JenisWaliController extends Controller
         } else {
             $heads = [
                 ['label' => 'ID Jenis Wali', 'no-export' => false, 'width' => 10],
-                'Nama Jenis Wali',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                'Nama Jenis Wali'
             ];
 
             $config = [
                 'data' => [],
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, ['orderable' => false]],
+                'columns' => [null, null],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
