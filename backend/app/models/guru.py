@@ -32,8 +32,6 @@ class Kepegawaian(Base):
     no_sk = Column(String(20))
     kategori_sk = Column(String(20))
     tanggal = Column(Date)
-    id_jabatan = Column(BigInteger, ForeignKey("jabatan.id", ondelete="CASCADE"))
-    jumlah_ajar = Column(BigInteger)
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
 
