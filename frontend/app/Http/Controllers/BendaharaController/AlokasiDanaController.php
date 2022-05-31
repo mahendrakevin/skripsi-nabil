@@ -70,7 +70,7 @@ class AlokasiDanaController extends Controller
                 $btnDelete_masuk = view('components.Button', [
                     'method' => 'GET',
                     'action' => route('bendahara.alokasi_dana.destroy_masuk', $dm->id),
-                    'title' => 'Delete',
+                    'title' => 'Hapus',
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
@@ -110,7 +110,7 @@ class AlokasiDanaController extends Controller
                 $btnDelete_keluar = view('components.Button', [
                     'method' => 'GET',
                     'action' => route('bendahara.alokasi_dana.destroy_keluar', $dk->id),
-                    'title' => 'Delete',
+                    'title' => 'Hapus',
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 

@@ -70,16 +70,15 @@
                                 <option {{old('id_kelas',$siswa->id_kelas)==$kls->id? 'selected':''}} value="{{ $kls->id }}">{{$kls->nama_kelas}}</option>
                             @endforeach
                         </x-adminlte-select2>
+                        <x-adminlte-input name="nomor_kks_ayah" label="Nomor KKS" placeholder="124155151" type="number"
+                                          fgroup-class="col-md-4" value="{{ $siswa->nomor_kks }}" readonly/>
+                        <x-adminlte-input name="nomor_pkh_ayah" label="Nomor PKH" placeholder="124155151" type="number"
+                                          fgroup-class="col-md-4" value="{{ $siswa->nomor_pkh }}" readonly/>
                     </div>
                     <div class="row">
                         <x-adminlte-textarea name="alamat" fgroup-class="col-md-6" label="Alamat" placeholder="Masukkan alamat" disabled>
                             {{ $siswa->alamat }}
                         </x-adminlte-textarea>
-                        <x-adminlte-select2 name="id_jeniswali" fgroup-class="col-md-6" label="Pilih Jenis Wali" disabled>
-                            @foreach($jeniswali as $jw)
-                                <option {{old('id_jeniswali',$siswa->id_jeniswali)==$jw->id? 'selected':''}} value="{{ $jw->id }}">{{$jw->jenis_wali}}</option>
-                            @endforeach
-                        </x-adminlte-select2>
                     </div>
                     @foreach($kelas as $kls)
                         @if (Auth::user()->role == '1' && $siswa->id_kelas == $kls->id)
@@ -180,10 +179,6 @@
                                 <div class="row">
                                     <x-adminlte-input name="penghasilan_ayah" label="Penghasilan Perbulan" placeholder="124155151" type="number"
                                                       fgroup-class="col-md-4" value="{{ $walisiswa->penghasilan_ayah }}" readonly/>
-                                    <x-adminlte-input name="nomor_kks_ayah" label="Nomor KKS" placeholder="124155151" type="number"
-                                                      fgroup-class="col-md-4" value="{{ $walisiswa->nomor_kks_ayah }}" readonly/>
-                                    <x-adminlte-input name="nomor_pkh_ayah" label="Nomor PKH" placeholder="124155151" type="number"
-                                                      fgroup-class="col-md-4" value="{{ $walisiswa->nomor_pkh_ayah }}" readonly/>
                                 </div>
                                 <div class="row">
                                     <x-adminlte-input name="no_hp_ayah" label="Nomor Handphone/Telp" placeholder="08123456789" type="number"
@@ -252,10 +247,6 @@
                                 <div class="row">
                                     <x-adminlte-input name="penghasilan_ibu" label="Penghasilan Perbulan" placeholder="124155151" type="number"
                                                       fgroup-class="col-md-4" value="{{ $walisiswa->penghasilan_ibu }}" readonly/>
-                                    <x-adminlte-input name="nomor_kks_ibu" label="Nomor KKS" placeholder="124155151" type="number"
-                                                      fgroup-class="col-md-4" value="{{ $walisiswa->nomor_kks_ibu }}" readonly/>
-                                    <x-adminlte-input name="nomor_pkh_ibu" label="Nomor PKH" placeholder="124155151" type="number"
-                                                      fgroup-class="col-md-4" value="{{ $walisiswa->nomor_pkh_ibu }}" readonly/>
                                 </div>
                                 <div class="row">
                                     <x-adminlte-input name="no_hp_ibu" label="Nomor Handphone/Telp" placeholder="08123456789" type="number"
@@ -269,8 +260,10 @@
                         <div class="col-md-6">
                             <x-adminlte-card theme="lightblue" theme-mode="outline" title="Biodata Diri Wali">
                                 <div class="row">
+                                    <x-adminlte-input name="tempat_lahir" label="Tempat Lahir" placeholder="Semarang"
+                                                      fgroup-class="col-md-6" value="{{ $siswa->jenis_wali }}"  readonly/>
                                     <x-adminlte-input name="nama_wali" label="Nama Wali" placeholder="Alfa"
-                                                      fgroup-class="col-md-8" value="{{ $walisiswa->nama_wali }}" readonly/>
+                                                      fgroup-class="col-md-6" value="{{ $walisiswa->nama_wali }}" readonly/>
                                 </div>
                                 <div class="row">
                                     <x-adminlte-input name="tempat_lahir_wali" label="Tempat Lahir" placeholder="Semarang"
@@ -304,10 +297,6 @@
                                 <div class="row">
                                     <x-adminlte-input name="penghasilan_wali" label="Penghasilan Perbulan" placeholder="124155151" type="number"
                                                       fgroup-class="col-md-4" value="{{ $walisiswa->penghasilan_wali }}" readonly/>
-                                    <x-adminlte-input name="nomor_kks_wali" label="Nomor KKS" placeholder="124155151" type="number"
-                                                      fgroup-class="col-md-4" value="{{ $walisiswa->nomor_kks_wali }}" readonly/>
-                                    <x-adminlte-input name="nomor_pkh_wali" label="Nomor PKH" placeholder="124155151" type="number"
-                                                      fgroup-class="col-md-4" value="{{ $walisiswa->nomor_pkh_wali }}" readonly/>
                                 </div>
                                 <div class="row">
                                     <x-adminlte-input name="no_hp_wali" label="Nomor Handphone/Telp" placeholder="08123456789" type="number"

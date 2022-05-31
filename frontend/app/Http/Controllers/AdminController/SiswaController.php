@@ -23,7 +23,7 @@ class SiswaController extends Controller
                 $btnShow = view('components.button', [
                     'method' => 'GET',
                     'action' => route('admin.siswa.show', $resp->id),
-                    'title' => 'Detail',
+                    'title' => 'Lihat',
                     'icon' => 'fa fa-lg fa-fw fa-eye',
                     'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
 
@@ -37,7 +37,7 @@ class SiswaController extends Controller
                 $btnDelete = view('components.button', [
                     'method' => 'GET',
                     'action' => route('admin.siswa.destroy', $resp->id),
-                    'title' => 'Delete',
+                    'title' => 'Hapus',
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
@@ -113,7 +113,7 @@ class SiswaController extends Controller
                 $btnDelete = view('components.button', [
                     'method' => 'GET',
                     'action' => route('admin.siswa.destroy', $resp->id),
-                    'title' => 'Delete',
+                    'title' => 'Hapus',
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
@@ -172,13 +172,9 @@ class SiswaController extends Controller
         $kelas = $client->request('GET', 'kelas/');
         $kelas = json_decode($kelas->getBody());
         $kelas = $kelas->data;
-
-        $jeniswali = $client->request('GET', 'walisiswa/jeniswali/');
-        $jeniswali = json_decode($jeniswali->getBody());
-        $jeniswali = $jeniswali->data;
         $config_date = ['format' => 'YYYY-MM-DD'];
 
-        return view('siswa.create')->with(compact('kelas', 'jeniswali', 'config_date'));
+        return view('siswa.create')->with(compact('kelas', 'config_date'));
     }
 
     public function store(Request $request){
@@ -202,7 +198,9 @@ class SiswaController extends Controller
                     'alamat' => $request->alamat,
                     'nomor_kk' => (int)$request->nomor_kk,
                     'file_kk' => $request->file_kk,
-                    'id_jeniswali' => (int)$request->id_jeniswali,
+                    'jeniswali' => $request->jeniswali,
+                    'nomor_kks' => (int)$request->nomor_kks,
+                    'nomor_pkh' => (int)$request->nomor_pkh
                 ]
             ]
         );
@@ -225,8 +223,6 @@ class SiswaController extends Controller
                         'pendidikan_ayah' => (int)$request->pendidikan_ayah,
                         'pekerjaan_ayah' => (int)$request->pekerjaan_ayah,
                         'penghasilan_ayah' => (int)$request->penghasilan_ayah,
-                        'nomor_kks_ayah' => (int)$request->nomor_kks_ayah,
-                        'nomor_pkh_ayah' => (int)$request->nomor_pkh_ayah,
                         'nama_ibu' => $request->nama_ibu,
                         'tempat_lahir_ibu' => $request->tempat_lahir_ibu,
                         'tanggal_lahir_ibu' => $request->tanggal_lahir_ibu,
@@ -237,8 +233,6 @@ class SiswaController extends Controller
                         'pendidikan_ibu' => $request->pendidikan_ibu,
                         'pekerjaan_ibu' => $request->pekerjaan_ibu,
                         'penghasilan_ibu' => (int)$request->penghasilan_ibu,
-                        'nomor_kks_ibu' => (int)$request->nomor_kks_ibu,
-                        'nomor_pkh_ibu' => (int)$request->nomor_pkh_ibu,
                         'nama_wali' => $request->nama_wali,
                         'tempat_lahir_wali' => $request->tempat_lahir_wali,
                         'tanggal_lahir_wali' => $request->tanggal_lahir_wali,
@@ -247,8 +241,6 @@ class SiswaController extends Controller
                         'pendidikan_wali' => $request->pendidikan_wali,
                         'pekerjaan_wali' => $request->pekerjaan_wali,
                         'penghasilan_wali' => (int)$request->penghasilan_wali,
-                        'nomor_kks_wali' => (int)$request->nomor_kks_wali,
-                        'nomor_pkh_wali' => (int)$request->nomor_pkh_wali,
                         'id_siswa' => $data_siswa->data->id
                     ]
                 ]
@@ -332,9 +324,6 @@ class SiswaController extends Controller
         $kelas = json_decode($kelas->getBody());
         $kelas = $kelas->data;
 
-        $jeniswali = $client->request('GET', 'walisiswa/jeniswali/');
-        $jeniswali = json_decode($jeniswali->getBody());
-        $jeniswali = $jeniswali->data;
 
         $config_date = ['format' => 'YYYY-MM-DD'];
 
@@ -361,7 +350,7 @@ class SiswaController extends Controller
                     $btnDelete = view('components.button', [
                         'method' => 'GET',
                         'action' => route('admin.laporan_pembayaran.destroy', $resp->id),
-                        'title' => 'Delete',
+                        'title' => 'Hapus',
                         'icon' => 'fa fa-lg fa-fw fa-trash',
                         'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
@@ -421,7 +410,7 @@ class SiswaController extends Controller
                 ];
             }
 
-            return view('siswa.show')->with(compact('siswa', 'config', 'heads', 'walisiswa', 'kelas', 'jeniswali', 'config_date'));
+            return view('siswa.show')->with(compact('siswa', 'config', 'heads', 'walisiswa', 'kelas', 'config_date'));
         }
         else {
             return redirect(route('admin.siswa.index'))->with('alert-failed', 'Data tidak ditemukan');

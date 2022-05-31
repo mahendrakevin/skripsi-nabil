@@ -18,7 +18,9 @@ class AdminDashboardController extends Controller
         $dana_masuk = DB::Select("SELECT SUM(nominal_dana) FROM dana_masuk");
         $dana_keluar = DB::Select("SELECT SUM(nominal_pengeluaran) FROM dana_keluar");
         $laporan_pembayaran = DB::Select("SELECT COUNT(1) FROM laporan_pembayaran");
-        $arsip_surat = DB::Select("SELECT COUNT(1) FROM arsip_surat");
+        $arsip_surat_masuk = DB::Select("SELECT COUNT(1) FROM arsip_surat WHERE jenis_surat = 'Masuk'");
+        $arsip_surat_keluar = DB::Select("SELECT COUNT(1) FROM arsip_surat WHERE jenis_surat = 'Keluar'");
+        $total_sarpras = DB::Select("SELECT COUNT(1) FROM sarana_prasarana");
 
         $client = new Client(['base_uri' => env('API_HOST')]);
         $resp = $client->request('GET', 'lembaga/1');
@@ -31,6 +33,7 @@ class AdminDashboardController extends Controller
             $sk = $sk->data;
             // dd($sk);
             $result = $result->data;
+//            dd($result);
             $client = new Client(['base_uri' => env('API_HOST')]);
             $resp = $client->request('GET', 'lembaga/sarpras/');
             $sarpras = json_decode($resp->getBody());
@@ -51,7 +54,7 @@ class AdminDashboardController extends Controller
                     $btnDelete = view('components.Button', [
                         'method' => 'GET',
                         'action' => route('admin.sarpras.destroy', $resp->id),
-                        'title' => 'Delete',
+                        'title' => 'Hapus',
                         'icon' => 'fa fa-lg fa-fw fa-trash',
                         'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
@@ -85,7 +88,7 @@ class AdminDashboardController extends Controller
                     'lengthMenu' => [ 10, 50, 100, 500]
                 ];
 
-                return view('dashboard.index')->with(compact('result', 'config_sarpras', 'heads_sarpras', 'sk', 'jumlah_siswa','jumlah_alumni','jumlah_guru','jumlah_rombel','dana_masuk','dana_keluar','laporan_pembayaran','arsip_surat'));
+                return view('dashboard.index')->with(compact('result', 'config_sarpras', 'heads_sarpras', 'sk', 'jumlah_siswa','jumlah_alumni','jumlah_guru','jumlah_rombel','dana_masuk','dana_keluar','laporan_pembayaran','arsip_surat_masuk', 'arsip_surat_keluar', 'total_sarpras'));
             } else {
                 $heads_sarpras = [
                     ['label' => 'No', 'no-export' => false, 'width' => 10],
@@ -105,7 +108,7 @@ class AdminDashboardController extends Controller
                     'lengthMenu' => [10, 50, 100, 500]
                 ];
 
-                return view('dashboard.index')->with(compact('heads_sarpras', 'config_sarpras', 'result', 'sk', 'jumlah_siswa','jumlah_alumni','jumlah_guru','jumlah_rombel','dana_masuk','dana_keluar','laporan_pembayaran','arsip_surat'));
+                return view('dashboard.index')->with(compact('heads_sarpras', 'config_sarpras', 'result', 'sk', 'jumlah_siswa','jumlah_alumni','jumlah_guru','jumlah_rombel','dana_masuk','dana_keluar','laporan_pembayaran','arsip_surat_masuk', 'arsip_surat_keluar', 'total_sarpras'));
 
             }
         } else {

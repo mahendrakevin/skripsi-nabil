@@ -20,7 +20,7 @@ class KepegawaianController extends Controller
                 $btnShow = view('components.Button', [
                     'method' => 'GET',
                     'action' => route('admin.guru.show', $resp->id_guru),
-                    'title' => 'Detail',
+                    'title' => 'Lihat',
                     'icon' => 'fa fa-lg fa-fw fa-eye',
                     'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
 
@@ -34,7 +34,7 @@ class KepegawaianController extends Controller
                 $btnDelete = view('components.Button', [
                     'method' => 'GET',
                     'action' => route('admin.kepegawaian.destroy', $resp->id),
-                    'title' => 'Delete',
+                    'title' => 'Hapus',
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
@@ -42,26 +42,29 @@ class KepegawaianController extends Controller
                 $guru = json_decode($guru->getBody());
                 $guru = $guru->data;
 
-                $jabatan = $client->request('GET', 'guru/jabatan/'.$resp->id_jabatan);
-                $jabatan = json_decode($jabatan->getBody());
-                $jabatan = $jabatan->data;
+                if ($resp->isskpengangkatan == true){
+                    $kategori_sk = 'SK Pengangkatan';
+                    $btnDelete = '';
+                } else {
+                    $kategori_sk = $resp->kategori_sk;
+                }
 
                 $subjectdata[] = [
+                    $resp->no_sk,
+                    $kategori_sk,
                     $guru->nama_guru,
                     $guru->nuptk,
-                    $jabatan->nama_jabatan,
-                    $resp->no_sk,
-                    $resp->kategori_sk,
+                    $resp->jabatan,
                     '<nobr>'.$btnShow.$btnEdit.$btnDelete.'</nobr>'
                 ];
             }
 
             $heads = [
+                'No SK',
+                'Kategori SK',
                 'Nama Guru',
                 'NUPTK',
                 'Jabatan',
-                'No SK',
-                'Kategori SK',
                 ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
 
@@ -76,11 +79,11 @@ class KepegawaianController extends Controller
             return view('skguru.index')->with(compact('heads', 'config', 'result'));
         } else {
             $heads = [
+                'No SK',
+                'Kategori SK',
                 'Nama Guru',
                 'NUPTK',
                 'Jabatan',
-                'No SK',
-                'Kategori SK',
                 ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
 
@@ -98,16 +101,13 @@ class KepegawaianController extends Controller
 
     public function create(){
         $client = new Client(['base_uri' => env('API_HOST')]);
-        $jabatan = $client->request('GET', 'guru/jabatan/');
-        $jabatan = json_decode($jabatan->getBody());
-        $jabatan = $jabatan->data;
         $guru = $client->request('GET', 'guru/');
         $guru = json_decode($guru->getBody());
         $guru = $guru->data;
 
         $config_date = ['format' => 'YYYY-MM-DD'];
 
-        return view('skguru.create')->with(compact('jabatan', 'config_date', 'guru'));
+        return view('skguru.create')->with(compact('config_date', 'guru'));
     }
 
     public function store(Request $request){
@@ -122,8 +122,7 @@ class KepegawaianController extends Controller
                     'tanggal' =>$request->tanggal,
                     'no_sk' => $request->no_sk,
                     'kategori_sk' => $request->kategori_sk,
-                    'id_jabatan' => (int)$request->id_jabatan,
-                    'jumlah_ajar' => (int)$request->jumlah_ajar
+                    'jabatan' => $request->jabatan
                 ]
             ]
         );
@@ -146,16 +145,12 @@ class KepegawaianController extends Controller
         $guru = $client->request('GET', 'guru/'.$kepegawaian->data->id_guru);
         $guru = json_decode($guru->getBody());
 
-
-        $jabatan = $client->request('GET', 'guru/jabatan/');
-        $jabatan = json_decode($jabatan->getBody());
-        $jabatan = $jabatan->data;
         $config_date = ['format' => 'YYYY-MM-DD'];
 
         if($kepegawaian->message_id == '00'){
             $guru = $guru->data;
             $kepegawaian = $kepegawaian->data;
-            return view('skguru.edit')->with(compact( 'guru', 'kepegawaian', 'jabatan', 'config_date'));
+            return view('skguru.edit')->with(compact( 'guru', 'kepegawaian', 'config_date'));
         }
         else {
             return redirect(route('admin.kepegawaian.index'))->with('alert-failed', 'Data tidak ditemukan');
@@ -197,8 +192,7 @@ class KepegawaianController extends Controller
                     'tanggal' =>$request->tanggal,
                     'no_sk' => $request->no_sk,
                     'kategori_sk' => $request->kategori_sk,
-                    'id_jabatan' => (int)$request->id_jabatan,
-                    'jumlah_ajar' => (int)$request->jumlah_ajar
+                    'jabatan' => $request->jabatan
                 ]
             ]
         );

@@ -17,25 +17,29 @@
             </x-adminlte-input-date>
             </div>
             <div class="row">
+                @if($kepegawaian->isskpengangkatan != true)
+                    <x-adminlte-select2 name="kategori_sk" fgroup-class="col-md-4" label="Pilih Jenis Jabatan">
+                        <option {{old('kategori_sk',$kepegawaian->kategori_sk)=='SK Yayasan'? 'selected':''}} value="SK Yayasan">SK Yayasan</option>
+                        <option {{old('kategori_sk',$kepegawaian->kategori_sk)=='SK YPMNU'? 'selected':''}} value="SK YPMNU">SK YPMNU</option>
+                        <option {{old('kategori_sk',$kepegawaian->kategori_sk)=='SK Sekolah'? 'selected':''}} value="SK Sekolah">SK Sekolah</option>
+                    </x-adminlte-select2>
+                @endif
                 <x-adminlte-input name="no_sk" label="Nomor SK" placeholder="1277471818"
                                   fgroup-class="col-md-4" type="number" value="{{ $kepegawaian->no_sk }}" required/>
-                <x-adminlte-select2 name="kategori_sk" fgroup-class="col-md-4" label="Pilih Jenis Jabatan">
-                    <option {{old('kategori_sk',$kepegawaian->kategori_sk)=='SK Yayasan'? 'selected':''}} value="{{ $kepegawaian->kategori_sk }}">{{$kepegawaian->kategori_sk}}</option>
-                    <option {{old('kategori_sk',$kepegawaian->kategori_sk)=='SK YPMNU'? 'selected':''}} value="{{ $kepegawaian->kategori_sk }}">{{$kepegawaian->kategori_sk}}</option>
-                </x-adminlte-select2>
-            </div>
-            <div class="row">
-                <x-adminlte-select2 name="id_jabatan" fgroup-class="col-md-4" label="Pilih Jenis Jabatan">
-                    @foreach($jabatan as $jw)
-                        <option {{old('jabatan',$kepegawaian->id_jabatan)==$jw->id? 'selected':''}} value="{{ $jw->id }}">{{$jw->nama_jabatan}}</option>
-                    @endforeach
-                </x-adminlte-select2>
-                <x-adminlte-input name="jumlah_ajar" label="Jumlah Ajar" placeholder="Jumlah Ajar Dalam Jam"
-                                  type="number" value="{{ $kepegawaian->jumlah_ajar }}"
+                <x-adminlte-input name="jabatan" label="Jabatan" placeholder="Jabatan"
+                                  type="text" value="{{ $kepegawaian->jabatan }}"
                                   fgroup-class="col-md-6" required/>
             </div>
         </x-adminlte-card>
-        <x-adminlte-button class="btn-flat" type="submit" label="Submit" theme="success" icon="fas fa-lg fa-save"/>
-        <x-adminlte-button class="btn-flat" type="reset" label="Reset" theme="danger" icon="fas fa-lg fa-trash"/>
+        <x-adminlte-modal id="modalCustom" title="Konfirmasi Simpan" size="lg" theme="teal"
+                              icon="fas fa-bell" v-centered static-backdrop scrollable>
+                <div>Apakah Anda yakin untuk menyimpan data?</div>
+                <x-slot name="footerSlot">
+                    <x-adminlte-button theme="danger" label="Tidak" data-dismiss="modal"/>
+                    <x-adminlte-button class="btn-flat" type="submit" label="Ya" theme="success"/>
+                </x-slot>
+            </x-adminlte-modal>
+            <x-adminlte-button label="Simpan" data-toggle="modal" theme="success" data-target="#modalCustom" class="btn-flat"/>
+
     </x-form>
 </x-app-layout>

@@ -23,7 +23,7 @@ class LaporanPembayaranController extends Controller
                 $btnShow = view('components.button', [
                     'method' => 'GET',
                     'action' => route('admin.siswa.show', $resp->id_siswa),
-                    'title' => 'Detail',
+                    'title' => 'Lihat',
                     'icon' => 'fa fa-lg fa-fw fa-eye',
                     'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
 
@@ -37,7 +37,7 @@ class LaporanPembayaranController extends Controller
                 $btnDelete = view('components.button', [
                     'method' => 'GET',
                     'action' => route('admin.laporan_pembayaran.destroy', $resp->id),
-                    'title' => 'Delete',
+                    'title' => 'Hapus',
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 

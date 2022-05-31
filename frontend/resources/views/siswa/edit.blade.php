@@ -269,11 +269,6 @@
                     <div class="row">
                         <x-adminlte-input name="penghasilan_wali" label="Penghasilan Perbulan" placeholder="124155151" type="number"
                                           fgroup-class="col-md-4" value="{{ $walisiswa->penghasilan_wali }}" />
-                        <x-adminlte-input name="nomor_kks_wali" label="Nomor KKS" placeholder="124155151" type="number"
-                                          fgroup-class="col-md-4" value="{{ $walisiswa->nomor_kks_wali }}"/>
-                        <x-adminlte-input name="nomor_pkh_wali" label="Nomor PKH" placeholder="124155151" type="number"
-                                          fgroup-class="col-md-4" value="{{ $walisiswa->nomor_pkh_wali }}"/>
-                    </div>
                     <div class="row">
                         <x-adminlte-input name="no_hp_wali" label="Nomor Handphone/Telp" placeholder="08123456789" type="number"
                                           fgroup-class="col-md-6" value="{{ $walisiswa->no_hp_wali }}" />
@@ -284,7 +279,15 @@
                 </x-adminlte-card>
             </div>
         </div>
-        <x-adminlte-button class="btn-flat" type="submit" label="Submit" theme="success" icon="fas fa-lg fa-save"/>
-        <x-adminlte-button class="btn-flat" type="reset" label="Reset" theme="danger" icon="fas fa-lg fa-trash"/>
+        <x-adminlte-modal id="modalCustom" title="Konfirmasi Simpan" size="lg" theme="teal"
+                          icon="fas fa-bell" v-centered static-backdrop scrollable>
+            <div>Apakah Anda yakin untuk menyimpan data?</div>
+            <x-slot name="footerSlot">
+                <x-adminlte-button theme="danger" label="Tidak" data-dismiss="modal"/>
+                <x-adminlte-button class="btn-flat" type="submit" label="Ya" theme="success"/>
+            </x-slot>
+        </x-adminlte-modal>
+        <x-adminlte-button label="Simpan" data-toggle="modal" theme="success" data-target="#modalCustom" class="btn-flat"/>
+
     </x-form>
 </x-app-layout>

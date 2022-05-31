@@ -4,31 +4,6 @@
             <div class="col-md-12">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3 col-sm-6 col-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-info"><i class="fas fa-child"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">Jumlah Siswa</span>
-                                <span class="info-box-number">{{ $jumlah_siswa[0]->count }}</span>
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-md-3 col-sm-6 col-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">Jumlah Alumni</span>
-                                <span class="info-box-number">{{ $jumlah_alumni[0]->count }}</span>
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
                     <!-- /.col -->
                     <div class="col-md-3 col-sm-6 col-12">
                         <div class="info-box">
@@ -55,6 +30,31 @@
                         </div>
                         <!-- /.info-box -->
                     </div>
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-info"><i class="fas fa-child"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Jumlah Siswa</span>
+                                <span class="info-box-number">{{ $jumlah_siswa[0]->count }}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-3 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Jumlah Alumni</span>
+                                <span class="info-box-number">{{ $jumlah_alumni[0]->count }}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
                     <!-- /.col -->
                 </div>
                 <!-- /.row -->
@@ -64,13 +64,13 @@
         @endif
         <div class="col-md-12">
             <div class="row">
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-4 col-8">
                     <!-- small card -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>{{ $dana_masuk[0]->sum }}</h3>
+                            <h3>{{ $arsip_surat_masuk[0]->count }}</h3>
 
-                            <p>Total Dana Masuk</p>
+                            <p>Surat Masuk</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-shopping-cart"></i>
@@ -81,31 +81,30 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
+                @if (Auth::user()->role != '2')
+                <div class="col-lg-4 col-8">
                     <!-- small card -->
-                    <div class="small-box bg-success">
+                    <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>{{ $dana_keluar[0]->sum }}</h3>
+                            <h3>{{ $arsip_surat_masuk[0]->count }}</h3>
 
-                            <p>Total Dana Keluar</p>
+                            <p>Surat Keluar</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                            <i class="fas fa-chart-pie"></i>
                         </div>
                         <a href="#" class="small-box-footer">
                             More info <i class="fas fa-arrow-circle-right"></i>
                         </a>
                     </div>
                 </div>
-                <!-- ./col -->
-                @if (Auth::user()->role != '2')
-                <div class="col-lg-3 col-6">
+                <div class="col-lg-4 col-8">
                     <!-- small card -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>{{ $laporan_pembayaran[0]->count }}</h3>
+                            <h3>{{ $arsip_surat_keluar[0]->count }}</h3>
 
-                            <p>Jumlah Laporan Pembayaran</p>
+                            <p>Jumlah Ruang</p>
                         </div>
                         <div class="icon">
                             <i class="fas fa-user-plus"></i>
@@ -116,22 +115,6 @@
                     </div>
                 </div>
                 <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small card -->
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3>{{ $arsip_surat[0]->count }}</h3>
-
-                            <p>Jumlah Arsip Surat</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-chart-pie"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">
-                            More info <i class="fas fa-arrow-circle-right"></i>
-                        </a>
-                    </div>
-                </div>
             @endif
                 <!-- ./col -->
             </div>

@@ -24,8 +24,8 @@
                                       fgroup-class="col-md-12" type="text" required/>
                 </div>
             </x-adminlte-card>
-            <x-adminlte-button class="btn-flat" type="submit" label="Submit" theme="success" icon="fas fa-lg fa-save"/>
-            <x-adminlte-button class="btn-flat" type="reset" label="Reset" theme="danger" icon="fas fa-lg fa-trash"/>
+            <x-adminlte-button class="btn-flat" type="submit" label="Simpan" theme="success" icon="fas fa-lg fa-save"/>
+
         </div>
     </x-form>
 </x-app-layout>

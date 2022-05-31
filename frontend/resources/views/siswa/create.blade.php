@@ -3,14 +3,14 @@
     <x-form method="POST" action="{{ route('admin.siswa.store') }}">
         <x-adminlte-card theme="lime" theme-mode="outline" title="Isi Data Siswa">
             <div class="row">
-                <x-adminlte-input name="nisn" label="Nomor Induk Siswa Nasional" placeholder="1277471818"
+                <x-adminlte-input name="nisn" label="NISN" placeholder="1277471818"
                                   fgroup-class="col-md-3" type="number" required/>
-                <x-adminlte-input name="nis" label="Nomor Induk Siswa" placeholder="7077"
+                <x-adminlte-input name="nis" label="NIS" placeholder="7077"
                                   fgroup-class="col-md-3" type="number" required/>
                 <x-adminlte-input name="nik" label="NIK"
                                   min=1000000000000000 max=9999999999999999
                                   placeholder="1234567890123456" fgroup-class="col-md-3" type="number" required/>
-                <x-adminlte-input name="nomor_kk" label="No Kartu Keluarga"
+                <x-adminlte-input name="nomor_kk" label="No KK"
                                   min=1000000000000000 max=9999999999999999
                                   placeholder="1234567890123456" fgroup-class="col-md-3" type="number" required/>
             </div>
@@ -19,11 +19,6 @@
                                   fgroup-class="col-md-4" required/>
                 <x-adminlte-input name="nomor_kip" label="No KIP" placeholder="1234567890123456"
                                   fgroup-class="col-md-4" type="number" required/>
-                <x-adminlte-select2 name="id_jeniswali" fgroup-class="col-md-4" label="Pilih Jenis Wali">
-                    @foreach($jeniswali as $jw)
-                        <option value="{{ $jw->id }}">{{$jw->jenis_wali}}</option>
-                    @endforeach
-                </x-adminlte-select2>
             </div>
             <div class="row">
                 <x-adminlte-input name="tempat_lahir" label="Tempat Lahir" placeholder="Semarang"
@@ -60,31 +55,28 @@
                         <option value="{{ $kls->id }}">{{$kls->nama_kelas.' '.$kls->tingkat}}</option>
                     @endforeach
                 </x-adminlte-select2>
+                <x-adminlte-input name="nomor_kks" value="0" label="Nomor KKS" placeholder="124155151" type="number"
+                                  fgroup-class="col-md-4"/>
+                <x-adminlte-input name="nomor_pkh" value="0" label="Nomor PKH" placeholder="124155151" type="number"
+                                  fgroup-class="col-md-4"/>
             </div>
             <div class="row">
                 <x-adminlte-textarea name="alamat" fgroup-class="col-md-6" label="Alamat" placeholder="Masukkan alamat"/>
-                <x-adminlte-input-file name="file_kk" igroup-size="sm" placeholder="Pilih file..." label="File Kartu Keluarga" fgroup-class="col-md-4">
-                    <x-slot name="prependSlot_ayah">
-                        <div class="input-group-text bg-lightblue">
-                            <i class="fas fa-address-card"></i>
-                        </div>
-                    </x-slot>
-                </x-adminlte-input-file>
             </div>
         </x-adminlte-card>
         <div class="row">
             <div class="col-md-6">
                 <x-adminlte-card theme="lightblue" theme-mode="outline" title="Isi Data Ayah">
                     <div class="row">
-                        <x-adminlte-input name="nama_ayah" label="Nama" placeholder="Alfa"
-                                          fgroup-class="col-md-8" required />
-                        <x-adminlte-input-file name="file_kk_ayah" igroup-size="sm" placeholder="Pilih file..." label="File Kartu Keluarga" fgroup-class="col-md-4">
+                        <x-adminlte-input-file name="file_kk_ayah" igroup-size="sm" placeholder="Pilih file..." label="File KK Ayah" fgroup-class="col-md-4">
                             <x-slot name="prependSlot_ayah">
                                 <div class="input-group-text bg-lightblue">
                                     <i class="fas fa-address-card"></i>
                                 </div>
                             </x-slot>
                         </x-adminlte-input-file>
+                        <x-adminlte-input name="nama_ayah" label="Nama" placeholder="Alfa"
+                                          fgroup-class="col-md-8" required />
                     </div>
                     <div class="row">
                         <x-adminlte-input name="tempat_lahir_ayah" label="Tempat Lahir" placeholder="Semarang"
@@ -141,10 +133,6 @@
                     <div class="row">
                         <x-adminlte-input name="penghasilan_ayah" label="Penghasilan Perbulan" placeholder="124155151" type="number"
                                           fgroup-class="col-md-4" required />
-                        <x-adminlte-input name="nomor_kks_ayah" label="Nomor KKS" placeholder="124155151" type="number"
-                                          fgroup-class="col-md-4"/>
-                        <x-adminlte-input name="nomor_pkh_ayah" label="Nomor PKH" placeholder="124155151" type="number"
-                                          fgroup-class="col-md-4"/>
                     </div>
                     <div class="row">
                         <x-adminlte-input name="no_hp_ayah" label="Nomor Handphone/Telp" placeholder="08123456789" type="number"
@@ -156,6 +144,13 @@
             <div class="col-md-6">
                 <x-adminlte-card theme="lightblue" theme-mode="outline" title="Isi Data Ibu">
                     <div class="row">
+                        <x-adminlte-input-file name="file_kk_ibu" igroup-size="sm" placeholder="Pilih file..." label="File KK Ibu" fgroup-class="col-md-4">
+                            <x-slot name="prependSlot_ayah">
+                                <div class="input-group-text bg-lightblue">
+                                    <i class="fas fa-address-card"></i>
+                                </div>
+                            </x-slot>
+                        </x-adminlte-input-file>
                         <x-adminlte-input name="nama_ibu" label="Nama" placeholder="Alfa"
                                           fgroup-class="col-md-8" required />
                     </div>
@@ -214,10 +209,6 @@
                     <div class="row">
                         <x-adminlte-input name="penghasilan_ibu" label="Penghasilan Perbulan" placeholder="124155151" type="number"
                                           fgroup-class="col-md-4" required />
-                        <x-adminlte-input name="nomor_kks_ibu" label="Nomor KKS" placeholder="124155151" type="number"
-                                          fgroup-class="col-md-4"/>
-                        <x-adminlte-input name="nomor_pkh_ibu" label="Nomor PKH" placeholder="124155151" type="number"
-                                          fgroup-class="col-md-4"/>
                     </div>
                     <div class="row">
                         <x-adminlte-input name="no_hp_ibu" label="Nomor Handphone/Telp" placeholder="08123456789" type="number"
@@ -229,8 +220,10 @@
             <div class="col-md-6">
                 <x-adminlte-card theme="lightblue" theme-mode="outline" title="Isi Data Wali">
                     <div class="row">
+                        <x-adminlte-input name="jeniswali" label="Jenis Wali" placeholder="Ayah"
+                                          fgroup-class="col-md-6" required />
                         <x-adminlte-input name="nama_wali" label="Nama" placeholder="Alfa"
-                                          fgroup-class="col-md-8" value="-" />
+                                          fgroup-class="col-md-6" value="-" />
                     </div>
                     <div class="row">
                         <x-adminlte-input name="tempat_lahir_wali" label="Tempat Lahir" placeholder="Semarang"
@@ -267,10 +260,6 @@
                     <div class="row">
                         <x-adminlte-input name="penghasilan_wali" value="-" label="Penghasilan Perbulan" placeholder="124155151" type="number"
                                           fgroup-class="col-md-4"  />
-                        <x-adminlte-input name="nomor_kks_wali" value="-" label="Nomor KKS" placeholder="124155151" type="number"
-                                          fgroup-class="col-md-4"/>
-                        <x-adminlte-input name="nomor_pkh_wali" value="-" label="Nomor PKH" placeholder="124155151" type="number"
-                                          fgroup-class="col-md-4"/>
                     </div>
                     <div class="row">
                         <x-adminlte-input name="no_hp_wali" value="-" label="Nomor Handphone/Telp" placeholder="08123456789" type="number"
@@ -280,7 +269,15 @@
                 </x-adminlte-card>
             </div>
         </div>
-        <x-adminlte-button class="btn-flat" type="submit" label="Submit" theme="success" icon="fas fa-lg fa-save"/>
-        <x-adminlte-button class="btn-flat" type="reset" label="Reset" theme="danger" icon="fas fa-lg fa-trash"/>
+        <x-adminlte-modal id="modalCustom" title="Konfirmasi Simpan" size="lg" theme="teal"
+                          icon="fas fa-bell" v-centered static-backdrop scrollable>
+            <div>Apakah Anda yakin untuk menyimpan data?</div>
+            <x-slot name="footerSlot">
+                <x-adminlte-button theme="danger" label="Tidak" data-dismiss="modal"/>
+                <x-adminlte-button class="btn-flat" type="submit" label="Ya" theme="success"/>
+            </x-slot>
+        </x-adminlte-modal>
+        <x-adminlte-button label="Simpan" data-toggle="modal" theme="success" data-target="#modalCustom" class="btn-flat"/>
+
     </x-form>
 </x-app-layout>

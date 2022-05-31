@@ -34,8 +34,8 @@
                                       fgroup-class="col-md-12" type="number" required/>
                 </div>
             </x-adminlte-card>
-            <x-adminlte-button class="btn-flat" type="submit" label="Submit" theme="success" icon="fas fa-lg fa-save"/>
-            <x-adminlte-button class="btn-flat" type="reset" label="Reset" theme="danger" icon="fas fa-lg fa-trash"/>
+            <x-adminlte-button class="btn-flat" type="submit" label="Simpan" theme="success" icon="fas fa-lg fa-save"/>
+
         </x-form>
     @elseif(Auth::user()->role == '2')
         <x-form method="GET" enctype="multipart/form-data" action="{{ route('bendahara.alokasi_dana.update_keluar', $danakeluar->id) }}">
@@ -71,8 +71,8 @@
                                       fgroup-class="col-md-12" type="number" required/>
                 </div>
             </x-adminlte-card>
-            <x-adminlte-button class="btn-flat" type="submit" label="Submit" theme="success" icon="fas fa-lg fa-save"/>
-            <x-adminlte-button class="btn-flat" type="reset" label="Reset" theme="danger" icon="fas fa-lg fa-trash"/>
+            <x-adminlte-button class="btn-flat" type="submit" label="Simpan" theme="success" icon="fas fa-lg fa-save"/>
+
         </x-form>
     @endif
 </x-app-layout>

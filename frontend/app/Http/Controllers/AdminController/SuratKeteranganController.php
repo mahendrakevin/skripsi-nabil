@@ -30,7 +30,7 @@ class SuratKeteranganController extends Controller
                 $btnDelete = view('components.Button', [
                     'method' => 'GET',
                     'action' => route('admin.sarpras.destroy', $resp->id),
-                    'title' => 'Delete',
+                    'title' => 'Hapus',
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 

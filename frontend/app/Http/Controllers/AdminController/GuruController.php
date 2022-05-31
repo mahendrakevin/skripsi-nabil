@@ -21,7 +21,7 @@ class GuruController extends Controller
                 $btnShow = view('components.Button', [
                     'method' => 'GET',
                     'action' => route('admin.guru.show', $resp->id),
-                    'title' => 'Detail',
+                    'title' => 'Lihat',
                     'icon' => 'fa fa-lg fa-fw fa-eye',
                     'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
 
@@ -35,9 +35,10 @@ class GuruController extends Controller
                 $btnDelete = view('components.Button', [
                     'method' => 'GET',
                     'action' => route('admin.guru.destroy', $resp->id),
-                    'title' => 'Delete',
+                    'title' => 'Hapus',
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
+
 
                 $subjectdata[] = [
                     $resp->nip,
@@ -91,13 +92,10 @@ class GuruController extends Controller
 
     public function create(){
         $client = new Client(['base_uri' => env('API_HOST')]);
-        $jabatan = $client->request('GET', 'guru/jabatan/');
-        $jabatan = json_decode($jabatan->getBody());
-        $jabatan = $jabatan->data;
 
         $config_date = ['format' => 'YYYY-MM-DD'];
 
-        return view('guru.create')->with(compact('jabatan', 'config_date'));
+        return view('guru.create')->with(compact('config_date'));
     }
 
     public function store(Request $request){
@@ -133,10 +131,9 @@ class GuruController extends Controller
                     'json' => [
                         'id_guru' => (int)$data_guru->data->id,
                         'no_sk' => $request->no_sk,
-                        'kategori_sk' => $request->kategori_sk,
                         'no_sk_operator' => $request->no_sk_operator,
-                        'id_jabatan' => (int)$request->id_jabatan,
-                        'jumlah_ajar' => (int)$request->jumlah_ajar
+                        'isSKPengangkatan' => true,
+                        'jabatan' => $request->jabatan
                     ]
                 ]
             );
@@ -171,7 +168,7 @@ class GuruController extends Controller
                     $btnDelete = view('components.Button', [
                         'method' => 'GET',
                         'action' => route('admin.kepegawaian.destroy', $resp->id),
-                        'title' => 'Delete',
+                        'title' => 'Hapus',
                         'icon' => 'fa fa-lg fa-fw fa-trash',
                         'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
@@ -179,17 +176,20 @@ class GuruController extends Controller
                     $guru = json_decode($guru->getBody());
                     $guru = $guru->data;
 
-                    $jabatan = $client->request('GET', 'guru/jabatan/' . $resp->id_jabatan);
-                    $jabatan = json_decode($jabatan->getBody());
-                    $jabatan = $jabatan->data;
+                    if ($resp->isskpengangkatan == true){
+                        $kategori_sk = 'SK Pengangkatan';
+                        $btnDelete = '';
+                    } else {
+                        $kategori_sk = $resp->kategori_sk;
+                    }
 
                     $subjectdata[] = [
                         $resp->tanggal,
                         $guru->nama_guru,
                         $guru->nuptk,
-                        $jabatan->nama_jabatan,
+                        $kategori_sk,
+                        $resp->jabatan,
                         $resp->no_sk,
-                        $resp->jumlah_ajar,
                         '<nobr>' . $btnEdit . $btnDelete . '</nobr>'
                     ];
                 }
@@ -198,16 +198,16 @@ class GuruController extends Controller
                     'Tanggal SK',
                     'Nama Guru',
                     'NUPTK',
+                    'Kategori SK',
                     'Jabatan',
                     'No SK',
-                    'Jumlah Ajar',
                     ['label' => 'Actions', 'no-export' => false, 'width' => 10],
                 ];
 
                 $config = [
                     'data' => $subjectdata,
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, ['orderable' => false]],
+                    'columns' => [null, null, null, null, null, null, ['orderable' => false]],
                     'paging' => true,
                     'lengthMenu' => [10, 50, 100, 500]
                 ];
@@ -216,21 +216,21 @@ class GuruController extends Controller
                     'Tanggal SK',
                     'Nama Guru',
                     'NUPTK',
+                    'Kategori SK',
                     'Jabatan',
                     'No SK',
-                    'Jumlah Ajar',
                     ['label' => 'Actions', 'no-export' => false, 'width' => 10],
                 ];
 
                 $config = [
                     'data' => [],
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, ['orderable' => false]],
+                    'columns' => [null, null, null, null, null, null, ['orderable' => false]],
                     'paging' => true,
                     'lengthMenu' => [10, 50, 100, 500]
                 ];
             }
-            return view('guru.edit')->with(compact( 'guru', 'heads', 'config', 'result','jabatan', 'config_date'));
+            return view('guru.edit')->with(compact( 'guru', 'heads', 'config', 'result', 'config_date'));
         }
         else {
             return redirect(route('admin.guru.index'))->with('alert-failed', 'Data tidak ditemukan');
@@ -256,55 +256,54 @@ class GuruController extends Controller
                     $guru = json_decode($guru->getBody());
                     $guru = $guru->data;
 
-                    $jabatan = $client->request('GET', 'guru/jabatan/' . $resp->id_jabatan);
-                    $jabatan = json_decode($jabatan->getBody());
-                    $jabatan = $jabatan->data;
+                    if ($resp->isskpengangkatan == true){
+                        $kategori_sk = 'SK Pengangkatan';
+                    } else {
+                        $kategori_sk = $resp->kategori_sk;
+                    }
 
                     $subjectdata[] = [
-                        $resp->tanggal,
-                        $guru->nuptk,
-                        $jabatan->nama_jabatan,
                         $resp->no_sk,
-                        $resp->kategori_sk,
-                        $resp->jumlah_ajar
+                        $resp->tanggal,
+                        $kategori_sk,
+                        $guru->nuptk,
+                        $resp->jabatan,
                     ];
                 }
 
                 $heads = [
+                    'No SK',
                     'Tanggal SK',
+                    'Kategori SK',
                     'NUPTK',
                     'Jabatan',
-                    'No SK',
-                    'Kategori SK',
-                    'Jumlah Ajar'
                 ];
 
                 $config = [
                     'data' => $subjectdata,
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null],
+                    'columns' => [null, null, null, null, null],
                     'paging' => true,
                     'lengthMenu' => [10, 50, 100, 500]
                 ];
             } else {
                 $heads = [
+                    'No SK',
                     'Tanggal SK',
+                    'Kategori SK',
                     'NUPTK',
                     'Jabatan',
-                    'No SK',
-                    'Kategori SK',
-                    'Jumlah Ajr'
                 ];
 
                 $config = [
                     'data' => [],
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null],
+                    'columns' => [null, null, null, null, null],
                     'paging' => true,
                     'lengthMenu' => [10, 50, 100, 500]
                 ];
             }
-            return view('guru.show')->with(compact( 'guru', 'heads', 'config', 'result', 'jabatan', 'config_date'));
+            return view('guru.show')->with(compact( 'guru', 'heads', 'config', 'result', 'config_date'));
         }
         else {
             return redirect(route('admin.guru.index'))->with('alert-failed', 'Data tidak ditemukan');

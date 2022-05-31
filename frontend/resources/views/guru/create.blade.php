@@ -3,14 +3,6 @@
     <x-form method="POST" action="{{ route('admin.guru.store') }}">
         <x-adminlte-card theme="lime" theme-mode="outline" title="Isi Data Guru">
             <div class="row">
-                <x-adminlte-input name="nip" label="Nomor Induk Pegawai" placeholder="1277471818"
-                                  fgroup-class="col-md-4" type="number" required/>
-                <x-adminlte-input name="nuptk" label="NUPTK" placeholder="1234567890123456"
-                                  fgroup-class="col-md-4" type="number"/>
-                <x-adminlte-input name="nik" label="No Induk Kependudukan" placeholder="1234567890123456"
-                                  fgroup-class="col-md-4" type="number" required/>
-            </div>
-            <div class="row">
                 <x-adminlte-input name="nama_guru" label="Nama Guru" placeholder="Annisa"
                                   fgroup-class="col-md-12" required/>
             </div>
@@ -26,7 +18,15 @@
                 </x-adminlte-input-date>
             </div>
             <div class="row">
-                <x-adminlte-select2 name="status_perkawinan" fgroup-class="col-md-6" label="Status Perkawinan">
+                <x-adminlte-input name="nip" label="NIP" placeholder="1277471818"
+                                  fgroup-class="col-md-4" type="number" required/>
+                <x-adminlte-input name="nuptk" label="NUPTK" placeholder="1234567890123456"
+                                  fgroup-class="col-md-4" type="number"/>
+                <x-adminlte-input name="nik" label="NIK" placeholder="1234567890123456"
+                                  fgroup-class="col-md-4" type="number" required/>
+            </div>
+            <div class="row">
+                <x-adminlte-select2 name="status_perkawinan" fgroup-class="col-md-6" label="Status Pernikahan">
                     <x-slot name="prependSlot">
                         <div class="input-group-text bg-gradient-info">
                             <i class="fas fa-align-justify"></i>
@@ -54,6 +54,11 @@
                                   fgroup-class="col-md-6" required/>
             </div>
             <div class="row">
+                <x-adminlte-textarea name="alamat" fgroup-class="col-md-6" label="Alamat" placeholder="Masukkan alamat"/>
+            </div>
+        </x-adminlte-card>
+        <x-adminlte-card theme="lightblue" theme-mode="outline" title="Isi Data Kepegawaian">
+            <div class="row">
                 <x-adminlte-select2 name="status_pegawai" fgroup-class="col-md-6" label="Status Kepegawaian">
                     <x-slot name="prependSlot">
                         <div class="input-group-text bg-gradient-info">
@@ -63,38 +68,27 @@
                     <option value="Aktif">Aktif</option>
                     <option value="Tidak Aktif">Tidak Aktif</option>
                 </x-adminlte-select2>
-                <x-adminlte-textarea name="alamat" fgroup-class="col-md-6" label="Alamat" placeholder="Masukkan alamat"/>
-            </div>
-        </x-adminlte-card>
-        <x-adminlte-card theme="lightblue" theme-mode="outline" title="Isi Data Kepegawaian">
-            <div class="row">
-                <x-adminlte-input-date name="tanggal" :config="$config_date" label="Tanggal SK" placeholder="Choose a time..." fgroup-class="col-md-6" required>
+                <x-adminlte-input-date name="tanggal" :config="$config_date" label="Tanggal SK Pengangkatan" placeholder="Choose a time..." fgroup-class="col-md-6" required>
                     <x-slot name="prependSlot_ibu">
                         <div class="input-group-text bg-gradient-info">
                             <i class="fas fa-clock"></i>
                         </div>
                     </x-slot>
                 </x-adminlte-input-date>
-            </div>
-            <div class="row">
-                <x-adminlte-input name="no_sk" label="Nomor SK" placeholder="1277471818"
+                <x-adminlte-input name="no_sk" label="Nomor SK Pengangkatan" placeholder="1277471818"
                                   fgroup-class="col-md-6" type="number" required/>
-                <x-adminlte-select2 name="kategori_sk" fgroup-class="col-md-6" label="Pilih Kategori SK">
-                    <option value="SK Yayasan">SK Yayasan</option>
-                    <option value="SK YPMNU">SK YPMNU</option>
-                </x-adminlte-select2>
-            </div>
-            <div class="row">
-                <x-adminlte-select2 name="id_jabatan" fgroup-class="col-md-4" label="Pilih Jenis Jabatan">
-                    @foreach($jabatan as $jw)
-                        <option value="{{ $jw->id }}">{{$jw->nama_jabatan}}</option>
-                    @endforeach
-                </x-adminlte-select2>
-                <x-adminlte-input name="jumlah_ajar" label="Jumlah Ajar" placeholder="Jumlah Ajar Dalam Jam" type="number"
+                <x-adminlte-input name="jabatan" label="Nama Jabatan" placeholder="Guru" type="text"
                                   fgroup-class="col-md-6" required/>
             </div>
         </x-adminlte-card>
-        <x-adminlte-button class="btn-flat" type="submit" label="Submit" theme="success" icon="fas fa-lg fa-save"/>
-        <x-adminlte-button class="btn-flat" type="reset" label="Reset" theme="danger" icon="fas fa-lg fa-trash"/>
+        <x-adminlte-modal id="modalCustom" title="Konfirmasi Simpan" size="lg" theme="teal"
+                              icon="fas fa-bell" v-centered static-backdrop scrollable>
+                <div>Apakah Anda yakin untuk menyimpan data?</div>
+                <x-slot name="footerSlot">
+                    <x-adminlte-button theme="danger" label="Tidak" data-dismiss="modal"/>
+                    <x-adminlte-button class="btn-flat" type="submit" label="Ya" theme="success"/>
+                </x-slot>
+            </x-adminlte-modal>
+            <x-adminlte-button label="Simpan" data-toggle="modal" theme="success" data-target="#modalCustom" class="btn-flat"/>
     </x-form>
 </x-app-layout>

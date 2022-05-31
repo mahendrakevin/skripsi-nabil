@@ -22,19 +22,23 @@
                 <x-adminlte-select2 name="kategori_sk" fgroup-class="col-md-4" label="Pilih Kategori SK">
                     <option value="SK Yayasan">SK Yayasan</option>
                     <option value="SK YPMNU">SK YPMNU</option>
+                    <option value="SK Sekolah">SK Sekolah</option>
                 </x-adminlte-select2>
             </div>
             <div class="row">
-                <x-adminlte-select2 name="id_jabatan" fgroup-class="col-md-4" label="Pilih Jenis Jabatan">
-                    @foreach($jabatan as $jw)
-                        <option value="{{ $jw->id }}">{{$jw->nama_jabatan}}</option>
-                    @endforeach
-                </x-adminlte-select2>
-                <x-adminlte-input name="jumlah_ajar" label="Jumlah Ajar" placeholder="Jumlah Ajar Dalam Jam" type="number"
-                                  fgroup-class="col-md-6" required/>
+                <x-adminlte-input name="jabatan" label="Jabatan" placeholder="Guru" type="text"
+                                  fgroup-class="col-md-6"/>
             </div>
         </x-adminlte-card>
-        <x-adminlte-button class="btn-flat" type="submit" label="Submit" theme="success" icon="fas fa-lg fa-save"/>
-        <x-adminlte-button class="btn-flat" type="reset" label="Reset" theme="danger" icon="fas fa-lg fa-trash"/>
+        <x-adminlte-modal id="modalCustom" title="Konfirmasi Simpan" size="lg" theme="teal"
+                              icon="fas fa-bell" v-centered static-backdrop scrollable>
+                <div>Apakah Anda yakin untuk menyimpan data?</div>
+                <x-slot name="footerSlot">
+                    <x-adminlte-button theme="danger" label="Tidak" data-dismiss="modal"/>
+                    <x-adminlte-button class="btn-flat" type="submit" label="Ya" theme="success"/>
+                </x-slot>
+            </x-adminlte-modal>
+            <x-adminlte-button label="Simpan" data-toggle="modal" theme="success" data-target="#modalCustom" class="btn-flat"/>
+
     </x-form>
 </x-app-layout>

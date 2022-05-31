@@ -21,7 +21,7 @@ class GuruController extends Controller
                 $btnShow = view('components.Button', [
                     'method' => 'GET',
                     'action' => route('kepsek.guru.show', $resp->id),
-                    'title' => 'Detail',
+                    'title' => 'Lihat',
                     'icon' => 'fa fa-lg fa-fw fa-eye',
                     'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
 

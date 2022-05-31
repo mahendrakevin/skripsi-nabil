@@ -29,7 +29,7 @@ class JenisPengeluaranController extends Controller
                 $btnDelete = view('components.Button', [
                     'method' => 'GET',
                     'action' => route('admin.jenis_pengeluaran.destroy', $resp->id),
-                    'title' => 'Delete',
+                    'title' => 'Hapus',
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 

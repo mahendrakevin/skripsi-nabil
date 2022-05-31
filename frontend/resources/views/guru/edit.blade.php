@@ -3,14 +3,6 @@
     <x-form method="GET" action="{{ route('admin.guru.update', $guru->id) }}">
         <x-adminlte-card theme="lime" theme-mode="outline" title="Isi Data Guru">
             <div class="row">
-                <x-adminlte-input name="nip" label="Nomor Induk Pegawai" placeholder="1277471818"
-                                  fgroup-class="col-md-4" type="number" value="{{ $guru->nip }}" required/>
-                <x-adminlte-input name="nuptk" label="NUPTK" placeholder="1234567890123456"
-                                  fgroup-class="col-md-4" type="number" value="{{ $guru->nuptk }}"/>
-                <x-adminlte-input name="nik" label="No Induk Kependudukan" value="{{ $guru->nik }}" placeholder="1234567890123456"
-                                  fgroup-class="col-md-4" type="number" required/>
-            </div>
-            <div class="row">
                 <x-adminlte-input name="nama_guru" label="Nama Guru" placeholder="Annisa"
                                   fgroup-class="col-md-12" value="{{ $guru->nama_guru }}" required/>
             </div>
@@ -27,7 +19,15 @@
                 </x-adminlte-input-date>
             </div>
             <div class="row">
-                <x-adminlte-select2 name="status_perkawinan" fgroup-class="col-md-6" label="Status Perkawinan">
+                <x-adminlte-input name="nip" label="NIP" placeholder="1277471818"
+                                  fgroup-class="col-md-4" type="number" value="{{ $guru->nip }}" required/>
+                <x-adminlte-input name="nuptk" label="NUPTK" placeholder="1234567890123456"
+                                  fgroup-class="col-md-4" type="number" value="{{ $guru->nuptk }}"/>
+                <x-adminlte-input name="nik" label="NIK" value="{{ $guru->nik }}" placeholder="1234567890123456"
+                                  fgroup-class="col-md-4" type="number" required/>
+            </div>
+            <div class="row">
+                <x-adminlte-select2 name="status_perkawinan" fgroup-class="col-md-6" label="Status Pernikahan">
                     <x-slot name="prependSlot">
                         <div class="input-group-text bg-gradient-info">
                             <i class="fas fa-align-justify"></i>
@@ -68,8 +68,15 @@
                     {{ $guru->alamat }}
                 </x-adminlte-textarea>
             </div>
-            <x-adminlte-button class="btn-flat" type="submit" label="Submit" theme="success" icon="fas fa-lg fa-save"/>
-            <x-adminlte-button class="btn-flat" type="reset" label="Reset" theme="danger" icon="fas fa-lg fa-trash"/>
+            <x-adminlte-modal id="modalCustom" title="Konfirmasi Simpan" size="lg" theme="teal"
+                              icon="fas fa-bell" v-centered static-backdrop scrollable>
+                <div>Apakah Anda yakin untuk menyimpan data?</div>
+                <x-slot name="footerSlot">
+                    <x-adminlte-button theme="danger" label="Tidak" data-dismiss="modal"/>
+                    <x-adminlte-button class="btn-flat" type="submit" label="Ya" theme="success"/>
+                </x-slot>
+            </x-adminlte-modal>
+            <x-adminlte-button label="Simpan" data-toggle="modal" theme="success" data-target="#modalCustom" class="btn-flat"/>
         </x-adminlte-card>
     </x-form>
     <x-adminlte-card theme="lightblue" theme-mode="outline" title="Data Kepegawaian">
