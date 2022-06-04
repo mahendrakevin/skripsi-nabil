@@ -10,8 +10,15 @@
     @endif
     <x-adminlte-card theme="lime" theme-mode="outline">
         @if (Auth::user()->role == '1')
-            <x-submit-button method="POST" action="{{route('admin.siswa.create')}}"
-                         theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
+            <div class="row">
+                <div class="col-md-12">
+                    <x-submit-button method="POST" action="{{route('admin.siswa.create')}}"
+                                     theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
+                    <x-submit-button method="GET" action="{{route('admin.siswa.naikkelas')}}"
+                                     theme="info" label="Naik/Luluskan Siswa" icon="fas fa-plus" type="submit"></x-submit-button>
+                </div>
+            </div>
+            <br>
         @endif
         <x-adminlte-datatable id="datasiswa" :heads="$heads" :config="$config" with-buttons striped hoverable with-footer beautify>
             @foreach($config['data'] as $row)

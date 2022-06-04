@@ -26,6 +26,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\AdminCon
     Route::group(['prefix' => 'siswa'], function () {
         Route::get('/', 'SiswaController@index')->name('admin.siswa.index')->middleware('admin');
         Route::get('/alumni', 'SiswaController@index_alumni')->name('admin.siswa.index_alumni')->middleware('admin');
+        Route::get('/naik-kelas', 'SiswaController@naikkelas')->name('admin.siswa.naikkelas')->middleware('admin');
+        Route::get('/siswa-naik/{id_kelas}', 'SiswaController@siswanaik')->name('admin.siswa.siswanaik')->middleware('admin');
+        Route::get('/siswa-naik/naik/', 'SiswaController@naik')->name('admin.siswa.naik')->middleware('admin');
         Route::get('/{id_siswa}', 'SiswaController@show')->name('admin.siswa.show')->middleware('admin');
         Route::post('/add', 'SiswaController@create')->name('admin.siswa.create')->middleware('admin');
         Route::get('/edit/{id_siswa}', 'SiswaController@edit')->name('admin.siswa.edit')->middleware('admin');
@@ -442,3 +445,7 @@ Route::group(['prefix' => 'bendahara', 'namespace' => 'App\Http\Controllers\Bend
 });
 
 Auth::routes();
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

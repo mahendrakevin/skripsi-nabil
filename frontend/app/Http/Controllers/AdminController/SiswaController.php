@@ -65,7 +65,8 @@ class SiswaController extends Controller
                 'order' => [[1, 'asc']],
                 'columns' => [null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
-                'lengthMenu' => [ 10, 50, 100, 500]
+                'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
             ];
 
             return view('siswa.index')->with(compact('heads', 'config', 'result'));
@@ -166,6 +167,168 @@ class SiswaController extends Controller
             return view('alumni.index')->with(compact('heads', 'config', 'result'));
         }
     }
+    public function naikkelas(){
+        {
+            $client = new Client(['base_uri' => env('API_HOST')]);
+            $resp = $client->request('GET', 'kelas/');
+            $result = json_decode($resp->getBody());
+
+            if (property_exists($result, 'data')){
+                $result = $result->data;
+                $subjectdata = array();
+
+                foreach ($result as $resp){
+                    $choosesiswa = view('components.Button', [
+                        'method' => 'GET',
+                        'action' => route('admin.siswa.siswanaik', $resp->id),
+                        'title' => 'Pilih Siswa',
+                        'icon' => 'fa fa-lg fa-fw fa-user',
+                        'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
+
+                    $subjectdata[] = [
+                        $resp->id,
+                        $resp->nama_kelas,
+                        $resp->tingkat,
+                        $resp->kapasitas_kelas,
+                        '<nobr>'.$choosesiswa.'</nobr>'
+                    ];
+                }
+
+                $heads = [
+                    ['label' => 'ID Rombel', 'no-export' => false, 'width' => 10],
+                    'Nama Rombel',
+                    'Tingkat Rombel',
+                    'Kapasitas Rombel',
+                    ['label' => 'Pilih Siswa', 'no-export' => false, 'width' => 10],
+                ];
+
+                $config = [
+                    'data' => $subjectdata,
+                    'order' => [[1, 'asc']],
+                    'columns' => [null, null, null, null, ['orderable' => false]],
+                    'paging' => true,
+                    'lengthMenu' => [ 10, 50, 100, 500]
+                ];
+
+                return view('siswa.naikkelas.index')->with(compact('heads', 'config', 'result'));
+            } else {
+                $heads = [
+                    ['label' => 'ID Rombel', 'no-export' => false, 'width' => 10],
+                    'Nama Rombel',
+                    'Tingkat Rombel',
+                    'Kapasitas Rombel',
+                    ['label' => 'Pilih Siswa', 'no-export' => false, 'width' => 10],
+                ];
+
+                $config = [
+                    'data' => [],
+                    'order' => [[1, 'asc']],
+                    'columns' => [null, null, null, null, ['orderable' => false]],
+                    'paging' => true,
+                    'lengthMenu' => [ 10, 50, 100, 500]
+                ];
+
+                return view('siswa.naikkelas.index')->with(compact('heads', 'config', 'result'));
+            }
+
+        }
+    }
+
+    public function siswanaik($id_kelas){
+        $client = new Client(['base_uri' => env('API_HOST')]);
+        $resp = $client->request('GET', 'siswa/kelas/'.$id_kelas);
+        $result = json_decode($resp->getBody());
+
+        $kelas = $client->request('GET', 'kelas/'.$id_kelas);
+        $kelas = json_decode($kelas->getBody());
+        $kelas = $kelas->data;
+
+        $list_kelas = $client->request('GET', 'kelas/');
+        $list_kelas = json_decode($list_kelas->getBody());
+        $list_kelas = $list_kelas->data;
+
+        if (property_exists($result, 'data')){
+
+            $result = $result->data;
+            $subjectdata = array();
+            $datasiswa = $result;
+
+            foreach ($result as $resp){
+                $btnShow = view('components.button', [
+                    'method' => 'GET',
+                    'action' => route('admin.siswa.show', $resp->id),
+                    'title' => 'Lihat',
+                    'icon' => 'fa fa-lg fa-fw fa-eye',
+                    'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
+
+                $btnEdit = view('components.button', [
+                    'method' => 'GET',
+                    'action' => route('admin.siswa.edit', $resp->id),
+                    'title' => 'Edit',
+                    'icon' => 'fa fa-lg fa-fw fa-pen',
+                    'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
+
+                $btnDelete = view('components.button', [
+                    'method' => 'GET',
+                    'action' => route('admin.siswa.destroy', $resp->id),
+                    'title' => 'Hapus',
+                    'icon' => 'fa fa-lg fa-fw fa-trash',
+                    'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
+
+                $subjectdata[] = [
+                    $resp->nis,
+                    $resp->nisn,
+                    $resp->nama_siswa,
+                    $kelas->tingkat,
+                    $kelas->nama_kelas,
+                    '<nobr>'.$btnShow.$btnEdit.$btnDelete.'</nobr>'
+                ];
+            }
+
+            $heads = [
+                'NIS',
+                'NISN',
+                'Nama',
+                'Tingkat Rombel',
+                'Nama Rombel',
+                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+            ];
+
+            $config = [
+                'data' => $subjectdata,
+                'order' => [[1, 'asc']],
+                'columns' => [null, null, null, null, null, ['orderable' => false]],
+                'paging' => true,
+                'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
+            ];
+
+            return view('siswa.naikkelas.choose')->with(compact('heads', 'config', 'result', 'kelas', 'list_kelas', 'datasiswa'));
+        } else {
+            $heads = [
+                $resp->nis,
+                $resp->nisn,
+                $resp->nama_siswa,
+                $kelas->tingkat,
+                $kelas->nama_kelas,
+                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+            ];
+
+            $config = [
+                'data' => [],
+                'order' => [[1, 'asc']],
+                'columns' => [null, null, null, null, null, ['orderable' => false]],
+                'paging' => true,
+                'lengthMenu' => [ 10, 50, 100, 500]
+            ];
+
+            return view('siswa.naikkelas.choose')->with(compact('heads', 'config', 'result', 'kelas', 'list_kelas'));
+        }
+    }
+
+    public function naik (Request $request) {
+        dd($request);
+    }
 
     public function create(){
         $client = new Client(['base_uri' => env('API_HOST')]);
@@ -197,14 +360,15 @@ class SiswaController extends Controller
                     'nomor_kip' => (int)$request->nomor_kip,
                     'alamat' => $request->alamat,
                     'nomor_kk' => (int)$request->nomor_kk,
-                    'file_kk' => $request->file_kk,
-                    'jeniswali' => $request->jeniswali,
+                    'file_kk' => 'string',
+                    'jenis_wali' => $request->jeniswali,
                     'nomor_kks' => (int)$request->nomor_kks,
                     'nomor_pkh' => (int)$request->nomor_pkh
                 ]
             ]
         );
         $data_siswa = json_decode($resp->getBody());
+//        dd($data_siswa);
         if ($data_siswa->message_id == '00'){
             $walisiswa = $client->request('POST', 'walisiswa/tambah',[
                     'headers' => [
@@ -213,7 +377,7 @@ class SiswaController extends Controller
                     ],
                     'json' => [
                         'nama_ayah' => $request->nama_ayah,
-                        'file_kk' => (int)$request->file_kk,
+                        'file_kk_ayah' => 'string',
                         'tempat_lahir_ayah' => $request->tempat_lahir_ayah,
                         'tanggal_lahir_ayah' => $request->tanggal_lahir_ayah,
                         'alamat_ayah' => $request->alamat_ayah,
@@ -224,6 +388,7 @@ class SiswaController extends Controller
                         'pekerjaan_ayah' => (int)$request->pekerjaan_ayah,
                         'penghasilan_ayah' => (int)$request->penghasilan_ayah,
                         'nama_ibu' => $request->nama_ibu,
+                        'file_kk_ibu' => 'string',
                         'tempat_lahir_ibu' => $request->tempat_lahir_ibu,
                         'tanggal_lahir_ibu' => $request->tanggal_lahir_ibu,
                         'alamat_ibu' => $request->alamat_ibu,
@@ -263,16 +428,12 @@ class SiswaController extends Controller
         $kelas = $client->request('GET', 'kelas/');
         $kelas = json_decode($kelas->getBody());
         $kelas = $kelas->data;
-
-        $jeniswali = $client->request('GET', 'walisiswa/jeniswali/');
-        $jeniswali = json_decode($jeniswali->getBody());
-        $jeniswali = $jeniswali->data;
         $config_date = ['format' => 'YYYY-MM-DD'];
 
         if($siswa->message_id == '00'){
             $siswa = $siswa->data;
             $walisiswa = $walisiswa->data;
-            return view('siswa.edit')->with(compact('siswa', 'walisiswa', 'kelas', 'jeniswali', 'config_date'));
+            return view('siswa.edit')->with(compact('siswa', 'walisiswa', 'kelas', 'config_date'));
         }
         else {
             return redirect(route('admin.siswa.index'))->with('alert-failed', 'Data tidak ditemukan');
@@ -438,7 +599,9 @@ class SiswaController extends Controller
                     'alamat' => $request->alamat,
                     'nomor_kk' => (int)$request->nomor_kk,
                     'file_kk' => $request->file_kk,
-                    'id_jeniswali' => (int)$request->id_jeniswali,
+                    'nomor_kks' => (int)$request->nomor_kks,
+                    'nomor_pkh' => (int)$request->nomor_pkh,
+                    'jenis_wali' => $request->jeniswali,
                 ]
             ]
         );
@@ -461,8 +624,6 @@ class SiswaController extends Controller
                         'pendidikan_ayah' => (int)$request->pendidikan_ayah,
                         'pekerjaan_ayah' => (int)$request->pekerjaan_ayah,
                         'penghasilan_ayah' => (int)$request->penghasilan_ayah,
-                        'nomor_kks_ayah' => (int)$request->nomor_kks_ayah,
-                        'nomor_pkh_ayah' => (int)$request->nomor_pkh_ayah,
                         'nama_ibu' => $request->nama_ibu,
                         'tempat_lahir_ibu' => $request->tempat_lahir_ibu,
                         'tanggal_lahir_ibu' => $request->tanggal_lahir_ibu,
@@ -482,9 +643,7 @@ class SiswaController extends Controller
                         'no_hp_wali' => (int)$request->no_hp_wali,
                         'pendidikan_wali' => $request->pendidikan_wali,
                         'pekerjaan_wali' => $request->pekerjaan_wali,
-                        'penghasilan_wali' => (int)$request->penghasilan_wali,
-                        'nomor_kks_wali' => (int)$request->nomor_kks_wali,
-                        'nomor_pkh_wali' => (int)$request->nomor_pkh_wali,
+                        'penghasilan_wali' => (int)$request->penghasilan_wali
                     ]
                 ]
             );

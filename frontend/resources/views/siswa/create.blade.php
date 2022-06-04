@@ -3,22 +3,33 @@
     <x-form method="POST" action="{{ route('admin.siswa.store') }}">
         <x-adminlte-card theme="lime" theme-mode="outline" title="Isi Data Siswa">
             <div class="row">
-                <x-adminlte-input name="nisn" label="NISN" placeholder="1277471818"
-                                  fgroup-class="col-md-3" type="number" required/>
-                <x-adminlte-input name="nis" label="NIS" placeholder="7077"
-                                  fgroup-class="col-md-3" type="number" required/>
-                <x-adminlte-input name="nik" label="NIK"
-                                  min=1000000000000000 max=9999999999999999
-                                  placeholder="1234567890123456" fgroup-class="col-md-3" type="number" required/>
-                <x-adminlte-input name="nomor_kk" label="No KK"
-                                  min=1000000000000000 max=9999999999999999
-                                  placeholder="1234567890123456" fgroup-class="col-md-3" type="number" required/>
-            </div>
-            <div class="row">
                 <x-adminlte-input name="nama_siswa" label="Nama Siswa" placeholder="Alfalah"
                                   fgroup-class="col-md-4" required/>
                 <x-adminlte-input name="nomor_kip" label="No KIP" placeholder="1234567890123456"
                                   fgroup-class="col-md-4" type="number" required/>
+                <x-adminlte-input name="nis" label="NIS" placeholder="7077"
+                                  fgroup-class="col-md-3" type="number" required/>
+            </div>
+            <div class="row">
+                <x-adminlte-input name="nisn" label="NISN" placeholder="1277471818"
+                                  fgroup-class="col-md-3" type="number" required/>
+                <x-adminlte-input name="nik" label="NIK"
+                                  min=1000000000000000 max=9999999999999999
+                                  placeholder="1234567890123456" fgroup-class="col-md-3" type="number" required/>
+                <x-adminlte-select2 name="id_kelas" fgroup-class="col-md-3" label="Kelas">
+                    @foreach($kelas as $kls)
+                        <option value="{{ $kls->id }}">{{$kls->nama_kelas.' '.$kls->tingkat}}</option>
+                    @endforeach
+                </x-adminlte-select2>
+                <x-adminlte-select2 name="status_siswa" fgroup-class="col-md-3" label="Status Siswa">
+                    <x-slot name="prependSlot">
+                        <div class="input-group-text bg-gradient-info">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </x-slot>
+                    <option value="Aktif">Aktif</option>
+                    <option value="Tidak Aktif">Tidak Aktif</option>
+                </x-adminlte-select2>
             </div>
             <div class="row">
                 <x-adminlte-input name="tempat_lahir" label="Tempat Lahir" placeholder="Semarang"
@@ -41,24 +52,16 @@
                     <option value="Laki Laki">Laki Laki</option>
                     <option value="Perempuan">Perempuan</option>
                 </x-adminlte-select2>
-                <x-adminlte-select2 name="status_siswa" fgroup-class="col-md-4" label="Status Siswa">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text bg-gradient-info">
-                            <i class="fas fa-user"></i>
+                <x-adminlte-input name="nomor_kk" label="No KK"
+                                  min=1000000000000000 max=9999999999999999
+                                  placeholder="1234567890123456" fgroup-class="col-md-3" type="number" required/>
+                <x-adminlte-input-file name="file_kk" igroup-size="sm" placeholder="Pilih file..." label="Upload KK" fgroup-class="col-md-4">
+                    <x-slot name="prependSlot_ayah">
+                        <div class="input-group-text bg-lightblue">
+                            <i class="fas fa-address-card"></i>
                         </div>
                     </x-slot>
-                    <option value="Aktif">Aktif</option>
-                    <option value="Tidak Aktif">Tidak Aktif</option>
-                </x-adminlte-select2>
-                <x-adminlte-select2 name="id_kelas" fgroup-class="col-md-4" label="Kelas">
-                    @foreach($kelas as $kls)
-                        <option value="{{ $kls->id }}">{{$kls->nama_kelas.' '.$kls->tingkat}}</option>
-                    @endforeach
-                </x-adminlte-select2>
-                <x-adminlte-input name="nomor_kks" value="0" label="Nomor KKS" placeholder="124155151" type="number"
-                                  fgroup-class="col-md-4"/>
-                <x-adminlte-input name="nomor_pkh" value="0" label="Nomor PKH" placeholder="124155151" type="number"
-                                  fgroup-class="col-md-4"/>
+                </x-adminlte-input-file>
             </div>
             <div class="row">
                 <x-adminlte-textarea name="alamat" fgroup-class="col-md-6" label="Alamat" placeholder="Masukkan alamat"/>
@@ -99,14 +102,15 @@
                             <option value="Kandung">Kandung</option>
                             <option value="Tiri">Tiri</option>
                         </x-adminlte-select2>
-                        <x-adminlte-select2 name="status_hidup_ayah" fgroup-class="col-md-6" label="Status Hidup Ayah">
+                        <x-adminlte-select2 name="status_hidup_ayah" fgroup-class="col-md-6" label="Status">
                             <x-slot name="prependSlot_ayah">
                                 <div class="input-group-text bg-gradient-info">
                                     <i class="fas fa-school"></i>
                                 </div>
                             </x-slot>
-                            <option value="Hidup">Hidup</option>
-                            <option value="Mati">Mati</option>
+                            <option value="Masih Hidup">Masih Hidup</option>
+                            <option value="Sudah Meninggal Dunia">Sudah Meninggal Dunia</option>
+                            <option value="Tidak Diketahui">Tidak Diketahui</option>
                         </x-adminlte-select2>
                     </div>
                     <div class="row">
@@ -175,14 +179,15 @@
                             <option value="Kandung">Kandung</option>
                             <option value="Tiri">Tiri</option>
                         </x-adminlte-select2>
-                        <x-adminlte-select2 name="status_hidup_ibu" fgroup-class="col-md-6" label="Status Hidup Ibu">
+                        <x-adminlte-select2 name="status_hidup_ibu" fgroup-class="col-md-6" label="Status">
                             <x-slot name="prependSlot_ayah">
                                 <div class="input-group-text bg-gradient-info">
                                     <i class="fas fa-school"></i>
                                 </div>
                             </x-slot>
-                            <option value="Hidup">Hidup</option>
-                            <option value="Mati">Mati</option>
+                            <option value="Masih Hidup">Masih Hidup</option>
+                            <option value="Sudah Meninggal Dunia">Sudah Meninggal Dunia</option>
+                            <option value="Tidak Diketahui">Tidak Diketahui</option>
                         </x-adminlte-select2>
                     </div>
                     <div class="row">
@@ -268,16 +273,26 @@
                     </div>
                 </x-adminlte-card>
             </div>
+            <div class="col-md-6">
+                <x-adminlte-card theme="lightblue" theme-mode="outline" title="No KKS/PKH">
+                    <div class="row">
+                        <x-adminlte-input name="nomor_kks" value="0" label="Nomor KKS" placeholder="124155151" type="number"
+                                          fgroup-class="col-md-4"/>
+                        <x-adminlte-input name="nomor_pkh" value="0" label="Nomor PKH" placeholder="124155151" type="number"
+                                          fgroup-class="col-md-4"/>
+                    </div>
+                </x-adminlte-card>
+                <x-adminlte-modal id="modalCustom" title="Konfirmasi Simpan" size="lg" theme="teal"
+                                  icon="fas fa-bell" v-centered static-backdrop scrollable>
+                    <div>Apakah Anda yakin untuk menyimpan data?</div>
+                    <x-slot name="footerSlot">
+                        <x-adminlte-button theme="danger" label="Tidak" data-dismiss="modal"/>
+                        <x-adminlte-button class="btn-flat" type="submit" label="Ya" theme="success"/>
+                    </x-slot>
+                </x-adminlte-modal>
+                <x-adminlte-button label="Simpan" data-toggle="modal" theme="success" data-target="#modalCustom" class="btn-flat"/>
+            </div>
         </div>
-        <x-adminlte-modal id="modalCustom" title="Konfirmasi Simpan" size="lg" theme="teal"
-                          icon="fas fa-bell" v-centered static-backdrop scrollable>
-            <div>Apakah Anda yakin untuk menyimpan data?</div>
-            <x-slot name="footerSlot">
-                <x-adminlte-button theme="danger" label="Tidak" data-dismiss="modal"/>
-                <x-adminlte-button class="btn-flat" type="submit" label="Ya" theme="success"/>
-            </x-slot>
-        </x-adminlte-modal>
-        <x-adminlte-button label="Simpan" data-toggle="modal" theme="success" data-target="#modalCustom" class="btn-flat"/>
 
     </x-form>
 </x-app-layout>

@@ -119,7 +119,7 @@
                                     <x-adminlte-input name="nama_ayah" label="Nama Wali" placeholder="Alfa"
                                                       fgroup-class="col-md-8" value="{{ $walisiswa->nama_ayah }}"  readonly/>
                                     <x-adminlte-input-file name="file_kk_ayah" igroup-size="sm" placeholder="Pilih file..." label="File Kartu Keluarga"
-                                                           value="{{ $walisiswa->file_kk }}" fgroup-class="col-md-4" disabled>
+                                                           value="{{ $walisiswa->file_kk_ayah }}" fgroup-class="col-md-4" disabled>
                                         <x-slot name="prependSlot">
                                             <div class="input-group-text bg-lightblue">
                                                 <i class="fas fa-address-card"></i>

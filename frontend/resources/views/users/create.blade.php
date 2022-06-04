@@ -23,7 +23,15 @@
                     </x-adminlte-select2>
                 </div>
             </x-adminlte-card>
-            <x-adminlte-button class="btn-flat" type="submit" label="Simpan" theme="success" icon="fas fa-lg fa-save"/>
+            <x-adminlte-modal id="modalCustom" title="Konfirmasi Simpan" size="lg" theme="teal"
+                              icon="fas fa-bell" v-centered static-backdrop scrollable>
+                <div>Apakah Anda yakin untuk menyimpan data?</div>
+                <x-slot name="footerSlot">
+                    <x-adminlte-button theme="danger" label="Tidak" data-dismiss="modal"/>
+                    <x-adminlte-button class="btn-flat" type="submit" label="Ya" theme="success"/>
+                </x-slot>
+            </x-adminlte-modal>
+            <x-adminlte-button label="Simpan" data-toggle="modal" theme="success" data-target="#modalCustom" class="btn-flat"/>
 
         </div>
     </x-form>
