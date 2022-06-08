@@ -28,7 +28,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\AdminCon
         Route::get('/alumni', 'SiswaController@index_alumni')->name('admin.siswa.index_alumni')->middleware('admin');
         Route::get('/naik-kelas', 'SiswaController@naikkelas')->name('admin.siswa.naikkelas')->middleware('admin');
         Route::get('/siswa-naik/{id_kelas}', 'SiswaController@siswanaik')->name('admin.siswa.siswanaik')->middleware('admin');
-        Route::get('/siswa-naik/naik/', 'SiswaController@naik')->name('admin.siswa.naik')->middleware('admin');
+        Route::post('/siswa-naik/naik/', 'SiswaController@naik')->name('admin.siswa.naik')->middleware('admin');
+        Route::post('/siswa-naik/lulus/', 'SiswaController@lulus')->name('admin.siswa.lulus')->middleware('admin');
         Route::get('/{id_siswa}', 'SiswaController@show')->name('admin.siswa.show')->middleware('admin');
         Route::post('/add', 'SiswaController@create')->name('admin.siswa.create')->middleware('admin');
         Route::get('/edit/{id_siswa}', 'SiswaController@edit')->name('admin.siswa.edit')->middleware('admin');

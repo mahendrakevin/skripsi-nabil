@@ -306,13 +306,14 @@ class SiswaController extends Controller
             return view('siswa.naikkelas.choose')->with(compact('heads', 'config', 'result', 'kelas', 'list_kelas', 'datasiswa'));
         } else {
             $heads = [
-                $resp->nis,
-                $resp->nisn,
-                $resp->nama_siswa,
-                $kelas->tingkat,
-                $kelas->nama_kelas,
+                'NIS',
+                'NISN',
+                'Nama',
+                'Tingkat Rombel',
+                'Nama Rombel',
                 ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
+            $datasiswa = null;
 
             $config = [
                 'data' => [],
@@ -322,12 +323,41 @@ class SiswaController extends Controller
                 'lengthMenu' => [ 10, 50, 100, 500]
             ];
 
-            return view('siswa.naikkelas.choose')->with(compact('heads', 'config', 'result', 'kelas', 'list_kelas'));
+            return view('siswa.naikkelas.choose')->with(compact('heads', 'config', 'result', 'kelas', 'list_kelas', 'datasiswa'));
         }
     }
 
-    public function naik (Request $request) {
-        dd($request);
+    public function naik(Request $request) {
+        $client = new Client(['base_uri' => env('API_HOST')]);
+        $resp = $client->request('POST', 'siswa/naik',[
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Accept'     => 'application/json'
+                ],
+                'json' => [
+                    'id_kelas' => (int)$request->id_kelas,
+                    'daftar_siswa' => (array)$request->daftar_siswa,
+                ]
+            ]
+        );
+
+        return redirect()->back()->with('alert', 'Data Berhasil Ditambahkan');
+    }
+
+    public function lulus(Request $request) {
+        $client = new Client(['base_uri' => env('API_HOST')]);
+        $resp = $client->request('POST', 'siswa/lulus',[
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Accept'     => 'application/json'
+                ],
+                'json' => [
+                    'daftar_siswa' => (array)$request->daftar_siswa,
+                ]
+            ]
+        );
+
+        return redirect()->back()->with('alert', 'Data Berhasil Ditambahkan');
     }
 
     public function create(){

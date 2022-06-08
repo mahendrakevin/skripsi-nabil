@@ -3,20 +3,32 @@
     <x-form method="GET" action="{{ route('admin.siswa.update', $siswa->id) }}">
         <x-adminlte-card theme="lime" theme-mode="outline" title="Isi Data Siswa">
             <div class="row">
-                <x-adminlte-input name="nisn" label="Nomor Induk Siswa Nasional" placeholder="1277471818"
-                                  fgroup-class="col-md-3" type="number" value="{{ $siswa->nisn }}" required/>
-                <x-adminlte-input name="nis" label="Nomor Induk Siswa" placeholder="1277471818"
-                                  fgroup-class="col-md-3" type="number" value="{{ $siswa->nis }}" required/>
-                <x-adminlte-input name="nik" label="NIK" placeholder="1234567890123456"
-                                  fgroup-class="col-md-3" type="number" value="{{ $siswa->nik }}" required/>
-                <x-adminlte-input name="nomor_kk" label="No Kartu Keluarga" placeholder="1234567890123456"
-                                  fgroup-class="col-md-3" type="number" value="{{ $siswa->nomor_kk }}" required/>
-            </div>
-            <div class="row">
                 <x-adminlte-input name="nama_siswa" label="Nama Siswa" placeholder="Alfalah"
-                                  fgroup-class="col-md-8" value="{{ $siswa->nama_siswa }}" required/>
+                                  fgroup-class="col-md-4" value="{{ $siswa->nama_siswa }}" required/>
                 <x-adminlte-input name="nomor_kip" label="No KIP" placeholder="1234567890123456"
                                   fgroup-class="col-md-4" type="number" value="{{ $siswa->nomor_kip }}" required/>
+                <x-adminlte-input name="nis" label="NIS" placeholder="1277471818"
+                                  fgroup-class="col-md-4" type="number" value="{{ $siswa->nis }}" required/>
+            </div>
+            <div class="row">
+                <x-adminlte-input name="nisn" label="NISN" placeholder="1277471818"
+                                  fgroup-class="col-md-3" type="number" value="{{ $siswa->nisn }}" required/>
+                <x-adminlte-input name="nik" label="NIK" placeholder="1234567890123456"
+                                  fgroup-class="col-md-3" type="number" value="{{ $siswa->nik }}" required/>
+                <x-adminlte-select2 name="id_kelas" fgroup-class="col-md-3" label="Kelas">
+                    @foreach($kelas as $kls)
+                        <option {{old('id_kelas',$siswa->id_kelas)==$kls->id? 'selected':''}} value="{{ $kls->id }}">{{$kls->nama_kelas.' '.$kls->tingkat}}</option>
+                    @endforeach
+                </x-adminlte-select2>
+                <x-adminlte-select2 name="status_siswa" fgroup-class="col-md-3" label="Status Siswa">
+                    <x-slot name="prependSlot">
+                        <div class="input-group-text bg-gradient-info">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </x-slot>
+                    <option {{old('status_siswa',$siswa->status_siswa)=="Aktif"? 'selected':''}} value="Aktif">Aktif</option>
+                    <option {{old('status_siswa',$siswa->status_siswa)=="Tidak Aktif"? 'selected':''}} value="Tidak Aktif">Tidak Aktif</option>
+                </x-adminlte-select2>
             </div>
             <div class="row">
                 <x-adminlte-input name="tempat_lahir" label="Tempat Lahir" placeholder="Semarang"
@@ -40,20 +52,15 @@
                     <option  {{old('jenis_kelamin',$siswa->jenis_kelamin)=="Laki Laki"? 'selected':''}} value="Laki Laki">Laki Laki</option>
                     <option {{old('jenis_kelamin',$siswa->jenis_kelamin)=="Perempuan"? 'selected':''}} value="Perempuan">Perempuan</option>
                 </x-adminlte-select2>
-                <x-adminlte-select2 name="status_siswa" fgroup-class="col-md-4" label="Status Siswa">
-                    <x-slot name="prependSlot">
-                        <div class="input-group-text bg-gradient-info">
-                            <i class="fas fa-user"></i>
+                <x-adminlte-input name="nomor_kk" label="No KK" placeholder="1234567890123456"
+                                  fgroup-class="col-md-3" type="number" value="{{ $siswa->nomor_kk }}" required/>
+                <x-adminlte-input-file name="file_kk" igroup-size="sm" placeholder="Pilih file..." label="Upload KK" fgroup-class="col-md-4">
+                    <x-slot name="prependSlot_ayah">
+                        <div class="input-group-text bg-lightblue">
+                            <i class="fas fa-address-card"></i>
                         </div>
                     </x-slot>
-                    <option {{old('status_siswa',$siswa->status_siswa)=="Aktif"? 'selected':''}} value="Aktif">Aktif</option>
-                    <option {{old('status_siswa',$siswa->status_siswa)=="Tidak Aktif"? 'selected':''}} value="Tidak Aktif">Tidak Aktif</option>
-                </x-adminlte-select2>
-                <x-adminlte-select2 name="id_kelas" fgroup-class="col-md-4" label="Kelas">
-                    @foreach($kelas as $kls)
-                        <option {{old('id_kelas',$siswa->id_kelas)==$kls->id? 'selected':''}} value="{{ $kls->id }}">{{$kls->nama_kelas.' '.$kls->tingkat}}</option>
-                    @endforeach
-                </x-adminlte-select2>
+                </x-adminlte-input-file>
             </div>
             <div class="row">
                 <x-adminlte-textarea name="alamat" fgroup-class="col-md-6" label="Alamat" placeholder="Masukkan alamat">
@@ -67,8 +74,8 @@
                     <div class="row">
                         <x-adminlte-input name="nama_ayah" label="Nama Wali" placeholder="Alfa"
                                           fgroup-class="col-md-8" value="{{ $walisiswa->nama_ayah }}" />
-                        <x-adminlte-input-file name="file_kk_ayah" igroup-size="sm" placeholder="Pilih file..." label="File Kartu Keluarga"
-                                               value="{{ $walisiswa->file_kk }}" fgroup-class="col-md-4">
+                        <x-adminlte-input-file name="file_kk_ayah" igroup-size="sm" placeholder="Pilih file..." label="File KK Ayah"
+                                               value="{{ $walisiswa->file_kk_ayah }}" fgroup-class="col-md-4">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-lightblue">
                                     <i class="fas fa-address-card"></i>
@@ -148,6 +155,8 @@
                     <div class="row">
                         <x-adminlte-input name="nama_ibu" label="Nama Wali" placeholder="Alfa"
                                           fgroup-class="col-md-8" value="{{ $walisiswa->nama_ibu }}" required/>
+                        <x-adminlte-input-file name="file_kk_ibu" igroup-size="sm" placeholder="Pilih file..." label="File KK Ibu"
+                                               value="{{ $walisiswa->file_kk_ibu }}" fgroup-class="col-md-4" />
                     </div>
                     <div class="row">
                         <x-adminlte-input name="tempat_lahir_ibu" label="Tempat Lahir" placeholder="Semarang"
@@ -220,9 +229,9 @@
                 <x-adminlte-card theme="lightblue" theme-mode="outline" title="Isi Data Wali">
                     <div class="row">
                         <x-adminlte-input name="jenis_wali" label="Jenis Wali" placeholder="Ayah"
-                                          fgroup-class="col-md-8" value="{{ $siswa->jenis_wali }}" />
+                                          fgroup-class="col-md-6" value="{{ $siswa->jenis_wali }}" />
                         <x-adminlte-input name="nama_wali" label="Nama Wali" placeholder="Alfa"
-                                          fgroup-class="col-md-8" value="{{ $walisiswa->nama_wali }}" />
+                                          fgroup-class="col-md-6" value="{{ $walisiswa->nama_wali }}" />
                     </div>
                     <div class="row">
                         <x-adminlte-input name="tempat_lahir_wali" label="Tempat Lahir" placeholder="Semarang"

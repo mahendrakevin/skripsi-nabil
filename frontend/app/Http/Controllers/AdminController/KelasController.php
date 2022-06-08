@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminController;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KelasController extends Controller
 {
@@ -37,11 +38,13 @@ class KelasController extends Controller
                 $guru = json_decode($guru->getBody());
                 $guru = $guru->data;
 
+                $jumlah_siswa = DB::Select("SELECT COUNT(1) FROM data_siswa WHERE status_siswa NOT IN ('Lulus', 'Tidak Aktif') AND id_kelas = ".(int)$resp->id);
+
                 $subjectdata[] = [
                     $resp->id,
                     $resp->nama_kelas,
                     $resp->tingkat,
-                    $resp->kapasitas_kelas,
+                    $jumlah_siswa[0]->count.'/'.$resp->kapasitas_kelas,
                     $guru->nama_guru,
                     '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
                 ];
