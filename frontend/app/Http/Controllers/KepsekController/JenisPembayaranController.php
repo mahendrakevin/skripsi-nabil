@@ -37,7 +37,8 @@ class JenisPembayaranController extends Controller
                 'order' => [[1, 'asc']],
                 'columns' => [null, null, null],
                 'paging' => true,
-                'lengthMenu' => [ 10, 50, 100, 500]
+                'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
             ];
 
             return view('jenispembayaran.index')->with(compact('heads', 'config', 'result'));
@@ -54,7 +55,8 @@ class JenisPembayaranController extends Controller
                 'order' => [[1, 'asc']],
                 'columns' => [null, null, null],
                 'paging' => true,
-                'lengthMenu' => [ 10, 50, 100, 500]
+                'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
             ];
             return view('jenispembayaran.index')->with(compact('heads', 'config', 'result'));
         }

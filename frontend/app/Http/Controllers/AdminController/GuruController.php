@@ -64,7 +64,8 @@ class GuruController extends Controller
                 'order' => [[4, 'asc']],
                 'columns' => [null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
-                'lengthMenu' => [ 10, 50, 100, 500]
+                'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
             ];
 
             return view('guru.index')->with(compact('heads', 'config', 'result'));
@@ -83,7 +84,8 @@ class GuruController extends Controller
                 'order' => [[4, 'asc']],
                 'columns' => [null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
-                'lengthMenu' => [ 10, 50, 100, 500]
+                'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
             ];
 
             return view('guru.index')->with(compact('heads', 'config', 'result'));

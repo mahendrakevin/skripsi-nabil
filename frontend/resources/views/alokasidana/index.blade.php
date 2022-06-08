@@ -1,6 +1,6 @@
 <x-app-layout title="Data Alokasi Dana">
     @if(session('alert'))
-        <x-adminlte-alert theme="success" title="Success">
+        <x-adminlte-alert theme="success" title="Sukses">
             {{ session('alert') }}
         </x-adminlte-alert>
     @elseif(session('alert-failed'))

@@ -67,7 +67,8 @@ class UserController extends Controller
                 'order' => [[1, 'asc']],
                 'columns' => [null, null, null, ['orderable' => false]],
                 'paging' => true,
-                'lengthMenu' => [ 10, 50, 100, 500]
+                'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
             ];
 
             return view('users.index')->with(compact('heads', 'config'));
@@ -84,7 +85,8 @@ class UserController extends Controller
                 'order' => [[1, 'asc']],
                 'columns' => [null, null, null, ['orderable' => false]],
                 'paging' => true,
-                'lengthMenu' => [ 10, 50, 100, 500]
+                'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
             ];
 
             return view('users.index')->with(compact('heads', 'config'));
@@ -128,7 +130,7 @@ class UserController extends Controller
             $user->password = Hash::make($request->password);
         $user->role = $request->role;
         $user->save();
-        return redirect(route('admin.users.index'))->with('alert', 'Data Sukses Di Edit');
+        return redirect(route('admin.users.index'))->with('alert', 'Data success Di Edit');
     }
 
     public function destroy($id){

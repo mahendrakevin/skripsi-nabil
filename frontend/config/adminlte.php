@@ -253,85 +253,76 @@ return [
             'label_color' => 'success',
             'can'         => 'admin'
         ],
-        ['header' => 'Master Data', 'can'=> 'admin'],
         [
-            'text'        => 'Master User',
-            'route'         => 'admin.users.index',
-            'icon'        => 'far fa-fw fa-user',
-            'label_color' => 'success',
-            'can'         => 'admin'
-        ],
-        [
-            'text' => 'Master Siswa',
+            'text' => 'Master Data',
             'icon' => 'far fas fa-users-cog',
             'can' => 'admin',
-            'submenu' => [[
-                'text'        => 'Jenis Pembayaran',
-                'route'         => 'admin.jenispembayaran.index',
+            'submenu' => [
+            [
+                'text'        => 'Pengguna',
+                'route'         => 'admin.users.index',
                 'can'         => 'admin'
             ],
             [
-                'text'        => 'Jenis Wali',
-                'route'         => 'admin.jeniswali.index',
+                'text'        => 'Sekolah',
+                'route'         => 'admin.lembaga.index',
+                'can'         => 'admin'
+            ],
+            [
+                'text'        => 'Jabatan',
+                'route'         => 'admin.jabatan.index',
+                'can'         => 'admin'
+            ],
+            [
+                'text'        => 'Guru',
+                'route'         => 'admin.guru.index',
                 'can'         => 'admin'
             ],
             [
                 'text'        => 'Rombel',
                 'route'         => 'admin.kelas.index',
                 'can'         => 'admin'
-            ]]
-        ],
-        [
-            'text' => 'Master Guru',
-            'icon' => 'far fas fa-star',
-            'can' => 'admin',
-            'submenu' => [
-                [
-                    'text'        => 'Jabatan',
-                    'route'         => 'admin.jabatan.index',
-                    'can'         => 'admin'
-                ]
+            ],
+            [
+                'text'        => 'Siswa',
+                'route'         => 'admin.siswa.index',
+                'can'         => 'admin'
+            ],
+            [
+                'text'        => 'Alumni',
+                'route'         => 'admin.siswa.index_alumni',
+                'can'         => 'admin'
+            ],
+//            [
+//                'text'        => 'Jenis Pembayaran',
+//                'route'         => 'admin.jenispembayaran.index',
+//                'can'         => 'admin'
+//            ],
+//            [
+//                'text'        => 'Jenis Wali',
+//                'route'         => 'admin.jeniswali.index',
+//                'can'         => 'admin'
+//            ],
             ]
         ],
-        [
-            'text' => 'Master Dana',
-            'icon' => 'far fas fa-coins',
-            'can' => 'admin',
-            'submenu' => [
-                [
-                    'text'        => 'Sumber Dana',
-                    'route'         => 'admin.sumber_dana.index',
-                    'can'         => 'admin'
-                ],
-                [
-                    'text'        => 'Jenis Pengeluaran',
-                    'route'         => 'admin.jenis_pengeluaran.index',
-                    'can'         => 'admin'
-                ],
-            ]
-        ],
-        ['header' => 'Kelola Data', 'can'=> 'admin'],
-        [
-            'text'        => 'Kelola Lembaga',
-            'route'         => 'admin.lembaga.index',
-            'icon'        => 'far fas fa-school',
-            'label_color' => 'success',
-            'can'         => 'admin'
-        ],
-        [
-            'text'        => 'Kelola Siswa',
-            'route'         => 'admin.siswa.index',
-            'icon'        => 'far fas fa-user-graduate',
-            'label_color' => 'success',
-            'can'         => 'admin'
-        ],
-        [
-            'text'        => 'Kelola Alumni',
-            'route'         => 'admin.siswa.index_alumni',
-            'icon'        => 'far fas fa-user-graduate',
-            'label_color' => 'success',
-            'can'         => 'admin'
-        ],
+//        [
+//            'text' => 'Master Dana',
+//            'icon' => 'far fas fa-coins',
+//            'can' => 'admin',
+//            'submenu' => [
+//                [
+//                    'text'        => 'Sumber Dana',
+//                    'route'         => 'admin.sumber_dana.index',
+//                    'can'         => 'admin'
+//                ],
+//                [
+//                    'text'        => 'Jenis Pengeluaran',
+//                    'route'         => 'admin.jenis_pengeluaran.index',
+//                    'can'         => 'admin'
+//                ],
+//            ]
+//        ],
+//        ['header' => 'Kelola Data', 'can'=> 'admin'],
 //        ['header' => 'Master Wali Siswa & Pembayaran', 'can'=> 'admin'],
 //        [
 //            'text'        => 'Data Wali',
@@ -340,13 +331,13 @@ return [
 //            'label_color' => 'success',
 //            'can'         => 'admin'
 //        ],
-        [
-            'text'        => 'Laporan Pembayaran',
-            'route'         => 'admin.laporan_pembayaran.index',
-            'icon'        => 'far fas fa-money-bill-wave-alt',
-            'label_color' => 'success',
-            'can'         => 'admin'
-        ],
+//        [
+//            'text'        => 'Laporan Pembayaran',
+//            'route'         => 'admin.laporan_pembayaran.index',
+//            'icon'        => 'far fas fa-money-bill-wave-alt',
+//            'label_color' => 'success',
+//            'can'         => 'admin'
+//        ],
 //        [
 //            'text'        => 'Pendaftaran Siswa',
 //            'route'         => 'admin.pendaftaran.index',
@@ -355,28 +346,21 @@ return [
 //            'can'         => 'admin'
 //        ],
         [
-            'text'        => 'Kelola Guru',
-            'route'         => 'admin.guru.index',
-            'icon'        => 'far fas fa-chalkboard-teacher',
-            'label_color' => 'success',
-            'can'         => 'admin'
-        ],
-        [
-            'text'        => 'Kelola SK Guru',
+            'text'        => 'SK Guru',
             'route'         => 'admin.kepegawaian.index',
             'icon'        => 'far fas fa-briefcase',
             'label_color' => 'success',
             'can'         => 'admin'
         ],
+//        [
+//            'text'        => 'Kelola Dana',
+//            'route'         => 'admin.alokasi_dana.index',
+//            'icon'        => 'far fas fa-hand-holding-usd',
+//            'label_color' => 'success',
+//            'can'         => 'admin'
+//        ],
         [
-            'text'        => 'Kelola Dana',
-            'route'         => 'admin.alokasi_dana.index',
-            'icon'        => 'far fas fa-hand-holding-usd',
-            'label_color' => 'success',
-            'can'         => 'admin'
-        ],
-        [
-            'text'        => 'Kelola Arsip Surat',
+            'text'        => 'Arsip Surat',
             'route'         => 'admin.arsip_surat.index',
             'icon'        => 'far fas fa-archive',
             'label_color' => 'success',
@@ -391,26 +375,41 @@ return [
             'can'         => 'bendahara'
         ],
         [
-            'text'        => 'Pengelolaan Dana',
-            'route'         => 'bendahara.alokasi_dana.index',
-            'icon'        => 'far fas fa-hand-holding-usd',
-            'label_color' => 'success',
-            'can'         => 'bendahara'
-        ],
-        [
-            'text'        => 'Sumber Dana',
-            'route'         => 'bendahara.sumber_dana.index',
-            'icon'        => 'far fas fa-coins',
-            'label_color' => 'success',
-            'can'         => 'bendahara'
-        ],
-        [
-            'text'        => 'Jenis Pengeluaran',
-            'route'         => 'bendahara.jenis_pengeluaran.index',
-            'icon'        => 'far fas fa-comment-dollar',
-            'label_color' => 'success',
-            'can'         => 'bendahara'
-        ],
+            'text' => 'Master Data',
+            'icon' => 'far fas fa-users-cog',
+            'can' => 'bendahara',
+            'submenu' => [
+                [
+                    'text'        => 'Sumber Dana',
+                    'route'       => 'bendahara.sumber_dana.index',
+                    'can'         => 'bendahara'
+                ],
+                [
+                    'text'        => 'Pengelolaan Dana',
+                    'route'       => 'bendahara.alokasi_dana.index',
+                    'can'         => 'bendahara'
+                ],
+                [
+                    'text'        => 'Jenis Pengeluaran',
+                    'route'       => 'bendahara.jenis_pengeluaran.index',
+                    'can'         => 'bendahara'
+                ],
+                ]
+            ],
+            [
+                'text'        => 'Laporan Pembayaran',
+                'route'         => 'bendahara.alokasi_dana.index',
+                'icon'        => 'far fas fa-money-bill-wave-alt',
+                'label_color' => 'success',
+                'can'         => 'bendahara'
+            ],
+            [
+                'text'        => 'Laporan Keuangan',
+                'route'         => 'bendahara.alokasi_dana.index',
+                'icon'        => 'far fas fa-hand-holding-usd',
+                'label_color' => 'success',
+                'can'         => 'bendahara'
+            ],
         // Kepala Sekolah
         [
             'text'        => 'Dashboard',
@@ -419,123 +418,36 @@ return [
             'label_color' => 'success',
             'can'         => 'kepsek'
         ],
-        ['header' => 'Master Data', 'can'=> 'kepsek'],
         [
-            'text'        => 'Master User',
-            'route'         => 'kepsek.users.index',
-            'icon'        => 'far fa-fw fa-user',
-            'label_color' => 'success',
-            'can'         => 'kepsek'
-        ],
-        [
-            'text' => 'Master Siswa',
-            'icon' => 'far fas fa-users-cog',
-            'can' => 'kepsek',
-            'submenu' => [[
-                'text'        => 'Jenis Pembayaran',
-                'route'         => 'kepsek.jenispembayaran.index',
-                'can'         => 'kepsek'
-            ],
-                [
-                    'text'        => 'Jenis Wali',
-                    'route'         => 'kepsek.jeniswali.index',
-                    'can'         => 'kepsek'
-                ],
-                [
-                    'text'        => 'Rombel',
-                    'route'         => 'kepsek.kelas.index',
-                    'can'         => 'kepsek'
-                ]]
-        ],
-        [
-            'text' => 'Master Guru',
-            'icon' => 'far fas fa-star',
-            'can' => 'kepsek',
-            'submenu' => [
-                [
-                    'text'        => 'Jabatan',
-                    'route'         => 'kepsek.jabatan.index',
-                    'can'         => 'kepsek'
-                ]
-            ]
-        ],
-        [
-            'text' => 'Master Dana',
-            'icon' => 'far fas fa-coins',
-            'can' => 'kepsek',
-            'submenu' => [
-                [
-                    'text'        => 'Sumber Dana',
-                    'route'         => 'kepsek.sumber_dana.index',
-                    'can'         => 'kepsek'
-                ],
-                [
-                    'text'        => 'Jenis Pengeluaran',
-                    'route'         => 'kepsek.jenis_pengeluaran.index',
-                    'can'         => 'kepsek'
-                ],
-            ]
-        ],
-        ['header' => 'Kelola Data', 'can'=> 'kepsek'],
-        [
-            'text'        => 'Kelola Lembaga',
+            'text'        => 'Data Sekolah',
             'route'         => 'kepsek.lembaga.index',
             'icon'        => 'far fas fa-school',
             'label_color' => 'success',
             'can'         => 'kepsek'
         ],
         [
-            'text'        => 'Kelola Siswa',
-            'route'         => 'kepsek.siswa.index',
-            'icon'        => 'far fas fa-user-graduate',
-            'label_color' => 'success',
-            'can'         => 'kepsek'
-        ],
-        [
-            'text'        => 'Kelola Alumni',
-            'route'         => 'kepsek.siswa.index_alumni',
-            'icon'        => 'far fas fa-user-graduate',
-            'label_color' => 'success',
-            'can'         => 'kepsek'
-        ],
-//        ['header' => 'Master Wali Siswa & Pembayaran', 'can'=> 'kepsek'],
-//        [
-//            'text'        => 'Data Wali',
-//            'route'         => 'kepsek.wali.index',
-//            'icon'        => 'far fas fa-user-friends',
-//            'label_color' => 'success',
-//            'can'         => 'kepsek'
-//        ],
-        [
-            'text'        => 'Laporan Pembayaran',
-            'route'         => 'kepsek.laporan_pembayaran.index',
-            'icon'        => 'far fas fa-money-bill-wave-alt',
-            'label_color' => 'success',
-            'can'         => 'kepsek'
-        ],
-//        [
-//            'text'        => 'Pendaftaran Siswa',
-//            'route'         => 'kepsek.pendaftaran.index',
-//            'icon'        => 'far fas fa-chevron-right',
-//            'label_color' => 'success',
-//            'can'         => 'kepsek'
-//        ],
-        [
-            'text'        => 'Kelola Guru',
+            'text'        => 'Data Guru',
             'route'         => 'kepsek.guru.index',
             'icon'        => 'far fas fa-chalkboard-teacher',
             'label_color' => 'success',
             'can'         => 'kepsek'
         ],
         [
-            'text'        => 'Kelola SK Guru',
-            'route'         => 'kepsek.kepegawaian.index',
-            'icon'        => 'far fas fa-briefcase',
+            'text'        => 'Data Siswa',
+            'route'         => 'kepsek.siswa.index',
+            'icon'        => 'far fas fa-user-graduate',
             'label_color' => 'success',
             'can'         => 'kepsek'
         ],
         [
-            'text'        => 'Kelola Dana',
+            'text'        => 'Data Alumni',
+            'route'         => 'kepsek.siswa.index_alumni',
+            'icon'        => 'far fas fa-user-graduate',
+            'label_color' => 'success',
+            'can'         => 'kepsek'
+        ],
+        [
+            'text'        => 'Laporan Keuangan',
             'route'         => 'kepsek.alokasi_dana.index',
             'icon'        => 'far fas fa-hand-holding-usd',
             'label_color' => 'success',
@@ -548,6 +460,91 @@ return [
             'label_color' => 'success',
             'can'         => 'kepsek'
         ],
+//        [
+//            'text'        => 'Master User',
+//            'route'         => 'kepsek.users.index',
+//            'icon'        => 'far fa-fw fa-user',
+//            'label_color' => 'success',
+//            'can'         => 'kepsek'
+//        ],
+//        [
+//            'text' => 'Master Siswa',
+//            'icon' => 'far fas fa-users-cog',
+//            'can' => 'kepsek',
+//            'submenu' => [[
+//                'text'        => 'Jenis Pembayaran',
+//                'route'         => 'kepsek.jenispembayaran.index',
+//                'can'         => 'kepsek'
+//            ],
+////                [
+////                    'text'        => 'Jenis Wali',
+////                    'route'         => 'kepsek.jeniswali.index',
+////                    'can'         => 'kepsek'
+////                ],
+//                [
+//                    'text'        => 'Rombel',
+//                    'route'         => 'kepsek.kelas.index',
+//                    'can'         => 'kepsek'
+//                ]]
+//        ],
+//        [
+//            'text' => 'Master Guru',
+//            'icon' => 'far fas fa-star',
+//            'can' => 'kepsek',
+//            'submenu' => [
+//                [
+//                    'text'        => 'Jabatan',
+//                    'route'         => 'kepsek.jabatan.index',
+//                    'can'         => 'kepsek'
+//                ]
+//            ]
+//        ],
+//        [
+//            'text' => 'Master Dana',
+//            'icon' => 'far fas fa-coins',
+//            'can' => 'kepsek',
+//            'submenu' => [
+//                [
+//                    'text'        => 'Sumber Dana',
+//                    'route'         => 'kepsek.sumber_dana.index',
+//                    'can'         => 'kepsek'
+//                ],
+//                [
+//                    'text'        => 'Jenis Pengeluaran',
+//                    'route'         => 'kepsek.jenis_pengeluaran.index',
+//                    'can'         => 'kepsek'
+//                ],
+//            ]
+//        ],
+////        ['header' => 'Master Wali Siswa & Pembayaran', 'can'=> 'kepsek'],
+////        [
+////            'text'        => 'Data Wali',
+////            'route'         => 'kepsek.wali.index',
+////            'icon'        => 'far fas fa-user-friends',
+////            'label_color' => 'success',
+////            'can'         => 'kepsek'
+////        ],
+//        [
+//            'text'        => 'Laporan Pembayaran',
+//            'route'         => 'kepsek.laporan_pembayaran.index',
+//            'icon'        => 'far fas fa-money-bill-wave-alt',
+//            'label_color' => 'success',
+//            'can'         => 'kepsek'
+//        ],
+////        [
+////            'text'        => 'Pendaftaran Siswa',
+////            'route'         => 'kepsek.pendaftaran.index',
+////            'icon'        => 'far fas fa-chevron-right',
+////            'label_color' => 'success',
+////            'can'         => 'kepsek'
+////        ],
+//        [
+//            'text'        => 'Kelola SK Guru',
+//            'route'         => 'kepsek.kepegawaian.index',
+//            'icon'        => 'far fas fa-briefcase',
+//            'label_color' => 'success',
+//            'can'         => 'kepsek'
+//        ],
     ],
 
     /*

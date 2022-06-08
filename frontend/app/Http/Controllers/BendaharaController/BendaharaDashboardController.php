@@ -68,7 +68,8 @@ class BendaharaDashboardController extends Controller
                     'order' => [[1, 'asc']],
                     'columns' => [null, null, null, null, null, null],
                     'paging' => true,
-                    'lengthMenu' => [ 10, 50, 100, 500]
+                    'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
                 ];
 
                 return view('dashboard.index')->with(compact('result', 'config_sarpras', 'heads_sarpras', 'sk', 'jumlah_siswa','jumlah_alumni','jumlah_guru','jumlah_rombel','dana_masuk','dana_keluar','laporan_pembayaran','arsip_surat'));
@@ -88,7 +89,7 @@ class BendaharaDashboardController extends Controller
                     'order' => [[1, 'asc']],
                     'columns' => [null, null, null, null, null, null, ['orderable' => false]],
                     'paging' => true,
-                    'lengthMenu' => [10, 50, 100, 500]
+                    'lengthMenu' => [10, 50, 100, 500],
                 ];
 
                 return view('dashboard.index')->with(compact('heads_sarpras', 'config_sarpras', 'result', 'sk', 'jumlah_siswa','jumlah_alumni','jumlah_guru','jumlah_rombel','dana_masuk','dana_keluar','laporan_pembayaran','arsip_surat'));

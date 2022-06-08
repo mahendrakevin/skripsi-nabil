@@ -54,7 +54,8 @@ class UserController extends Controller
                 'order' => [[1, 'asc']],
                 'columns' => [null, null, null, ['orderable' => false]],
                 'paging' => true,
-                'lengthMenu' => [ 10, 50, 100, 500]
+                'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
             ];
 
             return view('users.index')->with(compact('heads', 'config'));
@@ -71,7 +72,8 @@ class UserController extends Controller
                 'order' => [[1, 'asc']],
                 'columns' => [null, null, null, ['orderable' => false]],
                 'paging' => true,
-                'lengthMenu' => [ 10, 50, 100, 500]
+                'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
             ];
 
             return view('users.index')->with(compact('heads', 'config'));

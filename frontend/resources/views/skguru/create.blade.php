@@ -25,10 +25,11 @@
                     <option value="SK Sekolah">SK Sekolah</option>
                 </x-adminlte-select2>
             </div>
-            <div class="row">
-                <x-adminlte-input name="jabatan" label="Jabatan" placeholder="Guru" type="text"
-                                  fgroup-class="col-md-6"/>
-            </div>
+            <x-adminlte-select2 name="jabatan" fgroup-class="col-md-4" label="Pilih Jabatan">
+                @foreach($jabatan as $jb)
+                    <option value="{{ $jb->nama_jabatan }}">{{$jb->nama_jabatan}}</option>
+                @endforeach
+            </x-adminlte-select2>
         </x-adminlte-card>
         <x-adminlte-modal id="modalCustom" title="Konfirmasi Simpan" size="lg" theme="teal"
                               icon="fas fa-bell" v-centered static-backdrop scrollable>

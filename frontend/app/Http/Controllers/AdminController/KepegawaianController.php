@@ -73,7 +73,8 @@ class KepegawaianController extends Controller
                 'order' => [[1, 'asc']],
                 'columns' => [null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
-                'lengthMenu' => [ 10, 50, 100, 500]
+                'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
             ];
 
             return view('skguru.index')->with(compact('heads', 'config', 'result'));
@@ -92,7 +93,8 @@ class KepegawaianController extends Controller
                 'order' => [[1, 'asc']],
                 'columns' => [null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
-                'lengthMenu' => [ 10, 50, 100, 500]
+                'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
             ];
 
             return view('skguru.index')->with(compact('heads', 'config', 'result'));
@@ -105,9 +107,13 @@ class KepegawaianController extends Controller
         $guru = json_decode($guru->getBody());
         $guru = $guru->data;
 
+        $jabatan = $client->request('GET', 'guru/jabatan/');
+        $jabatan = json_decode($jabatan->getBody());
+        $jabatan = $jabatan->data;
+
         $config_date = ['format' => 'YYYY-MM-DD'];
 
-        return view('skguru.create')->with(compact('config_date', 'guru'));
+        return view('skguru.create')->with(compact('config_date', 'guru', 'jabatan'));
     }
 
     public function store(Request $request){
@@ -140,7 +146,9 @@ class KepegawaianController extends Controller
 
         $kepegawaian = $client->request('GET', 'guru/kepegawaian/detail/'.$id);
         $kepegawaian = json_decode($kepegawaian->getBody());
-
+        $jabatan = $client->request('GET', 'guru/jabatan/');
+        $jabatan = json_decode($jabatan->getBody());
+        $jabatan = $jabatan->data;
 
         $guru = $client->request('GET', 'guru/'.$kepegawaian->data->id_guru);
         $guru = json_decode($guru->getBody());
@@ -150,7 +158,7 @@ class KepegawaianController extends Controller
         if($kepegawaian->message_id == '00'){
             $guru = $guru->data;
             $kepegawaian = $kepegawaian->data;
-            return view('skguru.edit')->with(compact( 'guru', 'kepegawaian', 'config_date'));
+            return view('skguru.edit')->with(compact( 'guru', 'kepegawaian', 'config_date', 'jabatan'));
         }
         else {
             return redirect(route('admin.kepegawaian.index'))->with('alert-failed', 'Data tidak ditemukan');

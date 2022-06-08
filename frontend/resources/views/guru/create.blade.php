@@ -77,8 +77,8 @@
                 </x-adminlte-input-date>
                 <x-adminlte-input name="no_sk" label="Nomor SK Pengangkatan" placeholder="1277471818"
                                   fgroup-class="col-md-6" type="number" required/>
-                <x-adminlte-input name="jabatan" label="Nama Jabatan" placeholder="Guru" type="text"
-                                  fgroup-class="col-md-6" required/>
+{{--                <x-adminlte-input name="jabatan" label="Nama Jabatan" placeholder="Guru" type="text"--}}
+{{--                                  fgroup-class="col-md-6" required/>--}}
             </div>
         </x-adminlte-card>
         <x-adminlte-modal id="modalCustom" title="Konfirmasi Simpan" size="lg" theme="teal"

@@ -40,7 +40,8 @@ class AlokasiDanaController extends Controller
             'order' => [[1, 'asc']],
             'columns' => [null, null, null, null, null],
             'paging' => true,
-            'lengthMenu' => [ 10, 50, 100, 500]
+            'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
         ];
 
 
@@ -49,7 +50,8 @@ class AlokasiDanaController extends Controller
             'order' => [[1, 'asc']],
             'columns' => [null, null, null, null, null, null, null, null],
             'paging' => true,
-            'lengthMenu' => [ 10, 50, 100, 500]
+            'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
         ];
 
         if (property_exists($result_masuk, 'data')){
@@ -77,7 +79,8 @@ class AlokasiDanaController extends Controller
                 'order' => [[1, 'asc']],
                 'columns' => [null, null, null, null, null],
                 'paging' => true,
-                'lengthMenu' => [ 10, 50, 100, 500]
+                'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
             ];
         }
         if (property_exists($result_keluar, 'data')){
@@ -104,7 +107,8 @@ class AlokasiDanaController extends Controller
                     'order' => [[1, 'asc']],
                     'columns' => [null, null, null, null, null, null, null, null],
                     'paging' => true,
-                    'lengthMenu' => [ 10, 50, 100, 500]
+                    'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
                 ];
             }
         }

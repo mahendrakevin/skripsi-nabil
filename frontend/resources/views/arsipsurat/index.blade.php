@@ -1,6 +1,6 @@
 <x-app-layout title="Data Arsip Surat">
     @if(session('alert'))
-        <x-adminlte-alert theme="success" title="Success">
+        <x-adminlte-alert theme="success" title="Sukses">
             {{ session('alert') }}
         </x-adminlte-alert>
     @elseif(session('alert-failed'))
@@ -29,7 +29,7 @@
                 <x-submit-button method="POST" action="{{route('admin.arsip_surat.create')}}"
                                  theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
             @endif
-            <x-adminlte-datatable id="datasiswa" :heads="$heads" :config="$config"  striped hoverable with-footer beautify>
+            <x-adminlte-datatable id="datasiswa2" :heads="$heads" :config="$config"  striped hoverable with-footer beautify>
                 @foreach($config['data'] as $row)
                     <tr>
                         @foreach($row as $cell)

@@ -49,7 +49,8 @@ class SuratKeteranganController extends Controller
                 'order' => [[1, 'asc']],
                 'columns' => [null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
-                'lengthMenu' => [ 10, 50, 100, 500]
+                'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
             ];
 
             return view('sklembaga.index')->with(compact('heads', 'config', 'result'));
@@ -68,7 +69,8 @@ class SuratKeteranganController extends Controller
                 'order' => [[1, 'asc']],
                 'columns' => [null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
-                'lengthMenu' => [ 10, 50, 100, 500]
+                'lengthMenu' => [ 10, 50, 100, 500],
+                'language' => ['search' => 'Cari Data']
             ];
 
             return view('sklembaga.index')->with(compact('heads', 'config', 'result'));
