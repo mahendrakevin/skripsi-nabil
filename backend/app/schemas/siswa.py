@@ -15,8 +15,17 @@ class DataSiswa(BaseModel):
     nomor_kip: Optional[StrictInt] = 123456789
     alamat: Optional[str] = 'Jl Wahyurejo'
     nomor_kk: Optional[StrictInt] = 123456789
-    file_kk: Optional[str]
-    id_jeniswali: Optional[StrictInt] = 2
+    file_kk: Optional[str] = 'string'
+    nomor_kks: Optional[StrictInt] = 0
+    nomor_pkh: Optional[StrictInt] = 0
+    jeniswali: Optional[str] = 'Ayah'
+
+class SiswaNaik(BaseModel):
+    id_kelas: Optional[StrictInt] = 0
+    daftar_siswa: Optional[List]
+
+class SiswaLulus(BaseModel):
+    daftar_siswa: Optional[List]
 
 class EditDataSiswa(BaseModel):
     nisn: Optional[StrictInt] = 1828112
@@ -31,7 +40,9 @@ class EditDataSiswa(BaseModel):
     nomor_kip: Optional[StrictInt] = 123456789
     alamat: Optional[str] = 'Jl Wahyurejo'
     nomor_kk: Optional[StrictInt] = 123456789
-    id_jeniswali: Optional[StrictInt] = 2
+    jeniswali: Optional[str] = 'Ayah'
+    nomor_kks: Optional[StrictInt] = 0
+    nomor_pkh: Optional[StrictInt] = 0
 
 class PendaftaranSiswa(BaseModel):
     nisn: Optional[StrictInt]

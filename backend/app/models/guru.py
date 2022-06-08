@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, BigInteger, ForeignKey, Date, DateTime, Text
+from sqlalchemy import Column, Integer, String, BigInteger, ForeignKey, Date, DateTime, Text, Boolean
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from sqlalchemy.sql.sqltypes import TIMESTAMP
@@ -31,6 +31,8 @@ class Kepegawaian(Base):
     id_guru = Column(BigInteger,  ForeignKey("data_guru.id", ondelete="CASCADE"))
     no_sk = Column(String(20))
     kategori_sk = Column(String(20))
+    jabatan = Column(String(50))
+    isskpengangkatan = Column(Boolean)
     tanggal = Column(Date)
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())

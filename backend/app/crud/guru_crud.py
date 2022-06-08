@@ -378,8 +378,8 @@ async def add_kepegawaian(db_session: AsyncSession, request: DataKepegawaian) ->
             new_kepegawaian['no_sk'] = request.no_sk
             new_kepegawaian['kategori_sk'] = request.kategori_sk
             new_kepegawaian['tanggal'] = request.tanggal
-            new_kepegawaian['id_jabatan'] = request.id_jabatan
-            new_kepegawaian['jumlah_ajar'] = request.jumlah_ajar
+            new_kepegawaian['jabatan'] = request.jabatan
+            new_kepegawaian['isSKPengangkatan'] = request.isSKPengangkatan
             data_kepegawaian = generateQuery('status_kepegawaian', new_kepegawaian)
             logging.debug(f'query : {data_kepegawaian}')
             await session.execute(data_kepegawaian)
@@ -417,8 +417,7 @@ async def edit_kepegawaian_id_guru(db_session: AsyncSession, request: EditKepega
                 edit_kepegawaian = {}
                 edit_kepegawaian['no_sk'] = request.no_sk
                 edit_kepegawaian['kategori_sk'] = request.kategori_sk
-                edit_kepegawaian['id_jabatan'] = request.id_jabatan
-                edit_kepegawaian['jumlah_ajar'] = request.jumlah_ajar
+                edit_kepegawaian['jabatan'] = request.jabatan
                 data_kepegawaian = '''
                                 update status_kepegawaian set {0} where id_guru = {1}
                             '''.format(generateQueryUpdate(edit_kepegawaian), id_guru)
@@ -457,8 +456,7 @@ async def edit_kepegawaian(db_session: AsyncSession, request: EditKepegawaian, i
                 edit_kepegawaian = {}
                 edit_kepegawaian['no_sk'] = request.no_sk
                 edit_kepegawaian['kategori_sk'] = request.kategori_sk
-                edit_kepegawaian['id_jabatan'] = request.id_jabatan
-                edit_kepegawaian['jumlah_ajar'] = request.jumlah_ajar
+                edit_kepegawaian['jabatan'] = request.jabatan
                 data_kepegawaian = '''
                                 update status_kepegawaian set {0} where id = {1}
                             '''.format(generateQueryUpdate(edit_kepegawaian), id_kepegawaian)

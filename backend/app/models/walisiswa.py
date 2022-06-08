@@ -9,7 +9,7 @@ class WaliSiswa(Base):
     __tablename__ = "data_wali_siswa"
     id = Column(BigInteger, primary_key=True)
     nama_ayah = Column(String(100))
-    file_kk = Column(Text)
+    file_kk_ayah = Column(Text)
     tempat_lahir_ayah = Column(String(50))
     tanggal_lahir_ayah = Column(Date)
     alamat_ayah = Column(Text)
@@ -19,9 +19,8 @@ class WaliSiswa(Base):
     pendidikan_ayah = Column(String(50))
     pekerjaan_ayah = Column(String(50))
     penghasilan_ayah = Column(BigInteger)
-    nomor_kks_ayah = Column(BigInteger)
-    nomor_pkh_ayah = Column(BigInteger)
     nama_ibu = Column(String(100))
+    file_kk_ibu = Column(Text)
     tempat_lahir_ibu = Column(String(50))
     tanggal_lahir_ibu = Column(Date)
     alamat_ibu = Column(Text)
@@ -31,8 +30,6 @@ class WaliSiswa(Base):
     pendidikan_ibu = Column(String(50))
     pekerjaan_ibu = Column(String(50))
     penghasilan_ibu = Column(BigInteger)
-    nomor_kks_ibu = Column(BigInteger)
-    nomor_pkh_ibu = Column(BigInteger)
     nama_wali = Column(String(100))
     tempat_lahir_wali = Column(String(50))
     tanggal_lahir_wali = Column(Date)
@@ -41,13 +38,9 @@ class WaliSiswa(Base):
     pendidikan_wali = Column(String(50))
     pekerjaan_wali = Column(String(50))
     penghasilan_wali = Column(BigInteger)
-    nomor_kks_wali = Column(BigInteger)
-    nomor_pkh_wali = Column(BigInteger)
     id_siswa = Column(BigInteger, ForeignKey("data_siswa.id", ondelete="CASCADE"))
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
-
-
 
 class JenisWali(Base):
     __tablename__ = "data_jenis_wali"

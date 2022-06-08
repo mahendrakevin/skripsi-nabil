@@ -21,14 +21,14 @@ class DataKepegawaian(BaseModel):
     no_sk: Optional[str] = 123415516
     kategori_sk: Optional[str] = 'SK YPMNU'
     tanggal: Optional[str] = '2022-03-01'
-    id_jabatan: Optional[StrictInt] = 1
-    jumlah_ajar: Optional[str] = None
+    jabatan: Optional[str] = 'Guru'
+    isSKPengangkatan: Optional[bool] = False
 
 class EditKepegawaian(BaseModel):
     no_sk: Optional[str] = 123415516
     no_sk_ypmnu: Optional[str] = 1241515
     no_sk_operator: Optional[str] = 12545636
-    id_jabatan: Optional[StrictInt] = 1
+    jabatan: Optional[str]
     status_kepegawaian: Optional[str] = 'Aktif'
     alasan_tidak_aktif: Optional[str] = None
     surat_mutasi: Optional[str] = None

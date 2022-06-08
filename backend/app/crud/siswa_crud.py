@@ -2,7 +2,7 @@ from sqlalchemy.engine import result
 from sqlalchemy.ext.asyncio import AsyncSession
 import gevent
 from models import Siswa
-from schemas import DataSiswa, PendaftaranSiswa
+from schemas import DataSiswa, PendaftaranSiswa, SiswaNaik
 from typing import List, Tuple, Union, Dict, Any
 from sqlalchemy.exc import SQLAlchemyError
 from fastapi.logger import logger
@@ -23,6 +23,50 @@ async def get_list_siswa(db_session: AsyncSession, page: int, show: int) -> dict
                 limit {0}
                 offset {1}
             '''.format(show, offset)
+            proxy_rows = await session.execute(q_dep)
+            result = proxy_rows.all()
+
+            # commit the db transaction
+            await session.commit()
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+    # result data handling
+    if result:
+        logger.info(str(result))
+        return {
+            'message_id': '00',
+            'status': 'Succes',
+            'data':result
+        }
+    else:
+        return {
+            'message_id': '01',
+            'status': 'Gagal, Data Siswa Tidak Ditemukan'
+        }
+
+async def get_list_siswa_by_kelas(db_session: AsyncSession, page: int, show: int, id_kelas: int) -> dict:
+    async with db_session as session:
+        try:
+            offset = (page - 1) * show
+            q_dep = '''
+                SELECT * FROM data_siswa WHERE status_siswa not in ('Lulus', 'Tidak Aktif') AND id_kelas = {2} ORDER BY id DESC
+                limit {0}
+                offset {1}
+            '''.format(show, offset, id_kelas)
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -172,7 +216,9 @@ async def add_siswa(db_session: AsyncSession, request: DataSiswa) -> dict:
                 new_siswa['nomor_kip'] = request.nomor_kip
                 new_siswa['alamat'] = request.alamat
                 new_siswa['nomor_kk'] = request.nomor_kk
-                new_siswa['id_jeniswali'] = request.id_jeniswali
+                new_siswa['nomor_kks'] = request.nomor_kks
+                new_siswa['nomor_pkh'] = request.nomor_pkh
+                new_siswa['jenis_wali'] = request.jeniswali
                 data_siswa = generateQuery('data_siswa', new_siswa)
                 logging.debug(f'query : {data_siswa}')
                 await session.execute(data_siswa)
@@ -220,7 +266,9 @@ async def edit_siswa(db_session: AsyncSession, request: DataSiswa, id_siswa: int
                 edit_siswa['nomor_kip'] = request.nomor_kip
                 edit_siswa['alamat'] = request.alamat
                 edit_siswa['nomor_kk'] = request.nomor_kk
-                edit_siswa['id_jeniswali'] = request.id_jeniswali
+                edit_siswa['nomor_kks'] = request.nomor_kks
+                edit_siswa['nomor_pkh'] = request.nomor_pkh
+                edit_siswa['jenis_wali'] = request.jeniswali
                 data_siswa = '''
                                 update data_siswa set {0} where id = {1}
                             '''.format(generateQueryUpdate(edit_siswa), id_siswa)
@@ -266,6 +314,72 @@ async def delete_siswa(db_session: AsyncSession, id_siswa: int) -> dict:
                     'status': 'Succes',
                     'message': 'Data Siswa Berhasil Dihapus'
                 }
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+async def siswa_naik(request: SiswaNaik, db_session: AsyncSession) -> dict:
+    async with db_session as session:
+        try:
+            siswanaik = '''
+                            update data_siswa set id_kelas = {0} where id IN {1}
+                        '''.format(request.id_kelas, tuple(map(int, request.daftar_siswa)))
+            if len(request.daftar_siswa) == 1:
+                siswanaik = '''
+                            update data_siswa set id_kelas = {0} where id = {1}
+                        '''.format(request.id_kelas, int(request.daftar_siswa[0]))
+            await session.execute(siswanaik)
+            await session.commit()
+            return {
+                'message_id': '00',
+                'status': 'Succes',
+                'message': 'Siswa berhasil naik'
+            }
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+async def siswa_lulus(request: SiswaNaik, db_session: AsyncSession) -> dict:
+    async with db_session as session:
+        try:
+            siswanaik = '''
+                            update data_siswa set status_siswa = 'Lulus' where id IN {0}
+                        '''.format(tuple(map(int, request.daftar_siswa)))
+            if len(request.daftar_siswa) == 1:
+                siswanaik = '''
+                            update data_siswa set status_siswa = 'Lulus' where id = {0}
+                        '''.format(int(request.daftar_siswa[0]))
+            await session.execute(siswanaik)
+            await session.commit()
+            return {
+                'message_id': '00',
+                'status': 'Succes',
+                'message': 'Siswa berhasil naik'
+            }
 
         except gevent.Timeout:
             await session.invalidate()
