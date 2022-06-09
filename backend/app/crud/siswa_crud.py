@@ -20,9 +20,8 @@ async def get_list_siswa(db_session: AsyncSession, page: int, show: int) -> dict
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM data_siswa WHERE status_siswa not in ('Lulus', 'Tidak Aktif') ORDER BY id DESC
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -49,7 +48,7 @@ async def get_list_siswa(db_session: AsyncSession, page: int, show: int) -> dict
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -64,8 +63,7 @@ async def get_list_siswa_by_kelas(db_session: AsyncSession, page: int, show: int
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM data_siswa WHERE status_siswa not in ('Lulus', 'Tidak Aktif') AND id_kelas = {2} ORDER BY id DESC
-                limit {0}
-                offset {1}
+                
             '''.format(show, offset, id_kelas)
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
@@ -93,7 +91,7 @@ async def get_list_siswa_by_kelas(db_session: AsyncSession, page: int, show: int
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -108,9 +106,8 @@ async def get_list_siswa_alumni(db_session: AsyncSession, page: int, show: int) 
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM data_siswa WHERE status_siswa in ('Lulus', 'Tidak Aktif') ORDER BY id DESC
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -137,7 +134,7 @@ async def get_list_siswa_alumni(db_session: AsyncSession, page: int, show: int) 
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -175,7 +172,7 @@ async def get_detail_siswa(db_session: AsyncSession, id_siswa: int) -> dict:
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -219,13 +216,14 @@ async def add_siswa(db_session: AsyncSession, request: DataSiswa) -> dict:
                 new_siswa['nomor_kks'] = request.nomor_kks
                 new_siswa['nomor_pkh'] = request.nomor_pkh
                 new_siswa['jenis_wali'] = request.jeniswali
+                new_siswa['current_state'] = request.current_state
                 data_siswa = generateQuery('data_siswa', new_siswa)
                 logging.debug(f'query : {data_siswa}')
                 await session.execute(data_siswa)
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': new_siswa
                 }
 
@@ -269,6 +267,7 @@ async def edit_siswa(db_session: AsyncSession, request: DataSiswa, id_siswa: int
                 edit_siswa['nomor_kks'] = request.nomor_kks
                 edit_siswa['nomor_pkh'] = request.nomor_pkh
                 edit_siswa['jenis_wali'] = request.jeniswali
+                edit_siswa['current_state'] = request.current_state
                 data_siswa = '''
                                 update data_siswa set {0} where id = {1}
                             '''.format(generateQueryUpdate(edit_siswa), id_siswa)
@@ -276,7 +275,7 @@ async def edit_siswa(db_session: AsyncSession, request: DataSiswa, id_siswa: int
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_siswa
                 }
 
@@ -311,7 +310,7 @@ async def delete_siswa(db_session: AsyncSession, id_siswa: int) -> dict:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Siswa Berhasil Dihapus'
                 }
 
@@ -338,13 +337,15 @@ async def siswa_naik(request: SiswaNaik, db_session: AsyncSession) -> dict:
                         '''.format(request.id_kelas, tuple(map(int, request.daftar_siswa)))
             if len(request.daftar_siswa) == 1:
                 siswanaik = '''
-                            update data_siswa set id_kelas = {0} where id = {1}
+                            update data_siswa set id_kelas = {0}, 
+                            current_state = CONCAT(CAST(split_part(current_state ,'/', 1) AS int) + 1, '/',CAST(split_part(current_state,'/', 2) AS int) + 1)
+                            where id = {1}
                         '''.format(request.id_kelas, int(request.daftar_siswa[0]))
             await session.execute(siswanaik)
             await session.commit()
             return {
                 'message_id': '00',
-                'status': 'Succes',
+                'status': 'Sukses',
                 'message': 'Siswa berhasil naik'
             }
 
@@ -367,17 +368,21 @@ async def siswa_lulus(request: SiswaNaik, db_session: AsyncSession) -> dict:
     async with db_session as session:
         try:
             siswanaik = '''
-                            update data_siswa set status_siswa = 'Lulus' where id IN {0}
+                            update data_siswa set status_siswa = 'Lulus',
+                             current_state = CONCAT(CAST(split_part(current_state ,'/', 1) AS int) + 1, '/',CAST(split_part(current_state,'/', 2) AS int) + 1)
+                             where id IN {0}
                         '''.format(tuple(map(int, request.daftar_siswa)))
             if len(request.daftar_siswa) == 1:
                 siswanaik = '''
-                            update data_siswa set status_siswa = 'Lulus' where id = {0}
+                            update data_siswa set status_siswa = 'Lulus',
+                             current_state = CONCAT(CAST(split_part(current_state ,'/', 1) AS int) + 1, '/',CAST(split_part(current_state,'/', 2) AS int) + 1)
+                             where id = {0}
                         '''.format(int(request.daftar_siswa[0]))
             await session.execute(siswanaik)
             await session.commit()
             return {
                 'message_id': '00',
-                'status': 'Succes',
+                'status': 'Sukses',
                 'message': 'Siswa berhasil naik'
             }
 
@@ -404,9 +409,8 @@ async def get_list_pendaftaransiswa(db_session: AsyncSession, page: int, show: i
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM data_pendaftaran_siswa
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -433,7 +437,7 @@ async def get_list_pendaftaransiswa(db_session: AsyncSession, page: int, show: i
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -471,7 +475,7 @@ async def get_detail_pendaftaransiswa(db_session: AsyncSession, id_pendaftaransi
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -526,7 +530,7 @@ async def add_pendaftaransiswa(db_session: AsyncSession, request: DataSiswa) -> 
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': new_pendaftaransiswa
                 }
 
@@ -574,7 +578,7 @@ async def edit_pendaftaransiswa(db_session: AsyncSession, request: DataSiswa, id
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_pendaftaransiswa
                 }
 
@@ -609,7 +613,7 @@ async def delete_pendaftaransiswa(db_session: AsyncSession, id_pendaftaransiswa:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Siswa Berhasil Dihapus'
                 }
 

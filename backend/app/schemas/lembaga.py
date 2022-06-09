@@ -13,11 +13,19 @@ class DataLembaga(BaseModel):
     nsm: Optional[StrictInt]
 
 class SaranaPrasarana(BaseModel):
-    nama_aset: Optional[str]
+    nama_lahan: Optional[str]
     luas_lahan: Optional[StrictInt]
     luas_bangunan: Optional[StrictInt]
-    nama_pemilik: Optional[str]
-    no_sertifikat: Optional[str]
+    jumlah_lantai: Optional[str]
+    tahun: Optional[str]
+    alamat: Optional[str]
+
+class Aset(BaseModel):
+    jenis_ruangan: Optional[str]
+    nama_ruangan: Optional[str]
+    tahun: Optional[StrictInt]
+    panjang: Optional[StrictInt]
+    lebar: Optional[StrictInt]
 
 class SuratKeterangan(BaseModel):
     nomor_surat_operasional: Optional[str]

@@ -20,9 +20,8 @@ async def get_list_guru(db_session: AsyncSession, page: int, show: int) -> dict:
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM data_guru
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -49,7 +48,7 @@ async def get_list_guru(db_session: AsyncSession, page: int, show: int) -> dict:
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -87,7 +86,7 @@ async def get_detail_guru(db_session: AsyncSession, id_guru: int) -> dict:
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -134,7 +133,7 @@ async def add_guru(db_session: AsyncSession, request: DataGuru) -> dict:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': new_guru
                 }
 
@@ -182,7 +181,7 @@ async def edit_guru(db_session: AsyncSession, request: DataGuru, id_guru: int) -
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_guru
                 }
 
@@ -222,7 +221,7 @@ async def delete_guru(db_session: AsyncSession, id_guru: int) -> dict:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Guru Berhasil Dihapus'
                 }
 
@@ -282,7 +281,7 @@ async def get_list_kepegawaian(db_session: AsyncSession, page: int, show: int, i
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -320,7 +319,7 @@ async def get_detail_kepegawaian_id_guru(db_session: AsyncSession, id_guru: int)
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Success',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -358,7 +357,7 @@ async def get_detail_kepegawaian(db_session: AsyncSession, id_kepegawaian: int) 
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Success',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -386,7 +385,7 @@ async def add_kepegawaian(db_session: AsyncSession, request: DataKepegawaian) ->
             await session.commit()
             return {
                 'message_id': '00',
-                'status': 'Success',
+                'status': 'Sukses',
                 'data': new_kepegawaian
             }
 
@@ -425,7 +424,7 @@ async def edit_kepegawaian_id_guru(db_session: AsyncSession, request: EditKepega
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_kepegawaian
                 }
 
@@ -464,7 +463,7 @@ async def edit_kepegawaian(db_session: AsyncSession, request: EditKepegawaian, i
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_kepegawaian
                 }
 
@@ -499,7 +498,7 @@ async def delete_kepegawaian_id_guru(db_session: AsyncSession, id_guru: int) -> 
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Kepegawaian Berhasil Dihapus'
                 }
 
@@ -534,7 +533,7 @@ async def delete_kepegawaian(db_session: AsyncSession, id_kepegawaian: int) -> d
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Kepegawaian Berhasil Dihapus'
                 }
 
@@ -560,9 +559,8 @@ async def get_list_jabatan(db_session: AsyncSession, page: int, show: int) -> di
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM jabatan
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -589,7 +587,7 @@ async def get_list_jabatan(db_session: AsyncSession, page: int, show: int) -> di
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -627,7 +625,7 @@ async def get_detail_jabatan(db_session: AsyncSession, id_jabatan: int) -> dict:
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Success',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -662,7 +660,7 @@ async def add_jabatan(db_session: AsyncSession, request: Jabatan) -> dict:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Success',
+                    'status': 'Sukses',
                     'data': new_jabatan
                 }
 
@@ -699,7 +697,7 @@ async def edit_jabatan(db_session: AsyncSession, request: Jabatan, id_jabatan: i
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_jabatan
                 }
 
@@ -734,7 +732,7 @@ async def delete_jabatan(db_session: AsyncSession, id_jabatan: int) -> dict:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Jabatan Berhasil Dihapus'
                 }
 

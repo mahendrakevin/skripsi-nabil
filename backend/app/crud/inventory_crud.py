@@ -20,9 +20,8 @@ async def get_list_inventory(db_session: AsyncSession, page: int, show: int) -> 
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM data_inventory
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -49,7 +48,7 @@ async def get_list_inventory(db_session: AsyncSession, page: int, show: int) -> 
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -87,7 +86,7 @@ async def get_detail_inventory(db_session: AsyncSession, id_inventory: int) -> d
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -118,7 +117,7 @@ async def add_inventory(db_session: AsyncSession, request: DataInventory) -> dic
             await session.commit()
             return {
                 'message_id': '00',
-                'status': 'Succes',
+                'status': 'Sukses',
                 'data': new_inventory
             }
 
@@ -163,7 +162,7 @@ async def edit_inventory(db_session: AsyncSession, request: DataInventory, id_in
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_inventory
                 }
 
@@ -199,7 +198,7 @@ async def delete_inventory(db_session: AsyncSession, id_inventory: int) -> dict:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Inventory Berhasil Dihapus'
                 }
 
@@ -226,9 +225,8 @@ async def get_list_kategori_barang(db_session: AsyncSession, page: int, show: in
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM data_kategori_barang
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -255,7 +253,7 @@ async def get_list_kategori_barang(db_session: AsyncSession, page: int, show: in
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -293,7 +291,7 @@ async def get_detail_kategori_barang(db_session: AsyncSession, id_kategori_baran
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Success',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -329,7 +327,7 @@ async def add_kategori_barang(db_session: AsyncSession, request: KategoriBarang)
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Success',
+                    'status': 'Sukses',
                     'data': new_kategori_barang
                 }
 
@@ -366,7 +364,7 @@ async def edit_kategori_barang(db_session: AsyncSession, request: KategoriBarang
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_kategori_barang
                 }
 
@@ -401,7 +399,7 @@ async def delete_kategori_barang(db_session: AsyncSession, id_kategori_barang: i
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Kategori Berhasil Dihapus'
                 }
 
@@ -428,9 +426,8 @@ async def get_list_jenis_inventaris(db_session: AsyncSession, page: int, show: i
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM data_jenis_inventaris
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -457,7 +454,7 @@ async def get_list_jenis_inventaris(db_session: AsyncSession, page: int, show: i
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -495,7 +492,7 @@ async def get_detail_jenis_inventaris(db_session: AsyncSession, id_jenis_inventa
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Success',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -531,7 +528,7 @@ async def add_jenis_inventaris(db_session: AsyncSession, request: JenisInventari
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Success',
+                    'status': 'Sukses',
                     'data': new_jenis_inventaris
                 }
 
@@ -568,7 +565,7 @@ async def edit_jenis_inventaris(db_session: AsyncSession, request: JenisInventar
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_jenis_inventaris
                 }
 
@@ -603,7 +600,7 @@ async def delete_jenis_inventaris(db_session: AsyncSession, id_jenis_inventaris:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Jenis Inventaris Berhasil Dihapus'
                 }
 

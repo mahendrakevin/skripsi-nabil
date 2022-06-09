@@ -22,11 +22,23 @@ class DataLembaga(Base):
 class SaranaPrasarana(Base):
     __tablename__ = "sarana_prasarana"
     id = Column(BigInteger, primary_key=True)
-    nama_aset = Column(String(100))
+    nama_lahan = Column(String(100))
+    alamat = Column(Text)
     luas_lahan = Column(BigInteger)
     luas_bangunan = Column(BigInteger)
-    nama_pemilik = Column(String(100))
-    no_sertifikat = Column(String(100))
+    jumlah_lantai = Column(BigInteger)
+    tahun = Column(Integer)
+    created = Column(DateTime, server_default=func.now())
+    updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
+
+class Aset(Base):
+    __tablename__ = "aset"
+    id = Column(BigInteger, primary_key=True)
+    jenis_ruangan = Column(String(100))
+    nama_ruangan = Column(String(100))
+    tahun = Column(Integer)
+    panjang = Column(String(100))
+    lebar = Column(String(100))
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
 

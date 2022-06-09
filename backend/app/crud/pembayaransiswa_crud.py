@@ -53,7 +53,7 @@ async def get_list_pembayaransiswa(db_session: AsyncSession, page: int, show: in
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -91,7 +91,7 @@ async def get_detail_pembayaransiswa_id_siswa(db_session: AsyncSession, id_siswa
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -129,7 +129,7 @@ async def get_detail_pembayaransiswa(db_session: AsyncSession, id_laporanpembaya
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -156,7 +156,7 @@ async def add_pembayaransiswa(db_session: AsyncSession, request: PembayaranSiswa
             await session.commit()
             return {
                 'message_id': '00',
-                'status': 'Succes',
+                'status': 'Sukses',
                 'data': new_pembayaransiswa
             }
 
@@ -197,7 +197,7 @@ async def edit_pembayaransiswa(db_session: AsyncSession, request: PembayaranSisw
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_pembayaransiswa
                 }
 
@@ -232,7 +232,7 @@ async def delete_pembayaransiswa_id_siswa(db_session: AsyncSession, id_siswa: in
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Pembayaran Berhasil Dihapus'
                 }
 
@@ -267,7 +267,7 @@ async def delete_pembayaransiswa(db_session: AsyncSession, id_laporanpembayaran:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Pembayaran Berhasil Dihapus'
                 }
 
@@ -294,9 +294,8 @@ async def get_list_jenispembayaran(db_session: AsyncSession, page: int, show: in
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM jenis_pembayaran
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -323,7 +322,7 @@ async def get_list_jenispembayaran(db_session: AsyncSession, page: int, show: in
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -361,7 +360,7 @@ async def get_detail_jenispembayaran(db_session: AsyncSession, id_jenispembayara
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -397,7 +396,7 @@ async def add_jenispembayaran(db_session: AsyncSession, request: JenisPembayaran
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': new_jenispembayaran
                 }
 
@@ -435,7 +434,7 @@ async def edit_jenispembayaran(db_session: AsyncSession, request: JenisPembayara
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_jenispembayaran
                 }
 
@@ -470,7 +469,7 @@ async def delete_jenispembayaran(db_session: AsyncSession, id_jenispembayaran: i
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data jenispembayaran Berhasil Dihapus'
                 }
 

@@ -19,9 +19,8 @@ async def get_list_arsipsurat(db_session: AsyncSession, page: int, show: int) ->
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM arsip_surat
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -48,7 +47,7 @@ async def get_list_arsipsurat(db_session: AsyncSession, page: int, show: int) ->
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -86,7 +85,7 @@ async def get_detail_arsipsurat(db_session: AsyncSession, id_arsipsurat: int) ->
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -114,7 +113,7 @@ async def add_arsipsurat(db_session: AsyncSession, request: ArsipSurat) -> dict:
             await session.commit()
             return {
                 'message_id': '00',
-                'status': 'Succes',
+                'status': 'Sukses',
                 'data': new_arsipsurat
             }
 
@@ -156,7 +155,7 @@ async def edit_arsipsurat(db_session: AsyncSession, request: ArsipSurat, id_arsi
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_arsipsurat
                 }
 
@@ -192,7 +191,7 @@ async def delete_arsipsurat(db_session: AsyncSession, id_arsipsurat: int) -> dic
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Arsip Surat Berhasil Dihapus'
                 }
 
