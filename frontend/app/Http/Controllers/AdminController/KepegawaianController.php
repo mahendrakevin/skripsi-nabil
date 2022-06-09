@@ -118,6 +118,11 @@ class KepegawaianController extends Controller
 
     public function store(Request $request){
         $client = new Client(['base_uri' => env('API_HOST')]);
+
+        if ($request->jabatan == null){
+            $jabatan = '';
+        }
+
         $kepegawaian = $client->request('POST', 'guru/kepegawaian/tambah',[
                 'headers' => [
                     'Content-Type' => 'application/json',
@@ -128,7 +133,7 @@ class KepegawaianController extends Controller
                     'tanggal' =>$request->tanggal,
                     'no_sk' => $request->no_sk,
                     'kategori_sk' => $request->kategori_sk,
-                    'jabatan' => $request->jabatan
+                    'jabatan' => $jabatan
                 ]
             ]
         );
@@ -190,6 +195,14 @@ class KepegawaianController extends Controller
 
     public function update(Request $request, $id){
         $client = new Client(['base_uri' => env('API_HOST')]);
+        $kategori_sk = '';
+        $jabatan = '';
+        if ($request->kategori_sk) {
+            $kategori_sk == $request->kategori_sk;
+        }
+        if ($request->jabatan) {
+            $jabatan == $request->jabatan;
+        }
         $kepegawian = $client->request('PUT', 'guru/kepegawaian/pegawai/edit?id_kepegawaian='.$id,[
                 'headers' => [
                     'Content-Type' => 'application/json',
@@ -199,8 +212,8 @@ class KepegawaianController extends Controller
                     'id_guru' => (int)$request->id_guru,
                     'tanggal' =>$request->tanggal,
                     'no_sk' => $request->no_sk,
-                    'kategori_sk' => $request->kategori_sk,
-                    'jabatan' => $request->jabatan
+                    'kategori_sk' => $kategori_sk,
+                    'jabatan' => $jabatan
                 ]
             ]
         );

@@ -27,11 +27,13 @@
                     <x-adminlte-input name="no_sk" label="Nomor SK" placeholder="1277471818"
                                       fgroup-class="col-md-4" type="number" value="{{ $kepegawaian->no_sk }}" required/>
             </div>
+            @if($kepegawaian->isskpengangkatan != true)
                     <x-adminlte-select2 name="jabatan" fgroup-class="col-md-4" label="Pilih Jabatan">
                         @foreach($jabatan as $jb)
                             <option {{old('jabatan',$jb->nama_jabatan)==$kepegawaian->jabatan? 'selected':''}} value="{{ $jb->nama_jabatan }}">{{$jb->nama_jabatan}}</option>
                         @endforeach
                     </x-adminlte-select2>
+            @endif
         </x-adminlte-card>
         <x-adminlte-modal id="modalCustom" title="Konfirmasi Simpan" size="lg" theme="teal"
                               icon="fas fa-bell" v-centered static-backdrop scrollable>

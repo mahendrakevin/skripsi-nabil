@@ -22,64 +22,82 @@ class LembagaController extends Controller
             // dd($sk);
             $result = $result->data;
             $client = new Client(['base_uri' => env('API_HOST')]);
-            $resp = $client->request('GET', 'lembaga/sarpras/');
+            $resp = $client->request('GET', 'lembaga/sarpras/1');
             $sarpras = json_decode($resp->getBody());
+            $aset = $client->request('GET', 'lembaga/aset/');
+            $aset = json_decode($aset->getBody());
+            $sarpras = $sarpras->data;
+            if (property_exists($aset, 'data')){
+                $aset = $aset->data;
 
-            if (property_exists($sarpras, 'data')){
-
-                $sarpras = $sarpras->data;
                 $subjectdata = array();
+                foreach ($aset as $resp){
+                    $btnEdit = view('components.Button', [
+                        'method' => 'GET',
+//                        'action' => route('admin.sarpras.edit', $resp->id),
+                        'title' => 'Edit',
+                        'icon' => 'fa fa-lg fa-fw fa-pen',
+                        'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
-                foreach ($sarpras as $resp){
+                    $btnDelete = view('components.Button', [
+                        'method' => 'GET',
+//                        'action' => route('admin.sarpras.destroy', $resp->id),
+                        'title' => 'Hapus',
+                        'icon' => 'fa fa-lg fa-fw fa-trash',
+                        'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
                     $subjectdata[] = [
                         $resp->id,
-                        $resp->nama_aset,
-                        $resp->luas_lahan,
-                        $resp->luas_bangunan,
-                        $resp->nama_pemilik,
-                        $resp->no_sertifikat,
+                        $resp->jenis_ruangan,
+                        $resp->nama_ruangan,
+                        $resp->tahun,
+                        $resp->panjang,
+                        $resp->lebar,
+                        '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
                     ];
                 }
 
-                $heads_sarpras = [
+                $heads = [
                     ['label' => 'No', 'no-export' => false, 'width' => 10],
                     'Nama Lembaga',
                     'Luas Lahan',
                     'Luas Bangunan',
                     'Nama Pemilik',
-                    'No Sertifikat'
+                    'No Sertifikat',
+                    ['label' => 'Actions', 'no-export' => false, 'width' => 10],
                 ];
 
-                $config_sarpras = [
+                $config = [
                     'data' => $subjectdata,
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null],
+                    'columns' => [null, null, null, null, null, null, ['orderable' => false]],
                     'paging' => true,
                     'lengthMenu' => [ 10, 50, 100, 500],
-                'language' => ['search' => 'Cari Data']
+                    'language' => ['search' => 'Cari Data']
                 ];
 
-                return view('lembaga.index')->with(compact('result', 'config_sarpras', 'heads_sarpras', 'sk'));
+                return view('lembaga.index')->with(compact('result', 'sk', 'sarpras', 'heads', 'config'));
             } else {
-                $heads_sarpras = [
+                $heads = [
                     ['label' => 'No', 'no-export' => false, 'width' => 10],
                     'Nama Lembaga',
                     'Luas Lahan',
                     'Luas Bangunan',
                     'Nama Pemilik',
-                    'No Sertifikat'
+                    'No Sertifikat',
+                    ['label' => 'Actions', 'no-export' => false, 'width' => 10],
                 ];
 
-                $config_sarpras = [
+                $config = [
                     'data' => [],
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null],
+                    'columns' => [null, null, null, null, null, null, ['orderable' => false]],
                     'paging' => true,
-                    'lengthMenu' => [10, 50, 100, 500]
+                    'lengthMenu' => [ 10, 50, 100, 500],
+                    'language' => ['search' => 'Cari Data']
                 ];
 
-                return view('lembaga.index')->with(compact('heads_sarpras', 'config_sarpras', 'result', 'sk'));
+                return view('lembaga.index')->with(compact('result', 'sk', 'heads', 'config', 'sarpras'));
 
             }
         } else {

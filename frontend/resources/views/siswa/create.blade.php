@@ -18,7 +18,9 @@
                                   placeholder="1234567890123456" fgroup-class="col-md-3" type="number" required/>
                 <x-adminlte-select2 name="id_kelas" fgroup-class="col-md-3" label="Kelas">
                     @foreach($kelas as $kls)
-                        <option value="{{ $kls->id }}">{{$kls->nama_kelas.' '.$kls->tingkat}}</option>
+                        @if($jumlah_siswa[0]->jml_siswa < $kls->kapasitas_kelas)
+                            <option value="{{ $kls->id }}">{{$kls->nama_kelas.' '.$kls->tingkat.' - '.$jumlah_siswa[0]->jml_siswa.'/'.$kls->kapasitas_kelas}}</option>
+                        @endif
                     @endforeach
                 </x-adminlte-select2>
                 <x-adminlte-select2 name="status_siswa" fgroup-class="col-md-3" label="Status Siswa">
@@ -32,9 +34,14 @@
                 </x-adminlte-select2>
             </div>
             <div class="row">
+                <x-adminlte-select2 name="current_state" fgroup-class="col-md-4" label="Tahun Ajaran">
+                    @foreach($tahunpelajaran as $tp)
+                        <option value="{{ $tp }}">{{$tp}}</option>
+                    @endforeach
+                </x-adminlte-select2>
                 <x-adminlte-input name="tempat_lahir" label="Tempat Lahir" placeholder="Semarang"
-                                  fgroup-class="col-md-6" required/>
-                <x-adminlte-input-date name="tanggal_lahir" :config="$config_date" label="Tanggal Lahir" placeholder="Choose a time..." fgroup-class="col-md-6" required>
+                                  fgroup-class="col-md-4" required/>
+                <x-adminlte-input-date name="tanggal_lahir" :config="$config_date" label="Tanggal Lahir" placeholder="Choose a time..." fgroup-class="col-md-4" required>
                     <x-slot name="prependSlot">
                         <div class="input-group-text bg-gradient-info">
                             <i class="fas fa-clock"></i>
@@ -229,6 +236,9 @@
                                           fgroup-class="col-md-6" required />
                         <x-adminlte-input name="nama_wali" label="Nama" placeholder="Alfa"
                                           fgroup-class="col-md-6" value="-" />
+                    </div>
+                    <div class="row">
+                        <x-adminlte-textarea name="keterangan" fgroup-class="col-md-12" label="Keterangan" placeholder="Keterangan">-</x-adminlte-textarea>
                     </div>
                     <div class="row">
                         <x-adminlte-input name="tempat_lahir_wali" label="Tempat Lahir" placeholder="Semarang"

@@ -116,11 +116,12 @@ class SarprasController extends Controller
                     'Accept'     => 'application/json'
                 ],
                 'json' => [
-                    'nama_aset' => $request->nama_aset,
+                    'nama_lahan' => $request->nama_lahan,
                     'luas_lahan' => (int)$request->luas_lahan,
                     'luas_bangunan' => (int)$request->luas_bangunan,
-                    'nama_pemilik' => $request->nama_pemilik,
-                    'no_sertifikat' => $request->no_sertifikat,
+                    'jumlah_lantai' => (int)$request->jumlah_lantai,
+                    'tahun' => (int)$request->tahun,
+                    'alamat' => $request->alamat
                 ]
             ]
         );
@@ -157,11 +158,12 @@ class SarprasController extends Controller
                     'Accept'     => 'application/json'
                 ],
                 'json' => [
-                    'nama_aset' => $request->nama_aset,
+                    'nama_lahan' => $request->nama_lahan,
                     'luas_lahan' => (int)$request->luas_lahan,
                     'luas_bangunan' => (int)$request->luas_bangunan,
-                    'nama_pemilik' => $request->nama_pemilik,
-                    'no_sertifikat' => $request->no_sertifikat,
+                    'jumlah_lantai' => (int)$request->jumlah_lantai,
+                    'tahun' => (int)$request->tahun,
+                    'alamat' => $request->alamat
                 ]
             ]
         );

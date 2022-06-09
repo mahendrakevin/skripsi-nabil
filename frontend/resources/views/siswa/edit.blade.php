@@ -17,7 +17,9 @@
                                   fgroup-class="col-md-3" type="number" value="{{ $siswa->nik }}" required/>
                 <x-adminlte-select2 name="id_kelas" fgroup-class="col-md-3" label="Kelas">
                     @foreach($kelas as $kls)
-                        <option {{old('id_kelas',$siswa->id_kelas)==$kls->id? 'selected':''}} value="{{ $kls->id }}">{{$kls->nama_kelas.' '.$kls->tingkat}}</option>
+                        @if($jumlah_siswa[0]->jml_siswa < $kls->kapasitas_kelas)
+                            <option {{old('id_kelas',$siswa->id_kelas)==$kls->id? 'selected':''}} value="{{ $kls->id }}">{{$kls->nama_kelas.' '.$kls->tingkat.' - '.$jumlah_siswa[0]->jml_siswa.'/'.$kls->kapasitas_kelas}}</option>
+                        @endif
                     @endforeach
                 </x-adminlte-select2>
                 <x-adminlte-select2 name="status_siswa" fgroup-class="col-md-3" label="Status Siswa">
@@ -28,13 +30,19 @@
                     </x-slot>
                     <option {{old('status_siswa',$siswa->status_siswa)=="Aktif"? 'selected':''}} value="Aktif">Aktif</option>
                     <option {{old('status_siswa',$siswa->status_siswa)=="Tidak Aktif"? 'selected':''}} value="Tidak Aktif">Tidak Aktif</option>
+                    <option {{old('status_siswa',$siswa->status_siswa)=="Lulus"? 'selected':''}} value="Lulus">Lulus</option>
                 </x-adminlte-select2>
             </div>
             <div class="row">
+                <x-adminlte-select2 name="current_state" fgroup-class="col-md-4" label="Tahun Ajaran">
+                    @foreach($tahunpelajaran as $tp)
+                        <option {{old('current_state',$tp)==$siswa->current_state? 'selected':''}} value="{{$tp}}">{{$tp}}</option>
+                    @endforeach
+                </x-adminlte-select2>
                 <x-adminlte-input name="tempat_lahir" label="Tempat Lahir" placeholder="Semarang"
-                                  fgroup-class="col-md-6" value="{{ $siswa->tempat_lahir }}" required/>
+                                  fgroup-class="col-md-4" value="{{ $siswa->tempat_lahir }}" required/>
                 <x-adminlte-input-date name="tanggal_lahir" :config="$config_date" label="Tanggal Lahir"
-                                       placeholder="Choose a time..." fgroup-class="col-md-6" value="{{ $siswa->tanggal_lahir }}" required>
+                                       placeholder="Choose a time..." fgroup-class="col-md-4" value="{{ $siswa->tanggal_lahir }}" required>
                     <x-slot name="prependSlot">
                         <div class="input-group-text bg-gradient-info">
                             <i class="fas fa-clock"></i>
@@ -232,6 +240,9 @@
                                           fgroup-class="col-md-6" value="{{ $siswa->jenis_wali }}" />
                         <x-adminlte-input name="nama_wali" label="Nama Wali" placeholder="Alfa"
                                           fgroup-class="col-md-6" value="{{ $walisiswa->nama_wali }}" />
+                    </div>
+                    <div class="row">
+                        <x-adminlte-textarea name="keterangan" fgroup-class="col-md-12" label="Keterangan" placeholder="Keterangan">{{ $walisiswa->keterangan }}</x-adminlte-textarea>
                     </div>
                     <div class="row">
                         <x-adminlte-input name="tempat_lahir_wali" label="Tempat Lahir" placeholder="Semarang"

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', $title.' | RA Alfalah Wahyurejo')
 
 @section('content_header')
     <h1>{{ $title }}</h1>
@@ -9,3 +9,4 @@
 @section('content')
 {{ $slot }}
 @stop
+

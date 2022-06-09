@@ -19,13 +19,14 @@
             <div class="row">
                 <x-adminlte-input name="no_sk" label="Nomor SK" placeholder="1277471818"
                                   fgroup-class="col-md-4" type="number" required/>
-                <x-adminlte-select2 name="kategori_sk" fgroup-class="col-md-4" label="Pilih Kategori SK">
+                <x-adminlte-select2 name="kategori_sk" fgroup-class="col-md-4" id="kategori_sk" label="Pilih Kategori SK">
                     <option value="SK Yayasan">SK Yayasan</option>
                     <option value="SK YPMNU">SK YPMNU</option>
                     <option value="SK Sekolah">SK Sekolah</option>
                 </x-adminlte-select2>
             </div>
             <x-adminlte-select2 name="jabatan" fgroup-class="col-md-4" label="Pilih Jabatan">
+                <option value="" selected>Pilih Jabatan</option>
                 @foreach($jabatan as $jb)
                     <option value="{{ $jb->nama_jabatan }}">{{$jb->nama_jabatan}}</option>
                 @endforeach
@@ -42,4 +43,15 @@
             <x-adminlte-button label="Simpan" data-toggle="modal" theme="success" data-target="#modalCustom" class="btn-flat"/>
 
     </x-form>
+    @push('js')
+        <script type="text/javascript">
+            $('#kategori_sk').change(function(){
+                if($(this).val() == "SK Sekolah") {
+                    $('#jabatan').hide();
+                } else {
+                    $('#jabatan').show();
+                }
+            });
+        </script>
+    @endpush
 </x-app-layout>

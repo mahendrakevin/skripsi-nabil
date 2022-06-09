@@ -46,7 +46,7 @@ return [
     */
 
     'logo' => '<b>RA</b>ALFALAH<br>WAHYUREJO',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'vendor/adminlte/dist/img/logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -582,6 +582,16 @@ return [
     */
 
     'plugins' => [
+        'jQuery' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'https://code.jquery.com/jquery-latest.min.js',
+                ],
+            ],
+        ],
         'Datatables' => [
             'active' => true,
             'files' => [

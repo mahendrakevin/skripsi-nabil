@@ -43,53 +43,7 @@ class KepsekDashboardController extends Controller
                 $sarpras = $sarpras->data;
                 $subjectdata = array();
 
-                foreach ($sarpras as $resp){
-                    $btnEdit = view('components.Button', [
-                        'method' => 'GET',
-                        'action' => route('admin.sarpras.edit', $resp->id),
-                        'title' => 'Edit',
-                        'icon' => 'fa fa-lg fa-fw fa-pen',
-                        'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
-
-                    $btnDelete = view('components.Button', [
-                        'method' => 'GET',
-                        'action' => route('admin.sarpras.destroy', $resp->id),
-                        'title' => 'Hapus',
-                        'icon' => 'fa fa-lg fa-fw fa-trash',
-                        'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
-
-
-                    $subjectdata[] = [
-                        $resp->id,
-                        $resp->nama_aset,
-                        $resp->luas_lahan,
-                        $resp->luas_bangunan,
-                        $resp->nama_pemilik,
-                        $resp->no_sertifikat,
-                        '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
-                    ];
-                }
-
-                $heads_sarpras = [
-                    ['label' => 'No', 'no-export' => false, 'width' => 10],
-                    'Nama Lembaga',
-                    'Luas Lahan',
-                    'Luas Bangunan',
-                    'Nama Pemilik',
-                    'No Sertifikat',
-                    ['label' => 'Actions', 'no-export' => false, 'width' => 10]
-                ];
-
-                $config_sarpras = [
-                    'data' => $subjectdata,
-                    'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null],
-                    'paging' => true,
-                    'lengthMenu' => [ 10, 50, 100, 500],
-                'language' => ['search' => 'Cari Data']
-                ];
-
-                return view('dashboard.index')->with(compact('result', 'config_sarpras', 'heads_sarpras', 'sk', 'jumlah_siswa','jumlah_alumni','jumlah_guru','jumlah_rombel','dana_masuk','dana_keluar','laporan_pembayaran','arsip_surat_masuk', 'arsip_surat_keluar', 'total_sarpras'));
+                return view('dashboard.index')->with(compact('result',  'sk', 'jumlah_siswa','jumlah_alumni','jumlah_guru','jumlah_rombel','dana_masuk','dana_keluar','laporan_pembayaran','arsip_surat_masuk', 'arsip_surat_keluar', 'total_sarpras'));
             } else {
                 $heads_sarpras = [
                     ['label' => 'No', 'no-export' => false, 'width' => 10],
@@ -109,7 +63,7 @@ class KepsekDashboardController extends Controller
                     'lengthMenu' => [10, 50, 100, 500]
                 ];
 
-                return view('dashboard.index')->with(compact('heads_sarpras', 'config_sarpras', 'result', 'sk', 'jumlah_siswa','jumlah_alumni','jumlah_guru','jumlah_rombel','dana_masuk','dana_keluar','laporan_pembayaran','arsip_surat_masuk', 'arsip_surat_keluar', 'total_sarpras'));
+                return view('dashboard.index')->with(compact('result', 'sk', 'jumlah_siswa','jumlah_alumni','jumlah_guru','jumlah_rombel','dana_masuk','dana_keluar','laporan_pembayaran','arsip_surat_masuk', 'arsip_surat_keluar', 'total_sarpras'));
 
             }
         } else {

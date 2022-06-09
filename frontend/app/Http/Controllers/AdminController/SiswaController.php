@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminController;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SiswaController extends Controller
 {
@@ -188,11 +189,13 @@ class SiswaController extends Controller
                         'icon' => 'fa fa-lg fa-fw fa-user',
                         'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
+                    $jumlah_siswa = DB::Select("SELECT COUNT(1) AS jml_siswa FROM data_siswa WHERE status_siswa NOT IN ('Lulus', 'Tidak Aktif') AND id_kelas = " . (int)$resp->id);
+
                     $subjectdata[] = [
                         $resp->id,
                         $resp->nama_kelas,
                         $resp->tingkat,
-                        $resp->kapasitas_kelas,
+                        $jumlah_siswa[0]->jml_siswa.'/'.$resp->kapasitas_kelas,
                         '<nobr>'.$choosesiswa.'</nobr>'
                     ];
                 }
@@ -335,6 +338,7 @@ class SiswaController extends Controller
 
     public function naik(Request $request) {
         $client = new Client(['base_uri' => env('API_HOST')]);
+
         $resp = $client->request('POST', 'siswa/naik',[
                 'headers' => [
                     'Content-Type' => 'application/json',
@@ -342,7 +346,7 @@ class SiswaController extends Controller
                 ],
                 'json' => [
                     'id_kelas' => (int)$request->id_kelas,
-                    'daftar_siswa' => (array)$request->daftar_siswa,
+                    'daftar_siswa' => (array)$request->daftar_siswa
                 ]
             ]
         );
@@ -370,14 +374,28 @@ class SiswaController extends Controller
         $client = new Client(['base_uri' => env('API_HOST')]);
         $kelas = $client->request('GET', 'kelas/');
         $kelas = json_decode($kelas->getBody());
-        $kelas = $kelas->data;
-        $config_date = ['format' => 'YYYY-MM-DD'];
 
-        return view('siswa.create')->with(compact('kelas', 'config_date'));
+        if (property_exists($kelas, 'data')) {
+            $kelas = $kelas->data;
+            foreach ($kelas as $resp) {
+                $jumlah_siswa = DB::Select("SELECT COUNT(1) AS jml_siswa FROM data_siswa WHERE status_siswa NOT IN ('Lulus', 'Tidak Aktif') AND id_kelas = " . (int)$resp->id);
+            }
+        }
+        $config_date = ['format' => 'YYYY-MM-DD'];
+        $tahun = 3;
+        $tahunpelajaran = array();
+
+        for($i=0;$i<=$tahun;$i++){
+            $result = DB::Select("SELECT CONCAT(extract('year' FROM CURRENT_DATE - INTERVAL '1 YEAR' + INTERVAL '".$i." YEAR'),'/',EXTRACT('year' FROM CURRENT_DATE + INTERVAL '".$i." YEAR')) AS TAHUN");
+            $tahunpelajaran[] = $result[0]->tahun;
+        }
+//        dd($tahunpelajaran);
+        return view('siswa.create')->with(compact('kelas', 'config_date', 'tahunpelajaran', 'jumlah_siswa'));
     }
 
     public function store(Request $request){
         $client = new Client(['base_uri' => env('API_HOST')]);
+
         $resp = $client->request('POST', 'siswa/tambah',[
                 'headers' => [
                     'Content-Type' => 'application/json',
@@ -399,7 +417,8 @@ class SiswaController extends Controller
                     'file_kk' => 'string',
                     'jenis_wali' => $request->jeniswali,
                     'nomor_kks' => (int)$request->nomor_kks,
-                    'nomor_pkh' => (int)$request->nomor_pkh
+                    'nomor_pkh' => (int)$request->nomor_pkh,
+                    'current_state' => $request->current_state
                 ]
             ]
         );
@@ -442,6 +461,7 @@ class SiswaController extends Controller
                         'pendidikan_wali' => $request->pendidikan_wali,
                         'pekerjaan_wali' => $request->pekerjaan_wali,
                         'penghasilan_wali' => (int)$request->penghasilan_wali,
+                        'keterangan' => $request->keterangan,
                         'id_siswa' => $data_siswa->data->id
                     ]
                 ]
@@ -463,13 +483,28 @@ class SiswaController extends Controller
 
         $kelas = $client->request('GET', 'kelas/');
         $kelas = json_decode($kelas->getBody());
-        $kelas = $kelas->data;
+        if (property_exists($kelas, 'data')) {
+            $kelas = $kelas->data;
+            foreach ($kelas as $resp) {
+                $jumlah_siswa = DB::Select("SELECT COUNT(1) AS jml_siswa FROM data_siswa WHERE status_siswa NOT IN ('Lulus', 'Tidak Aktif') AND id_kelas = ".(int)$resp->id);
+            }
+        }
+
+
         $config_date = ['format' => 'YYYY-MM-DD'];
+
+        $tahun = 3;
+        $tahunpelajaran = array();
+
+        for($i=0;$i<=$tahun;$i++){
+            $result = DB::Select("SELECT CONCAT(extract('year' FROM CURRENT_DATE - INTERVAL '1 YEAR' + INTERVAL '".$i." YEAR'),'/',EXTRACT('year' FROM CURRENT_DATE + INTERVAL '".$i." YEAR')) AS TAHUN");
+            $tahunpelajaran[] = $result[0]->tahun;
+        }
 
         if($siswa->message_id == '00'){
             $siswa = $siswa->data;
             $walisiswa = $walisiswa->data;
-            return view('siswa.edit')->with(compact('siswa', 'walisiswa', 'kelas', 'config_date'));
+            return view('siswa.edit')->with(compact('siswa', 'walisiswa', 'kelas', 'config_date', 'tahunpelajaran', 'jumlah_siswa'));
         }
         else {
             return redirect(route('admin.siswa.index'))->with('alert-failed', 'Data tidak ditemukan');
@@ -501,7 +536,9 @@ class SiswaController extends Controller
                     'alamat' => $siswa->alamat,
                     'nomor_kk' => (int)$siswa->nomor_kk,
                     'file_kk' => $siswa->file_kk,
-                    'id_jeniswali' => (int)$siswa->id_jeniswali,
+                    'nomor_kks' => (int)$siswa->nomor_kks,
+                    'nomor_pkh' => (int)$siswa->nomor_pkh,
+                    'jenis_wali' => $siswa->jeniswali,
                 ]
             ]
         );
@@ -534,6 +571,14 @@ class SiswaController extends Controller
 
                 $result = $result->data;
                 $subjectdata = array();
+
+                $tahun = 3;
+                $tahunpelajaran = array();
+
+                for($i=0;$i<=$tahun;$i++){
+                    $result = DB::Select("SELECT CONCAT(extract('year' FROM CURRENT_DATE - INTERVAL '1 YEAR' + INTERVAL '".$i." YEAR'),'/',EXTRACT('year' FROM CURRENT_DATE + INTERVAL '".$i." YEAR')) AS TAHUN");
+                    $tahunpelajaran[] = $result[0]->tahun;
+                }
 
                 foreach ($result as $resp){
 
@@ -609,7 +654,7 @@ class SiswaController extends Controller
                 ];
             }
 
-            return view('siswa.show')->with(compact('siswa', 'config', 'heads', 'walisiswa', 'kelas', 'config_date'));
+            return view('siswa.show')->with(compact('siswa', 'config', 'heads', 'walisiswa', 'kelas', 'config_date', 'tahunpelajaran'));
         }
         else {
             return redirect(route('admin.siswa.index'))->with('alert-failed', 'Data tidak ditemukan');
@@ -640,6 +685,7 @@ class SiswaController extends Controller
                     'nomor_kks' => (int)$request->nomor_kks,
                     'nomor_pkh' => (int)$request->nomor_pkh,
                     'jenis_wali' => $request->jeniswali,
+                    'current_state' => $request->current_state
                 ]
             ]
         );
@@ -681,7 +727,8 @@ class SiswaController extends Controller
                         'no_hp_wali' => (int)$request->no_hp_wali,
                         'pendidikan_wali' => $request->pendidikan_wali,
                         'pekerjaan_wali' => $request->pekerjaan_wali,
-                        'penghasilan_wali' => (int)$request->penghasilan_wali
+                        'penghasilan_wali' => (int)$request->penghasilan_wali,
+                        'keterangan' => $request->keterangan,
                     ]
                 ]
             );
