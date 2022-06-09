@@ -19,9 +19,8 @@ async def get_list_walisiswa(db_session: AsyncSession, page: int, show: int) -> 
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM data_wali_siswa
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -48,7 +47,7 @@ async def get_list_walisiswa(db_session: AsyncSession, page: int, show: int) -> 
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -86,7 +85,7 @@ async def get_detail_walisiswa(db_session: AsyncSession, id_siswa: int) -> dict:
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -132,6 +131,7 @@ async def add_walisiswa(db_session: AsyncSession, request: WaliSiswa) -> dict:
             new_walisiswa['pendidikan_wali'] = request.pendidikan_wali
             new_walisiswa['pekerjaan_wali'] = request.pekerjaan_wali
             new_walisiswa['penghasilan_wali'] = request.penghasilan_wali
+            new_walisiswa['keterangan'] = request.keterangan
             new_walisiswa['id_siswa'] = request.id_siswa
             data_wali_siswa = generateQuery('data_wali_siswa', new_walisiswa)
             logging.debug(f'query : {data_wali_siswa}')
@@ -139,7 +139,7 @@ async def add_walisiswa(db_session: AsyncSession, request: WaliSiswa) -> dict:
             await session.commit()
             return {
                 'message_id': '00',
-                'status': 'Succes',
+                'status': 'Sukses',
                 'data': new_walisiswa
             }
 
@@ -198,6 +198,7 @@ async def edit_walisiswa(db_session: AsyncSession, request: WaliSiswa, id_siswa:
                 edit_walisiswa['pendidikan_wali'] = request.pendidikan_wali
                 edit_walisiswa['pekerjaan_wali'] = request.pekerjaan_wali
                 edit_walisiswa['penghasilan_wali'] = request.penghasilan_wali
+                edit_walisiswa['keterangan'] = request.keterangan
                 data_wali_siswa = '''
                                 update data_wali_siswa set {0} where id_siswa = {1}
                             '''.format(generateQueryUpdate(edit_walisiswa), id_siswa)
@@ -205,7 +206,7 @@ async def edit_walisiswa(db_session: AsyncSession, request: WaliSiswa, id_siswa:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_walisiswa
                 }
 
@@ -241,7 +242,7 @@ async def delete_walisiswa(db_session: AsyncSession, id_siswa: int) -> dict:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Wali Berhasil Dihapus'
                 }
 
@@ -268,9 +269,8 @@ async def get_list_jeniswali(db_session: AsyncSession, page: int, show: int) -> 
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM data_jenis_wali
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -297,7 +297,7 @@ async def get_list_jeniswali(db_session: AsyncSession, page: int, show: int) -> 
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -335,7 +335,7 @@ async def get_detail_jeniswali(db_session: AsyncSession, id_jeniswali: int) -> d
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data': result
         }
     else:
@@ -370,7 +370,7 @@ async def add_jeniswali(db_session: AsyncSession, request: JenisWali) -> dict:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Success',
+                    'status': 'Sukses',
                     'data': new_jeniswali
                 }
 
@@ -407,7 +407,7 @@ async def edit_jeniswali(db_session: AsyncSession, request: JenisWali, id_jenisw
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_jeniswali
                 }
 
@@ -442,7 +442,7 @@ async def delete_jeniswali(db_session: AsyncSession, id_jeniswali: int) -> dict:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Jenis Wali Berhasil Dihapus'
                 }
 
@@ -468,9 +468,8 @@ async def get_list_laporanpembayaran(db_session: AsyncSession, page: int, show: 
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM laporan_pembayaran
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -497,7 +496,7 @@ async def get_list_laporanpembayaran(db_session: AsyncSession, page: int, show: 
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -535,7 +534,7 @@ async def get_detail_laporanpembayaran(db_session: AsyncSession, id_laporanpemba
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -581,7 +580,7 @@ async def add_laporanpembayaran(db_session: AsyncSession, request: LaporanPembay
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': new_laporanpembayaran
                 }
 
@@ -628,7 +627,7 @@ async def edit_laporanpembayaran(db_session: AsyncSession, request: LaporanPemba
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_laporanpembayaran
                 }
 
@@ -664,7 +663,7 @@ async def delete_laporanpembayaran(db_session: AsyncSession, id_laporanpembayara
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Wali Berhasil Dihapus'
                 }
 

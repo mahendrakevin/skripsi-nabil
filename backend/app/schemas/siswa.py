@@ -19,6 +19,7 @@ class DataSiswa(BaseModel):
     nomor_kks: Optional[StrictInt] = 0
     nomor_pkh: Optional[StrictInt] = 0
     jeniswali: Optional[str] = 'Ayah'
+    current_state: Optional[str] = ''
 
 class SiswaNaik(BaseModel):
     id_kelas: Optional[StrictInt] = 0
@@ -43,6 +44,7 @@ class EditDataSiswa(BaseModel):
     jeniswali: Optional[str] = 'Ayah'
     nomor_kks: Optional[StrictInt] = 0
     nomor_pkh: Optional[StrictInt] = 0
+    current_state: Optional[str] = ''
 
 class PendaftaranSiswa(BaseModel):
     nisn: Optional[StrictInt]

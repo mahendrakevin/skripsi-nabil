@@ -19,9 +19,8 @@ async def get_list_lembaga(db_session: AsyncSession, page: int, show: int) -> di
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM data_lembaga
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -48,7 +47,7 @@ async def get_list_lembaga(db_session: AsyncSession, page: int, show: int) -> di
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -86,7 +85,7 @@ async def get_detail_lembaga(db_session: AsyncSession, id_lembaga: int) -> dict:
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -127,7 +126,7 @@ async def add_lembaga(db_session: AsyncSession, request: DataLembaga) -> dict:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': new_lembaga
                 }
 
@@ -171,7 +170,7 @@ async def edit_lembaga(db_session: AsyncSession, request: DataLembaga, id_lembag
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_lembaga
                 }
 
@@ -207,7 +206,7 @@ async def delete_lembaga(db_session: AsyncSession, id_lembaga: int) -> dict:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Lembaga Berhasil Dihapus'
                 }
 
@@ -234,9 +233,8 @@ async def get_list_sarpras(db_session: AsyncSession, page: int, show: int) -> di
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM sarana_prasarana
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -263,7 +261,7 @@ async def get_list_sarpras(db_session: AsyncSession, page: int, show: int) -> di
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -301,7 +299,7 @@ async def get_detail_sarpras(db_session: AsyncSession, id_sarpras: int) -> dict:
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -317,18 +315,19 @@ async def add_sarpras(db_session: AsyncSession, request: SaranaPrasarana) -> dic
             id_sarpras = id_sarpras.one_or_none()
             new_sarpras = {}
             new_sarpras['id'] = id_sarpras.id
-            new_sarpras['nama_aset'] = request.nama_aset
+            new_sarpras['nama_lahan'] = request.nama_lahan
             new_sarpras['luas_lahan'] = request.luas_lahan
             new_sarpras['luas_bangunan'] = request.luas_bangunan
-            new_sarpras['nama_pemilik'] = request.nama_pemilik
-            new_sarpras['no_sertifikat'] = request.no_sertifikat
+            new_sarpras['jumlah_lantai'] = request.jumlah_lantai
+            new_sarpras['tahun'] = request.tahun
+            new_sarpras['alamat'] = request.alamat
             sarana_prasarana = generateQuery('sarana_prasarana', new_sarpras)
             logging.debug(f'query : {sarana_prasarana}')
             await session.execute(sarana_prasarana)
             await session.commit()
             return {
                 'message_id': '00',
-                'status': 'Succes',
+                'status': 'Sukses',
                 'data': new_sarpras
             }
 
@@ -357,11 +356,12 @@ async def edit_sarpras(db_session: AsyncSession, request: SaranaPrasarana, id_sa
                         }
             else:
                 edit_sarpras = {}
-                edit_sarpras['nama_aset'] = request.nama_aset
+                edit_sarpras['nama_lahan'] = request.nama_lahan
                 edit_sarpras['luas_lahan'] = request.luas_lahan
                 edit_sarpras['luas_bangunan'] = request.luas_bangunan
-                edit_sarpras['nama_pemilik'] = request.nama_pemilik
-                edit_sarpras['no_sertifikat'] = request.no_sertifikat
+                edit_sarpras['jumlah_lantai'] = request.jumlah_lantai
+                edit_sarpras['tahun'] = request.tahun
+                edit_sarpras['alamat'] = request.alamat
                 sarana_prasarana = '''
                                 update sarana_prasarana set {0} where id = {1}
                             '''.format(generateQueryUpdate(edit_sarpras), id_sarpras)
@@ -369,7 +369,7 @@ async def edit_sarpras(db_session: AsyncSession, request: SaranaPrasarana, id_sa
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_sarpras
                 }
 
@@ -405,7 +405,7 @@ async def delete_sarpras(db_session: AsyncSession, id_sarpras: int) -> dict:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Lembaga Berhasil Dihapus'
                 }
 
@@ -441,7 +441,7 @@ async def delete_sarpras_lembaga(db_session: AsyncSession, id_lembaga: int) -> d
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Lembaga Berhasil Dihapus'
                 }
 
@@ -459,18 +459,17 @@ async def delete_sarpras_lembaga(db_session: AsyncSession, id_lembaga: int) -> d
                 'message_id': '02',
                 'status': 'Failed, something wrong rollback DB transaction...'
             }
+        
+# Aset
 
-# Surat Keterangan
-
-async def get_list_suratketerangan(db_session: AsyncSession, page: int, show: int) -> dict:
+async def get_list_aset(db_session: AsyncSession, page: int, show: int) -> dict:
     async with db_session as session:
         try:
             offset = (page - 1) * show
             q_dep = '''
-                SELECT * FROM data_surat_keterangan
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                SELECT * FROM aset
+
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -497,7 +496,245 @@ async def get_list_suratketerangan(db_session: AsyncSession, page: int, show: in
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
+            'data': result
+        }
+    else:
+        return {
+            'message_id': '01',
+            'status': 'Gagal, Data Lembaga Tidak Ditemukan'
+        }
+
+
+async def get_detail_aset(db_session: AsyncSession, id_aset: int) -> dict:
+    async with db_session as session:
+        try:
+            q_dep = '''
+                SELECT * FROM aset WHERE id = {0}
+            '''.format(id_aset)
+            proxy_rows = await session.execute(q_dep)
+            result = proxy_rows.one_or_none()
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+    # result data handling
+    if result:
+        logger.info(str(result))
+        return {
+            'message_id': '00',
+            'status': 'Sukses',
+            'data': result
+        }
+    else:
+        return {
+            'message_id': '01',
+            'status': 'Gagal, Data Lembaga Tidak Ditemukan'
+        }
+
+
+async def add_aset(db_session: AsyncSession, request: SaranaPrasarana) -> dict:
+    async with db_session as session:
+        try:
+            id_aset = await session.execute('''select nextval('aset_id_seq') as id''')
+            id_aset = id_aset.one_or_none()
+            new_aset = {}
+            new_aset['id'] = id_aset.id
+            new_aset['nama_aset'] = request.nama_aset
+            new_aset['luas_lahan'] = request.luas_lahan
+            new_aset['luas_bangunan'] = request.luas_bangunan
+            new_aset['nama_pemilik'] = request.nama_pemilik
+            new_aset['no_sertifikat'] = request.no_sertifikat
+            aset = generateQuery('aset', new_aset)
+            logging.debug(f'query : {aset}')
+            await session.execute(aset)
+            await session.commit()
+            return {
+                'message_id': '00',
+                'status': 'Sukses',
+                'data': new_aset
+            }
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+
+async def edit_aset(db_session: AsyncSession, request: SaranaPrasarana, id_aset: int) -> dict:
+    async with db_session as session:
+        try:
+            if id_aset is None:
+                return {
+                    'message_id': '01',
+                    'status': 'Gagal, Data Tidak Ditemukan'
+                }
+            else:
+                edit_aset = {}
+                edit_aset['nama_aset'] = request.nama_aset
+                edit_aset['luas_lahan'] = request.luas_lahan
+                edit_aset['luas_bangunan'] = request.luas_bangunan
+                edit_aset['nama_pemilik'] = request.nama_pemilik
+                edit_aset['no_sertifikat'] = request.no_sertifikat
+                aset = '''
+                                update aset set {0} where id = {1}
+                            '''.format(generateQueryUpdate(edit_aset), id_aset)
+                await session.execute(aset)
+                await session.commit()
+                return {
+                    'message_id': '00',
+                    'status': 'Sukses',
+                    'data': edit_aset
+                }
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+
+async def delete_aset(db_session: AsyncSession, id_aset: int) -> dict:
+    async with db_session as session:
+        try:
+            if id_aset is None:
+                return {
+                    'message_id': '01',
+                    'status': 'Gagal, Data Tidak Ditemukan'
+                }
+            else:
+                delete_aset = '''
+                                delete from aset where id = {0}
+                            '''.format(id_aset)
+
+                await session.execute(delete_aset)
+                await session.commit()
+                return {
+                    'message_id': '00',
+                    'status': 'Sukses',
+                    'message': 'Data Lembaga Berhasil Dihapus'
+                }
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+
+async def delete_aset_lembaga(db_session: AsyncSession, id_lembaga: int) -> dict:
+    async with db_session as session:
+        try:
+            if id_lembaga is None:
+                return {
+                    'message_id': '01',
+                    'status': 'Gagal, Data Tidak Ditemukan'
+                }
+            else:
+                delete_aset = '''
+                                delete from aset where id_lembaga = {0}
+                            '''.format(id_lembaga)
+
+                await session.execute(delete_aset)
+                await session.commit()
+                return {
+                    'message_id': '00',
+                    'status': 'Sukses',
+                    'message': 'Data Lembaga Berhasil Dihapus'
+                }
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+# Surat Keterangan
+
+async def get_list_suratketerangan(db_session: AsyncSession, page: int, show: int) -> dict:
+    async with db_session as session:
+        try:
+            offset = (page - 1) * show
+            q_dep = '''
+                SELECT * FROM data_surat_keterangan
+                
+            '''
+            proxy_rows = await session.execute(q_dep)
+            result = proxy_rows.all()
+
+            # commit the db transaction
+            await session.commit()
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+    # result data handling
+    if result:
+        logger.info(str(result))
+        return {
+            'message_id': '00',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -535,7 +772,7 @@ async def get_detail_suratketerangan(db_session: AsyncSession, id_suratketeranga
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -561,7 +798,7 @@ async def add_suratketerangan(db_session: AsyncSession, request: SuratKeterangan
             await session.commit()
             return {
                 'message_id': '00',
-                'status': 'Succes',
+                'status': 'Sukses',
                 'data': new_suratketerangan
             }
 
@@ -601,7 +838,7 @@ async def edit_suratketerangan(db_session: AsyncSession, request: SuratKeteranga
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_suratketerangan
                 }
 
@@ -637,7 +874,7 @@ async def delete_suratketerangan(db_session: AsyncSession, id_suratketerangan: i
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Lembaga Berhasil Dihapus'
                 }
 

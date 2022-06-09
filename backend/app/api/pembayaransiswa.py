@@ -19,42 +19,42 @@ async def list(db_session: AsyncSession = Depends(get_async_session), page: int=
 
 @router.get("/{id_siswa}")
 async def detail_id_siswa(id_siswa: int, db_session: AsyncSession = Depends(get_async_session)):
-    response = {"status": "Success", "message_id": "00"}
+    response = {"status": "Sukses", "message_id": "00"}
     resp = await pembayaransiswa_crud.get_detail_pembayaransiswa_id_siswa(db_session=db_session, id_siswa=id_siswa)
     response.update(resp)
     return response
 
 @router.get("/laporan/{id_laporanpembayaran}")
 async def detail(id_laporanpembayaran: int, db_session: AsyncSession = Depends(get_async_session)):
-    response = {"status": "Success", "message_id": "00"}
+    response = {"status": "Sukses", "message_id": "00"}
     resp = await pembayaransiswa_crud.get_detail_pembayaransiswa(db_session=db_session, id_laporanpembayaran=id_laporanpembayaran)
     response.update(resp)
     return response
 
 @router.post("/tambah")
 async def add(request: PembayaranSiswa, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
-    response = {"status": "Success", "message_id": "00"}
+    response = {"status": "Sukses", "message_id": "00"}
     resp = await pembayaransiswa_crud.add_pembayaransiswa(request=request, db_session=db_session)
     response.update(resp)
     return response
 
 @router.put("/edit")
 async def edit(id_laporanpembayaran: int, request: PembayaranSiswa, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
-    response = {"status": "Success", "message_id": "00"}
+    response = {"status": "Sukses", "message_id": "00"}
     resp = await pembayaransiswa_crud.edit_pembayaransiswa(id_laporanpembayaran=id_laporanpembayaran, request=request, db_session=db_session)
     response.update(resp)
     return response
 
 @router.delete("/hapus/{id_siswa}")
 async def hapus_id_siswa(id_siswa: int, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
-    response = {"status": "Success", "message_id": "00"}
+    response = {"status": "Sukses", "message_id": "00"}
     resp = await pembayaransiswa_crud.delete_pembayaransiswa_id_siswa(id_siswa=id_siswa, db_session=db_session)
     response.update(resp)
     return response
 
 @router.delete("/hapus/pembayaran/{id_laporanpembayaran}")
 async def hapus(id_laporanpembayaran: int, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
-    response = {"status": "Success", "message_id": "00"}
+    response = {"status": "Sukses", "message_id": "00"}
     resp = await pembayaransiswa_crud.delete_pembayaransiswa(id_laporanpembayaran=id_laporanpembayaran, db_session=db_session)
     response.update(resp)
     return response
@@ -68,28 +68,28 @@ async def list_jenispembayaran(db_session: AsyncSession = Depends(get_async_sess
 
 @router.get("/jenispembayaran/{id_jenispembayaran}")
 async def detail_jenispembayaran(id_jenispembayaran: int, db_session: AsyncSession = Depends(get_async_session)):
-    response = {"status": "Success", "message_id": "00"}
+    response = {"status": "Sukses", "message_id": "00"}
     resp = await pembayaransiswa_crud.get_detail_jenispembayaran(db_session=db_session, id_jenispembayaran=id_jenispembayaran)
     response.update(resp)
     return response
 
 @router.post("/jenispembayaran/tambah")
 async def add_jenispembayaran(request: JenisPembayaran, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
-    response = {"status": "Success", "message_id": "00"}
+    response = {"status": "Sukses", "message_id": "00"}
     resp = await pembayaransiswa_crud.add_jenispembayaran(request=request, db_session=db_session)
     response.update(resp)
     return response
 
 @router.put("/jenispembayaran/edit")
 async def edit_jenispembayaran(id_jenispembayaran: int, request: JenisPembayaran, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
-    response = {"status": "Success", "message_id": "00"}
+    response = {"status": "Sukses", "message_id": "00"}
     resp = await pembayaransiswa_crud.edit_jenispembayaran(id_jenispembayaran=id_jenispembayaran, request=request, db_session=db_session)
     response.update(resp)
     return response
 
 @router.delete("/jenispembayaran/hapus/{id_jenispembayaran}")
 async def hapus_jenispembayaran(id_jenispembayaran: int, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
-    response = {"status": "Success", "message_id": "00"}
+    response = {"status": "Sukses", "message_id": "00"}
     resp = await pembayaransiswa_crud.delete_jenispembayaran(id_jenispembayaran=id_jenispembayaran, db_session=db_session)
     response.update(resp)
     return response

@@ -20,9 +20,8 @@ async def get_list_kelas(db_session: AsyncSession, page: int, show: int) -> dict
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM data_kelas
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -49,7 +48,7 @@ async def get_list_kelas(db_session: AsyncSession, page: int, show: int) -> dict
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -87,7 +86,7 @@ async def get_detail_kelas(db_session: AsyncSession, id_kelas: int) -> dict:
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -125,7 +124,7 @@ async def add_kelas(db_session: AsyncSession, request: DataKelas) -> dict:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': new_kelas
                 }
 
@@ -165,7 +164,7 @@ async def edit_kelas(db_session: AsyncSession, request: DataKelas, id_kelas: int
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_kelas
                 }
 
@@ -200,7 +199,7 @@ async def delete_kelas(db_session: AsyncSession, id_kelas: int) -> dict:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Kelas Berhasil Dihapus'
                 }
 

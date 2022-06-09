@@ -39,6 +39,7 @@ class WaliSiswa(BaseModel):
     penghasilan_wali: Optional[StrictInt]
     nomor_kks_wali: Optional[StrictInt]
     nomor_pkh_wali: Optional[StrictInt]
+    keterangan: Optional[str] = '-'
     id_siswa: Optional[StrictInt]
 
 class JenisWali(BaseModel):

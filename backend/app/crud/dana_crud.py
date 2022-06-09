@@ -20,9 +20,8 @@ async def get_list_danamasuk(db_session: AsyncSession, page: int, show: int) -> 
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM dana_masuk
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -49,7 +48,7 @@ async def get_list_danamasuk(db_session: AsyncSession, page: int, show: int) -> 
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -87,7 +86,7 @@ async def get_detail_danamasuk(db_session: AsyncSession, id_danamasuk: int) -> d
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -113,7 +112,7 @@ async def add_danamasuk(db_session: AsyncSession, request: DanaMasuk) -> dict:
             await session.commit()
             return {
                 'message_id': '00',
-                'status': 'Succes',
+                'status': 'Sukses',
                 'data': new_danamasuk
             }
 
@@ -153,7 +152,7 @@ async def edit_danamasuk(db_session: AsyncSession, request: DanaMasuk, id_danama
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_danamasuk
                 }
 
@@ -188,7 +187,7 @@ async def delete_danamasuk(db_session: AsyncSession, id_danamasuk: int) -> dict:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Dana Masuk Berhasil Dihapus'
                 }
 
@@ -215,9 +214,8 @@ async def get_list_danakeluar(db_session: AsyncSession, page: int, show: int) ->
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM dana_keluar
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -244,7 +242,7 @@ async def get_list_danakeluar(db_session: AsyncSession, page: int, show: int) ->
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -282,7 +280,7 @@ async def get_detail_danakeluar(db_session: AsyncSession, id_danakeluar: int) ->
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -311,7 +309,7 @@ async def add_danakeluar(db_session: AsyncSession, request: DanaKeluar) -> dict:
             await session.commit()
             return {
                 'message_id': '00',
-                'status': 'Succes',
+                'status': 'Sukses',
                 'data': new_danakeluar
             }
 
@@ -354,7 +352,7 @@ async def edit_danakeluar(db_session: AsyncSession, request: DanaKeluar, id_dana
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_danakeluar
                 }
 
@@ -389,7 +387,7 @@ async def delete_danakeluar(db_session: AsyncSession, id_danakeluar: int) -> dic
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Dana Keluar Berhasil Dihapus'
                 }
 
@@ -416,9 +414,8 @@ async def get_list_sumberdana(db_session: AsyncSession, page: int, show: int) ->
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM sumber_dana
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -445,7 +442,7 @@ async def get_list_sumberdana(db_session: AsyncSession, page: int, show: int) ->
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -483,7 +480,7 @@ async def get_detail_sumberdana(db_session: AsyncSession, id_sumberdana: int) ->
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -506,7 +503,7 @@ async def add_sumberdana(db_session: AsyncSession, request: SumberDana) -> dict:
             await session.commit()
             return {
                 'message_id': '00',
-                'status': 'Succes',
+                'status': 'Sukses',
                 'data': new_sumberdana
             }
 
@@ -543,7 +540,7 @@ async def edit_sumberdana(db_session: AsyncSession, request: SumberDana, id_sumb
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_sumberdana
                 }
 
@@ -578,7 +575,7 @@ async def delete_sumberdana(db_session: AsyncSession, id_sumberdana: int) -> dic
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Sumber Dana Berhasil Dihapus'
                 }
 
@@ -605,9 +602,8 @@ async def get_list_jenispengeluaran(db_session: AsyncSession, page: int, show: i
             offset = (page - 1) * show
             q_dep = '''
                 SELECT * FROM jenis_pengeluaran
-                limit {0}
-                offset {1}
-            '''.format(show, offset)
+                
+            '''
             proxy_rows = await session.execute(q_dep)
             result = proxy_rows.all()
 
@@ -634,7 +630,7 @@ async def get_list_jenispengeluaran(db_session: AsyncSession, page: int, show: i
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -672,7 +668,7 @@ async def get_detail_jenispengeluaran(db_session: AsyncSession, id_jenispengelua
         logger.info(str(result))
         return {
             'message_id': '00',
-            'status': 'Succes',
+            'status': 'Sukses',
             'data':result
         }
     else:
@@ -695,7 +691,7 @@ async def add_jenispengeluaran(db_session: AsyncSession, request: JenisPengeluar
             await session.commit()
             return {
                 'message_id': '00',
-                'status': 'Succes',
+                'status': 'Sukses',
                 'data': new_jenispengeluaran
             }
 
@@ -732,7 +728,7 @@ async def edit_jenispengeluaran(db_session: AsyncSession, request: JenisPengelua
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'data': edit_jenispengeluaran
                 }
 
@@ -767,7 +763,7 @@ async def delete_jenispengeluaran(db_session: AsyncSession, id_jenispengeluaran:
                 await session.commit()
                 return {
                     'message_id': '00',
-                    'status': 'Succes',
+                    'status': 'Sukses',
                     'message': 'Data Jenis Pengeluaran Berhasil Dihapus'
                 }
 
