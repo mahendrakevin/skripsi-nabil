@@ -448,6 +448,7 @@ class SiswaController extends Controller
                     ],
                     'json' => [
                         'nama_ayah' => $request->nama_ayah,
+                        'nik_ayah' => (int)$request->nik_ayah,
                         'file_kk_ayah' => 'string',
                         'tempat_lahir_ayah' => $request->tempat_lahir_ayah,
                         'tanggal_lahir_ayah' => $request->tanggal_lahir_ayah,
@@ -459,6 +460,7 @@ class SiswaController extends Controller
                         'pekerjaan_ayah' => (int)$request->pekerjaan_ayah,
                         'penghasilan_ayah' => (int)$request->penghasilan_ayah,
                         'nama_ibu' => $request->nama_ibu,
+                        'nik_ibu' => (int)$request->nik_ibu,
                         'file_kk_ibu' => 'string',
                         'tempat_lahir_ibu' => $request->tempat_lahir_ibu,
                         'tanggal_lahir_ibu' => $request->tanggal_lahir_ibu,
@@ -718,6 +720,7 @@ class SiswaController extends Controller
                     ],
                     'json' => [
                         'nama_ayah' => $request->nama_ayah,
+                        'nik_ayah' => (int)$request->nik_ayah,
                         'file_kk' => (int)$request->file_kk,
                         'tempat_lahir_ayah' => $request->tempat_lahir_ayah,
                         'tanggal_lahir_ayah' => $request->tanggal_lahir_ayah,
@@ -729,6 +732,7 @@ class SiswaController extends Controller
                         'pekerjaan_ayah' => (int)$request->pekerjaan_ayah,
                         'penghasilan_ayah' => (int)$request->penghasilan_ayah,
                         'nama_ibu' => $request->nama_ibu,
+                        'nik_ibu' => (int)$request->nik_ibu,
                         'tempat_lahir_ibu' => $request->tempat_lahir_ibu,
                         'tanggal_lahir_ibu' => $request->tanggal_lahir_ibu,
                         'alamat_ibu' => $request->alamat_ibu,
