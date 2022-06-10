@@ -157,6 +157,24 @@
                                                 <p class="text-lg text-muted">{{ $result->alamat }}</p>
 
                                                 <hr>
+                                                <div class="row">
+                                                    <div class="col-md-6 text-muted">
+                                                        <p class="text-sm">Nomor SK Operasional
+                                                            <b class="d-block">{{ $sk->nomor_surat_operasional }}</b>
+                                                        </p>
+                                                        <p class="text-sm">Tanggal SK Operasional
+                                                            <b class="d-block">{{ $sk->tanggal_surat_operasional }}</b>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-md-6 text-muted">
+                                                        <p class="text-sm">Nomor SK Kemenkumham
+                                                            <b class="d-block">{{ $sk->nomor_surat_kemenkumham }}</b>
+                                                        </p>
+                                                        <p class="text-sm">Tanggal SK Kemenkumham
+                                                            <b class="d-block">{{ $sk->tanggal_surat_kemenkumham }}</b>
+                                                        </p>
+                                                    </div>
+                                                </div>
 
                                                 @if (Auth::user()->role == '1')
                                                     <x-submit-button method="GET" action="{{route('admin.lembaga.edit', $result->id)}}"

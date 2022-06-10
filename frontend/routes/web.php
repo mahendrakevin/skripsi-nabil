@@ -445,8 +445,3 @@ Route::group(['prefix' => 'bendahara', 'namespace' => 'App\Http\Controllers\Bend
     });
 });
 
-Auth::routes();
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

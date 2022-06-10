@@ -34,14 +34,14 @@ class LembagaController extends Controller
                 foreach ($aset as $resp){
                     $btnEdit = view('components.Button', [
                         'method' => 'GET',
-//                        'action' => route('admin.sarpras.edit', $resp->id),
+                        'action' => route('admin.sarpras.edit', $resp->id),
                         'title' => 'Edit',
                         'icon' => 'fa fa-lg fa-fw fa-pen',
                         'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
                     $btnDelete = view('components.Button', [
                         'method' => 'GET',
-//                        'action' => route('admin.sarpras.destroy', $resp->id),
+                        'action' => route('admin.sarpras.destroy', $resp->id),
                         'title' => 'Hapus',
                         'icon' => 'fa fa-lg fa-fw fa-trash',
                         'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
