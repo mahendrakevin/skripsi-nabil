@@ -37,7 +37,7 @@
 					<div class="tab-content">
 						<div class="tab-pane" id="sarpras">
 							<x-form method="GET" action="{{ route('admin.sarpras.update', $sarpras->id) }}">
-								<div class="col-md-6">
+								<div class="col-md-12">
 									<x-adminlte-card theme="info" theme-mode="info" title="Informasi Lahan dan Bangunan">
 										<div class="row">
 											<x-adminlte-input name="nama_lahan" label="Nama Lahan" placeholder="Gedung" fgroup-class="col-md-4" value="{{ $sarpras->nama_lahan }}" type="text" required />
@@ -55,7 +55,9 @@
 										</div>
 										@if (Auth::user()->role == '1')
 										<div class="row">
-											<x-adminlte-button class="btn-flat" type="submit" label="Simpan" theme="success" icon="fas fa-lg fa-save" />
+											<div class="col-lg-12" style="text-align: right;">
+												<x-adminlte-button class="btn-flat" type="submit" label="Perbaharui" theme="success" icon="fas fa-lg fa-save" />
+											</div>
 										</div>
 										@endif
 									</x-adminlte-card>
@@ -145,7 +147,7 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-lg-12" style="text-align: right;">
+										<div class="col-lg-12" style="text-align: right;font-weight: bold;">
 											@if (Auth::user()->role == '1')
 											<x-submit-button method="GET" action="{{route('admin.lembaga.edit', $result->id)}}" theme="warning" label="Edit Data Lembaga" icon="fas fa-pencil" type="submit"></x-submit-button>
 											@endif
