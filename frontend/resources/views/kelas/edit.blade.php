@@ -1,5 +1,5 @@
 @section('plugins.Select2', true)
-<x-app-layout title="Tambah Rombel">
+<x-app-layout title="Edit Rombel">
     <x-form method="GET" action="{{ route('admin.kelas.update', $kelas->id) }}">
         <x-adminlte-card theme="info" theme-mode="info" title="Isi Data Rombel">
             <div class="row">

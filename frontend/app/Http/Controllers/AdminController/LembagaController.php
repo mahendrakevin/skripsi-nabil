@@ -36,6 +36,8 @@ class LembagaController extends Controller
                         'method' => 'GET',
                         'action' => route('admin.sarpras.edit', $resp->id),
                         'title' => 'Edit',
+                    'id' => 'edit',
+                    'onclick' => '',
                         'icon' => 'fa fa-lg fa-fw fa-pen',
                         'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
@@ -43,6 +45,8 @@ class LembagaController extends Controller
                         'method' => 'GET',
                         'action' => route('admin.sarpras.destroy', $resp->id),
                         'title' => 'Hapus',
+                    'id' => 'hapus',
+                    'onclick' => 'return confirm_delete()',
                         'icon' => 'fa fa-lg fa-fw fa-trash',
                         'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
@@ -143,11 +147,14 @@ class LembagaController extends Controller
         $client = new Client(['base_uri' => env('API_HOST')]);
         $lembaga = $client->request('GET', 'lembaga/'.$id);
         $lembaga = json_decode($lembaga->getBody());
+        $sklembaga = $client->request('GET', 'lembaga/suratketerangan/'.$id);
+        $sklembaga = json_decode($sklembaga->getBody());
+        $sklembaga = $sklembaga->data;
 
         if($lembaga->message_id == '00'){
             $lembaga = $lembaga->data;
             $config_date = ['format' => 'YYYY-MM-DD'];
-            return view('lembaga.edit')->with(compact( 'lembaga', 'config_date'));
+            return view('lembaga.edit')->with(compact( 'lembaga', 'config_date', 'sklembaga'));
         }
         else {
             return redirect(route('admin.lembaga.index'))->with('alert-failed', 'Data tidak ditemukan');
@@ -173,6 +180,21 @@ class LembagaController extends Controller
                 ]
             ]
         );
+
+        $resp = $client->request('PUT', 'lembaga/suratketerangan/edit?id_suratketerangan='.$id,[
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Accept'     => 'application/json'
+                ],
+                'json' => [
+                    'nomor_surat_operasional' => $request->nomor_surat_operasional,
+                    'tanggal_surat_operasional' => $request->tanggal_surat_operasional,
+                    'nomor_surat_kemenkumham' => $request->nomor_surat_kemenkumham,
+                    'tanggal_surat_kemenkumham' => $request->tanggal_surat_kemenkumham,
+                ]
+            ]
+        );
+
         $lembaga = json_decode($resp->getBody());
         if ($lembaga->message_id == '00'){
             return redirect(route('admin.lembaga.index'))->with('alert', $lembaga->status);

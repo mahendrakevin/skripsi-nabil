@@ -1,5 +1,5 @@
 @section('plugins.Select2', true)
-<x-app-layout title="Tambah Guru">
+<x-app-layout title="Edit Guru">
     <x-form method="GET" action="{{ route('admin.guru.update', $guru->id) }}">
         <x-adminlte-card theme="lime" theme-mode="outline" title="Isi Data Guru">
             <div class="row">

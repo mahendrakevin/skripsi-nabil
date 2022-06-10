@@ -10,3 +10,11 @@
 {{ $slot }}
 @stop
 
+@push('js')
+    <script type="text/javascript">
+        function confirm_delete() {
+            return confirm('Apakah anda yakin untuk menghapus?');
+        }
+    </script>
+@endpush
+

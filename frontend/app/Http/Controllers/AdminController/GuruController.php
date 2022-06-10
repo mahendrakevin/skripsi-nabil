@@ -22,6 +22,8 @@ class GuruController extends Controller
                     'method' => 'GET',
                     'action' => route('admin.guru.show', $resp->id),
                     'title' => 'Lihat',
+                    'id' => 'lihat',
+                    'onclick' => '',
                     'icon' => 'fa fa-lg fa-fw fa-eye',
                     'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
 
@@ -29,6 +31,8 @@ class GuruController extends Controller
                     'method' => 'GET',
                     'action' => route('admin.guru.edit', $resp->id),
                     'title' => 'Edit',
+                    'id' => 'edit',
+                    'onclick' => '',
                     'icon' => 'fa fa-lg fa-fw fa-pen',
                     'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
@@ -36,6 +40,8 @@ class GuruController extends Controller
                     'method' => 'GET',
                     'action' => route('admin.guru.destroy', $resp->id),
                     'title' => 'Hapus',
+                    'id' => 'hapus',
+                    'onclick' => 'return confirm_delete()',
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
@@ -164,6 +170,8 @@ class GuruController extends Controller
                         'method' => 'GET',
                         'action' => route('admin.kepegawaian.edit', $resp->id),
                         'title' => 'Edit',
+                        'id' => 'edit',
+                        'onclick' => '',
                         'icon' => 'fa fa-lg fa-fw fa-pen',
                         'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
@@ -171,6 +179,8 @@ class GuruController extends Controller
                         'method' => 'GET',
                         'action' => route('admin.kepegawaian.destroy', $resp->id),
                         'title' => 'Hapus',
+                        'id' => 'hapus',
+                        'onclick' => 'return confirm_delete()',
                         'icon' => 'fa fa-lg fa-fw fa-trash',
                         'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 

@@ -24,6 +24,8 @@ class LaporanPembayaranController extends Controller
                     'method' => 'GET',
                     'action' => route('admin.siswa.show', $resp->id_siswa),
                     'title' => 'Lihat',
+                    'id' => 'lihat',
+                    'onclick' => '',
                     'icon' => 'fa fa-lg fa-fw fa-eye',
                     'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
 
@@ -31,6 +33,8 @@ class LaporanPembayaranController extends Controller
                     'method' => 'GET',
                     'action' => route('admin.laporan_pembayaran.edit', $resp->id),
                     'title' => 'Edit',
+                    'id' => 'edit',
+                    'onclick' => '',
                     'icon' => 'fa fa-lg fa-fw fa-pen',
                     'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
@@ -38,6 +42,8 @@ class LaporanPembayaranController extends Controller
                     'method' => 'GET',
                     'action' => route('admin.laporan_pembayaran.destroy', $resp->id),
                     'title' => 'Hapus',
+                    'id' => 'hapus',
+                    'onclick' => 'return confirm_delete()',
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 

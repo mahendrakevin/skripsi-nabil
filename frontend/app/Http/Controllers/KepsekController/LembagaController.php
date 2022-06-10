@@ -36,6 +36,8 @@ class LembagaController extends Controller
                         'method' => 'GET',
 //                        'action' => route('admin.sarpras.edit', $resp->id),
                         'title' => 'Edit',
+                    'id' => 'edit',
+                    'onclick' => '',
                         'icon' => 'fa fa-lg fa-fw fa-pen',
                         'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
@@ -43,6 +45,8 @@ class LembagaController extends Controller
                         'method' => 'GET',
 //                        'action' => route('admin.sarpras.destroy', $resp->id),
                         'title' => 'Hapus',
+                    'id' => 'hapus',
+                    'onclick' => 'return confirm_delete()',
                         'icon' => 'fa fa-lg fa-fw fa-trash',
                         'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 

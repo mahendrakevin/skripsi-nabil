@@ -22,6 +22,8 @@ class JabatanController extends Controller
                     'method' => 'GET',
                     'action' => route('admin.jabatan.edit', $resp->id),
                     'title' => 'Edit',
+                    'id' => 'edit_jabatan',
+                    'onclick' => '',
                     'icon' => 'fa fa-lg fa-fw fa-pen',
                     'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
@@ -29,6 +31,8 @@ class JabatanController extends Controller
                     'method' => 'GET',
                     'action' => route('admin.jabatan.destroy', $resp->id),
                     'title' => 'Hapus',
+                    'id' => 'hapus_jabatan',
+                    'onclick' => 'return confirm_delete()',
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 

@@ -11,6 +11,8 @@ class Button extends Component
     public $class;
     public $icon;
     public $title;
+    public $id;
+    public $onclick;
     /**
      * Create a new component instance.
      *
@@ -21,7 +23,9 @@ class Button extends Component
         string $action = '',
         string $class = '',
         string $icon = '',
-        string $title = ''
+        string $title = '',
+        string $id = '',
+        string $onclick = ''
     )
     {
         $this->method = $method;
@@ -29,6 +33,8 @@ class Button extends Component
         $this->class = $class;
         $this->icon = $icon;
         $this->title = $title;
+        $this->id = $id;
+        $this->onclic = $onclick;
     }
 
     /**

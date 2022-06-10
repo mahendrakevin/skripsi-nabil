@@ -23,6 +23,8 @@ class SumberDanaController extends Controller
                     'method' => 'GET',
                     'action' => route('admin.sumber_dana.edit', $resp->id),
                     'title' => 'Edit',
+                    'id' => 'edit',
+                    'onclick' => '',
                     'icon' => 'fa fa-lg fa-fw fa-pen',
                     'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
@@ -30,6 +32,8 @@ class SumberDanaController extends Controller
                     'method' => 'GET',
                     'action' => route('admin.sumber_dana.destroy', $resp->id),
                     'title' => 'Hapus',
+                    'id' => 'hapus',
+                    'onclick' => 'return confirm_delete()',
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 

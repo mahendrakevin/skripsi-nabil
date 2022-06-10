@@ -66,6 +66,8 @@ class AlokasiDanaController extends Controller
                     'method' => 'GET',
                     'action' => route('admin.alokasi_dana.edit_masuk', $dm->id),
                     'title' => 'Edit',
+                    'id' => 'edit',
+                    'onclick' => '',
                     'icon' => 'fa fa-lg fa-fw fa-pen',
                     'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
@@ -73,6 +75,8 @@ class AlokasiDanaController extends Controller
                     'method' => 'GET',
                     'action' => route('admin.alokasi_dana.destroy_masuk', $dm->id),
                     'title' => 'Hapus',
+                    'id' => 'hapus',
+                    'onclick' => 'return confirm_delete()',
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
@@ -107,6 +111,8 @@ class AlokasiDanaController extends Controller
                     'method' => 'GET',
                     'action' => route('admin.alokasi_dana.edit_keluar', $dk->id),
                     'title' => 'Edit',
+                    'id' => 'edit',
+                    'onclick' => '',
                     'icon' => 'fa fa-lg fa-fw fa-pen',
                     'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
@@ -114,6 +120,8 @@ class AlokasiDanaController extends Controller
                     'method' => 'GET',
                     'action' => route('admin.alokasi_dana.destroy_keluar', $dk->id),
                     'title' => 'Hapus',
+                    'id' => 'hapus',
+                    'onclick' => 'return confirm_delete()',
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 

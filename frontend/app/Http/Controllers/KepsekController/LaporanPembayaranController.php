@@ -24,6 +24,8 @@ class LaporanPembayaranController extends Controller
                     'method' => 'GET',
                     'action' => route('kepsek.siswa.show', $resp->id_siswa),
                     'title' => 'Lihat',
+                    'id' => 'lihat',
+                    'onclick' => '',
                     'icon' => 'fa fa-lg fa-fw fa-eye',
                     'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
 
