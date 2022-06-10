@@ -80,7 +80,7 @@
 						</x-adminlte-input-file>
 					</div>
 					<div class="row">
-						<x-adminlte-input name="nik" label="NIK" placeholder="1234567890123456" fgroup-class="col-md-6" type="number" value="{{ $walisiswa->nik_ayah }}" required />
+						<x-adminlte-input name="nik_ayah" label="NIK" placeholder="1234567890123456" fgroup-class="col-md-6" type="number" value="{{ $walisiswa->nik_ayah }}" required />
 						<x-adminlte-input-date name="tanggal_lahir_ayah" :config="$config_date" label="Tanggal Lahir" placeholder="Choose a time..." fgroup-class="col-md-6" value="{{ $walisiswa->tanggal_lahir_ayah }}" required>
 							<x-slot name="prependSlot">
 								<div class="input-group-text bg-gradient-info">
@@ -149,7 +149,7 @@
 						<x-adminlte-input-file name="file_kk_ibu" igroup-size="md" placeholder="Pilih file..." label="File KK Ibu" value="{{ $walisiswa->file_kk_ibu }}" fgroup-class="col-md-6" />
 					</div>
 					<div class="row">
-						<x-adminlte-input name="nik" label="NIK" placeholder="1234567890123456" fgroup-class="col-md-6" type="number" value="{{ $walisiswa->nik_ibu }}" required />
+						<x-adminlte-input name="nik_ibu" label="NIK" placeholder="1234567890123456" fgroup-class="col-md-6" type="number" value="{{ $walisiswa->nik_ibu }}" required />
 						<x-adminlte-input-date name="tanggal_lahir_ibu" :config="$config_date" label="Tanggal Lahir" placeholder="Choose a time..." fgroup-class="col-md-6" value="{{ $walisiswa->tanggal_lahir_ibu }}" required>
 							<x-slot name="prependSlot">
 								<div class="input-group-text bg-gradient-info">

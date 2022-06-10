@@ -77,7 +77,7 @@
 						<x-adminlte-input name="nama_ayah" label="Nama" placeholder="Alfa" fgroup-class="col-md-6" required />
 					</div>
 					<div class="row">
-						<x-adminlte-input name="nik_ayah" label="NIK" min=1000000000000000 max=9999999999999999 placeholder="3324xxxxxxxx" fgroup-class="col-md-6" required />
+						<x-adminlte-input name="nik_ayah" type="number" label="NIK" min=1000000000000000 max=9999999999999999 placeholder="3324xxxxxxxx" fgroup-class="col-md-6" required />
 						<x-adminlte-input-date name="tanggal_lahir_ayah" :config="$config_date" label="Tanggal Lahir" placeholder="Choose a time..." fgroup-class="col-md-6" required>
 							<x-slot name="prependSlot_ayah">
 								<div class="input-group-text bg-gradient-info">
@@ -151,7 +151,7 @@
 						<x-adminlte-input name="nama_ibu" label="Nama" placeholder="Alfa" fgroup-class="col-md-6" required />
 					</div>
 					<div class="row">
-						<x-adminlte-input name="nik_ibu" label="NIK" min=1000000000000000 max=9999999999999999 placeholder="3324xxxxxxxx" fgroup-class="col-md-6" required />
+						<x-adminlte-input name="nik_ibu" label="NIK" type="number" min=1000000000000000 max=9999999999999999 placeholder="3324xxxxxxxx" fgroup-class="col-md-6" required />
 						<x-adminlte-input-date name="tanggal_lahir_ibu" :config="$config_date" label="Tanggal Lahir" placeholder="Choose a time..." fgroup-class="col-md-6" required>
 							<x-slot name="prependSlot_ibu">
 								<div class="input-group-text bg-gradient-info">
