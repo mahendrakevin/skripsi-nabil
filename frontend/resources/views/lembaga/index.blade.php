@@ -56,7 +56,7 @@
 										@if (Auth::user()->role == '1')
 										<div class="row">
 											<div class="col-lg-12" style="text-align: right;">
-												<x-adminlte-button class="btn-flat" type="submit" label="Perbaharui" theme="success" icon="fas fa-lg fa-save" />
+												<x-adminlte-button class="btn-flat" type="submit" label="Perbaharui" theme="warning" icon="fas fa-lg fa-save" />
 											</div>
 										</div>
 										@endif
@@ -66,7 +66,7 @@
 							<hr>
 							<div class="row">
 								@if (Auth::user()->role == '1')
-								<x-submit-button method="POST" action="{{ route('admin.siswa.index') }}" theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
+								<x-submit-button method="POST" action="{{ route('admin.aset.create') }}" theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
 								@endif
 							</div>
 							<br>

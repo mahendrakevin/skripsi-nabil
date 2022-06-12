@@ -102,6 +102,7 @@ async def add_walisiswa(db_session: AsyncSession, request: WaliSiswa) -> dict:
             new_walisiswa = {}
             new_walisiswa['id'] = id_walisiswa.id
             new_walisiswa['nama_ayah'] = request.nama_ayah
+            new_walisiswa['nik_ayah'] = request.nik_ayah
             new_walisiswa['file_kk_ayah'] = request.file_kk_ayah
             new_walisiswa['file_kk_ibu'] = request.file_kk_ibu
             new_walisiswa['tempat_lahir_ayah'] = request.tempat_lahir_ayah
@@ -114,6 +115,7 @@ async def add_walisiswa(db_session: AsyncSession, request: WaliSiswa) -> dict:
             new_walisiswa['pekerjaan_ayah'] = request.pekerjaan_ayah
             new_walisiswa['penghasilan_ayah'] = request.penghasilan_ayah
             new_walisiswa['nama_ibu'] = request.nama_ibu
+            new_walisiswa['nik_ibu'] = request.nik_ibu
             new_walisiswa['tempat_lahir_ibu'] = request.tempat_lahir_ibu
             new_walisiswa['tanggal_lahir_ibu'] = request.tanggal_lahir_ibu
             new_walisiswa['alamat_ibu'] = request.alamat_ibu
@@ -169,6 +171,7 @@ async def edit_walisiswa(db_session: AsyncSession, request: WaliSiswa, id_siswa:
             else:
                 edit_walisiswa = {}
                 edit_walisiswa['nama_ayah'] = request.nama_ayah
+                edit_walisiswa['nik_ayah'] = request.nik_ayah
                 edit_walisiswa['file_kk_ayah'] = request.file_kk_ayah
                 edit_walisiswa['file_kk_ibu'] = request.file_kk_ibu
                 edit_walisiswa['tempat_lahir_ayah'] = request.tempat_lahir_ayah
@@ -181,6 +184,7 @@ async def edit_walisiswa(db_session: AsyncSession, request: WaliSiswa, id_siswa:
                 edit_walisiswa['pekerjaan_ayah'] = request.pekerjaan_ayah
                 edit_walisiswa['penghasilan_ayah'] = request.penghasilan_ayah
                 edit_walisiswa['nama_ibu'] = request.nama_ibu
+                edit_walisiswa['nik_ibu'] = request.nik_ibu
                 edit_walisiswa['tempat_lahir_ibu'] = request.tempat_lahir_ibu
                 edit_walisiswa['tanggal_lahir_ibu'] = request.tanggal_lahir_ibu
                 edit_walisiswa['alamat_ibu'] = request.alamat_ibu

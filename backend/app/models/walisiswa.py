@@ -9,6 +9,7 @@ class WaliSiswa(Base):
     __tablename__ = "data_wali_siswa"
     id = Column(BigInteger, primary_key=True)
     nama_ayah = Column(String(100))
+    nik_ayah = Column(BigInteger)
     file_kk_ayah = Column(Text)
     tempat_lahir_ayah = Column(String(50))
     tanggal_lahir_ayah = Column(Date)
@@ -20,6 +21,7 @@ class WaliSiswa(Base):
     pekerjaan_ayah = Column(String(50))
     penghasilan_ayah = Column(BigInteger)
     nama_ibu = Column(String(100))
+    nik_ibu = Column(BigInteger)
     file_kk_ibu = Column(Text)
     tempat_lahir_ibu = Column(String(50))
     tanggal_lahir_ibu = Column(Date)

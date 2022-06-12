@@ -165,6 +165,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\AdminCon
         Route::get('/hapus/{id_sarpras}', 'SarprasController@destroy')->name('admin.sarpras.destroy')->middleware('admin');
     });
 
+    // Aset
+    Route::group(['prefix' => 'aset'], function () {
+        Route::post('/add', 'AsetController@create')->name('admin.aset.create')->middleware('admin');
+        Route::get('/edit/{id_aset}', 'AsetController@edit')->name('admin.aset.edit')->middleware('admin');
+        Route::post('/delete', 'AsetController@delete')->name('admin.aset.delete')->middleware('admin');
+        Route::post('/', 'AsetController@store')->name('admin.aset.store')->middleware('admin');
+        Route::get('/update/{id_aset}', 'AsetController@update')->name('admin.aset.update')->middleware('admin');
+        Route::get('/hapus/{id_aset}', 'AsetController@destroy')->name('admin.aset.destroy')->middleware('admin');
+    });
+
     // Surat Keterangan
     Route::group(['prefix' => 'surat-keterangan'], function () {
         Route::get('/', 'SuratKeteranganController@index')->name('admin.surat_keterangan.index')->middleware('admin');

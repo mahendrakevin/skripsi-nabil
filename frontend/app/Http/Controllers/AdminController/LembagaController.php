@@ -34,7 +34,7 @@ class LembagaController extends Controller
                 foreach ($aset as $resp){
                     $btnEdit = view('components.Button', [
                         'method' => 'GET',
-                        'action' => route('admin.sarpras.edit', $resp->id),
+                        'action' => route('admin.aset.edit', $resp->id),
                         'title' => 'Edit',
                     'id' => 'edit',
                     'onclick' => '',
@@ -43,7 +43,7 @@ class LembagaController extends Controller
 
                     $btnDelete = view('components.Button', [
                         'method' => 'GET',
-                        'action' => route('admin.sarpras.destroy', $resp->id),
+                        'action' => route('admin.aset.destroy', $resp->id),
                         'title' => 'Hapus',
                     'id' => 'hapus',
                     'onclick' => 'return confirm_delete()',
@@ -63,11 +63,11 @@ class LembagaController extends Controller
 
                 $heads = [
                     ['label' => 'No', 'no-export' => false, 'width' => 10],
-                    'Nama Lembaga',
-                    'Luas Lahan',
-                    'Luas Bangunan',
-                    'Nama Pemilik',
-                    'No Sertifikat',
+                    'Jenis Ruangan',
+                    'Nama Ruangan',
+                    'Tahun Bangunan',
+                    'Panjang Bangunan (m2)',
+                    'Lebar Bangunan (m2)',
                     ['label' => 'Actions', 'no-export' => false, 'width' => 10],
                 ];
 
@@ -84,11 +84,11 @@ class LembagaController extends Controller
             } else {
                 $heads = [
                     ['label' => 'No', 'no-export' => false, 'width' => 10],
-                    'Nama Lembaga',
-                    'Luas Lahan',
-                    'Luas Bangunan',
-                    'Nama Pemilik',
-                    'No Sertifikat',
+                    'Jenis Ruangan',
+                    'Nama Ruangan',
+                    'Tahun Bangunan',
+                    'Panjang Bangunan (m)',
+                    'Lebar Bangunan (m)',
                     ['label' => 'Actions', 'no-export' => false, 'width' => 10],
                 ];
 

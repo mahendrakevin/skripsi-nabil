@@ -4,6 +4,7 @@ from pydantic.fields import Field
 
 class WaliSiswa(BaseModel):
     nama_ayah: Optional[str]
+    nik_ayah: Optional[StrictInt]
     file_kk_ayah: Optional[str] = 'string'
     tempat_lahir_ayah: Optional[str]
     tanggal_lahir_ayah: Optional[str]
@@ -17,6 +18,7 @@ class WaliSiswa(BaseModel):
     nomor_kks_ayah: Optional[StrictInt]
     nomor_pkh_ayah: Optional[StrictInt]
     nama_ibu: Optional[str]
+    nik_ibu: Optional[StrictInt]
     file_kk_ibu: Optional[str] = 'string'
     tempat_lahir_ibu: Optional[str]
     tanggal_lahir_ibu: Optional[str]

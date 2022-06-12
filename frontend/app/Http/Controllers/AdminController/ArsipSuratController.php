@@ -11,8 +11,51 @@ class ArsipSuratController extends Controller
     public function index()
     {
         $client = new Client(['base_uri' => env('API_HOST')]);
-        $resp = $client->request('GET', 'arsipsurat/');
+        $resp = $client->request('GET', 'arsipsurat/masuk/');
         $result = json_decode($resp->getBody());
+
+        $keluar = $client->request('GET', 'arsipsurat/keluar/');
+        $keluar = json_decode($keluar->getBody());
+
+        $heads = [
+            ['label' => 'ID Jenis Pembayaran', 'no-export' => false, 'width' => 10],
+            'Judul Surat',
+            'Nomor Surat',
+            'Tanggal',
+            'Jenis Surat',
+            'Keterangan',
+            'Lampiran',
+            ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+        ];
+
+        $config = [
+            'data' => [],
+            'order' => [[1, 'asc']],
+            'columns' => [null, null, null, null, null, null, null, ['orderable' => false]],
+            'paging' => true,
+            'lengthMenu' => [ 10, 50, 100, 500],
+            'language' => ['search' => 'Cari Data']
+        ];
+
+        $heads_keluar = [
+            ['label' => 'ID Jenis Pembayaran', 'no-export' => false, 'width' => 10],
+            'Judul Surat',
+            'Nomor Surat',
+            'Tanggal',
+            'Jenis Surat',
+            'Keterangan',
+            'Lampiran',
+            ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+        ];
+
+        $config_keluar = [
+            'data' => [],
+            'order' => [[1, 'asc']],
+            'columns' => [null, null, null, null, null, null, null, ['orderable' => false]],
+            'paging' => true,
+            'lengthMenu' => [ 10, 50, 100, 500],
+            'language' => ['search' => 'Cari Data']
+        ];
 
         if (property_exists($result, 'data')){
 
@@ -51,8 +94,8 @@ class ArsipSuratController extends Controller
             }
 
             $heads = [
-                ['label' => 'ID Jenis Pembayaran', 'no-export' => false, 'width' => 10],
-                'Nama Surat',
+                ['label' => 'ID Arsip Surat', 'no-export' => false, 'width' => 10],
+                'Judul Surat',
                 'Nomor Surat',
                 'Tanggal',
                 'Jenis Surat',
@@ -69,12 +112,45 @@ class ArsipSuratController extends Controller
                 'lengthMenu' => [ 10, 50, 100, 500],
                 'language' => ['search' => 'Cari Data']
             ];
+        }
+        if (property_exists($keluar, 'data')) {
 
-            return view('arsipsurat.index')->with(compact('heads', 'config', 'result'));
-        } else {
-            $heads = [
-                ['label' => 'ID Jenis Pembayaran', 'no-export' => false, 'width' => 10],
-                'Nama Surat',
+            $keluar = $keluar->data;
+            $subjectdata2 = array();
+
+            foreach ($keluar as $resp){
+                $btnEdit = view('components.Button', [
+                    'method' => 'GET',
+                    'action' => route('admin.arsip_surat.edit', $resp->id),
+                    'title' => 'Edit',
+                    'id' => 'edit',
+                    'onclick' => '',
+                    'icon' => 'fa fa-lg fa-fw fa-pen',
+                    'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
+
+                $btnDelete = view('components.Button', [
+                    'method' => 'GET',
+                    'action' => route('admin.arsip_surat.destroy', $resp->id),
+                    'title' => 'Hapus',
+                    'id' => 'hapus',
+                    'onclick' => 'return confirm_delete()',
+                    'icon' => 'fa fa-lg fa-fw fa-trash',
+                    'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
+
+                $subjectdata2[] = [
+                    $resp->id,
+                    $resp->nama_surat,
+                    $resp->nomor_surat,
+                    $resp->tanggal_surat,
+                    $resp->jenis_surat,
+                    $resp->keterangan,
+                    $resp->lampiran,
+                    '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
+                ];
+            }
+            $heads_keluar = [
+                ['label' => 'ID Arsip Surat', 'no-export' => false, 'width' => 10],
+                'Judul Surat',
                 'Nomor Surat',
                 'Tanggal',
                 'Jenis Surat',
@@ -83,8 +159,8 @@ class ArsipSuratController extends Controller
                 ['label' => 'Actions', 'no-export' => false, 'width' => 10],
             ];
 
-            $config = [
-                'data' => [],
+            $config_keluar = [
+                'data' => $subjectdata2,
                 'order' => [[1, 'asc']],
                 'columns' => [null, null, null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
@@ -92,8 +168,9 @@ class ArsipSuratController extends Controller
                 'language' => ['search' => 'Cari Data']
             ];
 
-            return view('arsipsurat.index')->with(compact('heads', 'config', 'result'));
         }
+
+        return view('arsipsurat.index')->with(compact('heads', 'config', 'result', 'heads_keluar', 'config_keluar'));
     }
 
     public function create(){

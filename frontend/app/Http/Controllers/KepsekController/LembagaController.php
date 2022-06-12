@@ -34,7 +34,7 @@ class LembagaController extends Controller
                 foreach ($aset as $resp){
                     $btnEdit = view('components.Button', [
                         'method' => 'GET',
-//                        'action' => route('admin.sarpras.edit', $resp->id),
+                        'action' => route('admin.aset.edit', $resp->id),
                         'title' => 'Edit',
                     'id' => 'edit',
                     'onclick' => '',
@@ -43,7 +43,7 @@ class LembagaController extends Controller
 
                     $btnDelete = view('components.Button', [
                         'method' => 'GET',
-//                        'action' => route('admin.sarpras.destroy', $resp->id),
+                        'action' => route('admin.aset.destroy', $resp->id),
                         'title' => 'Hapus',
                     'id' => 'hapus',
                     'onclick' => 'return confirm_delete()',

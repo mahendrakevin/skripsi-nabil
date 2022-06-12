@@ -23,7 +23,9 @@ class SiswaController extends Controller
                 $btnShow = view('components.button', [
                     'method' => 'GET',
                     'action' => route('kepsek.siswa.show', $resp->id),
-                    'title' => 'Detail',
+                    'title' => 'Lihat',
+                    'id' => 'lihat',
+                    'onclick' => '',
                     'icon' => 'fa fa-lg fa-fw fa-eye',
                     'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
 

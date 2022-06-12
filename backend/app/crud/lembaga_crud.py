@@ -1,7 +1,7 @@
 from sqlalchemy.engine import result
 from sqlalchemy.ext.asyncio import AsyncSession
 import gevent
-from schemas import DataLembaga, SaranaPrasarana, SuratKeterangan
+from schemas import DataLembaga, SaranaPrasarana, SuratKeterangan, Aset
 from typing import List, Tuple, Union, Dict, Any
 from sqlalchemy.exc import SQLAlchemyError
 from fastapi.logger import logger
@@ -545,18 +545,18 @@ async def get_detail_aset(db_session: AsyncSession, id_aset: int) -> dict:
         }
 
 
-async def add_aset(db_session: AsyncSession, request: SaranaPrasarana) -> dict:
+async def add_aset(db_session: AsyncSession, request: Aset) -> dict:
     async with db_session as session:
         try:
             id_aset = await session.execute('''select nextval('aset_id_seq') as id''')
             id_aset = id_aset.one_or_none()
             new_aset = {}
             new_aset['id'] = id_aset.id
-            new_aset['nama_aset'] = request.nama_aset
-            new_aset['luas_lahan'] = request.luas_lahan
-            new_aset['luas_bangunan'] = request.luas_bangunan
-            new_aset['nama_pemilik'] = request.nama_pemilik
-            new_aset['no_sertifikat'] = request.no_sertifikat
+            new_aset['jenis_ruangan'] = request.jenis_ruangan
+            new_aset['nama_ruangan'] = request.nama_ruangan
+            new_aset['tahun'] = request.tahun
+            new_aset['panjang'] = request.panjang
+            new_aset['lebar'] = request.lebar
             aset = generateQuery('aset', new_aset)
             logging.debug(f'query : {aset}')
             await session.execute(aset)
@@ -593,11 +593,11 @@ async def edit_aset(db_session: AsyncSession, request: SaranaPrasarana, id_aset:
                 }
             else:
                 edit_aset = {}
-                edit_aset['nama_aset'] = request.nama_aset
-                edit_aset['luas_lahan'] = request.luas_lahan
-                edit_aset['luas_bangunan'] = request.luas_bangunan
-                edit_aset['nama_pemilik'] = request.nama_pemilik
-                edit_aset['no_sertifikat'] = request.no_sertifikat
+                edit_aset['jenis_ruangan'] = request.jenis_ruangan
+                edit_aset['nama_ruangan'] = request.nama_ruangan
+                edit_aset['tahun'] = request.tahun
+                edit_aset['panjang'] = request.panjang
+                edit_aset['lebar'] = request.lebar
                 aset = '''
                                 update aset set {0} where id = {1}
                             '''.format(generateQueryUpdate(edit_aset), id_aset)
