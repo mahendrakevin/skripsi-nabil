@@ -62,7 +62,8 @@ async def get_list_arsipsurat_keluar(db_session: AsyncSession, page: int, show: 
         try:
             offset = (page - 1) * show
             q_dep = '''
-                SELECT * FROM arsip_surat WHERE jenis_surat = 'Keluar'
+                SELECT * FROM arsip_surat WHERE jenis_surat = 'Keluar
+                '
 
             '''
             proxy_rows = await session.execute(q_dep)
