@@ -113,7 +113,7 @@ class LaporanPembayaranController extends Controller
         $jenis_pembayaran = $jenis_pembayaran->data;
         $config_date = ['format' => 'YYYY-MM-DD'];
 
-        return view('laporanpembayaran.create')->with(compact('siswa', 'jenis_pembayaran', 'config_date'));
+        return view('laporanpembayaran.create_bendahara')->with(compact('siswa', 'jenis_pembayaran', 'config_date'));
     }
 
     public function store(Request $request){
@@ -123,7 +123,11 @@ class LaporanPembayaranController extends Controller
         $jenis_pembayaran = $jenis_pembayaran->data;
         if ((int)$request->nominal_pembayaran == (int)$jenis_pembayaran->nominal_pembayaran){
             $status_pembayaran = 'Lunas';
-        } else {
+        }
+        else if ((int)$jenis_pembayaran->nominal_pembayaran < (int)$request->nominal_pembayaran){
+            $status_pembayaran = 'Lebih';
+        }
+        else {
             $status_pembayaran = 'Belum Lunas';
         }
 
@@ -168,7 +172,7 @@ class LaporanPembayaranController extends Controller
             $laporan_pembayaran = $laporan_pembayaran->data;
             $siswa = $siswa->data;
             $jenis_pembayaran = $jenis_pembayaran->data;
-            return view('laporanpembayaran.edit')->with(compact('siswa', 'jenis_pembayaran', 'laporan_pembayaran', 'config_date'));
+            return view('laporanpembayaran.edit_bendahara')->with(compact('siswa', 'jenis_pembayaran', 'laporan_pembayaran', 'config_date'));
         }
         else {
             return redirect(route('bendahara.laporan_pembayaran.index'))->with('alert-failed', 'Data tidak ditemukan');
@@ -207,11 +211,17 @@ class LaporanPembayaranController extends Controller
         $jenis_pembayaran = $client->request('GET', 'pembayaransiswa/jenispembayaran/'.(int)$request->id_jenispembayaran);
         $jenis_pembayaran = json_decode($jenis_pembayaran->getBody());
         $jenis_pembayaran = $jenis_pembayaran->data;
+
         if ((int)$request->nominal_pembayaran == (int)$jenis_pembayaran->nominal_pembayaran){
             $status_pembayaran = 'Lunas';
-        } else {
+        }
+        else if ((int)$jenis_pembayaran->nominal_pembayaran < (int)$request->nominal_pembayaran){
+            $status_pembayaran = 'Lebih';
+        }
+        else {
             $status_pembayaran = 'Belum Lunas';
         }
+
         $resp = $client->request('PUT', 'pembayaransiswa/edit?id_laporanpembayaran='.(int)$id,[
                 'headers' => [
                     'Content-Type' => 'application/json',

@@ -60,26 +60,37 @@
                 </div>
                 <div class="row">
                     <x-adminlte-textarea name="detail_pengeluaran" fgroup-class="col-md-6" label="Keterangan" placeholder="Masukkan Keperluan Pengeluaran"/>
-                </div>
-                <div class="row">
                     <x-adminlte-input name="diserahkan_kepada" label="Diserahkan Kepada" placeholder="Alfalah"
-                                      fgroup-class="col-md-8" required/>
-                    <x-adminlte-input name="dikeluarkan_oleh" label="Dikeluarkan Oleh" placeholder="Annisa"
-                                      fgroup-class="col-md-8" required/>
+                                      fgroup-class="col-md-6" required/>
                 </div>
                 <div class="row">
-                    <x-adminlte-input-file name="bukti_pengeluaran" igroup-size="sm" placeholder="Pilih file..." label="Bukti Pengeluaran" fgroup-class="col-md-4">
+                    <x-adminlte-input name="nominal_pengeluaran" label="Nominal" placeholder="1234567890123456"
+                                      fgroup-class="col-md-6" type="number" required/>
+                    <x-adminlte-input-file name="bukti_pengeluaran" igroup-size="sm" placeholder="Pilih file..." label="Bukti Pengeluaran" fgroup-class="col-md-6">
                         <x-slot name="prependSlot_lampiran">
                             <div class="input-group-text bg-lightblue">
                                 <i class="fas fa-address-card"></i>
                             </div>
                         </x-slot>
                     </x-adminlte-input-file>
-                    <x-adminlte-input name="nominal_pengeluaran" label="Nominal" placeholder="1234567890123456"
-                                      fgroup-class="col-md-4" type="number" required/>
+                </div>
+                <div class="row">
+                    <x-adminlte-input name="dikeluarkan_oleh" label="Dikeluarkan Oleh" placeholder="Annisa"
+                                      fgroup-class="col-md-6" required/>
                 </div>
             </x-adminlte-card>
-            <x-adminlte-button class="btn-flat" type="submit" label="Simpan" theme="success" icon="fas fa-lg fa-save"/>
+            <x-adminlte-modal id="modalCustom" title="Konfirmasi Simpan" size="lg" theme="teal" icon="fas fa-bell" v-centered static-backdrop scrollable>
+                <div>Apakah Anda yakin untuk menyimpan data?</div>
+                <x-slot name="footerSlot">
+                    <x-adminlte-button theme="danger" label="Tidak" data-dismiss="modal" />
+                    <x-adminlte-button class="btn-flat" type="submit" label="Ya" theme="success" />
+                </x-slot>
+            </x-adminlte-modal>
+            <div class="row">
+                <div class="col-lg-12" style="text-align: right;">
+                    <x-adminlte-button label="Simpan" data-toggle="modal" theme="success" data-target="#modalCustom" class="btn-flat" />
+                </div>
+            </div>
 
         </x-form>
     @endif

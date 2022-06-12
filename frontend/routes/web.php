@@ -367,6 +367,7 @@ Route::group(['prefix' => 'kepsek', 'namespace' => 'App\Http\Controllers\KepsekC
     // Alokasi Dana
     Route::group(['prefix' => 'alokasi-dana'], function () {
         Route::get('/', 'AlokasiDanaController@index')->name('kepsek.alokasi_dana.index')->middleware('kepsek');
+        Route::get('/show/{id_dana}/{type}', 'AlokasiDanaController@show')->name('kepsek.alokasi_dana.show')->middleware('kepsek');
     });
 
     // Sumber Dana
@@ -400,22 +401,20 @@ Route::group(['prefix' => 'bendahara', 'namespace' => 'App\Http\Controllers\Bend
     // Alokasi Dana
     Route::group(['prefix' => 'alokasi-dana'], function () {
         Route::get('/', 'AlokasiDanaController@index')->name('bendahara.alokasi_dana.index')->middleware('bendahara');
+        Route::get('/edit/{id_dana}/{type}', 'AlokasiDanaController@edit')->name('bendahara.alokasi_dana.edit')->middleware('bendahara');
+        Route::get('/hapus/{id_dana}/{type}', 'AlokasiDanaController@destroy')->name('bendahara.alokasi_dana.destroy')->middleware('bendahara');
+        Route::get('/show/{id_dana}/{type}', 'AlokasiDanaController@show')->name('bendahara.alokasi_dana.show')->middleware('bendahara');
+
 
         // Route::get('/dana-masuk/{id_danamasuk}', 'AlokasiDanaController@show_masuk')->name('admin.alokasi_dana.show_masuk')->middleware('admin');
         Route::post('/dana-masuk/add', 'AlokasiDanaController@create_masuk')->name('bendahara.alokasi_dana.create_masuk')->middleware('bendahara');
-        Route::get('/dana-masuk/edit/{id_danamasuk}', 'AlokasiDanaController@edit_masuk')->name('bendahara.alokasi_dana.edit_masuk')->middleware('bendahara');
-        Route::post('/dana-masuk/delete', 'AlokasiDanaController@delete_masuk')->name('bendahara.alokasi_dana.delete_masuk')->middleware('bendahara');
         Route::post('/dana-masuk/', 'AlokasiDanaController@store_masuk')->name('bendahara.alokasi_dana.store_masuk')->middleware('bendahara');
         Route::get('/dana-masuk/update/{id_danamasuk}', 'AlokasiDanaController@update_masuk')->name('bendahara.alokasi_dana.update_masuk')->middleware('bendahara');
-        Route::get('/dana-masuk/hapus/{id_danamasuk}', 'AlokasiDanaController@destroy_masuk')->name('bendahara.alokasi_dana.destroy_masuk')->middleware('bendahara');
 
         // Route::get('/dana-keluar/{id_danakeluar}', 'AlokasiDanaController@show_keluar')->name('bendahara.alokasi_dana.show_keluar')->middleware('bendahara');
         Route::post('/dana-keluar/add', 'AlokasiDanaController@create_keluar')->name('bendahara.alokasi_dana.create_keluar')->middleware('bendahara');
-        Route::get('/dana-keluar/edit/{id_danakeluar}', 'AlokasiDanaController@edit_keluar')->name('bendahara.alokasi_dana.edit_keluar')->middleware('bendahara');
-        Route::post('/dana-keluar/delete', 'AlokasiDanaController@delete_keluar')->name('bendahara.alokasi_dana.delete_keluar')->middleware('bendahara');
         Route::post('/dana-keluar/', 'AlokasiDanaController@store_keluar')->name('bendahara.alokasi_dana.store_keluar')->middleware('bendahara');
         Route::get('/dana-keluar/update/{id_danakeluar}', 'AlokasiDanaController@update_keluar')->name('bendahara.alokasi_dana.update_keluar')->middleware('bendahara');
-        Route::get('/dana-keluar/hapus/{id_danakeluar}', 'AlokasiDanaController@destroy_keluar')->name('bendahara.alokasi_dana.destroy_keluar')->middleware('bendahara');
     });
 
     // Sumber Dana

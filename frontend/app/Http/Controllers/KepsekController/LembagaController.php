@@ -32,23 +32,6 @@ class LembagaController extends Controller
 
                 $subjectdata = array();
                 foreach ($aset as $resp){
-                    $btnEdit = view('components.Button', [
-                        'method' => 'GET',
-//                        'action' => route('admin.sarpras.edit', $resp->id),
-                        'title' => 'Edit',
-                    'id' => 'edit',
-                    'onclick' => '',
-                        'icon' => 'fa fa-lg fa-fw fa-pen',
-                        'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
-
-                    $btnDelete = view('components.Button', [
-                        'method' => 'GET',
-//                        'action' => route('admin.sarpras.destroy', $resp->id),
-                        'title' => 'Hapus',
-                    'id' => 'hapus',
-                    'onclick' => 'return confirm_delete()',
-                        'icon' => 'fa fa-lg fa-fw fa-trash',
-                        'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
                     $subjectdata[] = [
                         $resp->id,
@@ -56,8 +39,7 @@ class LembagaController extends Controller
                         $resp->nama_ruangan,
                         $resp->tahun,
                         $resp->panjang,
-                        $resp->lebar,
-                        '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
+                        $resp->lebar
                     ];
                 }
 
@@ -67,14 +49,13 @@ class LembagaController extends Controller
                     'Luas Lahan',
                     'Luas Bangunan',
                     'Nama Pemilik',
-                    'No Sertifikat',
-                    ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                    'No Sertifikat'
                 ];
 
                 $config = [
                     'data' => $subjectdata,
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null, ['orderable' => false]],
+                    'columns' => [null, null, null, null, null, ['orderable' => false]],
                     'paging' => true,
                     'lengthMenu' => [ 10, 50, 100, 500],
                     'language' => ['search' => 'Cari Data']
@@ -88,14 +69,13 @@ class LembagaController extends Controller
                     'Luas Lahan',
                     'Luas Bangunan',
                     'Nama Pemilik',
-                    'No Sertifikat',
-                    ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                    'No Sertifikat'
                 ];
 
                 $config = [
                     'data' => [],
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null, ['orderable' => false]],
+                    'columns' => [null, null, null, null, ['orderable' => false]],
                     'paging' => true,
                     'lengthMenu' => [ 10, 50, 100, 500],
                     'language' => ['search' => 'Cari Data']

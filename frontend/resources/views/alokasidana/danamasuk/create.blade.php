@@ -20,13 +20,13 @@
                 <div class="row">
                     <x-adminlte-input name="nominal_dana" label="Nominal" placeholder="1234567890123456"
                                       fgroup-class="col-md-4" type="number" required/>
-                    <x-adminlte-input-file name="lampiran" igroup-size="sm" placeholder="Pilih file..." label="Lampiran" fgroup-class="col-md-4">
-                        <x-slot name="prependSlot_lampiran">
-                            <div class="input-group-text bg-lightblue">
-                                <i class="fas fa-address-card"></i>
-                            </div>
-                        </x-slot>
-                    </x-adminlte-input-file>
+{{--                    <x-adminlte-input-file name="lampiran" igroup-size="sm" placeholder="Pilih file..." label="Lampiran" fgroup-class="col-md-4">--}}
+{{--                        <x-slot name="prependSlot_lampiran">--}}
+{{--                            <div class="input-group-text bg-lightblue">--}}
+{{--                                <i class="fas fa-address-card"></i>--}}
+{{--                            </div>--}}
+{{--                        </x-slot>--}}
+{{--                    </x-adminlte-input-file>--}}
                 </div>
             </x-adminlte-card>
             <x-adminlte-button class="btn-flat" type="submit" label="Simpan" theme="success" icon="fas fa-lg fa-save"/>
@@ -52,16 +52,27 @@
                 <div class="row">
                     <x-adminlte-input name="nominal_dana" label="Nominal" placeholder="1234567890123456"
                                       fgroup-class="col-md-4" type="number" required/>
-                    <x-adminlte-input-file name="lampiran" igroup-size="sm" placeholder="Pilih file..." label="Lampiran" fgroup-class="col-md-4">
-                        <x-slot name="prependSlot_lampiran">
-                            <div class="input-group-text bg-lightblue">
-                                <i class="fas fa-address-card"></i>
-                            </div>
-                        </x-slot>
-                    </x-adminlte-input-file>
+{{--                    <x-adminlte-input-file name="lampiran" igroup-size="sm" placeholder="Pilih file..." label="Lampiran" fgroup-class="col-md-4">--}}
+{{--                        <x-slot name="prependSlot_lampiran">--}}
+{{--                            <div class="input-group-text bg-lightblue">--}}
+{{--                                <i class="fas fa-address-card"></i>--}}
+{{--                            </div>--}}
+{{--                        </x-slot>--}}
+{{--                    </x-adminlte-input-file>--}}
                 </div>
             </x-adminlte-card>
-            <x-adminlte-button class="btn-flat" type="submit" label="Simpan" theme="success" icon="fas fa-lg fa-save"/>
+            <x-adminlte-modal id="modalCustom" title="Konfirmasi Simpan" size="lg" theme="teal" icon="fas fa-bell" v-centered static-backdrop scrollable>
+                <div>Apakah Anda yakin untuk menyimpan data?</div>
+                <x-slot name="footerSlot">
+                    <x-adminlte-button theme="danger" label="Tidak" data-dismiss="modal" />
+                    <x-adminlte-button class="btn-flat" type="submit" label="Ya" theme="success" />
+                </x-slot>
+            </x-adminlte-modal>
+            <div class="row">
+                <div class="col-lg-12" style="text-align: right;">
+                    <x-adminlte-button label="Simpan" data-toggle="modal" theme="success" data-target="#modalCustom" class="btn-flat" />
+                </div>
+            </div>
 
         </x-form>
     @endif

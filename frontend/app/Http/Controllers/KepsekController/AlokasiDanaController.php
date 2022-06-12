@@ -5,114 +5,192 @@ namespace App\Http\Controllers\KepsekController;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AlokasiDanaController extends Controller
 {
     public function index()
     {
-        $client = new Client(['base_uri' => env('API_HOST')]);
-        $dana_masuk = $client->request('GET', 'dana/masuk/');
-        $result_masuk = json_decode($dana_masuk->getBody());
-        $dana_keluar = $client->request('GET', 'dana/keluar/');
-        $result_keluar = json_decode($dana_keluar->getBody());
+        $dana_masuk = DB::Select("SELECT SUM(nominal_dana) AS total FROM dana_masuk");
+        $dana_keluar = DB::Select("SELECT SUM(nominal_pengeluaran) AS total FROM dana_keluar");
+        $laporan_pembayaran = DB::Select("SELECT COUNT(1) FROM status_pembayaran");
+        $total_laporan_pembayaran = DB::Select("SELECT SUM(nominal_pembayaran) AS total FROM status_pembayaran");
+        $pengelolaan_dana = DB::Select("SELECT 'Pemasukan' AS type, dm.id, sd.nama_dana AS nama, NULL AS keterangan, dm.nominal_dana AS nominal, dm.tanggal AS tanggal, dm.created AS created FROM dana_masuk dm
+                                        INNER JOIN sumber_dana sd on dm.id_sumberdana = sd.id
+                                        UNION ALL
+                                        SELECT 'Pengeluaran' AS type, dk.id, jp.jenis_pengeluaran AS nama, dk.detail_pengeluaran AS keterangan, dk.nominal_pengeluaran AS nominal, dk.tanggal AS tanggal, dk.created AS created FROM dana_keluar dk
+                                        INNER JOIN  jenis_pengeluaran jp on dk.id_jenispengeluaran = jp.id
+                                        ORDER BY created DESC");
+        $total_dana = ($total_laporan_pembayaran[0]->total + $dana_masuk[0]->total) - $dana_keluar[0]->total;
+//        dd($total_laporan_pembayaran);
 
-        $heads_masuk = [
-            ['label' => 'ID Dana Masuk', 'no-export' => false, 'width' => 10],
-            'Tanggal',
-            'Sumber Dana',
-            'Nominal Dana',
-            'Lampiran'
-        ];
+//        $client = new Client(['base_uri' => env('API_HOST')]);
+//        $dana_masuk = $client->request('GET', 'dana/masuk/');
+//        $result_masuk = json_decode($dana_masuk->getBody());
+//        $dana_keluar = $client->request('GET', 'dana/keluar/');
+//        $result_keluar = json_decode($dana_keluar->getBody());
+
+//        $heads_masuk = [
+//            ['label' => 'ID Dana Masuk', 'no-export' => false, 'width' => 10],
+//            'Tanggal',
+//            'Sumber Dana',
+//            'Nominal Dana',
+//            'Lampiran',
+//            ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+//        ];
 
         $heads_keluar = [
-            ['label' => 'ID Dana Keluar', 'no-export' => false, 'width' => 10],
-            'Tanggal',
+            'Jenis Dana',
+            'Nama',
             'Keterangan',
-            'Jenis',
-            'Diserahkan Kepada',
-            'Dikeluarkan Oleh',
-            'Bukti Pengeluaran',
-            'Nominal'
+            'Nominal',
+            'Tanggal',
+            'Input',
+            ['label' => 'Actions', 'no-export' => false, 'width' => 10],
         ];
 
-        $config_masuk = [
-            'data' => [],
-            'order' => [[1, 'asc']],
-            'columns' => [null, null, null, null, null],
-            'paging' => true,
-            'lengthMenu' => [ 10, 50, 100, 500],
-                'language' => ['search' => 'Cari Data']
-        ];
+//        $config_masuk = [
+//            'data' => [],
+//            'order' => [[1, 'asc']],
+//            'columns' => [null, null, null, null, null, ['orderable' => false]],
+//            'paging' => true,
+//            'lengthMenu' => [ 10, 50, 100, 500],
+//                'language' => ['search' => 'Cari Data']
+//        ];
 
 
         $config_keluar = [
             'data' => [],
-            'order' => [[1, 'asc']],
-            'columns' => [null, null, null, null, null, null, null, null],
+            'order' => [],
+            'columns' => [null, null, null, null, null, null, ['orderable' => false]],
             'paging' => true,
             'lengthMenu' => [ 10, 50, 100, 500],
-                'language' => ['search' => 'Cari Data']
+            'language' => ['search' => 'Cari Data']
         ];
 
-        if (property_exists($result_masuk, 'data')){
-            $result_masuk = $result_masuk->data;
-            $subjectdata_masuk = array();
-
-
-            foreach ($result_masuk as $dm){
-
-                $sumberdana = $client->request('GET', 'dana/sumberdana/'.$dm->id_sumberdana);
-                $sumberdana = json_decode($sumberdana->getBody());
-                $sumberdana = $sumberdana->data;
-
-                $subjectdata_masuk[] = [
-                    $dm->id,
-                    $dm->tanggal,
-                    $sumberdana->nama_dana,
-                    $dm->nominal_dana,
-                    $dm->lampiran
-                ];
-            }
-
-            $config_masuk = [
-                'data' => $subjectdata_masuk,
-                'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, null],
-                'paging' => true,
-                'lengthMenu' => [ 10, 50, 100, 500],
-                'language' => ['search' => 'Cari Data']
-            ];
-        }
-        if (property_exists($result_keluar, 'data')){
-            $result_keluar = $result_keluar->data;
+//        if (property_exists($result_masuk, 'data')){
+//            $result_masuk = $result_masuk->data;
+//            $subjectdata_masuk = array();
+//
+//
+//            foreach ($result_masuk as $dm){
+//                $btnEdit_masuk = view('components.Button', [
+//                    'method' => 'GET',
+//                    'action' => route('bendahara.alokasi_dana.edit_masuk', $dm->id),
+//                    'title' => 'Edit',
+//                    'id' => 'edit',
+//                    'onclick' => '',
+//                    'icon' => 'fa fa-lg fa-fw fa-pen',
+//                    'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
+//
+//                $btnDelete_masuk = view('components.Button', [
+//                    'method' => 'GET',
+//                    'action' => route('bendahara.alokasi_dana.destroy_masuk', $dm->id),
+//                    'title' => 'Hapus',
+//                    'id' => 'hapus',
+//                    'onclick' => 'return confirm_delete()',
+//                    'icon' => 'fa fa-lg fa-fw fa-trash',
+//                    'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
+//
+//                $sumberdana = $client->request('GET', 'dana/sumberdana/'.$dm->id_sumberdana);
+//                $sumberdana = json_decode($sumberdana->getBody());
+//                $sumberdana = $sumberdana->data;
+//
+//                $subjectdata_masuk[] = [
+//                    $dm->id,
+//                    $dm->tanggal,
+//                    $sumberdana->nama_dana,
+//                    $dm->nominal_dana,
+//                    $dm->lampiran,
+//                    '<nobr>'.$btnEdit_masuk.$btnDelete_masuk.'</nobr>'
+//                ];
+//            }
+//
+//            $config_masuk = [
+//                'data' => $subjectdata_masuk,
+//                'order' => [[1, 'asc']],
+//                'columns' => [null, null, null, null, null, ['orderable' => false]],
+//                'paging' => true,
+//                'lengthMenu' => [ 10, 50, 100, 500],
+//                'language' => ['search' => 'Cari Data']
+//            ];
+//        }
+        if ($pengelolaan_dana){
             $subjectdata_keluar = array();
-            foreach ($result_keluar as $dk){
+//            dd($pengelolaan_dana);
+            foreach ($pengelolaan_dana as $dk){
+                $btnShow = view('components.button', [
+                    'method' => 'GET',
+                    'action' => route('kepsek.alokasi_dana.show', ['id_dana'=>$dk->id,'type'=>$dk->type]),
+                    'title' => 'Lihat',
+                    'id' => 'lihat',
+                    'onclick' => '',
+                    'icon' => 'fa fa-lg fa-fw fa-eye',
+                    'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
 
-                $jenispengeluaran = $client->request('GET', 'dana/jenispengeluaran/'.$dk->id_jenispengeluaran);
-                $jenispengeluaran = json_decode($jenispengeluaran->getBody());
-                $jenispengeluaran = $jenispengeluaran->data;
+                if ($dk->type=='Pengeluaran'){
+                    $label = '<span class="float-center badge bg-danger">'.$dk->type.'</span>';
+                }
+                else if ($dk->type=='Pemasukan'){
+                    $label = '<span class="float-center badge bg-success">'.$dk->type.'</span>';
+                }
 
                 $subjectdata_keluar[] = [
-                    $dk->id,
+                    $label,
+                    $dk->nama,
+                    $dk->keterangan,
+                    $dk->nominal,
                     $dk->tanggal,
-                    $dk->detail_pengeluaran,
-                    $jenispengeluaran->jenis_pengeluaran,
-                    $dk->diserahkan_kepada,
-                    $dk->dikeluarkan_oleh,
-                    $dk->bukti_pengeluaran,
-                    $dk->nominal_pengeluaran
+                    $dk->created,
+                    '<nobr>'.$btnShow.'</nobr>'
                 ];
                 $config_keluar = [
                     'data' => $subjectdata_keluar,
-                    'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null, null, null],
+                    'order' => [],
+                    'columns' => [null, null, null, null, null, null, ['orderable' => false]],
                     'paging' => true,
                     'lengthMenu' => [ 10, 50, 100, 500],
-                'language' => ['search' => 'Cari Data']
+                    'language' => ['search' => 'Cari Data']
                 ];
             }
         }
-        return view('alokasidana.index')->with(compact('heads_masuk', 'config_masuk', 'result_masuk', 'heads_keluar', 'config_keluar', 'result_keluar'));
+        return view('alokasidana.index')->with(compact('heads_keluar', 'config_keluar', 'dana_masuk', 'dana_keluar', 'laporan_pembayaran', 'total_dana', 'total_laporan_pembayaran'));
+    }
+
+    public function show($id, $type){
+        $client = new Client(['base_uri' => env('API_HOST')]);
+        if ($type == 'Pemasukan'){
+            $danamasuk = $client->request('GET', 'dana/masuk/'.$id);
+            $danamasuk = json_decode($danamasuk->getBody());
+            $sumberdana = $client->request('GET', 'dana/sumberdana/');
+            $sumberdana = json_decode($sumberdana->getBody());
+            $config_date = ['format' => 'YYYY-MM-DD'];
+
+            if($danamasuk->message_id == '00'){
+                $danamasuk = $danamasuk->data;
+                $sumberdana = $sumberdana->data;
+                return view('alokasidana.danamasuk.show')->with(compact( 'sumberdana', 'danamasuk', 'config_date'));
+            }
+            else {
+                return redirect(route('kkepsek.alokasi_dana.index'))->with('alert-failed', 'Data tidak ditemukan');
+            }
+        }
+        elseif ($type == 'Pengeluaran'){
+            $danakeluar = $client->request('GET', 'dana/keluar/'.$id);
+            $danakeluar = json_decode($danakeluar->getBody());
+            $jenispengeluaran = $client->request('GET', 'dana/jenispengeluaran/');
+            $jenispengeluaran = json_decode($jenispengeluaran->getBody());
+            $config_date = ['format' => 'YYYY-MM-DD'];
+
+            if($danakeluar->message_id == '00'){
+                $danakeluar = $danakeluar->data;
+                $jenispengeluaran = $jenispengeluaran->data;
+                return view('alokasidana.danakeluar.show')->with(compact( 'jenispengeluaran', 'danakeluar', 'config_date'));
+            }
+            else {
+                return redirect(route('kkepsek.alokasi_dana.index'))->with('alert-failed', 'Data tidak ditemukan');
+            }
+        }
     }
 
     public function create_masuk(){

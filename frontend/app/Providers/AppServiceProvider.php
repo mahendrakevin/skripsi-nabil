@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Blade::directive('convert', function ($money) {
+            return "<?php echo number_format($money, 2); ?>";
+        });
+
         Gate::define('admin', function () {
             if (auth()->user()->role == 1) {
                 return true;

@@ -1,6 +1,6 @@
 @section('plugins.Select2', true)
 <x-app-layout title="Tambah Pembayaran">
-    <x-form method="POST" action="{{ route('admin.laporan_pembayaran.store') }}">
+    <x-form method="POST" action="{{ route('bendahara.laporan_pembayaran.store') }}">
         <x-adminlte-card theme="lime" theme-mode="outline" title="Isi Data Siswa">
             <div class="row">
                 <x-adminlte-select2 name="id_siswa" fgroup-class="col-md-6" label="Pilih Siswa">
@@ -28,14 +28,14 @@
             </div>
         </x-adminlte-card>
         <x-adminlte-modal id="modalCustom" title="Konfirmasi Simpan" size="lg" theme="teal"
-                              icon="fas fa-bell" v-centered static-backdrop scrollable>
-                <div>Apakah Anda yakin untuk menyimpan data?</div>
-                <x-slot name="footerSlot">
-                    <x-adminlte-button theme="danger" label="Tidak" data-dismiss="modal"/>
-                    <x-adminlte-button class="btn-flat" type="submit" label="Ya" theme="success"/>
-                </x-slot>
-            </x-adminlte-modal>
-            <x-adminlte-button label="Simpan" data-toggle="modal" theme="success" data-target="#modalCustom" class="btn-flat"/>
+                          icon="fas fa-bell" v-centered static-backdrop scrollable>
+            <div>Apakah Anda yakin untuk menyimpan data?</div>
+            <x-slot name="footerSlot">
+                <x-adminlte-button theme="danger" label="Tidak" data-dismiss="modal"/>
+                <x-adminlte-button class="btn-flat" type="submit" label="Ya" theme="success"/>
+            </x-slot>
+        </x-adminlte-modal>
+        <x-adminlte-button label="Simpan" data-toggle="modal" theme="success" data-target="#modalCustom" class="btn-flat"/>
 
     </x-form>
 </x-app-layout>

@@ -5,7 +5,7 @@
             <div class="row">
                 <x-adminlte-select2 name="id_siswa" fgroup-class="col-md-6" label="Pilih Siswa" readonly>
                     @foreach($siswa as $sw)
-                        <option {{old('id_siswa',$laporan_pembayaran->id_siswa)==$sw->id? 'selected':''}} value="{{ $sw->id }}">{{$sw->nama_siswa}}</option>
+                        <option {{old('id_siswa',$laporan_pembayaran->id_siswa)==$sw->id? 'selected':''}} value="{{ $sw->id }}">{{$sw->nis."-".$sw->nama_siswa}}</option>
                     @endforeach
                 </x-adminlte-select2>
                 <x-adminlte-select2 name="id_jenispembayaran" fgroup-class="col-md-6" label="Pilih Jenis Pembayaran">
@@ -19,7 +19,7 @@
             <div class="row">
                 <x-adminlte-input name="nominal_pembayaran" label="Nominal Pembayaran" type="number"
                                   placeholder="120000" value="{{ $laporan_pembayaran->nominal_pembayaran }}"
-                                  fgroup-class="col-md-8" required/>
+                                  fgroup-class="col-md-6" required/>
                 <x-adminlte-input-date name="tanggal_pembayaran" value="{{ $laporan_pembayaran->tanggal_pembayaran }}"
                                        :config="$config_date" label="Tanggal Pembayaran" placeholder="Choose a time..." fgroup-class="col-md-6" required>
                     <x-slot name="prependSlot">

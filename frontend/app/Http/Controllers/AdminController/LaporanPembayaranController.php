@@ -131,7 +131,11 @@ class LaporanPembayaranController extends Controller
         $jenis_pembayaran = $jenis_pembayaran->data;
         if ((int)$request->nominal_pembayaran == (int)$jenis_pembayaran->nominal_pembayaran){
             $status_pembayaran = 'Lunas';
-        } else {
+        }
+        else if ((int)$jenis_pembayaran->nominal_pembayaran < (int)$request->nominal_pembayaran){
+            $status_pembayaran = 'Lebih';
+        }
+        else {
             $status_pembayaran = 'Belum Lunas';
         }
 
@@ -217,7 +221,11 @@ class LaporanPembayaranController extends Controller
         $jenis_pembayaran = $jenis_pembayaran->data;
         if ((int)$request->nominal_pembayaran == (int)$jenis_pembayaran->nominal_pembayaran){
             $status_pembayaran = 'Lunas';
-        } else {
+        }
+        else if ((int)$jenis_pembayaran->nominal_pembayaran < (int)$request->nominal_pembayaran){
+            $status_pembayaran = 'Lebih';
+        }
+        else {
             $status_pembayaran = 'Belum Lunas';
         }
         $resp = $client->request('PUT', 'pembayaransiswa/edit?id_laporanpembayaran='.(int)$id,[

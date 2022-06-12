@@ -59,16 +59,14 @@
                     <x-adminlte-textarea name="detail_pengeluaran" fgroup-class="col-md-6" label="Keterangan" placeholder="Masukkan Keperluan Pengeluaran">
                         {{ $danakeluar->detail_pengeluaran }}
                     </x-adminlte-textarea>
+                    <x-adminlte-input name="nominal_pengeluaran" value="{{ $danakeluar->nominal_pengeluaran }}" label="Nominal" placeholder="1234567890123456"
+                                      fgroup-class="col-md-6" type="number" required/>
                 </div>
                 <div class="row">
-                    <x-adminlte-input name="diserahkan_kepada" value="{{ $danakeluar->diserahkan_kepada }}" label="Diserahkan Kepada" placeholder="Alfalah"
-                                      fgroup-class="col-md-6" required/>
                     <x-adminlte-input name="dikeluarkan_oleh" value="{{ $danakeluar->dikeluarkan_oleh }}" label="Dikeluarkan Oleh" placeholder="Annisa"
                                       fgroup-class="col-md-6" required/>
-                </div>
-                <div class="row">
-                    <x-adminlte-input name="nominal_pengeluaran" value="{{ $danakeluar->nominal_pengeluaran }}" label="Nominal" placeholder="1234567890123456"
-                                      fgroup-class="col-md-12" type="number" required/>
+                    <x-adminlte-input name="diserahkan_kepada" value="{{ $danakeluar->diserahkan_kepada }}" label="Diserahkan Kepada" placeholder="Alfalah"
+                                      fgroup-class="col-md-6" required/>
                 </div>
             </x-adminlte-card>
             <x-adminlte-button class="btn-flat" type="submit" label="Simpan" theme="success" icon="fas fa-lg fa-save"/>

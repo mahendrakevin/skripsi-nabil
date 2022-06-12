@@ -367,13 +367,13 @@ return [
             'can'         => 'admin'
         ],
         // Bendahara
-        [
-            'text'        => 'Dashboard',
-            'route'         => 'bendahara.dashboard.index',
-            'icon'        => 'far fas fa-home',
-            'label_color' => 'success',
-            'can'         => 'bendahara'
-        ],
+//        [
+//            'text'        => 'Dashboard',
+//            'route'         => 'bendahara.dashboard.index',
+//            'icon'        => 'far fas fa-home',
+//            'label_color' => 'success',
+//            'can'         => 'bendahara'
+//        ],
         [
             'text' => 'Master Data',
             'icon' => 'far fas fa-users-cog',
@@ -384,11 +384,11 @@ return [
                     'route'       => 'bendahara.sumber_dana.index',
                     'can'         => 'bendahara'
                 ],
-                [
-                    'text'        => 'Pengelolaan Dana',
-                    'route'       => 'bendahara.alokasi_dana.index',
-                    'can'         => 'bendahara'
-                ],
+//                [
+//                    'text'        => 'Pengelolaan Dana',
+//                    'route'       => 'bendahara.alokasi_dana.index',
+//                    'can'         => 'bendahara'
+//                ],
                 [
                     'text'        => 'Jenis Pengeluaran',
                     'route'       => 'bendahara.jenis_pengeluaran.index',
