@@ -4,7 +4,7 @@ from fastapi.responses import JSONResponse
 from fastapi.logger import logger
 from typing import Any
 from crud import lembaga_crud
-from schemas import DataLembaga, SaranaPrasarana, SuratKeterangan
+from schemas import DataLembaga, SaranaPrasarana, SuratKeterangan, Aset
 from sqlalchemy.ext.asyncio import AsyncSession
 from utils import logger
 from typing import Dict
@@ -102,14 +102,14 @@ async def detail_aset(id_aset: int, db_session: AsyncSession = Depends(get_async
     return response
 
 @router.post("/aset/tambah")
-async def add_aset(request: SaranaPrasarana, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
+async def add_aset(request: Aset, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
     response = {"status": "Sukses", "message_id": "00"}
     resp = await lembaga_crud.add_aset(request=request, db_session=db_session)
     response.update(resp)
     return response
 
 @router.put("/aset/edit")
-async def edit_aset(id_aset: int, request: SaranaPrasarana, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
+async def edit_aset(id_aset: int, request: Aset, db_session: AsyncSession = Depends(get_async_session)) -> Dict[str, Any]:
     response = {"status": "Sukses", "message_id": "00"}
     resp = await lembaga_crud.edit_aset(id_aset=id_aset, request=request, db_session=db_session)
     response.update(resp)

@@ -13,12 +13,12 @@ from datetime import datetime
 
 logging.basicConfig(level=logging.DEBUG)
 
-async def get_list_arsipsurat(db_session: AsyncSession, page: int, show: int) -> dict:
+async def get_list_arsipsurat_masuk(db_session: AsyncSession, page: int, show: int) -> dict:
     async with db_session as session:
         try:
             offset = (page - 1) * show
             q_dep = '''
-                SELECT * FROM arsip_surat
+                SELECT * FROM arsip_surat WHERE jenis_surat = 'Masuk'
                 
             '''
             proxy_rows = await session.execute(q_dep)
@@ -49,6 +49,50 @@ async def get_list_arsipsurat(db_session: AsyncSession, page: int, show: int) ->
             'message_id': '00',
             'status': 'Sukses',
             'data':result
+        }
+    else:
+        return {
+            'message_id': '01',
+            'status': 'Gagal, Data Arsip Surat Tidak Ditemukan'
+        }
+
+
+async def get_list_arsipsurat_keluar(db_session: AsyncSession, page: int, show: int) -> dict:
+    async with db_session as session:
+        try:
+            offset = (page - 1) * show
+            q_dep = '''
+                SELECT * FROM arsip_surat WHERE jenis_surat = 'Keluar'
+
+            '''
+            proxy_rows = await session.execute(q_dep)
+            result = proxy_rows.all()
+
+            # commit the db transaction
+            await session.commit()
+
+        except gevent.Timeout:
+            await session.invalidate()
+            return {
+                'message_id': '02',
+                'status': 'Failed, DB transaction was time out...'
+            }
+
+        except SQLAlchemyError as e:
+            logger.info(e)
+            await session.rollback()
+            return {
+                'message_id': '02',
+                'status': 'Failed, something wrong rollback DB transaction...'
+            }
+
+    # result data handling
+    if result:
+        logger.info(str(result))
+        return {
+            'message_id': '00',
+            'status': 'Sukses',
+            'data': result
         }
     else:
         return {

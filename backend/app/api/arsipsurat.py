@@ -12,9 +12,14 @@ from typing import Dict
 
 router = APIRouter()
 
-@router.get("/")
-async def list(db_session: AsyncSession = Depends(get_async_session), page: int=1, show: int=10):
-    result = await arsipsurat_crud.get_list_arsipsurat(db_session=db_session, page=page, show=show)
+@router.get("/masuk")
+async def list_masuk(db_session: AsyncSession = Depends(get_async_session), page: int=1, show: int=10):
+    result = await arsipsurat_crud.get_list_arsipsurat_masuk(db_session=db_session, page=page, show=show)
+    return result
+
+@router.get("/keluar")
+async def list_keluar(db_session: AsyncSession = Depends(get_async_session), page: int=1, show: int=10):
+    result = await arsipsurat_crud.get_list_arsipsurat_keluar(db_session=db_session, page=page, show=show)
     return result
 
 @router.get("/{id_arsipsurat}")
