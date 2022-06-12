@@ -95,55 +95,54 @@ class GuruController extends Controller
                     $guru = json_decode($guru->getBody());
                     $guru = $guru->data;
 
-                    $jabatan = $client->request('GET', 'guru/jabatan/' . $resp->id_jabatan);
-                    $jabatan = json_decode($jabatan->getBody());
-                    $jabatan = $jabatan->data;
+                    if ($resp->isskpengangkatan == true){
+                        $kategori_sk = 'SK Pengangkatan';
+                    } else {
+                        $kategori_sk = $resp->kategori_sk;
+                    }
 
                     $subjectdata[] = [
-                        $resp->tanggal,
-                        $guru->nuptk,
-                        $jabatan->nama_jabatan,
                         $resp->no_sk,
-                        $resp->kategori_sk,
-                        $resp->jumlah_ajar
+                        $resp->tanggal,
+                        $kategori_sk,
+                        $guru->nuptk,
+                        $resp->jabatan,
                     ];
                 }
 
                 $heads = [
+                    'No SK',
                     'Tanggal SK',
+                    'Kategori SK',
                     'NUPTK',
                     'Jabatan',
-                    'No SK',
-                    'Kategori SK',
-                    'Jumlah Ajar'
                 ];
 
                 $config = [
                     'data' => $subjectdata,
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null],
+                    'columns' => [null, null, null, null, null],
                     'paging' => true,
                     'lengthMenu' => [10, 50, 100, 500]
                 ];
             } else {
                 $heads = [
+                    'No SK',
                     'Tanggal SK',
+                    'Kategori SK',
                     'NUPTK',
                     'Jabatan',
-                    'No SK',
-                    'Kategori SK',
-                    'Jumlah Ajr'
                 ];
 
                 $config = [
                     'data' => [],
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null],
+                    'columns' => [null, null, null, null, null],
                     'paging' => true,
                     'lengthMenu' => [10, 50, 100, 500]
                 ];
             }
-            return view('guru.show')->with(compact( 'guru', 'heads', 'config', 'result', 'jabatan', 'config_date'));
+            return view('guru.show')->with(compact( 'guru', 'heads', 'config', 'result', 'config_date'));
         }
         else {
             return redirect(route('kepsek.guru.index'))->with('alert-failed', 'Data tidak ditemukan');

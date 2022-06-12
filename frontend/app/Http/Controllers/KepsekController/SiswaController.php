@@ -154,9 +154,6 @@ class SiswaController extends Controller
         $kelas = json_decode($kelas->getBody());
         $kelas = $kelas->data;
 
-        $jeniswali = $client->request('GET', 'walisiswa/jeniswali/');
-        $jeniswali = json_decode($jeniswali->getBody());
-        $jeniswali = $jeniswali->data;
 
         $config_date = ['format' => 'YYYY-MM-DD'];
 
@@ -171,25 +168,8 @@ class SiswaController extends Controller
                 $result = $result->data;
                 $subjectdata = array();
 
+
                 foreach ($result as $resp){
-
-                    $btnEdit = view('components.button', [
-                        'method' => 'GET',
-                        'action' => route('admin.laporan_pembayaran.edit', $resp->id),
-                        'title' => 'Edit',
-                    'id' => 'edit',
-                    'onclick' => '',
-                        'icon' => 'fa fa-lg fa-fw fa-pen',
-                        'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
-
-                    $btnDelete = view('components.button', [
-                        'method' => 'GET',
-                        'action' => route('admin.laporan_pembayaran.destroy', $resp->id),
-                        'title' => 'Hapus',
-                    'id' => 'hapus',
-                    'onclick' => 'return confirm_delete()',
-                        'icon' => 'fa fa-lg fa-fw fa-trash',
-                        'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
                     $siswa = $client->request('GET', 'siswa/'.$resp->id_siswa);
                     $siswa = json_decode($siswa->getBody());
@@ -205,11 +185,11 @@ class SiswaController extends Controller
                         $jenis_pembayaran->jenis_pembayaran,
                         $jenis_pembayaran->nominal_pembayaran,
                         $resp->nominal_pembayaran,
-                        $resp->status_pembayaran
+                        $resp->status_pembayaran,
                     ];
                 }
 
-                $heads = [
+                $heads_pembayaran = [
                     'Tanggal Pembayaran',
                     'Nama Siswa',
                     'Jenis',
@@ -218,35 +198,35 @@ class SiswaController extends Controller
                     'Status Pembayaran',
                 ];
 
-                $config = [
+                $config_pembayaran = [
                     'data' => $subjectdata,
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null],
+                    'columns' => [null, null, null, null, null, ['orderable' => false]],
                     'paging' => true,
                     'lengthMenu' => [ 10, 50, 100, 500],
-                'language' => ['search' => 'Cari Data']
+                    'language' => ['search' => 'Cari Data']
                 ];
             } else {
-                $heads = [
+                $heads_pembayaran = [
                     'Tanggal Pembayaran',
                     'Nama Siswa',
                     'Jenis',
                     'Nominal Tagihan',
                     'Nominal Terbayar',
-                    'Status Pembayaran'
+                    'Status Pembayaran',
                 ];
 
-                $config = [
+                $config_pembayaran = [
                     'data' => [],
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null],
+                    'columns' => [null, null, null, null, null, ['orderable' => false]],
                     'paging' => true,
                     'lengthMenu' => [ 10, 50, 100, 500],
-                'language' => ['search' => 'Cari Data']
+                    'language' => ['search' => 'Cari Data']
                 ];
             }
 
-            return view('siswa.show')->with(compact('siswa', 'config', 'heads', 'walisiswa', 'kelas', 'jeniswali', 'config_date'));
+            return view('siswa.show')->with(compact('siswa', 'config_pembayaran', 'heads_pembayaran', 'walisiswa', 'kelas', 'config_date'));
         }
         else {
             return redirect(route('kepsek.siswa.index'))->with('alert-failed', 'Data tidak ditemukan');

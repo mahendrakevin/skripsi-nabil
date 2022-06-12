@@ -8,7 +8,6 @@
             {{ session('alert-failed') }}
         </x-adminlte-alert>
     @endif
-    <div class="row">
         <x-adminlte-card theme="cyan" theme-mode="outline" title="Arsip Surat Masuk">
             <div class="row">
                 @if (Auth::user()->role == '1')
@@ -27,8 +26,6 @@
                 @endforeach
             </x-adminlte-datatable>
         </x-adminlte-card>
-    </div>
-    <div class="row">
         <x-adminlte-card theme="teal" theme-mode="outline" title="Arsip Surat Keluar">
             <x-adminlte-datatable id="datasiswa2" :heads="$heads_keluar" :config="$config_keluar"  striped hoverable with-footer beautify>
                 @foreach($config['data'] as $row)
@@ -40,5 +37,4 @@
                 @endforeach
             </x-adminlte-datatable>
         </x-adminlte-card>
-    </div>
 </x-app-layout>

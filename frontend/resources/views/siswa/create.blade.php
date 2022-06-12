@@ -212,13 +212,24 @@
 			<div class="col-md-6">
 				<x-adminlte-card theme="lightblue" theme-mode="outline" title="Isi Data Wali">
 					<div class="row">
-						<x-adminlte-input name="jeniswali" label="Jenis Wali" placeholder="Ayah" fgroup-class="col-md-6" required />
+						<x-adminlte-select2 name="jeniswali" fgroup-class="col-md-6" label="Jenis Wali">
+							<x-slot name="prependSlot_ayah">
+								<div class="input-group-text bg-gradient-info">
+									<i class="fas fa-school"></i>
+								</div>
+							</x-slot>
+							<option value="Ayah Kandung">Ayah Kandung</option>
+							<option value="Ibu Kandung">Ibu Kandung</option>
+							<option value="Lainnya">Lainnya</option>
+						</x-adminlte-select2>
+						<!-- <x-adminlte-input name="jeniswali" label="Jenis Wali" placeholder="Ayah" fgroup-class="col-md-6" required /> -->
 						<x-adminlte-input name="nama_wali" label="Nama" placeholder="Alfa" fgroup-class="col-md-6" value="-" />
 					</div>
 					<div class="row">
-						<x-adminlte-textarea name="keterangan" fgroup-class="col-md-12" label="Keterangan" placeholder="Keterangan">-</x-adminlte-textarea>
+						<x-adminlte-textarea name="keterangan" fgroup-class="col-md-6" label="Keterangan" placeholder="Keterangan">-</x-adminlte-textarea>
+						<x-adminlte-textarea name="alamat_wali" value="-" fgroup-class="col-md-6" label="Alamat" placeholder="Masukkan alamat">-</x-adminlte-textarea>
 					</div>
-					<div class="row">
+					<!-- <div class="row">
 						<x-adminlte-input name="tempat_lahir_wali" label="Tempat Lahir" placeholder="Semarang" fgroup-class="col-md-6" value="-" />
 						<x-adminlte-input-date name="tanggal_lahir_wali" :config="$config_date" label="Tanggal Lahir" value="2022-04-18" placeholder="Choose a time..." fgroup-class="col-md-6">
 							<x-slot name="prependSlot_wali">
@@ -227,8 +238,8 @@
 								</div>
 							</x-slot>
 						</x-adminlte-input-date>
-					</div>
-					<div class="row">
+					</div> -->
+					<!-- <div class="row">
 						<x-adminlte-select2 name="pendidikan_wali" fgroup-class="col-md-6" label="Pendidikan Terakhir">
 							<x-slot name="prependSlot_wali">
 								<div class="input-group-text bg-gradient-info">
@@ -247,13 +258,12 @@
 							<option value="Tidak Bersekolah">Tidak Bersekolah</option>
 						</x-adminlte-select2>
 						<x-adminlte-input name="pekerjaan_wali" value="-" label="Pekerjaan" placeholder="PNS" fgroup-class="col-md-6" />
-					</div>
-					<div class="row">
+					</div> -->
+					<!-- <div class="row">
 						<x-adminlte-input name="penghasilan_wali" value="-" label="Penghasilan Perbulan" placeholder="124155151" type="number" fgroup-class="col-md-4" />
-					</div>
+					</div> -->
 					<div class="row">
 						<x-adminlte-input name="no_hp_wali" value="-" label="Nomor Handphone/Telp" placeholder="08123456789" type="number" fgroup-class="col-md-6" />
-						<x-adminlte-textarea name="alamat_wali" value="-" fgroup-class="col-md-6" label="Alamat" placeholder="Masukkan alamat">-</x-adminlte-textarea>
 					</div>
 				</x-adminlte-card>
 			</div>

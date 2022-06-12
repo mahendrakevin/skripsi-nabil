@@ -284,6 +284,11 @@ return [
                 'can'         => 'admin'
             ],
             [
+                'text'        => 'Jenis Pembayaran',
+                'route'         => 'admin.jenispembayaran.index',
+                'can'         => 'admin'
+            ],
+            [
                 'text'        => 'Siswa',
                 'route'         => 'admin.siswa.index',
                 'can'         => 'admin'
@@ -293,11 +298,6 @@ return [
                 'route'         => 'admin.siswa.index_alumni',
                 'can'         => 'admin'
             ],
-//            [
-//                'text'        => 'Jenis Pembayaran',
-//                'route'         => 'admin.jenispembayaran.index',
-//                'can'         => 'admin'
-//            ],
 //            [
 //                'text'        => 'Jenis Wali',
 //                'route'         => 'admin.jeniswali.index',
@@ -397,19 +397,19 @@ return [
                 ]
             ],
             [
-                'text'        => 'Laporan Pembayaran',
-                'route'         => 'bendahara.alokasi_dana.index',
-                'icon'        => 'far fas fa-money-bill-wave-alt',
-                'label_color' => 'success',
-                'can'         => 'bendahara'
-            ],
-            [
                 'text'        => 'Laporan Keuangan',
                 'route'         => 'bendahara.alokasi_dana.index',
                 'icon'        => 'far fas fa-hand-holding-usd',
                 'label_color' => 'success',
                 'can'         => 'bendahara'
             ],
+        [
+            'text'        => 'Pembayaran Siswa',
+            'route'         => 'bendahara.laporan_pembayaran.index',
+            'icon'        => 'far fas fa-money-bill-wave-alt',
+            'label_color' => 'success',
+            'can'         => 'bendahara'
+        ],
         // Kepala Sekolah
         [
             'text'        => 'Dashboard',

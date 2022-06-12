@@ -196,6 +196,8 @@ class SiswaController extends Controller
                         'method' => 'GET',
                         'action' => route('admin.siswa.siswanaik', $resp->id),
                         'title' => 'Pilih Siswa',
+                        'id' => 'pilihsiswa',
+                        'onclick' => '',
                         'icon' => 'fa fa-lg fa-fw fa-user',
                         'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
@@ -590,13 +592,6 @@ class SiswaController extends Controller
                 $result = $result->data;
                 $subjectdata = array();
 
-                $tahun = 3;
-                $tahunpelajaran = array();
-
-                for($i=0;$i<=$tahun;$i++){
-                    $result = DB::Select("SELECT CONCAT(extract('year' FROM CURRENT_DATE - INTERVAL '1 YEAR' + INTERVAL '".$i." YEAR'),'/',EXTRACT('year' FROM CURRENT_DATE + INTERVAL '".$i." YEAR')) AS TAHUN");
-                    $tahunpelajaran[] = $result[0]->tahun;
-                }
 
                 foreach ($result as $resp){
 
@@ -604,8 +599,8 @@ class SiswaController extends Controller
                         'method' => 'GET',
                         'action' => route('admin.laporan_pembayaran.edit', $resp->id),
                         'title' => 'Edit',
-                    'id' => 'edit',
-                    'onclick' => '',
+                        'id' => 'edit',
+                        'onclick' => '',
                         'icon' => 'fa fa-lg fa-fw fa-pen',
                         'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
 
@@ -613,8 +608,8 @@ class SiswaController extends Controller
                         'method' => 'GET',
                         'action' => route('admin.laporan_pembayaran.destroy', $resp->id),
                         'title' => 'Hapus',
-                    'id' => 'hapus',
-                    'onclick' => 'return confirm_delete()',
+                        'id' => 'hapus',
+                        'onclick' => 'return confirm_delete()',
                         'icon' => 'fa fa-lg fa-fw fa-trash',
                         'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
@@ -637,7 +632,7 @@ class SiswaController extends Controller
                     ];
                 }
 
-                $heads = [
+                $heads_pembayaran = [
                     'Tanggal Pembayaran',
                     'Nama Siswa',
                     'Jenis',
@@ -647,16 +642,16 @@ class SiswaController extends Controller
                     ['label' => 'Actions', 'no-export' => false, 'width' => 10],
                 ];
 
-                $config = [
+                $config_pembayaran = [
                     'data' => $subjectdata,
                     'order' => [[1, 'asc']],
                     'columns' => [null, null, null, null, null, null, ['orderable' => false]],
                     'paging' => true,
                     'lengthMenu' => [ 10, 50, 100, 500],
-                'language' => ['search' => 'Cari Data']
+                    'language' => ['search' => 'Cari Data']
                 ];
             } else {
-                $heads = [
+                $heads_pembayaran = [
                     'Tanggal Pembayaran',
                     'Nama Siswa',
                     'Jenis',
@@ -666,17 +661,17 @@ class SiswaController extends Controller
                     ['label' => 'Actions', 'no-export' => false, 'width' => 10],
                 ];
 
-                $config = [
+                $config_pembayaran = [
                     'data' => [],
                     'order' => [[1, 'asc']],
                     'columns' => [null, null, null, null, null, null, ['orderable' => false]],
                     'paging' => true,
                     'lengthMenu' => [ 10, 50, 100, 500],
-                'language' => ['search' => 'Cari Data']
+                    'language' => ['search' => 'Cari Data']
                 ];
             }
 
-            return view('siswa.show')->with(compact('siswa', 'config', 'heads', 'walisiswa', 'kelas', 'config_date', 'tahunpelajaran'));
+            return view('siswa.show')->with(compact('siswa', 'config_pembayaran', 'heads_pembayaran', 'walisiswa', 'kelas', 'config_date'));
         }
         else {
             return redirect(route('admin.siswa.index'))->with('alert-failed', 'Data tidak ditemukan');
