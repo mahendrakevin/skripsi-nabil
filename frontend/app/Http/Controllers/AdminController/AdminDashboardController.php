@@ -43,6 +43,7 @@ class AdminDashboardController extends Controller
                 $sarpras = $sarpras->data;
                 $subjectdata = array();
 
+
                 return view('dashboard.index')->with(compact('result',  'sk', 'jumlah_siswa','jumlah_alumni','jumlah_guru','jumlah_rombel','dana_masuk','dana_keluar','laporan_pembayaran','arsip_surat_masuk', 'arsip_surat_keluar', 'total_sarpras'));
             } else {
 

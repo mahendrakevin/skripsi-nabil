@@ -453,5 +453,22 @@ Route::group(['prefix' => 'bendahara', 'namespace' => 'App\Http\Controllers\Bend
         Route::get('/update/{id_jenispembayaran}', 'JenisPembayaranController@update')->name('bendahara.jenispembayaran.update')->middleware('bendahara');
         Route::get('/hapus/{id_jenispembayaran}', 'JenisPembayaranController@destroy')->name('bendahara.jenispembayaran.destroy')->middleware('bendahara');
     });
+
+    // Laporan Pembayaran Siswa
+    Route::group(['prefix' => 'laporan-pembayaran'], function () {
+        Route::get('/', 'LaporanPembayaranController@index')->name('bendahara.laporan_pembayaran.index')->middleware('bendahara');
+        Route::get('/{id_laporanpembayaran}', 'LaporanPembayaranController@show')->name('bendahara.laporan_pembayaran.show')->middleware('bendahara');
+        Route::post('/add', 'LaporanPembayaranController@create')->name('bendahara.laporan_pembayaran.create')->middleware('bendahara');
+        Route::get('/edit/{id_laporanpembayaran}', 'LaporanPembayaranController@edit')->name('bendahara.laporan_pembayaran.edit')->middleware('bendahara');
+        Route::post('/delete', 'LaporanPembayaranController@delete')->name('bendahara.laporan_pembayaran.delete')->middleware('bendahara');
+        Route::post('/', 'LaporanPembayaranController@store')->name('bendahara.laporan_pembayaran.store')->middleware('bendahara');
+        Route::get('/update/{id_laporanpembayaran}', 'LaporanPembayaranController@update')->name('bendahara.laporan_pembayaran.update')->middleware('bendahara');
+        Route::get('/hapus/{id_laporanpembayaran}', 'LaporanPembayaranController@destroy')->name('bendahara.laporan_pembayaran.destroy')->middleware('bendahara');
+    });
 });
 
+Auth::routes();
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
