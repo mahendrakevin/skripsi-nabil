@@ -126,13 +126,8 @@ async def add_walisiswa(db_session: AsyncSession, request: WaliSiswa) -> dict:
             new_walisiswa['pekerjaan_ibu'] = request.pekerjaan_ibu
             new_walisiswa['penghasilan_ibu'] = request.penghasilan_ibu
             new_walisiswa['nama_wali'] = request.nama_wali
-            new_walisiswa['tempat_lahir_wali'] = request.tempat_lahir_wali
-            new_walisiswa['tanggal_lahir_wali'] = request.tanggal_lahir_wali
             new_walisiswa['alamat_wali'] = request.alamat_wali
             new_walisiswa['no_hp_wali'] = request.no_hp_wali
-            new_walisiswa['pendidikan_wali'] = request.pendidikan_wali
-            new_walisiswa['pekerjaan_wali'] = request.pekerjaan_wali
-            new_walisiswa['penghasilan_wali'] = request.penghasilan_wali
             new_walisiswa['keterangan'] = request.keterangan
             new_walisiswa['id_siswa'] = request.id_siswa
             data_wali_siswa = generateQuery('data_wali_siswa', new_walisiswa)
@@ -195,13 +190,8 @@ async def edit_walisiswa(db_session: AsyncSession, request: WaliSiswa, id_siswa:
                 edit_walisiswa['pekerjaan_ibu'] = request.pekerjaan_ibu
                 edit_walisiswa['penghasilan_ibu'] = request.penghasilan_ibu
                 edit_walisiswa['nama_wali'] = request.nama_wali
-                edit_walisiswa['tempat_lahir_wali'] = request.tempat_lahir_wali
-                edit_walisiswa['tanggal_lahir_wali'] = request.tanggal_lahir_wali
                 edit_walisiswa['alamat_wali'] = request.alamat_wali
                 edit_walisiswa['no_hp_wali'] = request.no_hp_wali
-                edit_walisiswa['pendidikan_wali'] = request.pendidikan_wali
-                edit_walisiswa['pekerjaan_wali'] = request.pekerjaan_wali
-                edit_walisiswa['penghasilan_wali'] = request.penghasilan_wali
                 edit_walisiswa['keterangan'] = request.keterangan
                 data_wali_siswa = '''
                                 update data_wali_siswa set {0} where id_siswa = {1}
