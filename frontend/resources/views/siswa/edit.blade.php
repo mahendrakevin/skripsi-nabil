@@ -136,7 +136,7 @@
 							</x-adminlte-select2>
 						</div>
 						<div class="row">
-							<x-adminlte-input name="no_hp_ayah" label="Nomor Handphone/Telp" placeholder="08123456789" type="number" fgroup-class="col-md-6" value="{{ $walisiswa->no_hp_ayah }}" required />
+							<x-adminlte-input name="no_hp_ayah" label="Nomor Handphone/Telp" placeholder="08123456789" type="text" fgroup-class="col-md-6" value="{{ $walisiswa->no_hp_ayah }}" required />
 							<x-adminlte-textarea name="alamat_ayah" fgroup-class="col-md-6" label="Alamat" placeholder="Masukkan alamat">
 								{{ $walisiswa->alamat_ayah }}
 							</x-adminlte-textarea>
@@ -204,7 +204,7 @@
 
 						</div>
 						<div class="row">
-							<x-adminlte-input name="no_hp_ibu" label="Nomor Handphone/Telp" placeholder="08123456789" type="number" fgroup-class="col-md-6" value="{{ $walisiswa->no_hp_ibu }}" required />
+							<x-adminlte-input name="no_hp_ibu" label="Nomor Handphone/Telp" placeholder="08123456789" type="text" fgroup-class="col-md-6" value="{{ $walisiswa->no_hp_ibu }}" required />
 							<x-adminlte-textarea name="alamat_ibu" fgroup-class="col-md-6" label="Alamat" placeholder="Masukkan alamat">
 								{{ $walisiswa->alamat_ibu }}
 							</x-adminlte-textarea>
@@ -269,7 +269,7 @@
 {{--                            <x-adminlte-input name="penghasilan_wali" label="Penghasilan Perbulan" placeholder="124155151" type="number" fgroup-class="col-md-4" value="{{ $walisiswa->penghasilan_wali }}" />--}}
 {{--                        </div>--}}
                         <div class="row">
-                            <x-adminlte-input name="no_hp_wali" label="Nomor Handphone/Telp" placeholder="08123456789" type="number" fgroup-class="col-md-6" value="{{ $walisiswa->no_hp_wali }}" />
+                            <x-adminlte-input name="no_hp_wali" label="Nomor Handphone/Telp" placeholder="08123456789" type="text" fgroup-class="col-md-6" value="{{ $walisiswa->no_hp_wali }}" />
                         </div>
                     </x-adminlte-card>
                 </div>

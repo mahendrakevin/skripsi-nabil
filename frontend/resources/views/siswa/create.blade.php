@@ -133,7 +133,7 @@
 						<x-adminlte-input name="penghasilan_ayah" label="Penghasilan Perbulan" placeholder="124155151" type="number" fgroup-class="col-md-6" required />
 					</div>
 					<div class="row">
-						<x-adminlte-input name="no_hp_ayah" label="Nomor Handphone/Telp" placeholder="08123456789" type="number" fgroup-class="col-md-6" required />
+						<x-adminlte-input name="no_hp_ayah" label="Nomor Handphone/Telp" placeholder="08123456789" type="text" fgroup-class="col-md-6" required />
 						<x-adminlte-textarea name="alamat_ayah" fgroup-class="col-md-6" label="Alamat" placeholder="Masukkan alamat" />
 					</div>
 				</x-adminlte-card>
@@ -204,7 +204,7 @@
 						<x-adminlte-input name="penghasilan_ibu" label="Penghasilan Perbulan" placeholder="124155151" type="number" fgroup-class="col-md-6" required />
 					</div>
 					<div class="row">
-						<x-adminlte-input name="no_hp_ibu" label="Nomor Handphone/Telp" placeholder="08123456789" type="number" fgroup-class="col-md-6" required />
+						<x-adminlte-input name="no_hp_ibu" label="Nomor Handphone/Telp" placeholder="08123456789" type="text" fgroup-class="col-md-6" required />
 						<x-adminlte-textarea name="alamat_ibu" fgroup-class="col-md-6" label="Alamat" placeholder="Masukkan alamat" />
 					</div>
 				</x-adminlte-card>
@@ -263,7 +263,7 @@
 						<x-adminlte-input name="penghasilan_wali" value="-" label="Penghasilan Perbulan" placeholder="124155151" type="number" fgroup-class="col-md-4" />
 					</div> -->
 					<div class="row">
-						<x-adminlte-input name="no_hp_wali" value="-" label="Nomor Handphone/Telp" placeholder="08123456789" type="number" fgroup-class="col-md-6" />
+						<x-adminlte-input name="no_hp_wali" value="-" label="Nomor Handphone/Telp" placeholder="08123456789" type="text" fgroup-class="col-md-6" />
 					</div>
 				</x-adminlte-card>
 			</div>
