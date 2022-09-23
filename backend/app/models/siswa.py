@@ -39,6 +39,7 @@ class StatusPembayaran(Base):
     nominal_pembayaran = Column(BigInteger)
     status_pembayaran = Column(String(20))
     tanggal_pembayaran = Column(Date)
+    keterangan = Column(Text)
     created = Column(DateTime, server_default=func.now())
     updated = Column(DateTime, server_default=func.now(), server_onupdate=func.now())
     _laporan_pembayaran = relationship("LaporanPembayaran", uselist=False, back_populates="owner")

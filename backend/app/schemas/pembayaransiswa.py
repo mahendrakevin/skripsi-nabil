@@ -8,3 +8,4 @@ class PembayaranSiswa(BaseModel):
     status_pembayaran: Optional[str]
     id_jenispembayaran: Optional[StrictInt]
     tanggal_pembayaran: Optional[str]
+    keterangan: Optional[str]
