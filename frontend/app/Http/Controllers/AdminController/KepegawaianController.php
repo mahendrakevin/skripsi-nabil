@@ -127,6 +127,8 @@ class KepegawaianController extends Controller
 
         if ($request->jabatan == null){
             $jabatan = '';
+        } else {
+            $jabatan = $request->jabatan;
         }
 
         $kepegawaian = $client->request('POST', 'guru/kepegawaian/tambah',[

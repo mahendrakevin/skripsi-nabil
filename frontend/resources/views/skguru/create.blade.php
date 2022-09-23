@@ -18,7 +18,7 @@
             </div>
             <div class="row">
                 <x-adminlte-input name="no_sk" label="Nomor SK" placeholder="1277471818"
-                                  fgroup-class="col-md-4" type="number" required/>
+                                  fgroup-class="col-md-4" type="text" required/>
                 <x-adminlte-select2 name="kategori_sk" fgroup-class="col-md-4" id="kategori_sk" label="Pilih Kategori SK">
                     <option value="SK Yayasan">SK Yayasan</option>
                     <option value="SK YPMNU">SK YPMNU</option>
