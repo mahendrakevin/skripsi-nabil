@@ -9,9 +9,9 @@
         </x-adminlte-alert>
     @endif
     <x-adminlte-card theme="lime" theme-mode="outline">
-        @if (Auth::user()->role == '1')
-            <x-submit-button method="POST" action="{{ route('admin.jenispembayaran.create') }}"
-                         theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
+        @if (Auth::user()->role == '2')
+            <x-submit-button method="POST" action="{{ route('bendahara.jenispembayaran.create') }}"
+                             theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
         @endif
         <x-adminlte-datatable id="datakelas" :heads="$heads" :config="$config"  striped hoverable with-footer beautify>
             @foreach($config['data'] as $row)

@@ -37,6 +37,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\AdminCon
         Route::get('/change-status/{id_siswa}/{status}', 'SiswaController@change_status')->name('admin.siswa.change_status')->middleware('admin');
         Route::get('/update/{id_siswa}', 'SiswaController@update')->name('admin.siswa.update')->middleware('admin');
         Route::get('/hapus/{id_siswa}', 'SiswaController@destroy')->name('admin.siswa.destroy')->middleware('admin');
+
+        Route::post('/cetak/', 'SiswaController@cetak')->name('admin.siswa.cetak')->middleware('admin');
     });
 
     // Pendaftaran Siswa
@@ -58,6 +60,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'App\Http\Controllers\AdminCon
         Route::post('/', 'GuruController@store')->name('admin.guru.store')->middleware('admin');
         Route::get('/update/{id_guru}', 'GuruController@update')->name('admin.guru.update')->middleware('admin');
         Route::get('/hapus/{id_guru}', 'GuruController@destroy')->name('admin.guru.destroy')->middleware('admin');
+
+        Route::post('/cetak/', 'GuruController@cetak')->name('admin.guru.cetak')->middleware('admin');
     });
 
     // Kepegawaian
@@ -466,8 +470,3 @@ Route::group(['prefix' => 'bendahara', 'namespace' => 'App\Http\Controllers\Bend
     });
 });
 
-Auth::routes();
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

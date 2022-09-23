@@ -221,12 +221,6 @@ class AlokasiDanaController extends Controller
     }
 
     public function store_masuk(Request $request){
-        $validatedData = $request->validate([
-            'lampiran' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048'
-        ]);
-
-        $path = $request->file('lampiran')->store('public/files');
-
 
         $client = new Client(['base_uri' => env('API_HOST')]);
         $resp = $client->request('POST', 'dana/masuk/tambah',[
@@ -238,7 +232,7 @@ class AlokasiDanaController extends Controller
                     'tanggal' => $request->tanggal,
                     'id_sumberdana' => (int)$request->id_sumberdana,
                     'nominal_dana' => (int)$request->nominal_dana,
-                    'lampiran' => $path
+                    'lampiran' => '-'
                 ]
             ]
         );

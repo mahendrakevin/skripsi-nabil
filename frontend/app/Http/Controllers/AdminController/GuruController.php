@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\AdminController;
 
+use App\Exports\GuruExport;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class GuruController extends Controller
 {
@@ -48,7 +50,7 @@ class GuruController extends Controller
 
                 $subjectdata[] = [
                     $resp->nip,
-                    $resp->nuptk,
+                    (string)$resp->nuptk,
                     $resp->nama_guru,
                     $resp->jenis_kelamin,
                     $resp->status_pegawai,
@@ -104,6 +106,21 @@ class GuruController extends Controller
         $config_date = ['format' => 'YYYY-MM-DD'];
 
         return view('guru.create')->with(compact('config_date'));
+    }
+
+    public function cetak(){
+//        $siswa = DB::Select("SELECT nisn, nis, nama_siswa, tempat_lahir, tanggal_lahir as tanggal_lahir_siswa, jenis_kelamin, nik AS nik_siswa,
+//                                   nama_kelas, tingkat AS tingkat_kelas, status_siswa, nomor_kip, alamat, nomor_kk,
+//                                   jenis_wali, nama_ayah, nik_ayah, tempat_lahir_ayah, tanggal_lahir_ayah, alamat_ayah, status_keluarga_ayah,
+//                                   status_hidup_ayah as status_ayah, no_hp_ayah, pendidikan_ayah, pekerjaan_ayah, penghasilan_ayah,
+//                                   nama_ibu, nik_ibu, tempat_lahir_ibu, tanggal_lahir_ibu, alamat_ibu, status_keluarga_ibu,
+//                                   status_hidup_ibu as status_ibu, no_hp_ibu, pendidikan_ibu, pekerjaan_ibu, penghasilan_ibu,
+//                                   nama_wali, keterangan, alamat as alamat_wali, no_hp_wali, nomor_kks, nomor_pkh FROM data_siswa ds
+//                            INNER JOIN data_kelas dk on ds.id_kelas = dk.id
+//                            INNER JOIN data_wali_siswa dws on ds.id = dws.id_siswa");
+
+
+        return Excel::download(new GuruExport, 'guru.xlsx');
     }
 
     public function store(Request $request){

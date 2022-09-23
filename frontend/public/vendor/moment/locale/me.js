@@ -19,7 +19,7 @@
             mm: ['minut', 'minuta', 'minuta'],
             h: ['jedan sat', 'jednog sata'],
             hh: ['sat', 'sata', 'sati'],
-            dd: ['dan', 'alokasidana', 'alokasidana'],
+            dd: ['dan', 'dana', 'dana'],
             MM: ['mjesec', 'mjeseca', 'mjeseci'],
             yy: ['godina', 'godine', 'godina'],
         },

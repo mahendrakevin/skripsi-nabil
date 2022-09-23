@@ -188,7 +188,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -392,6 +392,11 @@ return [
                 [
                     'text'        => 'Jenis Pengeluaran',
                     'route'       => 'bendahara.jenis_pengeluaran.index',
+                    'can'         => 'bendahara'
+                ],
+                [
+                    'text'        => 'Jenis Pembayaran Siswa',
+                    'route'       => 'bendahara.jenispembayaran.index',
                     'can'         => 'bendahara'
                 ],
                 ]

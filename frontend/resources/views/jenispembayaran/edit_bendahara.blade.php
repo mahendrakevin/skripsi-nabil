@@ -1,6 +1,6 @@
 @section('plugins.Select2', true)
 <x-app-layout title="Edit Jenis Pembayaran">
-    <x-form method="GET" action="{{ route('admin.jenispembayaran.update', $jenispembayaran->id) }}">
+    <x-form method="GET" action="{{ route('bendahara.jenispembayaran.update', $jenispembayaran->id) }}">
         <x-adminlte-card theme="info" theme-mode="info" title="Isi Data Jenis Pembayaran">
             <div class="row">
                 <x-adminlte-input name="jenis_pembayaran" label="Jenis Pembayaran" placeholder="Kelas A"

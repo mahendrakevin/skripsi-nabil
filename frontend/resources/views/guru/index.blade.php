@@ -10,8 +10,14 @@
     @endif
     <x-adminlte-card theme="lime" theme-mode="outline">
         @if (Auth::user()->role == '1')
-            <x-submit-button method="POST" action="{{route('admin.guru.create')}}"
-                         theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
+            <div class="row">
+                <div class="col-md-12">
+                    <x-submit-button method="POST" action="{{route('admin.guru.create')}}"
+                                 theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
+                    <x-submit-button method="POST" action="{{route('admin.guru.cetak')}}" theme="success" label="Export Excel" icon="fas fa-download" type="submit"></x-submit-button>
+                </div>
+            </div>
+            <br>
         @endif
         <x-adminlte-datatable id="datasiswa" :heads="$heads" :config="$config" with-buttons striped hoverable with-footer beautify>
             @foreach($config['data'] as $row)

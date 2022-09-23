@@ -63,6 +63,7 @@ class ArsipSuratController extends Controller
 
             foreach ($result as $resp){
 
+                $path = asset('files/'. $resp->lampiran);
                 $subjectdata[] = [
                     $resp->id,
                     $resp->nama_surat,
@@ -70,7 +71,7 @@ class ArsipSuratController extends Controller
                     $resp->tanggal_surat,
                     $resp->jenis_surat,
                     $resp->keterangan,
-                    $resp->lampiran
+                    '<a href="'.$path.'" class="btn btn-info">Lampiran</a>',
                 ];
             }
 
@@ -99,7 +100,7 @@ class ArsipSuratController extends Controller
             $subjectdata2 = array();
 
             foreach ($keluar as $resp){
-
+                $path = asset('files/'. $resp->lampiran);
                 $subjectdata2[] = [
                     $resp->id,
                     $resp->nama_surat,
@@ -107,7 +108,7 @@ class ArsipSuratController extends Controller
                     $resp->tanggal_surat,
                     $resp->jenis_surat,
                     $resp->keterangan,
-                    $resp->lampiran
+                    '<a href="'.$path.'" class="btn btn-info">Lampiran</a>',
                 ];
             }
             $heads_keluar = [

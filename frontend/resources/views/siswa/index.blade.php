@@ -14,7 +14,8 @@
 			<div class="col-md-12">
 				<x-submit-button method="POST" action="{{route('admin.siswa.create')}}" theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
 				<x-submit-button method="GET" action="{{route('admin.siswa.naikkelas')}}" theme="info" label="Naik/Luluskan Siswa" icon="fas fa-plus" type="submit"></x-submit-button>
-			</div>
+                <x-submit-button method="POST" action="{{route('admin.siswa.cetak')}}" theme="success" label="Export Excel" icon="fas fa-download" type="submit"></x-submit-button>
+            </div>
 		</div>
 		<br>
 		@endif

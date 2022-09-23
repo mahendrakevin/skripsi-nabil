@@ -29,7 +29,7 @@
             <x-adminlte-button class="btn-flat" type="submit" label="Simpan" theme="success" icon="fas fa-lg fa-save"/>
 
         </x-form>
-    @elseif(Auth::user()->role == '2')
+    @elseif(Auth::user()->role == '2' || Auth::user()->role == '3')
         <x-form method="GET" enctype="multipart/form-data" action="{{ route('bendahara.alokasi_dana.update_masuk', $danamasuk->id) }}">
             <x-adminlte-card theme="lime" theme-mode="outline" title="Detail Dana Masuk">
                 <div class="row">

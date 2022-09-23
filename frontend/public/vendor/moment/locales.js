@@ -1755,7 +1755,7 @@
                 if (number === 1) {
                     result += 'dan';
                 } else {
-                    result += 'alokasidana';
+                    result += 'dana';
                 }
                 return result;
             case 'MM':
@@ -5396,7 +5396,7 @@
                 if (number === 1) {
                     result += 'dan';
                 } else {
-                    result += 'alokasidana';
+                    result += 'dana';
                 }
                 return result;
             case 'MM':
@@ -7363,7 +7363,7 @@
             mm: ['minut', 'minuta', 'minuta'],
             h: ['jedan sat', 'jednog sata'],
             hh: ['sat', 'sata', 'sati'],
-            dd: ['dan', 'alokasidana', 'alokasidana'],
+            dd: ['dan', 'dana', 'dana'],
             MM: ['mjesec', 'mjeseca', 'mjeseci'],
             yy: ['godina', 'godine', 'godina'],
         },
@@ -10090,7 +10090,7 @@
             mm: ['minut', 'minute', 'minuta'],
             h: ['jedan sat', 'jednog sata'],
             hh: ['sat', 'sata', 'sati'],
-            dd: ['dan', 'alokasidana', 'alokasidana'],
+            dd: ['dan', 'dana', 'dana'],
             MM: ['mesec', 'meseca', 'meseci'],
             yy: ['godina', 'godine', 'godina'],
         },

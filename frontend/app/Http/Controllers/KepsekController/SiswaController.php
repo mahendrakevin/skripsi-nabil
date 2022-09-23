@@ -5,6 +5,7 @@ namespace App\Http\Controllers\KepsekController;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SiswaController extends Controller
 {
@@ -29,10 +30,14 @@ class SiswaController extends Controller
                     'icon' => 'fa fa-lg fa-fw fa-eye',
                     'class' => 'btn btn-xs btn-default text-teal mx-1 shadow']);
 
+                $kelas = DB::Select("SELECT nama_kelas, tingkat FROM data_kelas WHERE id = " . (int)$resp->id_kelas);
+
+
                 $subjectdata[] = [
-                    $resp->nis,
-                    $resp->nisn,
+                    (string)$resp->nis,
+                    (string)$resp->nisn,
                     $resp->nama_siswa,
+                    $kelas[0]->nama_kelas.' '.$kelas[0]->tingkat,
                     $resp->jenis_kelamin,
                     $resp->status_siswa,
                     '<nobr>'.$btnShow.'</nobr>'
@@ -43,6 +48,7 @@ class SiswaController extends Controller
                 'NIS',
                 'NISN',
                 'Nama',
+                'Rombel',
                 'Jenis Kelamin',
                 'Status Siswa',
                 ['label' => 'Actions', 'no-export' => false, 'width' => 10],
@@ -51,7 +57,7 @@ class SiswaController extends Controller
             $config = [
                 'data' => $subjectdata,
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500],
                 'language' => ['search' => 'Cari Data']
@@ -63,6 +69,7 @@ class SiswaController extends Controller
                 'NIS',
                 'NISN',
                 'Nama',
+                'Rombel',
                 'Jenis Kelamin',
                 'Status Siswa',
                 ['label' => 'Actions', 'no-export' => false, 'width' => 10],
@@ -71,7 +78,7 @@ class SiswaController extends Controller
             $config = [
                 'data' => [],
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500],
                 'language' => ['search' => 'Cari Data']
@@ -94,8 +101,8 @@ class SiswaController extends Controller
             foreach ($result as $resp){
 
                 $subjectdata[] = [
-                    $resp->nis,
-                    $resp->nisn,
+                    (string)$resp->nis,
+                    (string)$resp->nisn,
                     $resp->nama_siswa,
                     $resp->jenis_kelamin,
                     $resp->status_siswa
