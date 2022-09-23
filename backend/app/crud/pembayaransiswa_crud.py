@@ -150,6 +150,7 @@ async def add_pembayaransiswa(db_session: AsyncSession, request: PembayaranSiswa
             new_pembayaransiswa['status_pembayaran'] = request.status_pembayaran
             new_pembayaransiswa['id_jenispembayaran'] = request.id_jenispembayaran
             new_pembayaransiswa['tanggal_pembayaran'] = request.tanggal_pembayaran
+            new_pembayaransiswa['keterangan'] = request.keterangan
             status_pembayaran = generateQuery('status_pembayaran', new_pembayaransiswa)
             logging.debug(f'query : {status_pembayaran}')
             await session.execute(status_pembayaran)
@@ -190,6 +191,7 @@ async def edit_pembayaransiswa(db_session: AsyncSession, request: PembayaranSisw
                 edit_pembayaransiswa['status_pembayaran'] = request.status_pembayaran
                 edit_pembayaransiswa['id_jenispembayaran'] = request.id_jenispembayaran
                 edit_pembayaransiswa['tanggal_pembayaran'] = request.tanggal_pembayaran
+                edit_pembayaransiswa['keterangan'] = request.keterangan
                 status_pembayaran = '''
                                 update status_pembayaran set {0} where id = {1}
                             '''.format(generateQueryUpdate(edit_pembayaransiswa), id_laporanpembayaran)
