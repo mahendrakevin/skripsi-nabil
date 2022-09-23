@@ -11,7 +11,7 @@ class WaliSiswa(BaseModel):
     alamat_ayah: Optional[str]
     status_keluarga_ayah: Optional[str]
     status_hidup_ayah: Optional[str]
-    no_hp_ayah: Optional[StrictInt]
+    no_hp_ayah: Optional[str]
     pendidikan_ayah: Optional[str]
     pekerjaan_ayah: Optional[str]
     penghasilan_ayah: Optional[StrictInt]
@@ -25,7 +25,7 @@ class WaliSiswa(BaseModel):
     alamat_ibu: Optional[str]
     status_keluarga_ibu: Optional[str]
     status_hidup_ibu: Optional[str]
-    no_hp_ibu: Optional[StrictInt]
+    no_hp_ibu: Optional[str]
     pendidikan_ibu: Optional[str]
     pekerjaan_ibu: Optional[str]
     penghasilan_ibu: Optional[StrictInt]
@@ -35,7 +35,7 @@ class WaliSiswa(BaseModel):
     tempat_lahir_wali: Optional[str] = '2000-01-01'
     tanggal_lahir_wali: Optional[str] = '-'
     alamat_wali: Optional[str] = '-'
-    no_hp_wali: Optional[StrictInt] = 0
+    no_hp_wali: Optional[str] = '0'
     pendidikan_wali: Optional[str] = '-'
     pekerjaan_wali: Optional[str] = '-'
     penghasilan_wali: Optional[StrictInt]
