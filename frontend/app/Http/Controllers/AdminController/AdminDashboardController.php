@@ -21,6 +21,7 @@ class AdminDashboardController extends Controller
         $arsip_surat_masuk = DB::Select("SELECT COUNT(1) FROM arsip_surat WHERE jenis_surat = 'Masuk'");
         $arsip_surat_keluar = DB::Select("SELECT COUNT(1) FROM arsip_surat WHERE jenis_surat = 'Keluar'");
         $total_sarpras = DB::Select("SELECT COUNT(1) FROM sarana_prasarana");
+        $total_ruang = DB::Select("SELECT COUNT(1) FROM aset");
 
         $client = new Client(['base_uri' => env('API_HOST')]);
         $resp = $client->request('GET', 'lembaga/1');
@@ -44,10 +45,10 @@ class AdminDashboardController extends Controller
                 $subjectdata = array();
 
 
-                return view('dashboard.index')->with(compact('result',  'sk', 'jumlah_siswa','jumlah_alumni','jumlah_guru','jumlah_rombel','dana_masuk','dana_keluar','laporan_pembayaran','arsip_surat_masuk', 'arsip_surat_keluar', 'total_sarpras'));
+                return view('dashboard.index')->with(compact('result',  'sk', 'total_ruang', 'jumlah_siswa','jumlah_alumni','jumlah_guru','jumlah_rombel','dana_masuk','dana_keluar','laporan_pembayaran','arsip_surat_masuk', 'arsip_surat_keluar', 'total_sarpras'));
             } else {
 
-                return view('dashboard.index')->with(compact( 'result', 'sk', 'jumlah_siswa','jumlah_alumni','jumlah_guru','jumlah_rombel','dana_masuk','dana_keluar','laporan_pembayaran','arsip_surat_masuk', 'arsip_surat_keluar', 'total_sarpras'));
+                return view('dashboard.index')->with(compact( 'result', 'sk', 'total_ruang', 'jumlah_siswa','jumlah_alumni','jumlah_guru','jumlah_rombel','dana_masuk','dana_keluar','laporan_pembayaran','arsip_surat_masuk', 'arsip_surat_keluar', 'total_sarpras'));
 
             }
         } else {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminController;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ArsipSuratController extends Controller
 {
@@ -14,8 +15,8 @@ class ArsipSuratController extends Controller
         $resp = $client->request('GET', 'arsipsurat/masuk/');
         $result = json_decode($resp->getBody());
 
-        $keluar = $client->request('GET', 'arsipsurat/keluar/');
-        $keluar = json_decode($keluar->getBody());
+        $resp2 = $client->request('GET', 'arsipsurat/keluar/');
+        $keluar = json_decode($resp2->getBody());
 
         $heads = [
             ['label' => 'ID Jenis Pembayaran', 'no-export' => false, 'width' => 10],
@@ -81,6 +82,7 @@ class ArsipSuratController extends Controller
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
+                $path = asset('files/'. $resp->lampiran);
                 $subjectdata[] = [
                     $resp->id,
                     $resp->nama_surat,
@@ -88,7 +90,7 @@ class ArsipSuratController extends Controller
                     $resp->tanggal_surat,
                     $resp->jenis_surat,
                     $resp->keterangan,
-                    $resp->lampiran,
+                    '<a href="'.$path.'" class="active btn btn-info">Lampiran</a>',
                     '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
                 ];
             }
@@ -136,7 +138,7 @@ class ArsipSuratController extends Controller
                     'onclick' => 'return confirm_delete()',
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
-
+                $path = asset('files/'. $resp->lampiran);
                 $subjectdata2[] = [
                     $resp->id,
                     $resp->nama_surat,
@@ -144,7 +146,7 @@ class ArsipSuratController extends Controller
                     $resp->tanggal_surat,
                     $resp->jenis_surat,
                     $resp->keterangan,
-                    $resp->lampiran,
+                    '<a href="'.$path.'" class="btn btn-info">Lampiran</a>',
                     '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
                 ];
             }
@@ -184,7 +186,7 @@ class ArsipSuratController extends Controller
             'lampiran' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048'
         ]);
 
-        $path = $request->file('lampiran')->store('public/files');
+        $path = $request->file('lampiran')->store('arsipsurat');
         $client = new Client(['base_uri' => env('API_HOST')]);
         $resp = $client->request('POST', 'arsipsurat/tambah',[
                 'headers' => [

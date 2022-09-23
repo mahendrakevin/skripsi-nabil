@@ -29,7 +29,7 @@
                                         <p>Total Dana Masuk</p>
                                     </div>
                                     <div class="icon">
-                                        <i class="fa fa-school"></i>
+                                        <i class="fa fa-money-bill"></i>
                                     </div>
                                     <a href="#" class="small-box-footer">
                                         Selengkapnya <i class="fas fa-arrow-circle-right"></i>
@@ -45,7 +45,7 @@
                                         <p>Total Pengeluaran</p>
                                     </div>
                                     <div class="icon">
-                                        <i class="fa fa-users"></i>
+                                        <i class="fa fa-coins"></i>
                                     </div>
                                     <a href="#" class="small-box-footer">
                                         Selengkapnya <i class="fas fa-arrow-circle-right"></i>
@@ -89,20 +89,14 @@
         <div class="row">
 
             @if (Auth::user()->role == '1')
-                <div class="col-md-1">
                     <x-submit-button method="POST" action="{{route('admin.alokasi_dana.create_masuk')}}"
                                      theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
-                </div>
-                <div class="col-md-1">
                     <x-submit-button method="POST" action="{{route('admin.alokasi_dana.create_keluar')}}"
                                      theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
-                </div>
             @elseif(Auth::user()->role == '2')
-                <div class="col-md-1">
+                <div class="col-md-12">
                     <x-submit-button method="POST" action="{{route('bendahara.alokasi_dana.create_masuk')}}"
                                      theme="success" label="Tambah Dana Masuk" icon="fas fa-plus" type="submit"></x-submit-button>
-                </div>
-                <div class="col-md-1">
                     <x-submit-button method="POST" action="{{route('bendahara.alokasi_dana.create_keluar')}}"
                                      theme="danger" label="Tambah Dana Keluar" icon="fas fa-plus" type="submit"></x-submit-button>
                 </div>

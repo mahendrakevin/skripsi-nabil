@@ -18,43 +18,41 @@ class JenisPembayaranController extends Controller
             $subjectdata = array();
 
             foreach ($result as $resp){
-                $btnEdit = view('components.Button', [
-                    'method' => 'GET',
-                    'action' => route('admin.jenispembayaran.edit', $resp->id),
-                    'title' => 'Edit',
-                    'id' => 'edit',
-                    'onclick' => '',
-                    'icon' => 'fa fa-lg fa-fw fa-pen',
-                    'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
-
-                $btnDelete = view('components.Button', [
-                    'method' => 'GET',
-                    'action' => route('admin.jenispembayaran.destroy', $resp->id),
-                    'title' => 'Hapus',
-                    'id' => 'hapus',
-                    'onclick' => 'return confirm_delete()',
-                    'icon' => 'fa fa-lg fa-fw fa-trash',
-                    'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
+//                $btnEdit = view('components.Button', [
+//                    'method' => 'GET',
+//                    'action' => route('admin.jenispembayaran.edit', $resp->id),
+//                    'title' => 'Edit',
+//                    'id' => 'edit',
+//                    'onclick' => '',
+//                    'icon' => 'fa fa-lg fa-fw fa-pen',
+//                    'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
+//
+//                $btnDelete = view('components.Button', [
+//                    'method' => 'GET',
+//                    'action' => route('admin.jenispembayaran.destroy', $resp->id),
+//                    'title' => 'Hapus',
+//                    'id' => 'hapus',
+//                    'onclick' => 'return confirm_delete()',
+//                    'icon' => 'fa fa-lg fa-fw fa-trash',
+//                    'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
                 $subjectdata[] = [
                     $resp->id,
                     $resp->jenis_pembayaran,
-                    $resp->nominal_pembayaran,
-                    '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
+                    $resp->nominal_pembayaran
                 ];
             }
 
             $heads = [
                 ['label' => 'ID Jenis Pembayaran', 'no-export' => false, 'width' => 10],
                 'Jenis Pembayaran',
-                'Nominal Pembayaran',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                'Nominal Pembayaran'
             ];
 
             $config = [
                 'data' => $subjectdata,
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, ['orderable' => false]],
+                'columns' => [null, null, ['orderable' => false]],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500],
                 'language' => ['search' => 'Cari Data']
@@ -66,14 +64,13 @@ class JenisPembayaranController extends Controller
             $heads = [
                 ['label' => 'ID Jenis Pembayaran', 'no-export' => false, 'width' => 10],
                 'Jenis Pembayaran',
-                'Nominal Pembayaran',
-                ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                'Nominal Pembayaran'
             ];
 
             $config = [
                 'data' => [],
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, ['orderable' => false]],
+                'columns' => [null, null, ['orderable' => false]],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500],
                 'language' => ['search' => 'Cari Data']

@@ -173,7 +173,7 @@
                     <!-- small card -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>{{ $arsip_surat_keluar[0]->count }}</h3>
+                            <h3>{{ $total_ruang[0]->count }}</h3>
 
                             <p>Jumlah Ruang</p>
                         </div>

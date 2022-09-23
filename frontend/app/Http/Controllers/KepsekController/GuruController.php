@@ -29,7 +29,7 @@ class GuruController extends Controller
 
                 $subjectdata[] = [
                     $resp->nip,
-                    $resp->nuptk,
+                    (string)$resp->nuptk,
                     $resp->nama_guru,
                     $resp->jenis_kelamin,
                     '<nobr>'.$btnShow.'</nobr>'

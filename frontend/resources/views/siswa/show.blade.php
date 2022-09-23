@@ -91,7 +91,7 @@
                 <div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
                     <div class="row">
                         <div class="col-md-12">
-                            @if (Auth::user()->role == '1')
+                            @if (Auth::user()->role == '2')
                                 <x-submit-button method="POST" action="{{route('admin.laporan_pembayaran.create')}}"
                                                  theme="success" label="Tambah Data" icon="fas fa-plus" type="submit"></x-submit-button>
                             @endif

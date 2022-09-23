@@ -85,7 +85,7 @@ class JenisPembayaranController extends Controller
     public function create(){
         $config_date = ['format' => 'YYYY-MM-DD'];
 
-        return view('jenispembayaran.create')->with(compact('config_date'));
+        return view('jenispembayaran.create_bendahara')->with(compact('config_date'));
     }
 
     public function store(Request $request){
@@ -117,7 +117,7 @@ class JenisPembayaranController extends Controller
 
         if($jenispembayaran->message_id == '00'){
             $jenispembayaran = $jenispembayaran->data;
-            return view('jenispembayaran.edit')->with(compact( 'jenispembayaran'));
+            return view('jenispembayaran.edit_bendahara')->with(compact( 'jenispembayaran'));
         }
         else {
             return redirect(route('bendahara.kelas.index'))->with('alert-failed', 'Data tidak ditemukan');

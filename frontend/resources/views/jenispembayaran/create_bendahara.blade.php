@@ -1,14 +1,14 @@
 @section('plugins.Select2', true)
-<x-app-layout title="Edit Jenis Pembayaran">
-    <x-form method="GET" action="{{ route('admin.jenispembayaran.update', $jenispembayaran->id) }}">
+<x-app-layout title="Tambah Jenis Pembayaran">
+    <x-form method="POST" action="{{ route('bendahara.jenispembayaran.store') }}">
         <x-adminlte-card theme="info" theme-mode="info" title="Isi Data Jenis Pembayaran">
             <div class="row">
-                <x-adminlte-input name="jenis_pembayaran" label="Jenis Pembayaran" placeholder="Kelas A"
-                                  fgroup-class="col-md-4" value="{{ $jenispembayaran->jenis_pembayaran }}" type="text" required/>
+                <x-adminlte-input name="jenis_pembayaran" label="Jenis Pembayaran" placeholder="SPP"
+                                  fgroup-class="col-md-4" type="text" required/>
             </div>
             <div class="row">
-                <x-adminlte-input name="nominal_pembayaran" label="Nominal Pembayaran" placeholder="40"
-                                  fgroup-class="col-md-4" value="{{ $jenispembayaran->nominal_pembayaran }}" type="number" required/>
+                <x-adminlte-input name="nominal_pembayaran" label="Nominal Pembayaran" placeholder="120000"
+                                  fgroup-class="col-md-4" type="number" required/>
             </div>
         </x-adminlte-card>
         <x-adminlte-modal id="modalCustom" title="Konfirmasi Simpan" size="lg" theme="teal"

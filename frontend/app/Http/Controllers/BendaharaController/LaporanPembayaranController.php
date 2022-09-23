@@ -54,6 +54,7 @@ class LaporanPembayaranController extends Controller
                     $jenis_pembayaran->nominal_pembayaran,
                     $resp->nominal_pembayaran,
                     $resp->status_pembayaran,
+                    $resp->keterangan,
                     '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
                 ];
             }
@@ -143,7 +144,8 @@ class LaporanPembayaranController extends Controller
                     'id_jenispembayaran' => (int)$request->id_jenispembayaran,
                     'nominal_pembayaran' => (int)$request->nominal_pembayaran,
                     'status_pembayaran' => $status_pembayaran,
-                    'tanggal_pembayaran' => $request->tanggal_pembayaran
+                    'tanggal_pembayaran' => $request->tanggal_pembayaran,
+                    'keterangan' => $request->keterangan,
                 ]
             ]
         );
@@ -233,7 +235,8 @@ class LaporanPembayaranController extends Controller
                     'id_jenispembayaran' => (int)$request->id_jenispembayaran,
                     'nominal_pembayaran' => (int)$request->nominal_pembayaran,
                     'status_pembayaran' => $status_pembayaran,
-                    'tanggal_pembayaran' => $request->tanggal_pembayaran
+                    'tanggal_pembayaran' => $request->tanggal_pembayaran,
+                    'keterangan' => $request->keterangan,
                 ]
             ]
         );

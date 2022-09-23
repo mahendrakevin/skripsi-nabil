@@ -28,6 +28,7 @@
                         </div>
                     </x-slot>
                 </x-adminlte-input-date>
+                <x-adminlte-textarea name="keterangan" fgroup-class="col-md-6" value="{{ $laporan_pembayaran->keterangan }}" label="Keterangan" placeholder="Keterangan">-</x-adminlte-textarea>
             </div>
             </div>
         </x-adminlte-card>

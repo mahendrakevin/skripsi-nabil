@@ -24,6 +24,7 @@
                         </div>
                     </x-slot>
                 </x-adminlte-input-date>
+                <x-adminlte-textarea name="keterangan" fgroup-class="col-md-6" label="Keterangan" placeholder="Keterangan">-</x-adminlte-textarea>
             </div>
             </div>
         </x-adminlte-card>

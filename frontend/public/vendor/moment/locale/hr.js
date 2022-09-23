@@ -49,7 +49,7 @@
                 if (number === 1) {
                     result += 'dan';
                 } else {
-                    result += 'alokasidana';
+                    result += 'dana';
                 }
                 return result;
             case 'MM':

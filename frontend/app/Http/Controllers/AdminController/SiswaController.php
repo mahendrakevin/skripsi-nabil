@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\Controller;
+use App\Exports\SiswaExport;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SiswaController extends Controller
 {
@@ -48,20 +50,27 @@ class SiswaController extends Controller
                     'icon' => 'fa fa-lg fa-fw fa-trash',
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
+                $kelas = DB::Select("SELECT nama_kelas, tingkat FROM data_kelas WHERE id = " . (int)$resp->id_kelas);
+
+
                 $subjectdata[] = [
-                    $resp->nis,
-                    $resp->nisn,
+                    (string)$resp->nis,
+                    (string)$resp->nisn,
                     $resp->nama_siswa,
+                    $kelas[0]->nama_kelas.' '.$kelas[0]->tingkat,
                     $resp->jenis_kelamin,
                     $resp->status_siswa,
                     '<nobr>'.$btnShow.$btnEdit.$btnDelete.'</nobr>'
                 ];
             }
 
+//            dd($subjectdata);
+
             $heads = [
                 'NIS',
                 'NISN',
                 'Nama',
+                'Rombel',
                 'Jenis Kelamin',
                 'Status Siswa',
                 ['label' => 'Actions', 'no-export' => false, 'width' => 10],
@@ -70,7 +79,7 @@ class SiswaController extends Controller
             $config = [
                 'data' => $subjectdata,
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500],
                 'language' => ['search' => 'Cari Data']
@@ -82,6 +91,7 @@ class SiswaController extends Controller
                 'NIS',
                 'NISN',
                 'Nama',
+                'Rombel',
                 'Jenis Kelamin',
                 'Status Siswa',
                 ['label' => 'Actions', 'no-export' => false, 'width' => 10],
@@ -90,7 +100,7 @@ class SiswaController extends Controller
             $config = [
                 'data' => [],
                 'order' => [[1, 'asc']],
-                'columns' => [null, null, null, null, null, ['orderable' => false]],
+                'columns' => [null, null, null, null, null, null, ['orderable' => false]],
                 'paging' => true,
                 'lengthMenu' => [ 10, 50, 100, 500],
                 'language' => ['search' => 'Cari Data']
@@ -99,6 +109,22 @@ class SiswaController extends Controller
             return view('siswa.index')->with(compact('heads', 'config', 'result'));
         }
     }
+
+    public function cetak(){
+//        $siswa = DB::Select("SELECT nisn, nis, nama_siswa, tempat_lahir, tanggal_lahir as tanggal_lahir_siswa, jenis_kelamin, nik AS nik_siswa,
+//                                   nama_kelas, tingkat AS tingkat_kelas, status_siswa, nomor_kip, alamat, nomor_kk,
+//                                   jenis_wali, nama_ayah, nik_ayah, tempat_lahir_ayah, tanggal_lahir_ayah, alamat_ayah, status_keluarga_ayah,
+//                                   status_hidup_ayah as status_ayah, no_hp_ayah, pendidikan_ayah, pekerjaan_ayah, penghasilan_ayah,
+//                                   nama_ibu, nik_ibu, tempat_lahir_ibu, tanggal_lahir_ibu, alamat_ibu, status_keluarga_ibu,
+//                                   status_hidup_ibu as status_ibu, no_hp_ibu, pendidikan_ibu, pekerjaan_ibu, penghasilan_ibu,
+//                                   nama_wali, keterangan, alamat as alamat_wali, no_hp_wali, nomor_kks, nomor_pkh FROM data_siswa ds
+//                            INNER JOIN data_kelas dk on ds.id_kelas = dk.id
+//                            INNER JOIN data_wali_siswa dws on ds.id = dws.id_siswa");
+
+
+        return Excel::download(new SiswaExport, 'siswa.xlsx');
+    }
+
     public function index_alumni()
     {
         $client = new Client(['base_uri' => env('API_HOST')]);
@@ -131,8 +157,8 @@ class SiswaController extends Controller
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
                 $subjectdata[] = [
-                    $resp->nis,
-                    $resp->nisn,
+                    (string)$resp->nis,
+                    (string)$resp->nisn,
                     $resp->nama_siswa,
                     $resp->jenis_kelamin,
                     $resp->status_siswa,
@@ -302,8 +328,8 @@ class SiswaController extends Controller
                     'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
                 $subjectdata[] = [
-                    $resp->nis,
-                    $resp->nisn,
+                    (string)$resp->nis,
+                    (string)$resp->nisn,
                     $resp->nama_siswa,
                     $kelas->tingkat,
                     $kelas->nama_kelas,
@@ -595,23 +621,23 @@ class SiswaController extends Controller
 
                 foreach ($result as $resp){
 
-                    $btnEdit = view('components.button', [
-                        'method' => 'GET',
-                        'action' => route('admin.laporan_pembayaran.edit', $resp->id),
-                        'title' => 'Edit',
-                        'id' => 'edit',
-                        'onclick' => '',
-                        'icon' => 'fa fa-lg fa-fw fa-pen',
-                        'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
-
-                    $btnDelete = view('components.button', [
-                        'method' => 'GET',
-                        'action' => route('admin.laporan_pembayaran.destroy', $resp->id),
-                        'title' => 'Hapus',
-                        'id' => 'hapus',
-                        'onclick' => 'return confirm_delete()',
-                        'icon' => 'fa fa-lg fa-fw fa-trash',
-                        'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
+//                    $btnEdit = view('components.button', [
+//                        'method' => 'GET',
+//                        'action' => route('admin.laporan_pembayaran.edit', $resp->id),
+//                        'title' => 'Edit',
+//                        'id' => 'edit',
+//                        'onclick' => '',
+//                        'icon' => 'fa fa-lg fa-fw fa-pen',
+//                        'class' => 'btn btn-xs btn-default text-warning mx-1 shadow']);
+//
+//                    $btnDelete = view('components.button', [
+//                        'method' => 'GET',
+//                        'action' => route('admin.laporan_pembayaran.destroy', $resp->id),
+//                        'title' => 'Hapus',
+//                        'id' => 'hapus',
+//                        'onclick' => 'return confirm_delete()',
+//                        'icon' => 'fa fa-lg fa-fw fa-trash',
+//                        'class' => 'btn btn-xs btn-default text-danger mx-1 shadow']);
 
                     $siswa = $client->request('GET', 'siswa/'.$resp->id_siswa);
                     $siswa = json_decode($siswa->getBody());
@@ -627,8 +653,7 @@ class SiswaController extends Controller
                         $jenis_pembayaran->jenis_pembayaran,
                         $jenis_pembayaran->nominal_pembayaran,
                         $resp->nominal_pembayaran,
-                        $resp->status_pembayaran,
-                        '<nobr>'.$btnEdit.$btnDelete.'</nobr>'
+                        $resp->status_pembayaran
                     ];
                 }
 
@@ -638,14 +663,13 @@ class SiswaController extends Controller
                     'Jenis',
                     'Nominal Tagihan',
                     'Nominal Terbayar',
-                    'Status Pembayaran',
-                    ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                    'Status Pembayaran'
                 ];
 
                 $config_pembayaran = [
                     'data' => $subjectdata,
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null, ['orderable' => false]],
+                    'columns' => [null, null, null, null, null, ['orderable' => false]],
                     'paging' => true,
                     'lengthMenu' => [ 10, 50, 100, 500],
                     'language' => ['search' => 'Cari Data']
@@ -657,14 +681,13 @@ class SiswaController extends Controller
                     'Jenis',
                     'Nominal Tagihan',
                     'Nominal Terbayar',
-                    'Status Pembayaran',
-                    ['label' => 'Actions', 'no-export' => false, 'width' => 10],
+                    'Status Pembayaran'
                 ];
 
                 $config_pembayaran = [
                     'data' => [],
                     'order' => [[1, 'asc']],
-                    'columns' => [null, null, null, null, null, null, ['orderable' => false]],
+                    'columns' => [null, null, null, null, null, ['orderable' => false]],
                     'paging' => true,
                     'lengthMenu' => [ 10, 50, 100, 500],
                     'language' => ['search' => 'Cari Data']
